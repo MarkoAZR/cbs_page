@@ -1,0 +1,48 @@
+---
+import { ViewTransitions } from 'astro:transitions';
+import Navbar from '../components/common/Navbar.astro';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Grupo de Divulgación Científica - Avances y Eventos" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/cbs_logo.png`} />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | CBS-UNMSM</title>
+		<meta name="description" content={description} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+		<ViewTransitions />
+	</head>
+	<body>
+		<Navbar />
+		<main class="container">
+			<slot />
+		</main>
+		<footer class="container footer animate-in">
+			<p>&copy; {new Date().getFullYear()} CBS-UNMSM. Divulgación con rigor.</p>
+		</footer>
+	</body>
+</html>
+
+<style is:global>
+	.footer {
+		margin-top: 4rem;
+		padding: 2rem 0;
+		border-top: 1px solid var(--border-color);
+		text-align: center;
+		opacity: 0.6;
+		font-size: 0.8rem;
+	}
+</style>

@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const events = await getCollection('events');
+events.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<Layout title="Eventos">
+	<header class="page-header animate-in">
+		<h1>Próximos <span class="gradient-text">Eventos</span></h1>
+		<p>Mantente al tanto de todas nuestras actividades y encuentros científicos.</p>
+	</header>
+
+	<section class="events-grid animate-in" style="animation-delay: 0.2s">
+		{events.map(event => (
+			<a href={`${import.meta.env.BASE_URL}/events/${event.slug}`} class="event-card glass">
+				<div class="event-date">
+					{event.data.date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}
+				</div>
+				<h3>{event.data.title}</h3>
+				<p>{event.data.description}</p>
+				<div class="event-meta">
+					<span class="type-tag">{event.data.type}</span>
+					<span class="location">{event.data.location}</span>
+				</div>
+			</a>
+		))}
+	</section>
+</Layout>
+
+<style>
+	.page-header {
+		padding: 6rem 0 3rem;
+		text-align: center;
+	}
+	h1 {
+		font-size: clamp(2.5rem, 8vw, 4.5rem);
+		line-height: 1;
+		margin-bottom: 1.5rem;
+		font-weight: 800;
+	}
+	.gradient-text {
+		background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.events-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+	.event-card {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.8rem;
+		transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+	.event-card:hover {
+		transform: translateY(-5px);
+		border-color: var(--accent-purple);
+		box-shadow: 0 10px 30px rgba(123, 47, 247, 0.1);
+	}
+	.event-date {
+		font-size: 0.85rem;
+		color: var(--accent-cyan);
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+	.event-card h3 {
+		font-size: 1.4rem;
+		color: var(--accent-yellow);
+		margin: 0;
+	}
+	.event-card p {
+		font-size: 0.95rem;
+		opacity: 0.8;
+		margin: 0;
+	}
+	.event-meta {
+		margin-top: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		font-size: 0.8rem;
+		opacity: 0.7;
+	}
+	.type-tag {
+		background: rgba(255, 255, 255, 0.05);
+		padding: 0.2rem 0.6rem;
+		border-radius: 4px;
+		text-transform: capitalize;
+	}
+</style>

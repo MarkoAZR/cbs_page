@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Inicio">
+	<section class="hero animate-in">
+		<div class="hero-bg"></div>
+		<div class="hero-content">
+			<span class="badge">Divulgación de Vanguardia</span>
+			<h1>Investigación que impulsa el <br/><span class="gradient-text">Futuro Biotecnológico</span></h1>
+			<p>Desde la <strong>UNMSM</strong>, unificamos el rigor académico con el compromiso social para democratizar el conocimiento científico.</p>
+			<div class="actions">
+				<a href={`${import.meta.env.BASE_URL}/articles`} class="btn primary">Leer Artículos</a>
+				<a href="https://github.com/cbs-unmsm" target="_blank" class="btn secondary">Explorar Proyectos ↗</a>
+			</div>
+		</div>
+		<div class="scroll-indicator">
+			<div class="mouse"></div>
+		</div>
+	</section>
+
+	<section id="impacto" class="impact-section animate-in" style="animation-delay: 0.2s">
+		<div class="section-header">
+			<h2 class="gradient-text">Nuestra Labor en Cifras y Hechos</h2>
+			<p>Modularidad, transparencia y excelencia en cada paso del camino.</p>
+		</div>
+
+		<div class="bento-grid">
+			<div class="bento-item glass wide featured">
+				<div class="content">
+					<span class="category">Hito Semanal</span>
+					<h3>Consolidación del Hub CBS</h3>
+					<p>Hemos implementado una arquitectura federada que conecta todas nuestras iniciativas de investigación en un solo núcleo digital.</p>
+					<a href={`${import.meta.env.BASE_URL}/articles/primera-entrada`} class="link-arrow">Ver detalles →</a>
+				</div>
+			</div>
+			
+			<div class="bento-item glass">
+				<div class="content">
+					<span class="category">Comunidad</span>
+					<h3>+20 Miembros</h3>
+					<p>Estudiantes y egresados multidisciplinarios de la UNMSM.</p>
+				</div>
+			</div>
+
+			<div class="bento-item glass tall">
+				<div class="content">
+					<span class="category">Misión</span>
+					<h3>Rigor & Ciencia</h3>
+					<p>Cada publicación en nuestro hub pasa por un proceso de revisión 'Human-in-the-loop', asegurando que la divulgación mantenga el estándar académico de la Decana de América.</p>
+				</div>
+				<div class="visual-accent dna-helix"></div>
+			</div>
+
+			<div class="bento-item glass">
+				<div class="content">
+					<span class="category">Próximo</span>
+					<h3>Webinar SynBio</h3>
+					<p>Nuevas fronteras en edición génica. Pronto más info.</p>
+				</div>
+			</div>
+
+			<div class="bento-item glass wide">
+				<div class="content">
+					<span class="category">Proyectos</span>
+					<h3>Arquitectura Federada</h3>
+					<p>Nuestras sub-landings y repositorios técnicos ahora están centralizados para una navegación fluida.</p>
+					<a href="https://github.com/cbs-unmsm" target="_blank" class="link-arrow">Explorar GitHub ↗</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: 85vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		overflow: hidden;
+		padding: 4rem 1.5rem;
+	}
+	.hero-bg {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 150%;
+		height: 150%;
+		background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
+		transform: translate(-50%, -50%);
+		z-index: -1;
+		opacity: 0.2;
+		filter: blur(100px);
+	}
+	.hero-content {
+		max-width: 1000px;
+		z-index: 1;
+	}
+	h1 {
+		font-size: clamp(3.5rem, 12vw, 6rem);
+		line-height: 0.95;
+		font-weight: 800;
+		margin-bottom: 2.5rem;
+		letter-spacing: -0.04em;
+	}
+	h1 span {
+		display: block;
+	}
+	p {
+		font-size: 1.3rem;
+		max-width: 650px;
+		margin: 0 auto 3.5rem;
+		opacity: 0.9;
+		line-height: 1.5;
+	}
+	p strong {
+		color: var(--accent-cyan);
+	}
+
+	.actions {
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+	}
+	.btn {
+		padding: 1rem 2.5rem;
+		border-radius: 12px;
+		font-weight: 700;
+		text-decoration: none;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		font-size: 1rem;
+	}
+	.btn.primary {
+		background: var(--accent-purple);
+		color: white;
+		box-shadow: 0 8px 25px rgba(123, 47, 247, 0.4);
+	}
+	.btn.secondary {
+		border: 1px solid var(--border-color);
+		color: var(--text-color);
+		backdrop-filter: blur(10px);
+	}
+	.btn:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 30px var(--accent-glow);
+	}
+
+	/* Bento Grid 2.0 */
+	.impact-section {
+		padding: 8rem 0;
+	}
+	.section-header {
+		text-align: center;
+		margin-bottom: 5rem;
+	}
+	.section-header h2 {
+		font-size: clamp(2.5rem, 6vw, 3.5rem);
+		margin-bottom: 1.5rem;
+	}
+	.bento-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-auto-rows: 240px;
+		gap: 2rem;
+	}
+	.bento-item {
+		position: relative;
+		padding: 2.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		overflow: hidden;
+		transition: all 0.4s ease;
+	}
+	.bento-item:hover {
+		transform: translateY(-10px);
+		border-color: var(--accent-cyan);
+		box-shadow: 0 20px 50px rgba(0, 229, 255, 0.2);
+	}
+	.bento-item.wide { grid-column: span 2; }
+	.bento-item.tall { grid-row: span 2; }
+	.bento-item.featured {
+		background: linear-gradient(135deg, rgba(123, 47, 247, 0.1), rgba(0, 229, 255, 0.1));
+		border-color: var(--accent-purple);
+	}
+
+	.category {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		font-weight: 800;
+		letter-spacing: 0.15em;
+		color: var(--accent-cyan);
+		margin-bottom: 1rem;
+		display: block;
+	}
+	.bento-item h3 {
+		font-size: 1.8rem;
+		margin-bottom: 1rem;
+		color: var(--accent-yellow);
+		line-height: 1.2;
+	}
+	.bento-item p {
+		font-size: 1rem;
+		margin: 0;
+		opacity: 0.8;
+		text-align: left;
+		line-height: 1.6;
+	}
+	.link-arrow {
+		margin-top: 1.5rem;
+		display: inline-block;
+		color: var(--text-color);
+		font-weight: 700;
+		text-decoration: none;
+		font-size: 0.9rem;
+	}
+	.link-arrow:hover {
+		color: var(--accent-cyan);
+		padding-left: 5px;
+	}
+
+	.visual-accent {
+		position: absolute;
+		top: -20px;
+		right: -20px;
+		width: 150px;
+		height: 150px;
+		background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+		opacity: 0.3;
+		z-index: -1;
+	}
+
+	@media (max-width: 1100px) {
+		.bento-grid {
+			grid-template-columns: repeat(2, 1fr);
+			grid-auto-rows: auto;
+		}
+	}
+</style>

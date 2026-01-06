@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const members = [
+	{ name: "Dr. Elena Bio", role: "Coordinadora Científica", bio: "Especialista en biología sintética y edición genética." },
+	{ name: "Lic. Carlos Divulga", role: "Comunicación", bio: "Periodista científico enfocado en nuevas narrativas digitales." },
+	{ name: "Bioing. Mario Byte", role: "Tecnología", bio: "Desarrollador de herramientas bioinformáticas para la comunidad." }
+];
+---
+
+<Layout title="Equipo">
+	<header class="page-header animate-in">
+		<h1>Nuestro <span class="gradient-text">Equipo</span></h1>
+		<p>Un equipo multidisciplinar unido por la pasión por la ciencia.</p>
+	</header>
+
+	<section class="team-grid animate-in" style="animation-delay: 0.2s">
+		{members.map(member => (
+			<div class="member-card glass">
+				<div class="avatar-placeholder"></div>
+				<h3>{member.name}</h3>
+				<span class="role">{member.role}</span>
+				<p>{member.bio}</p>
+			</div>
+		))}
+	</section>
+</Layout>
+
+<style>
+	.page-header {
+		padding: 6rem 0 3rem;
+		text-align: center;
+	}
+	h1 {
+		font-size: clamp(2.5rem, 8vw, 4.5rem);
+		line-height: 1;
+		margin-bottom: 1.5rem;
+		font-weight: 800;
+	}
+	.gradient-text {
+		background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
+	.team-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+	.member-card {
+		padding: 2.5rem;
+		text-align: center;
+		transition: transform 0.3s ease;
+	}
+	.member-card:hover {
+		transform: translateY(-5px);
+	}
+	.avatar-placeholder {
+		width: 100px;
+		height: 100px;
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 50%;
+		margin: 0 auto 1.5rem;
+		border: 1px solid var(--border-color);
+	}
+	.member-card h3 {
+		margin: 0 0 0.5rem;
+		color: var(--accent-yellow);
+	}
+	.role {
+		display: block;
+		color: var(--accent-cyan);
+		font-size: 0.85rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		margin-bottom: 1rem;
+	}
+	.member-card p {
+		font-size: 0.9rem;
+		opacity: 0.8;
+	}
+</style>
