@@ -1,43 +1,65 @@
-# Astro Starter Kit: Minimal
+# 🌌 CBS-UNMSM: Hub Central de Divulgación Científica
 
-```sh
-npm create astro@latest -- --template minimal
+![Banner CBS](public/cbs_logo.png)
+
+> **"Por una comunidad de biología sintética en la UNMSM"**
+
+Bienvenido al repositorio oficial del **Comunidad de biología sintética - UNMSM (CBS-UNMSM)**. Este proyecto es el núcleo digital (Master Hub) diseñado para centralizar nuestra labor, desarrollos e iniciativas biotecnológicas desde la Decana de América.
+
+---
+
+## 🚀 Características del Proyecto (Tech Stack 2025)
+
+Este Hub ha sido construido bajo estándares de excelencia en arquitectura web:
+
+- **⚡ Framework**: [Astro 4.x](https://astro.build/) - Rendimiento extremo con "Islands Architecture", vital para lanzamiento en GitHub Pages.
+- **🎨 Diseño**: Estética "Cosmic-Tech" con **Bento Grids 2.0** y tipografía dual (Basado en nuestro logo).
+- **🛡️ Contenidos**: Motor **Plantillas Maestras** con validación estricta vía **Zod-Supervisado**.
+- **🔗 Federado**: Sistema de navegación diseñado como Hub central, con soporte para landings externas.
+- **🏃 Performance**: Optimización de imágenes nativa y **View Transitions** para navegación fluida.
+- **🤖 DevOps**: Despliegue automatizado con **GitHub Actions**.
+
+---
+
+## 📂 Estructura del Proyecto
+
+```bash
+src/
+├── assets/      # Imágenes y recursos optimizados
+├── components/  # Arquitectura atómica (common, ui, logic)
+├── content/     # Base de datos local (Artículos y Eventos)
+├── layouts/     # Plantillas maestras de diseño
+└── pages/       # Sistema de rutas y Hub central
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## ✍️ Para Colaboradores
 
-Inside of your Astro project, you'll see the following folders and files:
+Si eres parte del equipo de redacción de CBS, sigue estos pasos para publicar:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+1. Utiliza la [PLANTILLA_COLABORADORES.md](./PLANTILLA_COLABORADORES.md) como base.
+2. Redacta tu contenido en formato Markdown.
+3. Envía tu archivo al Desarrollador (MarkoAZR) para la validación de **Zod Supervisado** y commit final.
+
+---
+
+## 🛠️ Desarrollo Local
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar entorno de desarrollo
+npm run dev
+
+# Construir para producción (GitHub Pages)
+npm run build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+---
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## 🧬 Sobre CBS-UNMSM
+Somos un grupo multidisciplinario de la Universidad Nacional Mayor de San Marcos dedicado a democratizar la biotecnología y la ciencia a través de un rigor académico, producción de eventos y colaboración con la comunidad científica.
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**Desarrollador:** [MarkoAZR](https://github.com/MarkoAZR)
