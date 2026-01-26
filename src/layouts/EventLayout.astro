@@ -1,0 +1,368 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	date: Date;
+	location: string;
+	type: 'charla' | 'taller' | 'conferencia' | 'visita' | 'otro';
+	image?: string;
+}
+
+const { title, description, date, location, type, image } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const typeConfig = {
+	charla: { icon: 'record_voice_over', label: 'Charla Magistral' },
+	taller: { icon: 'build', label: 'Taller Práctico' },
+	conferencia: { icon: 'groups', label: 'Conferencia' },
+	visita: { icon: 'location_away', label: 'Visita Técnica' },
+	otro: { icon: 'event', label: 'Evento Especial' },
+};
+
+const currentType = typeConfig[type] || typeConfig.otro;
+---
+
+<Layout title={title} description={description}>
+	<div class="event-container">
+		<header class="event-header animate-in">
+			<a href={`${base}/events`} class="back-link">
+				<span class="material-icons">west</span> Calendario de Eventos
+			</a>
+			
+			<div class="header-main">
+				<div class="type-pill">
+					<span class="material-icons">{currentType.icon}</span>
+					<span>{currentType.label}</span>
+				</div>
+				<h1>{title}</h1>
+			</div>
+
+			<div class="event-hero glass animate-in" style="animation-delay: 0.1s">
+				{image && <img src={image} alt={title} class="event-banner" />}
+				<div class="quick-info">
+					<div class="info-card">
+						<span class="material-icons">event</span>
+						<div class="details">
+							<span class="label">Fecha</span>
+							<span class="value">{date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}</span>
+						</div>
+					</div>
+					<div class="info-card">
+						<span class="material-icons">schedule</span>
+						<div class="details">
+							<span class="label">Hora</span>
+							<span class="value">{date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+						</div>
+					</div>
+					<div class="info-card">
+						<span class="material-icons">place</span>
+						<div class="details">
+							<span class="label">Ubicación</span>
+							<span class="value">{location}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<div class="event-content-grid">
+			<article class="event-description glass animate-in" style="animation-delay: 0.2s">
+				<div class="section-title">
+					<span class="material-icons">info</span>
+					<h2>Sobre el Evento</h2>
+				</div>
+				<div class="entry-content">
+					<slot />
+				</div>
+			</article>
+
+			<aside class="event-actions animate-in" style="animation-delay: 0.3s">
+				<div class="action-card glass cyan-glow">
+					<h3>Inscripciones</h3>
+					<p>Asegura tu lugar en este evento. Cupos limitados para garantizar el rigor académico.</p>
+					<a href="#" class="cta-button">
+						Reservar Mi Cupo <span class="material-icons">arrow_forward</span>
+					</a>
+					<p class="status"><span class="pulse-dot"></span> Inscripciones Abiertas</p>
+				</div>
+
+				<div class="action-card glass">
+					<h3>Recordatorio</h3>
+					<p>Recibe una notificación 24h antes del inicio del evento.</p>
+					<button class="secondary-button">
+						<span class="material-icons">notifications</span> Notificarme
+					</button>
+				</div>
+			</aside>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.event-container {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 6rem 1.5rem;
+	}
+
+	.back-link {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.85rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.5;
+		margin-bottom: 3rem;
+		color: var(--text-color);
+	}
+
+	.back-link:hover {
+		opacity: 1;
+		color: var(--accent-cyan);
+		transform: translateX(-5px);
+	}
+
+	.type-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		background: rgba(var(--accent-purple-rgb), 0.15);
+		color: var(--accent-purple);
+		padding: 0.4rem 1rem;
+		border-radius: 100px;
+		font-size: 0.75rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		margin-bottom: 1.5rem;
+		border: 1px solid rgba(var(--accent-purple-rgb), 0.2);
+	}
+
+	h1 {
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		line-height: 1.1;
+		font-weight: 800;
+		margin-bottom: 3rem;
+	}
+
+	.event-hero {
+		border-radius: 32px;
+		overflow: hidden;
+		margin-bottom: 4rem;
+	}
+
+	.event-banner {
+		width: 100%;
+		height: 350px;
+		object-fit: cover;
+		opacity: 0.6;
+	}
+
+	.quick-info {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1.5rem;
+		padding: 3rem;
+	}
+
+	.info-card {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+	}
+
+	.info-card .material-icons {
+		font-size: 2.2rem;
+		color: var(--accent-cyan);
+		filter: drop-shadow(0 0 10px var(--accent-glow));
+	}
+
+	.details {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.label {
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.5;
+		font-weight: 700;
+	}
+
+	.value {
+		font-size: 1.1rem;
+		font-weight: 700;
+	}
+
+	.event-content-grid {
+		display: grid;
+		grid-template-columns: 1fr 320px;
+		gap: 3rem;
+		align-items: start;
+	}
+
+	.event-description {
+		padding: 4rem;
+		border-radius: 32px;
+	}
+
+	.section-title {
+		display: flex;
+		align-items: center;
+		gap: 0.8rem;
+		margin-bottom: 2.5rem;
+		color: var(--accent-yellow);
+	}
+
+	.section-title h2 {
+		margin-bottom: 0;
+		font-size: 1.5rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.entry-content {
+		font-size: 1.15rem;
+		line-height: 1.8;
+		opacity: 0.95;
+	}
+
+	.entry-content :global(h3) {
+		color: var(--accent-cyan);
+		margin: 2.5rem 0 1rem;
+	}
+
+	.entry-content :global(ul) {
+		list-style: none;
+		padding: 0;
+		margin-bottom: 2rem;
+	}
+
+	.entry-content :global(li) {
+		position: relative;
+		padding-left: 1.8rem;
+		margin-bottom: 1rem;
+	}
+
+	.entry-content :global(li::before) {
+		content: '•';
+		position: absolute;
+		left: 0.2rem;
+		color: var(--accent-cyan);
+		font-size: 1.5rem;
+		line-height: 1;
+	}
+
+	.event-actions {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.action-card {
+		padding: 2.5rem;
+		border-radius: 24px;
+	}
+
+	.cyan-glow {
+		border-color: rgba(var(--accent-cyan-rgb), 0.3);
+		background: linear-gradient(135deg, rgba(var(--accent-cyan-rgb), 0.05), transparent);
+	}
+
+	.action-card h3 {
+		font-size: 1.2rem;
+		margin-bottom: 1rem;
+	}
+
+	.action-card p {
+		font-size: 0.9rem;
+		opacity: 0.7;
+		margin-bottom: 2rem;
+	}
+
+	.cta-button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		background: var(--accent-cyan);
+		color: #fff;
+		padding: 1rem;
+		border-radius: 14px;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		transition: all 0.3s;
+		box-shadow: 0 10px 20px rgba(var(--accent-cyan-rgb), 0.2);
+	}
+
+	.cta-button:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 15px 30px rgba(var(--accent-cyan-rgb), 0.4);
+		filter: brightness(1.1);
+	}
+
+	.status {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1.5rem !important;
+		font-weight: 700;
+		color: var(--accent-cyan);
+		font-size: 0.8rem !important;
+		opacity: 1 !important;
+	}
+
+	.pulse-dot {
+		width: 8px;
+		height: 8px;
+		background: var(--accent-cyan);
+		border-radius: 50%;
+		box-shadow: 0 0 10px var(--accent-cyan);
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0% { transform: scale(0.95); opacity: 1; }
+		50% { transform: scale(1.2); opacity: 0.7; }
+		100% { transform: scale(0.95); opacity: 1; }
+	}
+
+	.secondary-button {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		color: var(--text-color);
+		padding: 0.8rem;
+		border-radius: 12px;
+		font-weight: 700;
+		cursor: pointer;
+		transition: all 0.3s;
+	}
+
+	.secondary-button:hover {
+		background: rgba(255, 255, 255, 0.1);
+	}
+
+	@media (max-width: 900px) {
+		.event-content-grid {
+			grid-template-columns: 1fr;
+		}
+		.event-actions {
+			order: 2;
+		}
+		.event-description {
+			order: 1;
+			padding: 2.5rem;
+		}
+	}
+</style>

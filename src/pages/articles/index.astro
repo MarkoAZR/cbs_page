@@ -6,99 +6,192 @@ const articles = await getCollection('articles', ({ data }) => {
 	return data.isDraft === false;
 });
 articles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout title="Artículos de Divulgación">
-	<header class="page-header animate-in">
-		<h1>Archivo <span class="gradient-text">Científico</span></h1>
-		<p>Explora nuestras publicaciones y análisis académicos de vanguardia.</p>
-	</header>
+<Layout title="Artículos de Divulgación" description="Explora la frontera del conocimiento biotecnológico con el archivo científico de CBS-UNMSM.">
+	<div class="container page-content">
+		<header class="page-header animate-in">
+			<span class="pinyon decorative-text">Knowledge Hub</span>
+			<h1>Archivo <span class="gradient-text">Científico</span></h1>
+			<p>Investigación, análisis y perspectivas sobre la Biología Sintética en el Perú.</p>
+		</header>
 
-	<section class="articles-grid animate-in" style="animation-delay: 0.2s">
-		{articles.map(article => (
-			<article class="article-card glass">
-				<div class="content">
-					<div class="meta">
-						<span class="date">{article.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
-						<span class="author">Por {article.data.author}</span>
+		<div class="articles-grid animate-in" style="animation-delay: 0.2s">
+			{articles.map((article, index) => (
+				<article class={`article-card glass ${index === 0 ? 'featured' : ''}`}>
+					<div class="card-meta">
+						<span class="date">{article.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+						<span class="category">{article.data.tags[0]}</span>
 					</div>
 					<h3>{article.data.title}</h3>
 					<p>{article.data.description}</p>
-					<div class="tags">
-						{article.data.tags.map(tag => <span class="tag">#{tag}</span>)}
+					
+					<div class="card-footer">
+						<span class="author">Por <span class="pinyon">{article.data.author}</span></span>
+						<a href={`${base}/articles/${article.slug}`} class="read-btn">
+							Leer <span class="material-icons">arrow_forward</span>
+						</a>
 					</div>
-					<a href={`${import.meta.env.BASE_URL}/articles/${article.slug}`} class="read-more">Leer artículo completo →</a>
-				</div>
-			</article>
-		))}
-	</section>
+				</article>
+			))}
+		</div>
+	</div>
 </Layout>
 
 <style>
+	.page-content {
+		padding-bottom: 8rem;
+	}
+
 	.page-header {
-		padding: 6rem 0 3rem;
+		padding: 8rem 0 4rem;
 		text-align: center;
 	}
+
+	.decorative-text {
+		display: block;
+		font-size: 2.2rem;
+		color: var(--accent-yellow);
+		margin-bottom: -0.5rem;
+		opacity: 0.8;
+	}
+
+	h1 {
+		font-size: clamp(3rem, 8vw, 5rem);
+		line-height: 1;
+		margin-bottom: 1.5rem;
+		font-weight: 800;
+	}
+
+	.page-header p {
+		font-size: 1.25rem;
+		opacity: 0.7;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
 	.articles-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-		gap: 2.5rem;
-		margin-bottom: 4rem;
+		grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+		gap: 2rem;
 	}
+
 	.article-card {
 		padding: 2.5rem;
+		border-radius: 24px;
 		display: flex;
 		flex-direction: column;
-		height: 100%;
-		transition: all 0.3s ease;
+		transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 	}
+
 	.article-card:hover {
-		transform: translateY(-5px) scale(1.01);
-		border-color: var(--accent-purple);
+		transform: translateY(-8px);
+		border-color: var(--accent-cyan);
+		box-shadow: 0 20px 40px rgba(var(--accent-cyan-rgb), 0.1);
 	}
-	.meta {
+
+	.article-card.featured {
+		grid-column: span 2;
+		background: linear-gradient(135deg, rgba(var(--accent-purple-rgb), 0.1), rgba(var(--accent-cyan-rgb), 0.1));
+		border-color: rgba(var(--accent-purple-rgb), 0.3);
+	}
+
+	.card-meta {
 		display: flex;
 		justify-content: space-between;
-		font-size: 0.8rem;
-		opacity: 0.7;
-		margin-bottom: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.date {
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.5;
+	}
+
+	.category {
+		font-size: 0.7rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
 		color: var(--accent-cyan);
+		background: rgba(var(--accent-cyan-rgb), 0.1);
+		padding: 0.2rem 0.6rem;
+		border-radius: 6px;
 	}
+
 	h3 {
-		font-size: 1.6rem;
-		color: var(--accent-yellow);
-		margin-bottom: 1rem;
-		line-height: 1.3;
-	}
-	p {
-		font-size: 0.95rem;
-		opacity: 0.8;
+		font-size: 2rem;
+		line-height: 1.2;
 		margin-bottom: 1.5rem;
+		color: var(--text-color);
+		font-weight: 800;
+	}
+
+	.article-card.featured h3 {
+		font-size: 2.8rem;
+	}
+
+	p {
+		font-size: 1.05rem;
+		line-height: 1.6;
+		opacity: 0.8;
+		margin-bottom: 2.5rem;
 		flex-grow: 1;
 	}
-	.tags {
+
+	.card-footer {
 		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		margin-bottom: 1.5rem;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.05);
 	}
-	.tag {
-		font-size: 0.75rem;
-		background: rgba(123, 47, 247, 0.1);
-		color: var(--accent-purple);
-		padding: 0.2rem 0.6rem;
-		border-radius: 4px;
-		font-weight: 600;
-	}
-	.read-more {
+
+	.author {
 		font-size: 0.9rem;
-		font-weight: 700;
-		color: var(--accent-cyan);
-		text-decoration: none;
-		transition: opacity 0.2s;
+		opacity: 0.7;
 	}
-	.read-more:hover {
-		text-decoration: underline;
-		opacity: 0.8;
+
+	.author .pinyon {
+		color: var(--accent-yellow);
+		font-size: 1.4rem;
+	}
+
+	.read-btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		font-size: 0.75rem;
+		letter-spacing: 0.1em;
+		color: var(--accent-cyan);
+		transition: all 0.3s;
+	}
+
+	.read-btn:hover {
+		transform: translateX(5px);
+		color: var(--text-color);
+	}
+
+	@media (max-width: 1024px) {
+		.article-card.featured {
+			grid-column: span 1;
+		}
+		.article-card.featured h3 {
+			font-size: 2rem;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.articles-grid {
+			grid-template-columns: 1fr;
+		}
+		.article-card {
+			padding: 1.5rem;
+		}
 	}
 </style>

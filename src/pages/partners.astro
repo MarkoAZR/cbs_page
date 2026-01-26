@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const partners = [
+	{ name: "Socio Científico 1", logo: "🧪", description: "Colaboración en investigación genómica." },
+	{ name: "Socio Tecnológico 2", logo: "💻", description: "Apoyo en infraestructura computacional." },
+	{ name: "Aliado Académico 3", logo: "📚", description: "Convenio de intercambio estudiantil." }
+];
+---
+
+<Layout title="Aliados">
+	<header class="page-header animate-in">
+		<h1>Nuestros <span class="gradient-text">Aliados</span></h1>
+		<p>Instituciones y organizaciones que impulsan la biotecnología junto a nosotros.</p>
+	</header>
+
+	<section class="partners-grid animate-in" style="animation-delay: 0.2s">
+		{partners.map(partner => (
+			<div class="partner-card glass">
+				<div class="partner-logo">{partner.logo}</div>
+				<h3>{partner.name}</h3>
+				<p>{partner.description}</p>
+			</div>
+		))}
+	</section>
+</Layout>
+
+<style>
+	.page-header {
+		padding: 6rem 0 3rem;
+		text-align: center;
+	}
+	h1 {
+		font-size: clamp(2.5rem, 8vw, 4.5rem);
+		line-height: 1;
+		margin-bottom: 1.5rem;
+		font-weight: 800;
+	}
+	.partners-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+	.partner-card {
+		padding: 2.5rem;
+		text-align: center;
+		transition: transform 0.3s ease;
+	}
+	.partner-card:hover {
+		transform: translateY(-5px);
+		border-color: var(--accent-cyan);
+	}
+	.partner-logo {
+		font-size: 3rem;
+		margin-bottom: 1.5rem;
+	}
+	.partner-card h3 {
+		margin: 0 0 1rem;
+		color: var(--accent-yellow);
+	}
+	.partner-card p {
+		font-size: 0.95rem;
+		opacity: 0.8;
+	}
+</style>

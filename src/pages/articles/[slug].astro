@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import AcademicLayout from '../../layouts/AcademicLayout.astro';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('articles');
@@ -13,107 +13,16 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Layout title={entry.data.title}>
-	<article class="article-detail animate-in">
-		<a href={`${import.meta.env.BASE_URL}/articles`} class="back-link">← Volver al archivo</a>
-		
-		<header class="detail-header">
-			<div class="meta-top">
-				<div class="tags">
-					{entry.data.tags.map(tag => <span class="tag">#{tag}</span>)}
-				</div>
-				<time>{entry.data.pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
-			</div>
-			<h1>{entry.data.title}</h1>
-			<p class="author-credits">Por <strong>{entry.data.author}</strong> — Grupo CBS-UNMSM</p>
-		</header>
-
-		<div class="article-body glass">
-			<Content />
-		</div>
-	</article>
-</Layout>
+<AcademicLayout 
+	title={entry.data.title} 
+	description={entry.data.description}
+	pubDate={entry.data.pubDate}
+	author={entry.data.author}
+	tags={entry.data.tags}
+>
+	<Content />
+</AcademicLayout>
 
 <style>
-	.article-detail {
-		padding: 4rem 0;
-		max-width: 850px;
-		margin: 0 auto;
-	}
-	.back-link {
-		display: inline-block;
-		margin-bottom: 2rem;
-		font-size: 0.9rem;
-		opacity: 0.6;
-		color: var(--text-color);
-	}
-	.back-link:hover {
-		opacity: 1;
-		color: var(--accent-cyan);
-	}
-	.detail-header {
-		margin-bottom: 4rem;
-		text-align: center;
-	}
-	.meta-top {
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		align-items: center;
-		margin-bottom: 1.5rem;
-	}
-	.tags {
-		display: flex;
-		gap: 0.5rem;
-	}
-	.tag {
-		font-size: 0.7rem;
-		color: var(--accent-purple);
-		text-transform: uppercase;
-		font-weight: 800;
-		letter-spacing: 0.05em;
-	}
-	time {
-		font-size: 0.9rem;
-		opacity: 0.6;
-	}
-	h1 {
-		font-size: clamp(2.2rem, 6vw, 4rem);
-		line-height: 1.1;
-		margin-bottom: 1.5rem;
-		font-weight: 800;
-		color: var(--text-color);
-	}
-	.author-credits {
-		font-size: 1.1rem;
-		opacity: 0.8;
-	}
-	.author-credits strong {
-		color: var(--accent-yellow);
-	}
-	.article-body {
-		padding: 4rem;
-		line-height: 1.8;
-		font-size: 1.15rem;
-	}
-	.article-body :global(h2) {
-		margin: 2.5rem 0 1.5rem;
-		color: var(--accent-purple);
-		font-size: 1.8rem;
-	}
-	.article-body :global(h3) {
-		margin: 2rem 0 1rem;
-		color: var(--accent-cyan);
-		font-size: 1.4rem;
-	}
-	.article-body :global(p) {
-		margin-bottom: 1.5rem;
-	}
-	.article-body :global(strong) {
-		color: var(--accent-yellow);
-	}
-
-	@media (max-width: 700px) {
-		.article-body { padding: 2rem; font-size: 1rem; }
-	}
+	/* Los estilos ahora se manejan en AcademicLayout.astro */
 </style>

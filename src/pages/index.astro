@@ -1,21 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout title="Inicio">
-	<section class="hero animate-in">
-		<div class="hero-bg"></div>
+	<section class="hero-mosaic animate-in">
+		<div class="mosaic-bg">
+			<div class="blob blob-1 float"></div>
+			<div class="blob blob-2 float" style="animation-delay: -1s;"></div>
+			<div class="blob blob-3 float" style="animation-delay: -2s;"></div>
+		</div>
+
 		<div class="hero-content">
-			<span class="badge">Divulgación de Vanguardia</span>
-			<h1>Investigación que impulsa el <br/><span class="gradient-text">Futuro Biotecnológico</span></h1>
-			<p>Desde la <strong>UNMSM</strong>, unificamos el rigor académico con el compromiso social para democratizar el conocimiento científico.</p>
+			<div class="pre-title">
+				<span class="line"></span>
+				<span class="tag fancy-text">The Scientific Mosaic</span>
+			</div>
+			<h1>Decoding the Future of <br/><span class="gradient-text">Cellular Engineering.</span></h1>
+			<p class="description">A collective of visionary scientists and engineers building the next generation of bio-integrated technologies.</p>
 			<div class="actions">
-				<a href={`${import.meta.env.BASE_URL}/articles`} class="btn primary">Leer Artículos</a>
-				<a href="https://github.com/cbs-unmsm" target="_blank" class="btn secondary">Explorar Proyectos ↗</a>
+				<a href={`${import.meta.env.BASE_URL}/events`} class="btn primary">Próximos Eventos <span class="material-icons">event</span></a>
+				<a href="https://github.com/cbs-unmsm" target="_blank" class="btn secondary">Repositorio Técnico</a>
 			</div>
 		</div>
-		<div class="scroll-indicator">
-			<div class="mouse"></div>
+
+		<div class="scroll-explore">
+			<span>SCROLL TO EXPLORE</span>
+			<div class="scroll-line">
+				<div class="line-progress"></div>
+			</div>
 		</div>
 	</section>
 
@@ -30,8 +44,8 @@ import Layout from '../layouts/Layout.astro';
 				<div class="content">
 					<span class="category">Hito Semanal</span>
 					<h3>Consolidación del Hub CBS</h3>
-					<p>Hemos implementado una arquitectura federada que conecta todas nuestras iniciativas de investigación en un solo núcleo digital.</p>
-					<a href={`${import.meta.env.BASE_URL}/articles/primera-entrada`} class="link-arrow">Ver detalles →</a>
+					<p>Hemos implementado una arquitectura federada que centraliza nuestras actividades, eventos y gestión académica en un solo núcleo digital.</p>
+					<a href={`${base}/events`} class="link-arrow">Ver eventos →</a>
 				</div>
 			</div>
 			
@@ -46,8 +60,8 @@ import Layout from '../layouts/Layout.astro';
 			<div class="bento-item glass tall">
 				<div class="content">
 					<span class="category">Misión</span>
-					<h3>Rigor & Ciencia</h3>
-					<p>Cada publicación en nuestro hub pasa por un proceso de revisión 'Human-in-the-loop', asegurando que la divulgación mantenga el estándar académico de la Decana de América.</p>
+					<h3>Rigor & Gestión</h3>
+					<p>Cada actividad y protocolo de nuestra comunidad sigue un proceso de revisión exhaustivo, asegurando que la gestión académica mantenga el estándar de la Decana de América.</p>
 				</div>
 				<div class="visual-accent dna-helix"></div>
 			</div>
@@ -63,8 +77,8 @@ import Layout from '../layouts/Layout.astro';
 			<div class="bento-item glass wide">
 				<div class="content">
 					<span class="category">Proyectos</span>
-					<h3>Arquitectura Federada</h3>
-					<p>Nuestras sub-landings y repositorios técnicos ahora están centralizados para una navegación fluida.</p>
+					<h3>Gestión Académica</h3>
+					<p>Nuestros protocolos internos y repositorios de gestión administrativa están centralizados para garantizar la transparencia y eficiencia del grupo.</p>
 					<a href="https://github.com/cbs-unmsm" target="_blank" class="link-arrow">Explorar GitHub ↗</a>
 				</div>
 			</div>
@@ -73,79 +87,176 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	.hero {
+	/* Hero Mosaic Style */
+	.hero-mosaic {
 		position: relative;
-		min-height: 85vh;
+		min-height: 100vh;
 		display: flex;
 		align-items: center;
-		justify-content: center;
-		text-align: center;
+		padding-top: 2rem;
 		overflow: hidden;
-		padding: 4rem 1.5rem;
 	}
-	.hero-bg {
+
+	.mosaic-bg {
 		position: absolute;
-		top: 50%;
-		left: 50%;
-		width: 150%;
-		height: 150%;
-		background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 60%);
-		transform: translate(-50%, -50%);
-		z-index: -1;
-		opacity: 0.2;
-		filter: blur(100px);
+		inset: 0;
+		z-index: 1; /* Bajo el contenido */
+		opacity: 0.4; /* Reducido para mejor contraste */
+		pointer-events: none;
 	}
+
+	.blob {
+		position: absolute;
+		background-size: cover;
+		background-position: center;
+		border: 1px solid var(--border-color);
+		box-shadow: 0 0 40px rgba(var(--accent-purple-rgb), 0.3);
+		filter: brightness(0.6) saturate(1.2); /* Optimizado para legibilidad */
+	}
+
+	.blob-1 {
+		width: 300px;
+		height: 300px;
+		top: 15%;
+		left: 5%;
+		border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+		background: linear-gradient(45deg, var(--cbs-blue-corp), var(--cbs-emerald));
+	}
+
+	.blob-2 {
+		width: 350px;
+		height: 350px;
+		bottom: 10%;
+		left: 20%;
+		border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+		background: linear-gradient(135deg, var(--cbs-emerald), var(--cbs-blue-night));
+	}
+
+	.blob-3 {
+		width: 450px;
+		height: 450px;
+		top: 10%;
+		right: 5%;
+		border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+		background: linear-gradient(-45deg, var(--cbs-blue-corp), var(--cbs-gold));
+	}
+
 	.hero-content {
-		max-width: 1000px;
-		z-index: 1;
+		position: relative;
+		z-index: 20; /* Asegurar que esté sobre todo */
+		max-width: 850px;
+		padding: 0 2rem;
+		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra para legibilidad */
 	}
+
+	.pre-title {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.pre-title .line {
+		width: 50px;
+		height: 1px;
+		background: var(--accent-cyan);
+	}
+
+	.pre-title .tag {
+		font-family: var(--font-fancy);
+		font-size: 1.8rem;
+		font-weight: 400;
+		letter-spacing: 0.05em;
+		text-transform: none;
+		color: var(--accent-cyan);
+	}
+
 	h1 {
-		font-size: clamp(3.5rem, 12vw, 6rem);
-		line-height: 0.95;
+		font-family: var(--font-heading);
+		font-size: clamp(3rem, 8vw, 6rem);
+		line-height: 1;
 		font-weight: 800;
-		margin-bottom: 2.5rem;
+		margin-bottom: 1.5rem;
 		letter-spacing: -0.04em;
 	}
-	h1 span {
-		display: block;
-	}
-	p {
-		font-size: 1.3rem;
-		max-width: 650px;
-		margin: 0 auto 3.5rem;
-		opacity: 0.9;
-		line-height: 1.5;
-	}
-	p strong {
-		color: var(--accent-cyan);
+
+	.description {
+		font-size: 1.25rem;
+		max-width: 550px;
+		margin-bottom: 3rem;
+		opacity: 0.8;
+		line-height: 1.6;
+		font-family: var(--font-body);
 	}
 
 	.actions {
 		display: flex;
 		gap: 1.5rem;
-		justify-content: center;
 	}
+
 	.btn {
-		padding: 1rem 2.5rem;
+		padding: 1.2rem 2.5rem;
 		border-radius: 12px;
 		font-weight: 700;
 		text-decoration: none;
 		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		font-size: 1rem;
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
 	}
+
 	.btn.primary {
-		background: var(--accent-purple);
+		background: var(--cbs-blue-corp);
 		color: white;
-		box-shadow: 0 8px 25px rgba(123, 47, 247, 0.4);
+		box-shadow: 0 10px 30px rgba(21, 79, 155, 0.4);
 	}
+
 	.btn.secondary {
 		border: 1px solid var(--border-color);
 		color: var(--text-color);
 		backdrop-filter: blur(10px);
 	}
+
 	.btn:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 12px 30px var(--accent-glow);
+		transform: translateY(-5px) scale(1.02);
+		box-shadow: 0 15px 40px var(--accent-glow);
+	}
+
+	.scroll-explore {
+		position: absolute;
+		bottom: 120px;
+		right: 3rem;
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		gap: 1rem;
+		font-size: 0.7rem;
+		font-weight: 700;
+		letter-spacing: 0.2em;
+		opacity: 0.5;
+	}
+
+	.scroll-line {
+		width: 60px;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.1);
+		position: relative;
+	}
+
+	.line-progress {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 30%;
+		background: var(--accent-cyan);
+		animation: pulse 2s infinite ease-in-out;
+	}
+
+	@keyframes pulse {
+		0% { transform: scaleX(0.5); opacity: 0.5; }
+		50% { transform: scaleX(1.5); opacity: 1; }
+		100% { transform: scaleX(0.5); opacity: 0.5; }
 	}
 
 	/* Bento Grid 2.0 */
@@ -183,8 +294,8 @@ import Layout from '../layouts/Layout.astro';
 	.bento-item.wide { grid-column: span 2; }
 	.bento-item.tall { grid-row: span 2; }
 	.bento-item.featured {
-		background: linear-gradient(135deg, rgba(123, 47, 247, 0.1), rgba(0, 229, 255, 0.1));
-		border-color: var(--accent-purple);
+		background: linear-gradient(135deg, rgba(var(--accent-purple-rgb), 0.15), rgba(var(--accent-cyan-rgb), 0.15));
+		border-color: rgba(var(--accent-purple-rgb), 0.3);
 	}
 
 	.category {
