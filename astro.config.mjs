@@ -5,8 +5,8 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://cbsunmsm.site',
-    base: '/',
+    site: 'https://markoazr.github.io',
+    base: '/cbs_page',
     integrations: [
         mdx(),
         sitemap({

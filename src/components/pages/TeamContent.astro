@@ -169,8 +169,8 @@ const members = [
 								<img src={m.img} alt={m.name} class="member-portrait" loading="lazy" />
 							) : (
 								<div class="avatar-fallback">
-									<span class="material-icons fallback-icon">{m.icon}</span>
-									<span class="fallback-initial">{m.initial}</span>
+									<span class="material-icons fallback-icon">{m.icon || 'person'}</span>
+									<span class="fallback-initial">{m.name ? m.name[0] : 'C'}</span>
 								</div>
 							)}
 						</div>
