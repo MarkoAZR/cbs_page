@@ -1,0 +1,347 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+
+const monthNames = {
+	es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+	en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+};
+
+const calendarData = [
+	{
+		id: 'feb',
+		label: lang === 'es' ? 'Febrero' : 'February',
+		monthNum: '02',
+		featured: true,
+		highlight: lang === 'es' ? '1ER LUGAR & MEDALLA DE ORO' : '1ST PLACE & GOLD MEDAL',
+		events: [
+			{ title: 'Synbio Bootcamp & Hackathon', desc: lang === 'es' ? '1er lugar y medalla de oro con el diseño del biosensor Yaku Pbubbles.' : '1st place and gold medal designing the Yaku Pbubbles biosensor.', date: lang === 'es' ? '15 de Febrero' : 'February 15', icon: 'emoji_events' }
+		]
+	},
+	{
+		id: 'mar',
+		label: lang === 'es' ? 'Marzo' : 'March',
+		monthNum: '03',
+		featured: true,
+		highlight: lang === 'es' ? 'SIMPOSIO INTERNACIONAL' : 'INT. SYMPOSIUM',
+		events: [
+			{ title: lang === 'es' ? 'I Simposio Internacional Virtual' : '1st Virtual International Symposium', desc: lang === 'es' ? 'Estructurado en 4 bloques de presentaciones con ponentes de +7 países.' : 'Structured into 4 presentation blocks with speakers from 7+ countries.', date: lang === 'es' ? '5–7 de Marzo' : 'March 5–7', icon: 'public' }
+		],
+		cta: { label: lang === 'es' ? 'Ver Simposio' : 'View Symposium', url: 'https://markoazr.github.io/symposium-cbs/es/' }
+	},
+	{
+		id: 'apr',
+		label: lang === 'es' ? 'Abril' : 'April',
+		monthNum: '04',
+		featured: false,
+		events: [
+			{ title: 'NexoBio & Taller Benchling', desc: lang === 'es' ? 'Participación activa con taller in silico sobre la plataforma Benchling.' : 'Active participation hosting an in silico Benchling workshop.', date: lang === 'es' ? '25 de Abril' : 'April 25', icon: 'terminal' }
+		]
+	},
+	{
+		id: 'may',
+		label: lang === 'es' ? 'Mayo' : 'May',
+		monthNum: '05',
+		featured: false,
+		events: [
+			{ title: lang === 'es' ? 'IV Jornada en Biología Tumoral' : '4th Tumor Biology Conference', desc: lang === 'es' ? 'Apoyo organizacional como grupo aliado de OMICS en cáncer.' : 'Organizational support alongside OMICS for cancer research.', date: lang === 'es' ? '19–23 de Mayo' : 'May 19–23', icon: 'biotech' }
+		]
+	},
+	{
+		id: 'jun',
+		label: lang === 'es' ? 'Junio' : 'June',
+		monthNum: '06',
+		featured: false,
+		events: [
+			{ title: 'Puentes Científicos: Dr. Nadra', desc: lang === 'es' ? 'Inauguración del ciclo con ponencia sobre biosensores whole cell.' : 'Cycle inauguration with keynote speech on whole-cell biosensors.', date: lang === 'es' ? '26 de Junio' : 'June 26', icon: 'sensors' }
+		]
+	},
+	{
+		id: 'jul',
+		label: lang === 'es' ? 'Julio' : 'July',
+		monthNum: '07',
+		featured: false,
+		events: [
+			{ title: 'Puentes Científicos: Dra. Merino & Dr. Gutiérrez', desc: lang === 'es' ? 'Bioinformática vegetal y charla especial sobre Inteligencia Artificial.' : 'Plant bioinformatics and special AI keynote speech.', date: lang === 'es' ? '31 de Julio' : 'July 31', icon: 'psychology' }
+		]
+	},
+	{
+		id: 'aug',
+		label: lang === 'es' ? 'Agosto' : 'August',
+		monthNum: '08',
+		featured: true,
+		highlight: lang === 'es' ? '¡PRÓXIMO EVENTO!' : 'UPCOMING EVENT!',
+		events: [
+			{ title: lang === 'es' ? 'Taller de Biopartes de ADN' : 'DNA BioParts Workshop', desc: lang === 'es' ? 'Taller de difusión de resultados con respaldo logístico de CBS.' : 'Results workshop backed by CBS community logistics.', date: lang === 'es' ? '7 de Agosto' : 'August 7', icon: 'science' }
+		]
+	},
+	{
+		id: 'sep',
+		label: lang === 'es' ? 'Septiembre' : 'September',
+		monthNum: '09',
+		featured: true,
+		highlight: lang === 'es' ? 'EDICIÓN ESCOLAR' : 'SCHOOL BOOTCAMP',
+		events: [
+			{ title: 'Proyecto BioDesign', desc: lang === 'es' ? 'Bootcamp de inmersión en biología sintética orientado a escolares.' : 'Synthetic biology immersion bootcamp for school students.', date: lang === 'es' ? '15 de Septiembre' : 'September 15', icon: 'school' }
+		]
+	}
+];
+---
+
+<section class="calendar-section animate-in" style="animation-delay: 0.15s">
+	<div class="calendar-header">
+		<span class="hero-badge glass">{t('calendar.pretitle')}</span>
+		<h2>{t('calendar.title')} <span class="gradient-text">{t('calendar.highlight')}</span></h2>
+		<p>{t('calendar.subtitle')}</p>
+	</div>
+
+	<div class="calendar-grid">
+		{calendarData.map(block => (
+			<div class={`cal-card glass-minimal ${block.featured ? 'featured' : ''}`}>
+				{block.highlight && <span class="cal-highlight">{block.highlight}</span>}
+				<div class="cal-card-header">
+					<span class="cal-num">{block.monthNum}</span>
+					<h3 class="cal-month">{block.label}</h3>
+				</div>
+				<div class="cal-events">
+					{block.events.map(ev => (
+						<div class="cal-event">
+							<div class="cal-event-top">
+								<span class="material-icons cal-event-icon">{ev.icon}</span>
+								<div>
+									<div class="cal-event-title">{ev.title}</div>
+									<div class="cal-event-date">{ev.date}</div>
+								</div>
+							</div>
+							<p class="cal-event-desc">{ev.desc}</p>
+						</div>
+					))}
+				</div>
+				{block.cta && (
+					<a href={block.cta.url} target="_blank" rel="noopener noreferrer" class="cal-cta">
+						{block.cta.label} <span class="material-icons cal-cta-arrow">arrow_forward</span>
+					</a>
+				)}
+			</div>
+		))}
+	</div>
+</section>
+
+<style>
+	.calendar-section {
+		max-width: 1200px;
+		margin: 0 auto 6rem;
+		padding: 0 2rem;
+	}
+	.calendar-header {
+		text-align: center;
+		margin-bottom: 4rem;
+	}
+	.hero-badge {
+		font-family: var(--font-heading);
+		font-size: 0.75rem;
+		font-weight: 800;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: var(--accent-cyan);
+		padding: 0.4rem 1.2rem;
+		border-radius: 50px;
+		display: inline-block;
+		margin-bottom: 1.5rem;
+	}
+	.calendar-header h2 {
+		font-size: clamp(2rem, 5vw, 3rem);
+		font-weight: 800;
+		margin-bottom: 1rem;
+	}
+	.calendar-header p {
+		font-size: 1.1rem;
+		opacity: 0.7;
+		max-width: 550px;
+		margin: 0 auto;
+	}
+
+	/* Bento Grid */
+	.calendar-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+	}
+
+	/* Glass Minimal (scoped) */
+	.glass-minimal {
+		background: rgba(255, 255, 255, 0.4);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-radius: 20px;
+		transition: all 0.3s;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+		border: 1px solid rgba(255,255,255,0.15);
+	}
+	:root.dark .glass-minimal {
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255,255,255,0.06);
+		box-shadow: inset 0 1px 1px rgba(255,255,255,0.06), 0 8px 24px rgba(0,0,0,0.15);
+	}
+
+	/* Card Base */
+	.cal-card {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+	}
+	.cal-card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(var(--cbs-emerald-rgb), 0.4);
+	}
+
+	/* Featured */
+	.cal-card.featured {
+		grid-column: span 2;
+		border-left: 4px solid var(--cbs-emerald);
+		background: linear-gradient(135deg, rgba(var(--cbs-emerald-rgb), 0.08), rgba(var(--cbs-blue-corp-rgb), 0.06));
+	}
+	:root.dark .cal-card.featured {
+		background: linear-gradient(135deg, rgba(var(--cbs-emerald-rgb), 0.1), rgba(var(--cbs-blue-corp-rgb), 0.05));
+	}
+
+	.cal-highlight {
+		display: inline-block;
+		font-size: 0.6rem;
+		font-weight: 900;
+		letter-spacing: 0.15em;
+		text-transform: uppercase;
+		background: var(--cbs-emerald);
+		color: white;
+		padding: 0.2rem 0.6rem;
+		border-radius: 4px;
+		margin-bottom: 1rem;
+		width: fit-content;
+	}
+
+	.cal-card-header {
+		margin-bottom: 1.5rem;
+	}
+	.cal-num {
+		font-size: 0.65rem;
+		font-weight: 800;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		color: var(--text-color);
+		opacity: 0.4;
+		display: block;
+		margin-bottom: 0.2rem;
+	}
+	.cal-month {
+		font-size: 1.4rem;
+		font-weight: 800;
+		margin: 0;
+		text-transform: uppercase;
+		letter-spacing: -0.01em;
+	}
+	.cal-card.featured .cal-month {
+		font-size: 1.8rem;
+	}
+
+	/* Events inside card */
+	.cal-events {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.cal-event {
+		border-left: 2px solid rgba(var(--cbs-emerald-rgb), 0.3);
+		padding-left: 1rem;
+	}
+	.cal-card.featured .cal-event {
+		background: rgba(0,0,0,0.15);
+		border-left: none;
+		padding: 1rem;
+		border-radius: 12px;
+	}
+	.cal-event-top {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.6rem;
+		margin-bottom: 0.4rem;
+	}
+	.cal-event-icon {
+		font-size: 1.1rem;
+		color: var(--cbs-emerald);
+		margin-top: 2px;
+	}
+	.cal-event-title {
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--text-color);
+		line-height: 1.3;
+	}
+	.cal-card.featured .cal-event-title {
+		color: var(--cbs-emerald);
+		font-size: 0.95rem;
+	}
+	.cal-event-date {
+		font-size: 0.6rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		opacity: 0.5;
+		font-weight: 700;
+		margin-top: 2px;
+	}
+	.cal-event-desc {
+		font-size: 0.8rem;
+		line-height: 1.5;
+		opacity: 0.7;
+		margin: 0;
+	}
+
+	/* CTA */
+	.cal-cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+		padding: 0.7rem 1.4rem;
+		border-radius: 50px;
+		background: var(--cbs-emerald);
+		color: white;
+		font-size: 0.7rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		transition: all 0.3s;
+		width: fit-content;
+		box-shadow: 0 4px 15px rgba(var(--cbs-emerald-rgb), 0.3);
+	}
+	.cal-cta:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 8px 25px rgba(var(--cbs-emerald-rgb), 0.4);
+	}
+	.cal-cta-arrow {
+		font-size: 1rem;
+	}
+
+	/* Responsive */
+	@media (max-width: 1100px) {
+		.calendar-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 600px) {
+		.calendar-grid {
+			grid-template-columns: 1fr;
+		}
+		.cal-card.featured {
+			grid-column: span 1;
+		}
+	}
+</style>

@@ -1,26 +1,33 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../../assets/cbs_logo.png';
+import { useTranslations, getLocalePath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
 
-const base = import.meta.env.BASE_URL;
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
 
 const navLinks = [
-	{ name: 'Eventos', icon: 'event', href: `${base}/events` },
-	{ name: 'Equipo', icon: 'people', href: `${base}/team` },
-	{ name: 'Aliados', icon: 'handshake', href: `${base}/partners` },
+	{ name: t('nav.events'), icon: 'event', href: getLocalePath(lang, 'events') },
+	{ name: t('nav.team'), icon: 'people', href: getLocalePath(lang, 'team') },
+	{ name: t('nav.partners'), icon: 'handshake', href: getLocalePath(lang, 'partners') },
 ];
 ---
 
 <nav class="bottom-nav">
 	<div class="dock-container glass">
 		<!-- Branding Anchor (Home) -->
-		<a href={`${base}/`} class="dock-branding">
+		<a href={getLocalePath(lang)} class="dock-branding">
 			<div class="logo-wrapper">
 				<Image src={logo} alt="CBS Logo" width={32} height={32} class="logo-img" />
 			</div>
 			<div class="branding-text">
 				<span class="brand-name">CBS-<span class="highlight">UNMSM</span></span>
-				<span class="brand-tag">DIVULGACIÓN</span>
+				<span class="brand-tag">{t('nav.brand.tag')}</span>
 			</div>
 		</a>
 

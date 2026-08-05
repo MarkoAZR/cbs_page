@@ -1,0 +1,58 @@
+---
+import { languages, type Lang } from '../../i18n/ui';
+import { getAlternateLocalePath } from '../../i18n/utils';
+
+interface Props {
+	lang: Lang;
+}
+
+const { lang } = Astro.props;
+const targetLang: Lang = lang === 'es' ? 'en' : 'es';
+const targetPath = getAlternateLocalePath(Astro.url, targetLang);
+const targetLabel = languages[targetLang];
+const targetFlag = targetLang === 'en' ? 'EN' : 'ES';
+---
+
+<a href={targetPath} class="lang-toggle FAB glass" aria-label={`Switch to ${targetLabel}`} title={targetLabel}>
+	<span class="lang-code">{targetFlag}</span>
+</a>
+
+<style>
+	.lang-toggle {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		color: inherit;
+		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+		border: 1px solid var(--border-color);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+	}
+
+	.lang-toggle:hover {
+		transform: scale(1.1) rotate(-5deg);
+		box-shadow: 0 0 20px var(--accent-glow);
+		background: var(--cbs-blue-corp);
+		color: white;
+	}
+
+	.lang-code {
+		font-size: 0.9rem;
+		font-weight: 800;
+		letter-spacing: 0.05em;
+		font-family: var(--font-heading);
+	}
+
+	@media (max-width: 600px) {
+		.lang-toggle {
+			width: 45px;
+			height: 45px;
+		}
+		.lang-code {
+			font-size: 0.8rem;
+		}
+	}
+</style>

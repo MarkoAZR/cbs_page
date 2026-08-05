@@ -1,0 +1,906 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useTranslations, getLocalePath } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL;
+
+const heroPhotos = [
+	{ src: `${base}/pictures/ponencia_septiembre_2025.JPG`, alt: 'Ponencia CBS-UNMSM, Septiembre 2025' },
+	{ src: `${base}/pictures/conferencia_julio.jpg`, alt: 'Conferencia CBS-UNMSM, Julio 2025' },
+	{ src: `${base}/pictures/conferencia_setiembre_2025.jpg`, alt: 'Conferencia CBS-UNMSM, Setiembre 2025' },
+];
+
+const stats = [
+	{ icon: 'event', value: t('stats.events'), label: t('stats.events.label'), sub: t('stats.events.sub') },
+	{ icon: 'groups', value: t('stats.community'), label: t('stats.community.label'), sub: t('stats.community.sub') },
+	{ icon: 'badge', value: t('stats.members'), label: t('stats.members.label'), sub: t('stats.members.sub') },
+	{ icon: 'handshake', value: t('stats.allies'), label: t('stats.allies.label'), sub: t('stats.allies.sub') },
+];
+
+const milestones = [
+	{ year: '2021', label: t('timeline.2021.label'), desc: t('timeline.2021.desc'), highlight: false },
+	{ year: '2022', label: t('timeline.2022.label'), desc: t('timeline.2022.desc'), highlight: true },
+	{ year: '2023', label: t('timeline.2023.label'), desc: t('timeline.2023.desc'), highlight: false },
+	{ year: '2025', label: t('timeline.2025.label'), desc: t('timeline.2025.desc'), highlight: false },
+	{ year: '2026', label: t('timeline.2026.label'), desc: t('timeline.2026.desc'), highlight: true },
+];
+
+const allies = [
+	{ name: lang === 'es' ? 'AI Kids Perú' : 'AI Kids Peru', img: `${base}/allies/ai_kids.png`, url: '#', hasLogo: true },
+	{ name: 'CEM',           img: `${base}/allies/Logo-CEM.avif`,    url: '#', hasLogo: true },
+	{ name: 'ASM UTEC',      img: `${base}/allies/logo_asmutec.jpg`, url: '#', hasLogo: true },
+	{ name: 'SynBio Latam',  img: `${base}/allies/synbiolatam.jpg`,  url: 'https://synbiolatam.org', hasLogo: true },
+	{ name: 'FCB-UNMSM',     img: `${base}/allies/fcb_logo.png`,     url: '#', hasLogo: true },
+	{ name: 'UNMSM',         img: `${base}/allies/unmsm_logo.png`,   url: 'https://unmsm.edu.pe', hasLogo: true },
+	{ name: 'Lyn Biolearning', img: `${base}/allies/logo_lyn.png`,   url: '#', hasLogo: true },
+	{ name: 'NEA',           img: `${base}/allies/logo_nea.jpeg`,    url: '#', hasLogo: true },
+	{ name: 'Biomin',        img: `${base}/allies/logo_biomin.jpeg`,  url: '#', hasLogo: true },
+];
+---
+
+<Layout title={lang === 'es' ? 'Inicio' : 'Home'} lang={lang}>
+
+	<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+	     HERO SPLIT-SCREEN
+	Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+	<section class="hero-split animate-in">
+		<div class="mosaic-bg" aria-hidden="true">
+			<div class="blob blob-1 float"></div>
+			<div class="blob blob-2 float" style="animation-delay: -2s;"></div>
+			<div class="blob blob-3 float" style="animation-delay: -4s;"></div>
+		</div>
+
+		<!-- Left: Text content -->
+		<div class="hero-content">
+			<div class="pre-title">
+				<span class="hero-badge glass">{t('hero.pretitle')}</span>
+			</div>
+			<h1>
+				{t('hero.title.line1')}<br/>
+				<span class="gradient-text">{t('hero.title.highlight')}</span>
+			</h1>
+			<p class="description">{t('hero.description')}</p>
+			<div class="actions">
+				<a href={getLocalePath(lang, 'events')} class="btn primary">
+					{t('hero.cta.events')} <span class="material-icons">event</span>
+				</a>
+				<a href="https://markoazr.github.io/symposium-cbs/es/" target="_blank" rel="noopener noreferrer" class="btn secondary">
+					{t('hero.cta.symposium')} <span class="material-icons">open_in_new</span>
+				</a>
+			</div>
+			<!-- Scroll indicator -->
+			<div class="scroll-hint" aria-hidden="true">
+				<div class="scroll-mouse">
+					<div class="scroll-dot"></div>
+				</div>
+				<span class="scroll-label">{t('hero.scroll')}</span>
+			</div>
+		</div>
+
+		<!-- Right: Photo Collage -->
+		<div class="hero-collage" aria-label="Fotos de eventos CBS-UNMSM">
+			{heroPhotos.map((photo, i) => (
+				<div class={`collage-frame frame-${i}`}>
+					<img src={photo.src} alt={photo.alt} loading={i === 0 ? 'eager' : 'lazy'} />
+					<div class="frame-glow"></div>
+				</div>
+			))}
+		</div>
+	</section>
+
+	<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+	     STATS BAR
+	Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+	<section class="stats-section animate-in" style="animation-delay: 0.15s">
+		<div class="container">
+			<div class="stats-grid">
+				{stats.map((stat, i) => (
+					<div class="stat-card glass" data-value={stat.value} style={`animation-delay: ${0.1 * i}s`}>
+						<div class="stat-icon-wrap">
+							<span class="material-icons stat-icon">{stat.icon}</span>
+						</div>
+						<div class="stat-number" data-target={stat.value}>{stat.value}</div>
+						<div class="stat-label">{stat.label}</div>
+						<div class="stat-sub">{stat.sub}</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+	     TIMELINE DE HITOS
+	Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+	<section class="timeline-section animate-in" style="animation-delay: 0.2s">
+		<div class="container">
+			<div class="section-header">
+				<span class="hero-badge glass">{t('timeline.pretitle')}</span>
+				<h2>{t('timeline.title')} <span class="gradient-text">{t('timeline.highlight')}</span></h2>
+			</div>
+			<div class="timeline-track">
+				<div class="timeline-line" aria-hidden="true"></div>
+				{milestones.map((m) => (
+					<div class={`milestone ${m.highlight ? 'milestone-highlight' : ''}`}>
+						<div class="milestone-dot">
+							{m.highlight && <span class="dot-pulse" aria-hidden="true"></span>}
+						</div>
+						<div class="milestone-year">{m.year}</div>
+						<div class="milestone-card glass">
+							<span class="milestone-label">{m.label}</span>
+							<p class="milestone-desc">{m.desc}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+	     ALLIES CAROUSEL
+	Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+	<section class="allies-section animate-in" style="animation-delay: 0.25s">
+		<div class="allies-header container">
+			<span class="hero-badge glass">{t('allies.pretitle')}</span>
+			<h2>{t('allies.title')} <span class="gradient-text">{t('allies.highlight')}</span></h2>
+		</div>
+		<div class="marquee-wrapper" aria-label="Aliados institucionales">
+			<div class="marquee-track">
+				<!-- First copy -->
+				{allies.map(ally => (
+					<a href={ally.url} target={ally.url !== '#' ? '_blank' : '_self'} rel="noopener noreferrer"
+					   class="marquee-item glass" aria-label={ally.name}>
+						{ally.hasLogo
+							? <img src={ally.img} alt={ally.name} loading="lazy" />
+							: <span class="material-icons marquee-placeholder">biotech</span>
+						}
+						<span class="marquee-name">{ally.name}</span>
+					</a>
+				))}
+				<!-- Duplicate for seamless loop -->
+				{allies.map(ally => (
+					<a href={ally.url} target={ally.url !== '#' ? '_blank' : '_self'} rel="noopener noreferrer"
+					   class="marquee-item glass" aria-label={ally.name} tabindex="-1">
+						{ally.hasLogo
+							? <img src={ally.img} alt="" loading="lazy" />
+							: <span class="material-icons marquee-placeholder">biotech</span>
+						}
+						<span class="marquee-name">{ally.name}</span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+	     BENTO GRID Ã¢â‚¬â€ Nuestra Labor
+	Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+	<section id="impacto" class="impact-section animate-in" style="animation-delay: 0.3s">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="gradient-text">{t('impact.title')}</h2>
+				<p>{t('impact.subtitle')}</p>
+			</div>
+			<div class="bento-grid">
+				<!-- Featured: Simposio -->
+				<div class="bento-item glass wide featured">
+					<div class="bento-img-bg" aria-hidden="true">
+						<img src={`${base}/pictures/conferencia_ciclo%20de%20foros.JPG`} alt="" loading="lazy" />
+					</div>
+					<div class="content">
+						<span class="category">{t('bento.weekly')}</span>
+						<h3>{t('bento.weekly.title')}</h3>
+						<p>{t('bento.weekly.desc')}</p>
+						<a href={getLocalePath(lang, 'events')} class="link-arrow">{t('bento.weekly.link')}</a>
+					</div>
+				</div>
+
+				<div class="bento-item glass">
+					<div class="content">
+						<span class="category">{t('bento.community')}</span>
+						<h3>{t('bento.community.title')}</h3>
+						<p>{t('bento.community.desc')}</p>
+					</div>
+				</div>
+
+				<div class="bento-item glass tall">
+					<div class="content">
+						<span class="category">{t('bento.mission')}</span>
+						<div class="mv-block">
+							<h3>{lang === 'es' ? 'Misión' : 'Mission'}</h3>
+							<p>{t('bento.mission.desc')}</p>
+						</div>
+						<div class="mv-block" style="margin-top: 1.25rem;">
+							<h3>{lang === 'es' ? 'Visión' : 'Vision'}</h3>
+							<p>{t('bento.vision.desc')}</p>
+						</div>
+					</div>
+					<div class="visual-accent dna-helix" aria-hidden="true"></div>
+				</div>
+
+				<div class="bento-item glass">
+					<div class="content">
+						<span class="category">{t('bento.next')}</span>
+						<h3>{t('bento.next.title')}</h3>
+						<p>{t('bento.next.desc')}</p>
+					</div>
+				</div>
+
+				<div class="bento-item glass wide">
+					<div class="content">
+						<span class="category">{t('bento.projects')}</span>
+						<h3>{t('bento.projects.title')}</h3>
+						<p>{t('bento.projects.desc')}</p>
+						<span class="link-arrow disabled" style="opacity: 0.75; cursor: default;">
+							<span class="material-icons" style="font-size: 0.95rem; vertical-align: -2px; margin-right: 0.3rem;">schedule</span>
+							{t('bento.projects.link')}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+	     COMMUNITY CTA
+	Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â -->
+	<section class="cta-section animate-in" style="animation-delay: 0.35s">
+		<div class="cta-bg" aria-hidden="true">
+			<div class="cta-blob cta-blob-1"></div>
+			<div class="cta-blob cta-blob-2"></div>
+		</div>
+		<div class="container cta-content">
+			<span class="hero-badge glass">{t('cta.join.pretitle')}</span>
+			<h2>
+				{t('cta.join.title')} <span class="gradient-text">{t('cta.join.highlight')}</span> {t('cta.join.title2')}
+			</h2>
+			<p>{t('cta.join.desc')}</p>
+			<div class="cta-actions">
+				<a href="https://chat.whatsapp.com/CEd3BXnUV879xKuM0MuoXE" target="_blank" rel="noopener noreferrer" class="btn primary">
+					{t('cta.join.btn')} <span class="material-icons">arrow_forward</span>
+				</a>
+				<a href={getLocalePath(lang, 'events')} class="btn secondary">
+					{t('cta.join.btn2')}
+				</a>
+			</div>
+		</div>
+	</section>
+
+</Layout>
+
+<style>
+/* â”€â”€â”€ HERO SPLIT â”€â”€â”€ */
+.hero-split {
+	position: relative;
+	width: 100%;
+	min-height: 100vh;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: 55fr 45fr;
+	align-items: center;
+}
+
+.hero-content {
+	position: relative;
+	z-index: 10;
+	/* padding izquierdo fluido: entre 2rem y 6rem según pantalla */
+	padding: 8rem clamp(1.5rem, 3vw, 4rem) 5rem clamp(2rem, 5vw, 6rem);
+	/* ancho máximo fluido: crece con el viewport */
+	max-width: clamp(480px, 48vw, 720px);
+	margin-left: 0;
+}
+
+.mosaic-bg {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	opacity: 0.22;
+}
+
+.blob {
+	position: absolute;
+	filter: blur(70px);
+}
+.blob-1 {
+	width: 600px; height: 600px;
+	top: -10%; left: -15%;
+	border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+	background: radial-gradient(circle, var(--cbs-blue-corp), transparent 70%);
+}
+.blob-2 {
+	width: 450px; height: 450px;
+	bottom: 0; left: 35%;
+	border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+	background: radial-gradient(circle, var(--cbs-emerald), transparent 70%);
+}
+.blob-3 {
+	width: 380px; height: 380px;
+	top: 5%; right: -8%;
+	border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+	background: radial-gradient(circle, var(--cbs-gold-dark), transparent 70%);
+}
+
+
+
+.pre-title { margin-bottom: 1.5rem; }
+
+.hero-badge {
+	font-family: var(--font-heading);
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.25em;
+	text-transform: uppercase;
+	color: var(--accent-cyan);
+	padding: 0.35rem 1rem;
+	border-radius: 50px;
+	display: inline-block;
+	margin-bottom: 0;
+}
+
+h1 {
+	font-family: var(--font-heading);
+	font-size: clamp(2.8rem, 5vw, 5rem);
+	line-height: 1.0;
+	font-weight: 800;
+	margin-bottom: 1.5rem;
+	letter-spacing: -0.04em;
+}
+
+.description {
+	font-size: 1.05rem;
+	max-width: 520px;
+	margin-bottom: 2.5rem;
+	opacity: 0.8;
+	line-height: 1.75;
+}
+
+.actions {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.btn {
+	padding: 0.9rem 1.8rem;
+	border-radius: 12px;
+	font-weight: 700;
+	text-decoration: none;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.88rem;
+	white-space: nowrap;
+}
+.btn.primary {
+	background: var(--cbs-blue-corp);
+	color: white;
+	box-shadow: 0 8px 24px rgba(21, 79, 155, 0.35);
+}
+.btn.secondary {
+	border: 1px solid var(--border-color);
+	color: var(--text-color);
+	backdrop-filter: blur(10px);
+	background: rgba(255,255,255,0.04);
+}
+.btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 14px 36px var(--accent-glow);
+}
+.btn.primary:hover { background: #1a63c4; }
+
+/* ─── PHOTO COLLAGE ─── */
+.hero-collage {
+	position: relative;
+	z-index: 10;
+	height: 100vh;
+	min-height: 500px;
+	overflow: hidden;
+}
+
+.collage-frame {
+	position: absolute;
+	border-radius: 20px;
+	overflow: hidden;
+	box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+	transition: filter 0.35s ease, box-shadow 0.35s ease, z-index 0.35s ease;
+}
+.collage-frame img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.frame-glow {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	transition: opacity 0.35s ease;
+}
+/* Hover limpio: resalta con brillo, glow y leve zoom en la foto sin alterar su posición */
+.collage-frame:hover {
+	filter: brightness(1.12) saturate(1.15);
+	box-shadow: 0 28px 70px rgba(0,0,0,0.5), 0 0 35px rgba(var(--cbs-emerald-rgb), 0.3);
+	z-index: 20;
+}
+.collage-frame:hover img {
+	transform: scale(1.06);
+}
+
+/* Foto principal (izquierda, grande, leve inclinaciÃ³n) */
+.frame-0 {
+	width: 58%; height: 65%;
+	top: 50%; left: 4%;
+	transform: translateY(-60%) rotate(-3deg);
+	border: 2px solid rgba(var(--cbs-emerald-rgb), 0.45);
+	z-index: 2;
+}
+.frame-0 .frame-glow {
+	background: linear-gradient(to bottom, transparent 55%, rgba(var(--cbs-emerald-rgb), 0.25));
+}
+
+/* Foto secundaria (derecha arriba, inclinada positivo) */
+.frame-1 {
+	width: 48%; height: 48%;
+	top: 14%; right: 2%;
+	transform: rotate(4deg);
+	border: 2px solid rgba(var(--cbs-blue-corp-rgb), 0.45);
+	z-index: 3;
+}
+.frame-1 .frame-glow {
+	background: linear-gradient(to bottom, transparent 55%, rgba(var(--cbs-blue-corp-rgb), 0.25));
+}
+
+/* Foto terciaria (derecha abajo, leve) */
+.frame-2 {
+	width: 44%; height: 42%;
+	bottom: 7%; right: 4%;
+	transform: rotate(-2deg);
+	border: 2px solid rgba(var(--cbs-gold-rgb), 0.35);
+	z-index: 1;
+}
+.frame-2 .frame-glow {
+	background: linear-gradient(to bottom, transparent 55%, rgba(var(--cbs-gold-dark-rgb), 0.2));
+}
+
+/* ─── SCROLL INDICATOR ─── */
+.scroll-hint {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-top: 2.5rem;
+	opacity: 0.55;
+	transition: opacity 0.3s;
+}
+.scroll-hint:hover { opacity: 0.9; }
+.scroll-mouse {
+	width: 24px;
+	height: 38px;
+	border-radius: 12px;
+	border: 2px solid currentColor;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	padding-top: 6px;
+	color: var(--accent-cyan);
+	flex-shrink: 0;
+}
+.scroll-dot {
+	width: 4px;
+	height: 8px;
+	border-radius: 2px;
+	background: var(--accent-cyan);
+	animation: scroll-bounce 1.6s ease-in-out infinite;
+}
+@keyframes scroll-bounce {
+	0%, 100% { transform: translateY(0); opacity: 1; }
+	60% { transform: translateY(10px); opacity: 0.2; }
+}
+.scroll-label {
+	font-size: 0.65rem;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--accent-cyan);
+}
+
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ STATS BAR Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
+.stats-section { padding: 4rem 0; }
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 1.25rem;
+}
+.stat-card {
+	padding: 1.75rem 1.25rem;
+	border-radius: 20px;
+	text-align: center;
+	transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), border-color 0.3s;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4rem;
+}
+.stat-card:hover {
+	transform: translateY(-6px);
+	border-color: var(--accent-cyan);
+}
+.stat-icon-wrap {
+	width: 44px; height: 44px;
+	border-radius: 12px;
+	background: rgba(var(--cbs-emerald-rgb), 0.12);
+	display: flex; align-items: center; justify-content: center;
+	margin-bottom: 0.4rem;
+}
+.stat-icon { font-size: 1.3rem; color: var(--accent-cyan); }
+.stat-number {
+	font-family: var(--font-heading);
+	font-size: 2.6rem;
+	font-weight: 900;
+	color: var(--accent-cyan);
+	line-height: 1;
+	letter-spacing: -0.03em;
+}
+.stat-label {
+	font-size: 0.88rem;
+	font-weight: 700;
+	color: var(--text-color);
+	margin-top: 0.2rem;
+}
+.stat-sub {
+	font-size: 0.68rem;
+	opacity: 0.5;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+}
+
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ TIMELINE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
+.timeline-section { padding: 6rem 0; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-header h2 {
+	font-size: clamp(2rem, 5vw, 3rem);
+	font-weight: 800;
+	margin-top: 1rem;
+	margin-bottom: 0;
+}
+
+.timeline-track {
+	position: relative;
+	display: flex;
+	gap: 0;
+	align-items: flex-start;
+	overflow-x: auto;
+	padding: 2rem 1rem 1rem;
+	scrollbar-width: thin;
+	scrollbar-color: var(--border-color) transparent;
+}
+
+.timeline-line {
+	position: absolute;
+	top: 3.6rem;
+	left: 2rem; right: 2rem;
+	height: 2px;
+	background: linear-gradient(90deg, var(--cbs-blue-corp), var(--cbs-emerald), var(--cbs-gold-dark));
+	opacity: 0.3;
+	pointer-events: none;
+	z-index: 0;
+}
+
+.milestone {
+	flex: 1;
+	min-width: 180px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+	position: relative;
+	z-index: 1;
+}
+.milestone-dot {
+	width: 16px; height: 16px;
+	border-radius: 50%;
+	background: var(--border-color);
+	border: 2px solid var(--bg-color);
+	box-shadow: 0 0 0 3px var(--border-color);
+	position: relative;
+	flex-shrink: 0;
+}
+.milestone-highlight .milestone-dot {
+	background: var(--cbs-emerald);
+	box-shadow: 0 0 0 3px rgba(var(--cbs-emerald-rgb), 0.3);
+}
+.dot-pulse {
+	position: absolute;
+	inset: -6px;
+	border-radius: 50%;
+	background: rgba(var(--cbs-emerald-rgb), 0.3);
+	animation: pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring {
+	0% { opacity: 0.8; transform: scale(1); }
+	100% { opacity: 0; transform: scale(2); }
+}
+.milestone-year {
+	font-family: var(--font-heading);
+	font-size: 1.2rem;
+	font-weight: 900;
+	color: var(--accent-cyan);
+	letter-spacing: -0.02em;
+}
+.milestone-highlight .milestone-year { color: var(--accent-yellow); }
+.milestone-card {
+	padding: 1.2rem 1rem;
+	border-radius: 16px;
+	text-align: center;
+	width: 100%;
+}
+.milestone-highlight .milestone-card {
+	border-color: rgba(var(--cbs-emerald-rgb), 0.3);
+	background: rgba(var(--cbs-emerald-rgb), 0.05);
+}
+.milestone-label {
+	font-size: 0.68rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: var(--accent-cyan);
+	display: block;
+	margin-bottom: 0.4rem;
+}
+.milestone-highlight .milestone-label { color: var(--accent-yellow); }
+.milestone-desc {
+	font-size: 0.8rem;
+	line-height: 1.5;
+	opacity: 0.75;
+	margin: 0;
+}
+
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ ALLIES MARQUEE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
+.allies-section { padding: 4rem 0; overflow: hidden; }
+.allies-header {
+	text-align: center;
+	margin-bottom: 2.5rem;
+}
+.allies-header h2 {
+	font-size: clamp(1.6rem, 4vw, 2.2rem);
+	font-weight: 800;
+	margin-top: 0.75rem;
+}
+
+.marquee-wrapper {
+	width: 100%;
+	overflow: hidden;
+	/* Fade edges */
+	mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+	-webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.marquee-track {
+	display: flex;
+	gap: 1.25rem;
+	width: max-content;
+	animation: marquee-scroll 28s linear infinite;
+}
+.marquee-wrapper:hover .marquee-track {
+	animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+	0%   { transform: translateX(0); }
+	100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.6rem;
+	min-width: 130px;
+	height: 110px;
+	border-radius: 18px;
+	padding: 1rem 1.25rem;
+	text-decoration: none;
+	color: var(--text-color);
+	transition: transform 0.3s, border-color 0.3s, filter 0.3s;
+	filter: grayscale(0.5) opacity(0.75);
+	flex-shrink: 0;
+}
+.marquee-item:hover {
+	filter: grayscale(0) opacity(1);
+	transform: translateY(-4px) scale(1.03);
+	border-color: var(--accent-cyan);
+}
+.marquee-item img {
+	max-width: 70px;
+	max-height: 52px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+.marquee-placeholder {
+	font-size: 2rem;
+	color: var(--accent-cyan);
+	opacity: 0.7;
+}
+.marquee-name {
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	opacity: 0.75;
+	line-height: 1.2;
+}
+
+/* Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ BENTO Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
+.impact-section { padding: 6rem 0; }
+.section-header h2 { font-size: clamp(2rem,5vw,3rem); margin-bottom: 1rem; }
+.section-header p { opacity: 0.7; font-size: 1.05rem; }
+
+.bento-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-auto-rows: 260px;
+	gap: 1.5rem;
+}
+.bento-item {
+	position: relative;
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	overflow: hidden;
+	border-radius: 24px;
+	transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.bento-item:hover {
+	transform: translateY(-8px);
+	border-color: var(--accent-cyan);
+	box-shadow: 0 20px 50px rgba(var(--cbs-emerald-rgb), 0.15);
+}
+.bento-item.wide { grid-column: span 2; }
+.bento-item.tall { grid-row: span 2; }
+.bento-item.featured { border-color: rgba(var(--accent-purple-rgb), 0.3); }
+.bento-img-bg { position: absolute; inset: 0; z-index: 0; }
+.bento-img-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.2; filter: saturate(0.6); }
+
+/* â”€â”€â”€ RESPONSIVE â”€â”€â”€ */
+@media (max-width: 1200px) {
+	/* clamp() en base ya gestiona esto; sólo ajustamos el collage */
+	.frame-0 { width: 60%; height: 62%; }
+	.frame-1 { width: 46%; height: 46%; }
+	.frame-2 { width: 42%; height: 40%; }
+}
+
+@media (max-width: 1024px) {
+	.bento-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: auto; }
+	.stats-grid { grid-template-columns: repeat(2,1fr); }
+	.hero-content { max-width: clamp(380px, 50vw, 560px); }
+	.frame-0 { width: 62%; height: 58%; }
+	.frame-1 { width: 48%; height: 44%; top: 12%; }
+	.frame-2 { width: 44%; height: 38%; bottom: 8%; }
+}
+
+@media (max-width: 768px) {
+	/* Stack hero vertically on tablet/mobile */
+	.hero-split {
+		grid-template-columns: 1fr;
+		min-height: auto;
+	}
+	.hero-content {
+		padding: 6rem 2rem 2rem;
+		max-width: 100%;
+		margin-left: 0;
+		order: 1;
+	}
+	.hero-collage {
+		order: 0;
+		width: 100%;
+		height: 300px;
+		min-height: 300px;
+	}
+	.description { max-width: 100%; }
+	.scroll-hint { display: none; }
+	.frame-0 {
+		width: 50%; height: 80%;
+		top: 50%; left: 3%;
+		transform: translateY(-60%) rotate(-3deg);
+	}
+	.frame-1 {
+		width: 42%; height: 60%;
+		top: 10%; right: 3%;
+		transform: rotate(4deg);
+	}
+	.frame-2 {
+		width: 40%; height: 52%;
+		bottom: 5%; right: 6%;
+		transform: rotate(-2deg);
+	}
+}
+
+@media (max-width: 480px) {
+	.hero-content { padding: 5.5rem 1.25rem 2rem; }
+	h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
+	.hero-collage { height: 240px; min-height: 240px; }
+	.frame-0 { width: 52%; height: 82%; }
+	.frame-1 { width: 44%; height: 62%; }
+	.frame-2 { width: 42%; height: 54%; }
+	.stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+	.stat-number { font-size: 2rem; }
+	.stat-card { padding: 1.25rem 0.75rem; }
+	.bento-grid { grid-template-columns: 1fr; }
+	.bento-item.wide, .bento-item.tall { grid-column: span 1; grid-row: span 1; }
+	.bento-grid { grid-auto-rows: auto; }
+	.bento-item { min-height: 200px; }
+	.timeline-track { gap: 0; }
+	.milestone { min-width: 140px; }
+	.actions { flex-direction: column; align-items: flex-start; }
+	.btn { width: 100%; justify-content: center; }
+}
+
+.bento-item.featured::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(160deg, rgba(var(--cbs-blue-corp-rgb),0.5), rgba(var(--cbs-emerald-rgb),0.3));
+	z-index: 1;
+}
+.bento-item .content { position: relative; z-index: 2; }
+.category {
+	font-size: 0.68rem;
+	text-transform: uppercase;
+	font-weight: 800;
+	letter-spacing: 0.15em;
+	color: var(--accent-cyan);
+	margin-bottom: 0.75rem;
+	display: block;
+}
+.bento-item h3 { font-size: 1.5rem; margin-bottom: 0.75rem; color: var(--accent-yellow); line-height: 1.2; }
+.bento-item p { font-size: 0.88rem; margin: 0; opacity: 0.8; line-height: 1.6; }
+.link-arrow {
+	margin-top: 1.25rem;
+	display: inline-block;
+	color: var(--text-color);
+	font-weight: 700;
+	text-decoration: none;
+	font-size: 0.85rem;
+	transition: all 0.3s;
+}
+.link-arrow:hover { color: var(--accent-cyan); transform: translateX(4px); }
+.visual-accent {
+	position: absolute;
+	top: -20px; right: -20px;
+	width: 150px; height: 150px;
+	background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+	opacity: 0.4;
+	z-index: 0;
+}
+
+/* â€”â€”â€” COMMUNITY CTA â€”â€”â€” */
+.cta-section {
+	position: relative;
+	padding: 8rem 0;
+	overflow: hidden;
+	text-align: center;
+	margin-top: 4rem;
+}
+.cta-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.cta-blob { position: absolute; border-radius: 50%; filter: blur(80px); }
+.cta-blob-1 { width: 500px; height: 500px; top: -100px; left: -100px; background: radial-gradient(circle, rgba(var(--cbs-blue-corp-rgb),0.25), transparent 70%); }
+.cta-blob-2 { width: 400px; height: 400px; bottom: -80px; right: -80px; background: radial-gradient(circle, rgba(var(--cbs-emerald-rgb),0.2), transparent 70%); }
+.cta-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.cta-content h2 { font-size: clamp(1.8rem,5vw,3rem); font-weight: 800; line-height: 1.2; max-width: 700px; margin: 0; }
+.cta-content p { font-size: 1.05rem; opacity: 0.7; max-width: 520px; line-height: 1.7; }
+.cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+
+</style>
+

@@ -1,0 +1,531 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL;
+
+const board = [
+	{
+		name: "Marko Zapata",
+		role: t('team.role.president'),
+		img: `${base}/team/Marko_zapata.jpg`,
+		badge: lang === 'es' ? 'Presidencia' : 'President'
+	},
+	{
+		name: "Rodrigo Puertas",
+		role: t('team.role.vice_president'),
+		img: `${base}/team/Rodrigo_Puertas.png`,
+		badge: lang === 'es' ? 'Vicepresidencia' : 'Vice President'
+	},
+	{
+		name: "Valery Velasquez",
+		role: t('team.role.coord_general'),
+		img: `${base}/team/Valery_Velasquez.jpg`,
+		badge: lang === 'es' ? 'Coordinación General' : 'General Coordination'
+	}
+];
+
+const advisors = [
+	{
+		name: "MSc. Nadia Vera Munárriz",
+		role: t('team.role.advisor_lead'),
+		title: lang === 'es' ? 'Docente Responsable / Investigadora Principal' : 'Faculty Advisor / Principal Investigator',
+		img: `${base}/team/nadia_vera.jpeg`,
+		badge: lang === 'es' ? 'Docente Responsable' : 'Faculty Advisor'
+	},
+	{
+		name: "MSc. Benjamín Díaz Zamora",
+		role: t('team.role.advisor_general'),
+		title: lang === 'es' ? 'Asesor General CBS-UNMSM' : 'General Advisor CBS-UNMSM',
+		img: `${base}/team/benja_cbs.jpg`,
+		badge: lang === 'es' ? 'Advisor General' : 'General Advisor'
+	}
+];
+
+const members = [
+	{
+		name: "Jorja Lavado",
+		role: t('team.role.design'),
+		area: lang === 'es' ? 'Diseño de Marca' : 'Brand Design',
+		img: `${base}/team/Jorja_lavado.png`,
+		icon: "palette"
+	},
+	{
+		name: "Adriana Ordinola",
+		role: t('team.role.marketing'),
+		area: lang === 'es' ? 'Difusión' : 'Outreach',
+		img: `${base}/team/Adriana_Ordinola.jpg`,
+		icon: "campaign"
+	},
+	{
+		name: "Sneyder Boada",
+		role: t('team.role.comms'),
+		area: lang === 'es' ? 'Comunicaciones' : 'Communications',
+		img: `${base}/team/sneyder_boada.jpeg`,
+		icon: "record_voice_over"
+	},
+	{
+		name: "Mijael Espinoza",
+		role: t('team.role.partnerships'),
+		area: lang === 'es' ? 'Alianzas Institucionales' : 'Institutional Partnerships',
+		img: `${base}/team/Mijael_Espinoza.jpg`,
+		icon: "handshake"
+	},
+	{
+		name: "Solange Castro",
+		role: t('team.role.logistics'),
+		area: lang === 'es' ? 'Logística & Operaciones' : 'Logistics & Operations',
+		img: `${base}/team/solange_castro.jpeg`,
+		icon: "inventory_2"
+	}
+];
+---
+
+<Layout title={lang === 'es' ? 'Equipo' : 'Team'} lang={lang}>
+	<div class="container page-content">
+		<!-- Header -->
+		<header class="page-header animate-in">
+			<span class="hero-badge glass">{lang === 'es' ? 'ESTRUCTURA ORGANIZACIONAL' : 'ORGANIZATIONAL STRUCTURE'}</span>
+			<h1>{t('team.heading')} <span class="gradient-text">{t('team.heading.highlight')}</span></h1>
+			<p>{t('team.subtitle')}</p>
+		</header>
+
+		<!-- 1. Junta Directiva (Board of Directors) -->
+		<section class="team-section animate-in" style="animation-delay: 0.1s">
+			<div class="section-title">
+				<span class="material-icons title-icon">account_balance</span>
+				<div>
+					<h2>{t('team.board')}</h2>
+					<p class="section-sub">{lang === 'es' ? 'Liderazgo ejecutivo de la comunidad universitaria' : 'Executive leadership of the university community'}</p>
+				</div>
+			</div>
+
+			<div class="board-grid">
+				{board.map((member) => (
+					<div class="card-glass board-card">
+						<div class="card-img-wrapper">
+							<img src={member.img} alt={member.name} class="portrait-img" loading="eager" />
+							<div class="card-overlay"></div>
+							<span class="badge-tag">{member.badge}</span>
+						</div>
+						<div class="card-info">
+							<h3>{member.name}</h3>
+							<span class="role-pill">{member.role}</span>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- 2. Docente Responsable y Asesores -->
+		<section class="team-section animate-in" style="animation-delay: 0.2s">
+			<div class="section-title">
+				<span class="material-icons title-icon gold">workspace_premium</span>
+				<div>
+					<h2>{t('team.advisors')}</h2>
+					<p class="section-sub">{t('team.advisors.desc')}</p>
+				</div>
+			</div>
+
+			<div class="advisors-grid">
+				{advisors.map((adv) => (
+					<div class="card-glass advisor-card">
+						<div class="advisor-img-wrapper">
+							<img src={adv.img} alt={adv.name} class="advisor-portrait" loading="lazy" />
+						</div>
+						<div class="advisor-info">
+							<span class="badge-tag gold-badge">{adv.badge}</span>
+							<h3>{adv.name}</h3>
+							<span class="advisor-role">{adv.role}</span>
+							<p class="advisor-title">{adv.title}</p>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+
+		<!-- 3. Miembros y Coordinaciones -->
+		<section class="team-section animate-in" style="animation-delay: 0.3s">
+			<div class="section-title">
+				<span class="material-icons title-icon cyan">groups</span>
+				<div>
+					<h2>{t('team.members')}</h2>
+					<p class="section-sub">{t('team.members.desc')}</p>
+				</div>
+			</div>
+
+			<div class="members-grid">
+				{members.map((m) => (
+					<div class="card-glass member-card">
+						<div class="member-img-wrapper">
+							{m.img ? (
+								<img src={m.img} alt={m.name} class="member-portrait" loading="lazy" />
+							) : (
+								<div class="avatar-fallback">
+									<span class="material-icons fallback-icon">{m.icon}</span>
+									<span class="fallback-initial">{m.initial}</span>
+								</div>
+							)}
+						</div>
+						<div class="member-details">
+							<h3>{m.name}</h3>
+							<span class="member-role">{m.role}</span>
+							<span class="member-area">{m.area}</span>
+						</div>
+					</div>
+				))}
+			</div>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	.page-content {
+		padding-bottom: 8rem;
+	}
+
+	.page-header {
+		padding: 8rem 0 4rem;
+		text-align: center;
+	}
+
+	.hero-badge {
+		font-family: var(--font-heading);
+		font-size: 0.75rem;
+		font-weight: 800;
+		letter-spacing: 0.25em;
+		text-transform: uppercase;
+		color: var(--accent-cyan);
+		padding: 0.4rem 1.2rem;
+		border-radius: 50px;
+		display: inline-block;
+		margin-bottom: 1.5rem;
+	}
+
+	h1 {
+		font-size: clamp(3rem, 8vw, 5rem);
+		line-height: 1;
+		margin-bottom: 1.5rem;
+		font-weight: 800;
+	}
+
+	.page-header p {
+		font-size: 1.25rem;
+		opacity: 0.7;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	/* Section Headers */
+	.team-section {
+		margin-bottom: 6rem;
+	}
+	.section-title {
+		display: flex;
+		align-items: center;
+		gap: 1.2rem;
+		margin-bottom: 2.5rem;
+	}
+	.title-icon {
+		width: 48px;
+		height: 48px;
+		border-radius: 16px;
+		background: rgba(var(--cbs-emerald-rgb), 0.15);
+		color: var(--cbs-emerald);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 1.5rem;
+		border: 1px solid rgba(var(--cbs-emerald-rgb), 0.3);
+		flex-shrink: 0;
+	}
+	.title-icon.gold {
+		background: rgba(var(--cbs-gold-rgb), 0.15);
+		color: var(--accent-yellow);
+		border-color: rgba(var(--cbs-gold-rgb), 0.3);
+	}
+	.title-icon.cyan {
+		background: rgba(var(--accent-cyan-rgb), 0.15);
+		color: var(--accent-cyan);
+		border-color: rgba(var(--accent-cyan-rgb), 0.3);
+	}
+	.section-title h2 {
+		font-size: 1.8rem;
+		font-weight: 800;
+		margin: 0;
+		line-height: 1.2;
+	}
+	.section-sub {
+		font-size: 0.9rem;
+		opacity: 0.6;
+		margin: 0.2rem 0 0;
+	}
+
+	/* Glass Card Base */
+	.card-glass {
+		background: rgba(255, 255, 255, 0.4);
+		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
+		border-radius: 24px;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		overflow: hidden;
+		transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+	}
+	:root.dark .card-glass {
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06), 0 10px 30px rgba(0, 0, 0, 0.15);
+	}
+
+	/* 1. Board Grid */
+	.board-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 2rem;
+	}
+	.board-card {
+		display: flex;
+		flex-direction: column;
+	}
+	.board-card:hover {
+		transform: translateY(-8px);
+		border-color: rgba(var(--cbs-emerald-rgb), 0.4);
+		box-shadow: 0 20px 50px rgba(var(--cbs-emerald-rgb), 0.15);
+	}
+	.card-img-wrapper {
+		position: relative;
+		width: 100%;
+		height: 320px;
+		overflow: hidden;
+	}
+	.portrait-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		transition: transform 0.5s ease;
+	}
+	.board-card:hover .portrait-img {
+		transform: scale(1.05);
+	}
+	.card-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(to top, rgba(10, 25, 47, 0.85) 0%, transparent 60%);
+	}
+	.badge-tag {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		font-size: 0.65rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		padding: 0.35rem 0.9rem;
+		border-radius: 50px;
+		background: var(--cbs-emerald);
+		color: white;
+		box-shadow: 0 4px 15px rgba(var(--cbs-emerald-rgb), 0.4);
+		z-index: 2;
+	}
+	.badge-tag.gold-badge {
+		background: var(--accent-yellow);
+		color: #0b1a2d;
+		box-shadow: 0 4px 15px rgba(var(--cbs-gold-rgb), 0.4);
+	}
+	.card-info {
+		padding: 1.8rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.card-info h3 {
+		font-size: 1.4rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.role-pill {
+		font-size: 0.75rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--accent-cyan);
+	}
+
+	/* 2. Advisors Grid */
+	.advisors-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2rem;
+	}
+	.advisor-card {
+		display: flex;
+		align-items: center;
+		padding: 1.8rem;
+		gap: 2rem;
+	}
+	.advisor-card:hover {
+		transform: translateY(-6px);
+		border-color: rgba(var(--cbs-gold-rgb), 0.4);
+		box-shadow: 0 16px 40px rgba(var(--cbs-gold-rgb), 0.12);
+	}
+	.advisor-img-wrapper {
+		width: 130px;
+		height: 130px;
+		border-radius: 20px;
+		overflow: hidden;
+		flex-shrink: 0;
+		border: 2px solid rgba(var(--cbs-gold-rgb), 0.3);
+	}
+	.advisor-portrait {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+	}
+	.advisor-info {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.4rem;
+	}
+	.advisor-info h3 {
+		font-size: 1.35rem;
+		font-weight: 800;
+		margin: 0;
+	}
+	.advisor-role {
+		font-size: 0.75rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--accent-yellow);
+	}
+	.advisor-title {
+		font-size: 0.85rem;
+		opacity: 0.7;
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	/* 3. Members Grid */
+	.members-grid {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 1.5rem;
+	}
+	.member-card {
+		display: flex;
+		flex-direction: column;
+		padding: 1.5rem;
+		align-items: center;
+		text-align: center;
+	}
+	.member-card:hover {
+		transform: translateY(-6px);
+		border-color: rgba(var(--accent-cyan-rgb), 0.4);
+		box-shadow: 0 14px 36px rgba(var(--accent-cyan-rgb), 0.12);
+	}
+	.member-img-wrapper {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-bottom: 1.2rem;
+		border: 2px solid rgba(var(--accent-cyan-rgb), 0.3);
+		position: relative;
+	}
+	.member-portrait {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center top;
+		transition: transform 0.4s ease;
+	}
+	.member-card:hover .member-portrait {
+		transform: scale(1.08);
+	}
+	.avatar-fallback {
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(135deg, rgba(var(--cbs-emerald-rgb), 0.2), rgba(var(--cbs-blue-corp-rgb), 0.3));
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: var(--accent-cyan);
+	}
+	.fallback-icon {
+		font-size: 1.5rem;
+		opacity: 0.7;
+	}
+	.fallback-initial {
+		font-size: 1rem;
+		font-weight: 900;
+	}
+	.member-details {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+	.member-details h3 {
+		font-size: 1.1rem;
+		font-weight: 800;
+		margin: 0;
+		line-height: 1.2;
+	}
+	.member-role {
+		font-size: 0.72rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--accent-cyan);
+	}
+	.member-area {
+		font-size: 0.7rem;
+		opacity: 0.6;
+		font-weight: 600;
+	}
+
+	/* Responsive */
+	@media (max-width: 1200px) {
+		.members-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	@media (max-width: 900px) {
+		.board-grid {
+			grid-template-columns: 1fr;
+		}
+		.advisors-grid {
+			grid-template-columns: 1fr;
+		}
+		.members-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.card-img-wrapper {
+			height: 280px;
+		}
+	}
+	@media (max-width: 550px) {
+		.members-grid {
+			grid-template-columns: 1fr;
+		}
+		.advisor-card {
+			flex-direction: column;
+			text-align: center;
+			align-items: center;
+		}
+		.advisor-info {
+			align-items: center;
+		}
+	}
+</style>

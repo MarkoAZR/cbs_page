@@ -1,27 +1,76 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import ThemeToggle from '../components/common/ThemeToggle.astro';
+import LanguageSwitcher from '../components/common/LanguageSwitcher.astro';
 import BottomNav from '../components/common/BottomNav.astro';
+import { useTranslations, getAlternateLocalePath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
 import '../styles/global.css';
 
 interface Props {
 	title: string;
 	description?: string;
+	lang?: Lang;
 }
 
-const { title, description = "Grupo de Divulgación Científica - Avances y Eventos" } = Astro.props;
+const { title, description = "Grupo de Divulgación Científica - Avances y Eventos", lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+
+const esPath = getAlternateLocalePath(Astro.url, 'es');
+const enPath = getAlternateLocalePath(Astro.url, 'en');
+const siteBase = import.meta.env.SITE + import.meta.env.BASE_URL;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/cbs_logo.png`} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | CBS-UNMSM</title>
 		<meta name="description" content={description} />
 		
+		<!-- OpenGraph -->
+		<meta property="og:title" content={`${title} | CBS-UNMSM`} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:image" content={`${siteBase}/cbs_logo.png`} />
+		<meta property="og:locale" content={lang === 'es' ? 'es_PE' : 'en_US'} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={`${title} | CBS-UNMSM`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={`${siteBase}/cbs_logo.png`} />
+
+		<!-- Hreflang for SEO -->
+		<link rel="alternate" hreflang="es" href={`${import.meta.env.SITE}${esPath}`} />
+		<link rel="alternate" hreflang="en" href={`${import.meta.env.SITE}${enPath}`} />
+		<link rel="alternate" hreflang="x-default" href={`${import.meta.env.SITE}${esPath}`} />
+
+		<!-- Schema.org Structured Data -->
+		<script type="application/ld+json" is:inline>
+		{
+		  "@context": "https://schema.org",
+		  "@type": "EducationalOrganization",
+		  "name": "CBS-UNMSM",
+		  "alternateName": "Comunidad de Biología Sintética UNMSM",
+		  "url": "https://cbsunmsm.site",
+		  "logo": "https://cbsunmsm.site/cbs_logo.png",
+		  "sameAs": [
+		    "https://www.youtube.com/@cbs-unmsm7189",
+		    "https://luma.com/cbs-unmsm",
+		    "https://chat.whatsapp.com/CEd3BXnUV879xKuM0MuoXE"
+		  ],
+		  "parentOrganization": {
+		    "@type": "CollegeOrUniversity",
+		    "name": "Universidad Nacional Mayor de San Marcos"
+		  }
+		}
+		</script>
+
 		<!-- Script de Bloqueo: Tema Inteligente -->
 		<script is:inline>
 			(function() {
@@ -50,17 +99,20 @@ const { title, description = "Grupo de Divulgación Científica - Avances y Even
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&family=Space+Grotesk:wght@300;400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
-		<ViewTransitions />
+		<ClientRouter />
 	</head>
 	<body>
-		<ThemeToggle />
+		<div class="top-actions">
+			<LanguageSwitcher lang={lang} />
+			<ThemeToggle />
+		</div>
 		<main>
 			<slot />
 		</main>
-		<BottomNav />
+		<BottomNav lang={lang} />
 		<footer class="main-footer">
 			<div class="container footer-content">
 				<div class="footer-left">
@@ -79,9 +131,9 @@ const { title, description = "Grupo de Divulgación Científica - Avances y Even
 						</a>
 					</div>
 					<p class="footer-description">
-						Comunidad científica de la UNMSM dedicada a la gestión académica, investigación y divulgación de la biología sintética y bioingeniería.
+						{t('footer.description')}
 					</p>
-					<p class="copyright">&copy; {new Date().getFullYear()} CBS-UNMSM. Ciencia con rigor.</p>
+					<p class="copyright">&copy; {new Date().getFullYear()} {t('footer.copyright')}</p>
 				</div>
 			</div>
 		</footer>
@@ -89,6 +141,24 @@ const { title, description = "Grupo de Divulgación Científica - Avances y Even
 </html>
 
 <style is:global>
+	.top-actions {
+		position: fixed;
+		top: 2rem;
+		right: 2rem;
+		z-index: 1100;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	@media (max-width: 600px) {
+		.top-actions {
+			top: 1.5rem;
+			right: 1.5rem;
+			gap: 0.75rem;
+		}
+	}
+
 	.main-footer {
 		margin-top: 8rem;
 		padding: 4rem 0 8rem;

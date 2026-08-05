@@ -1,16 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import EventLayout from '../../layouts/EventLayout.astro';
 
 export async function getStaticPaths() {
-	const entries = await getCollection('events');
+	const entries = await getCollection('events', ({ id }) => id.startsWith('es/'));
 	return entries.map(entry => ({
-		params: { slug: entry.slug }, props: { entry },
+		// Strip lang prefix and file extension: "es/ciclo-biosensores.mdx" -> "ciclo-biosensores"
+		params: { slug: entry.id.replace('es/', '').replace(/\.[^.]+$/, '') }, 
+		props: { entry },
 	}));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <EventLayout 
@@ -20,10 +22,7 @@ const { Content } = await entry.render();
 	location={entry.data.location}
 	type={entry.data.type}
 	image={entry.data.image}
+	lang="es"
 >
 	<Content />
 </EventLayout>
-
-<style>
-	/* Los estilos ahora se manejan en EventLayout.astro */
-</style>

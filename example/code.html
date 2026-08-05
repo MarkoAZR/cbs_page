@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Calendar | NOCTURNAL INTEL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c0e10;
+        }
+        .glass-panel {
+            background: rgba(29, 32, 34, 0.7);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#355757",
+                        "inverse-surface": "#f9f9fc",
+                        "on-primary-fixed": "#004734",
+                        "primary-container": "#00fdc1",
+                        "surface-container-low": "#111416",
+                        "on-error-container": "#ffa8a3",
+                        "error-container": "#9f0519",
+                        "surface-bright": "#292c2f",
+                        "primary-fixed": "#00fdc1",
+                        "on-tertiary-container": "#365700",
+                        "surface-tint": "#aaffdc",
+                        "secondary-fixed-dim": "#b7dbdb",
+                        "on-tertiary": "#3d6100",
+                        "on-error": "#490006",
+                        "secondary": "#c5eae9",
+                        "inverse-primary": "#006c51",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-fixed": "#224545",
+                        "tertiary-dim": "#95e400",
+                        "secondary-dim": "#b7dbdb",
+                        "tertiary-fixed-dim": "#95e400",
+                        "secondary-fixed": "#c5eae9",
+                        "background": "#0c0e10",
+                        "surface-variant": "#232629",
+                        "primary": "#aaffdc",
+                        "on-secondary-container": "#b3d7d7",
+                        "on-primary": "#00654b",
+                        "primary-dim": "#00edb4",
+                        "on-surface-variant": "#aaabad",
+                        "surface-container-high": "#1d2022",
+                        "tertiary-container": "#a2f31f",
+                        "surface-dim": "#0c0e10",
+                        "on-background": "#eeeef0",
+                        "primary-fixed-dim": "#00edb4",
+                        "on-secondary-fixed-variant": "#3f6161",
+                        "error": "#ff716c",
+                        "on-surface": "#eeeef0",
+                        "on-tertiary-fixed": "#294300",
+                        "outline-variant": "#46484a",
+                        "secondary-container": "#2a4c4c",
+                        "error-dim": "#d7383b",
+                        "on-tertiary-fixed-variant": "#3d6200",
+                        "inverse-on-surface": "#535557",
+                        "surface-container": "#171a1c",
+                        "surface": "#0c0e10",
+                        "tertiary-fixed": "#a2f31f",
+                        "outline": "#747578",
+                        "on-primary-container": "#005c44",
+                        "tertiary": "#bcff5f",
+                        "surface-container-highest": "#232629",
+                        "on-primary-fixed-variant": "#00664c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#1d2022]/70 dark:bg-[#1d2022]/70 backdrop-blur-xl bg-gradient-to-b from-[#1d2022] to-transparent shadow-[0_0_64px_rgba(170,255,220,0.08)]">
+<div class="flex items-center justify-between px-10 py-4 w-full max-w-full mx-auto">
+<div class="text-xl font-black text-[#eeeef0] dark:text-[#eeeef0] tracking-tighter">
+                NOCTURNAL INTEL
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-inter tracking-tight uppercase font-medium text-[0.75rem] text-[#aaffdc] border-b-2 border-[#aaffdc] pb-1" href="#">Global Calendar</a>
+<a class="font-inter tracking-tight uppercase font-medium text-[0.75rem] text-[#aaabad] hover:text-[#eeeef0] transition-all duration-300" href="#">Research Syncs</a>
+<a class="font-inter tracking-tight uppercase font-medium text-[0.75rem] text-[#aaabad] hover:text-[#eeeef0] transition-all duration-300" href="#">Annual Symposium</a>
+<a class="font-inter tracking-tight uppercase font-medium text-[0.75rem] text-[#aaabad] hover:text-[#eeeef0] transition-all duration-300" href="#">Lab Archives</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-inter tracking-tight uppercase font-bold text-[0.7rem] active:scale-95 transition-transform duration-150">
+                    Access Terminal
+                </button>
+<img alt="Lead Investigator Avatar" class="w-8 h-8 rounded-full border border-outline-variant/20" data-alt="Close up portrait of a senior research scientist in a high-tech dark laboratory setting with teal lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj_45fa9W543MfaydJJ-wYkrSwCUO4xsOkVSccZQU2iIreOOqT-yU7KZ2DAMYvz0PQxS66VxB9ug_aRc11zvMVb7E2wCEDEiVZf7vgF198ga7q4-f_lgwUhVt3HZzegenX0QVMkcgjS8-w0Z_lIz6AujMi1Gerbk6kPFcAQlPfw7a-qnR0nrCg1WY7f_5PnpFVWvwn_lDeVGPEw0AtuvKIuQHHyBmlmfJzmhD9ZZLEhXIihAYyKisd7qhL0S_gSTBnBOq5aIhV9vpA"/>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-6 md:px-10 max-w-[1400px] mx-auto">
+<!-- Hero Section -->
+<section class="mb-24 flex flex-col md:flex-row items-end justify-between gap-8">
+<div class="max-w-3xl">
+<div class="flex items-center gap-3 mb-6">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_#bcff5f]"></span>
+<span class="text-xs font-label tracking-[0.2em] uppercase text-tertiary">Live System Feed // Cycle 2024</span>
+</div>
+<h1 class="text-5xl md:text-7xl font-headline font-black tracking-tighter text-on-surface mb-8 leading-none">
+                    GLOBAL <span class="text-primary-dim">CALENDAR</span><br/>LAB OPERATIONS.
+                </h1>
+<p class="text-lg text-on-surface-variant font-body leading-relaxed max-w-xl">
+                    Synchronizing deep-earth data extraction and nocturnal intelligence gathering across all active obsidian nodes. Monitor the symposium schedule and system-wide synchronization events.
+                </p>
+</div>
+<div class="flex flex-col items-end gap-2 text-right">
+<div class="text-[0.65rem] font-label tracking-widest text-outline uppercase">Next Major Alignment</div>
+<div class="text-2xl font-headline font-bold text-on-surface">MAY 14 // SYMPOSIUM</div>
+</div>
+</section>
+<!-- Bento Grid Calendar -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Jan - Featured -->
+<div class="md:col-span-2 bg-surface-container-high rounded-xl p-8 flex flex-col justify-between border-l-2 border-primary/30 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-[60px] rounded-full"></div>
+<div>
+<div class="text-xs font-label tracking-[0.3em] uppercase text-outline mb-1">01 // PROJECT INCEPTION</div>
+<h3 class="text-3xl font-headline font-black text-on-surface mb-6">JANUARY</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-highest/50 border border-outline-variant/10">
+<div>
+<div class="text-xs font-bold text-primary">Annual Research Symposium</div>
+<div class="text-[0.6rem] text-on-surface-variant uppercase tracking-wider">Jan 12-15 • HQ Terminal</div>
+</div>
+<span class="material-symbols-outlined text-primary text-sm">rocket_launch</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container/30 border border-outline-variant/5">
+<div>
+<div class="text-xs font-bold text-on-surface">Team Syncs: Alpha Node</div>
+<div class="text-[0.6rem] text-on-surface-variant uppercase tracking-wider">Every Monday • Remote Sync</div>
+</div>
+<span class="material-symbols-outlined text-outline text-sm">sensors</span>
+</div>
+</div>
+</div>
+<button class="mt-8 text-[0.7rem] font-bold text-primary tracking-widest uppercase flex items-center gap-2 hover:gap-3 transition-all">
+                    Register For Keynote <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<!-- Feb -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col border border-outline-variant/10 hover:border-primary/20 transition-colors">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">02</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">FEBRUARY</h3>
+<div class="flex-grow space-y-3">
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                        Public Lecture: AI Ethics in the Dark
+                        <div class="text-[0.6rem] text-outline mt-1 uppercase">Feb 22</div>
+</div>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                        Security Audit Cycle
+                        <div class="text-[0.6rem] text-outline mt-1 uppercase">Feb 28</div>
+</div>
+</div>
+<button class="mt-4 text-[0.65rem] font-bold text-on-surface uppercase opacity-50 hover:opacity-100 transition-opacity">View Details</button>
+</div>
+<!-- March -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col border border-outline-variant/10 hover:border-primary/20 transition-colors">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">03</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">MARCH</h3>
+<div class="flex-grow space-y-3">
+<div class="text-[0.75rem] font-medium text-tertiary border-l border-tertiary/40 pl-3">
+                        Open Lab Days: Visualizing Void
+                        <div class="text-[0.6rem] text-tertiary/60 mt-1 uppercase">Mar 05-08</div>
+</div>
+</div>
+<button class="mt-4 text-[0.65rem] font-bold text-tertiary uppercase">Book Visit</button>
+</div>
+<!-- April -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">04</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">APRIL</h3>
+<div class="flex-grow space-y-3">
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                        Mid-Year Analysis
+                        <div class="text-[0.6rem] text-outline mt-1 uppercase">Apr 15</div>
+</div>
+</div>
+</div>
+<!-- May - Highlight -->
+<div class="lg:col-span-2 bg-gradient-to-br from-secondary-container to-surface-container-high rounded-xl p-8 border border-primary/20 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[10rem]" style="font-variation-settings: 'FILL' 1;">biotech</span>
+</div>
+<div class="relative z-10">
+<div class="inline-block px-2 py-0.5 rounded bg-primary text-on-primary text-[0.6rem] font-black uppercase tracking-tighter mb-4">Priority Alignment</div>
+<div class="text-xs font-label tracking-widest text-on-secondary-container uppercase mb-1">05</div>
+<h3 class="text-3xl font-headline font-black text-on-surface mb-6">MAY</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-black/20 p-4 rounded-lg">
+<div class="text-xs font-bold text-primary mb-1">Obsidian Summit 2024</div>
+<p class="text-[0.65rem] text-on-surface-variant leading-relaxed">The flagship intelligence gathering for dark-data specialists. 3 days of intensive deep-dives.</p>
+</div>
+<div class="bg-black/20 p-4 rounded-lg">
+<div class="text-xs font-bold text-on-surface mb-1">Research Syncs: Global</div>
+<p class="text-[0.65rem] text-on-surface-variant leading-relaxed">Mandatory quarterly alignment for all department leads.</p>
+</div>
+</div>
+<button class="mt-8 bg-primary text-on-primary px-6 py-3 rounded-lg text-xs font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(0,253,193,0.3)]">Register For Summit</button>
+</div>
+</div>
+<!-- June -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">06</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">JUNE</h3>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                    Internal Lab Maintenance
+                    <div class="text-[0.6rem] text-outline mt-1 uppercase">Jun 20-30</div>
+</div>
+</div>
+<!-- July -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">07</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">JULY</h3>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                    Summer Lecture Series
+                    <div class="text-[0.6rem] text-outline mt-1 uppercase">TBA</div>
+</div>
+</div>
+<!-- August -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">08</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">AUGUST</h3>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                    Node Calibration
+                    <div class="text-[0.6rem] text-outline mt-1 uppercase">Aug 12</div>
+</div>
+</div>
+<!-- Sep -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">09</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">SEPTEMBER</h3>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                    Autumn Equinox Review
+                    <div class="text-[0.6rem] text-outline mt-1 uppercase">Sep 22</div>
+</div>
+</div>
+<!-- Oct -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10 hover:border-tertiary/20">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">10</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">OCTOBER</h3>
+<div class="text-[0.75rem] font-medium text-tertiary border-l border-tertiary/40 pl-3">
+                    Haunted Data Exhibition
+                    <div class="text-[0.6rem] text-tertiary/60 mt-1 uppercase">Oct 31</div>
+</div>
+<button class="mt-4 text-[0.65rem] font-bold text-tertiary uppercase">Tickets Available</button>
+</div>
+<!-- Nov -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">11</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">NOVEMBER</h3>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                    Winter Protocol Briefing
+                    <div class="text-[0.6rem] text-outline mt-1 uppercase">Nov 15</div>
+</div>
+</div>
+<!-- Dec -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<div class="text-xs font-label tracking-widest text-outline uppercase mb-1">12</div>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-4">DECEMBER</h3>
+<div class="text-[0.75rem] font-medium text-on-surface-variant border-l border-outline-variant/40 pl-3">
+                    Annual System Hibernate
+                    <div class="text-[0.6rem] text-outline mt-1 uppercase">Dec 24-31</div>
+</div>
+</div>
+</div>
+<!-- Featured Section Asymmetric -->
+<section class="mt-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<div class="aspect-video rounded-xl overflow-hidden relative border border-outline-variant/20 shadow-[0_0_80px_rgba(188,255,95,0.05)]">
+<img alt="High Tech Server Room" class="w-full h-full object-cover" data-alt="Futuristic dark data center with rows of sleek black servers glowing with neon green and teal lights in a misty atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu79VzRZCX6DI8y6CU0Bl6I51mBeFm8xDFUfnaZc1dMzsqBLuHFa_maNk2ZsHT-JXbgWBKUcTQKMYDhOubWwThUM4qiXgU4gcEuA0hNeA4Hfei_03PLq0_WbuKfvn7M7w0CrAwxr61ukUC66p2D1UATYlIDzz7o1dhP-o_66FMCotD9AUlqgwYliIJXB_7LIazi3atrmIdCEXReQ9yflWsULHsQ8alZUIfp9ldYP0agvM2i3YJ7zCHKtdp90WX45A-5se0UwKBZjkQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60"></div>
+<div class="absolute bottom-6 left-6 right-6">
+<div class="text-xs font-label text-tertiary tracking-widest uppercase mb-2">Facility Access</div>
+<div class="text-xl font-headline font-bold text-on-surface">The Obsidian Vault // Sector 7G</div>
+</div>
+</div>
+</div>
+<div class="order-1 lg:order-2">
+<h2 class="text-4xl font-headline font-black tracking-tight mb-6">SYSTEM <span class="text-tertiary">SYNCHRONIZATION</span> STANDARDS.</h2>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">verified</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Verified Credentials</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">All events require Level 4 security clearance or an active guest temporary token. Terminal access is monitored.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Live Data Streaming</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">Research syncs are broadcasted via secure encrypted tunnel for remote operational nodes.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">public</span>
+</div>
+<div>
+<h4 class="text-sm font-bold text-on-surface">Public Engagement</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed mt-1">Select lectures are declassified and open to civilian intelligence partners upon registration.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-[#46484a]/20 bg-[#0c0e10] dark:bg-[#0c0e10] mt-24">
+<div class="flex flex-col md:flex-row justify-between items-center px-10 py-12 w-full max-w-full mx-auto">
+<div class="mb-8 md:mb-0">
+<div class="text-lg font-bold text-[#eeeef0] mb-2 tracking-tighter">OBSIDIAN LABS</div>
+<p class="font-inter text-[0.65rem] tracking-[0.05em] uppercase text-[#aaabad]">© 2024 OBSIDIAN LABS - DEPARTMENT OF NOCTURNAL INTELLIGENCE</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-inter text-[0.65rem] tracking-[0.05em] uppercase text-[#aaabad] hover:text-[#bcff5f] transition-colors cursor-pointer" href="#">System Protocols</a>
+<a class="font-inter text-[0.65rem] tracking-[0.05em] uppercase text-[#aaabad] hover:text-[#bcff5f] transition-colors cursor-pointer" href="#">Ethics Board</a>
+<a class="font-inter text-[0.65rem] tracking-[0.05em] uppercase text-[#aaabad] hover:text-[#bcff5f] transition-colors cursor-pointer" href="#">Secure Access</a>
+<a class="font-inter text-[0.65rem] tracking-[0.05em] uppercase text-[#aaabad] hover:text-[#bcff5f] transition-colors cursor-pointer" href="#">API Documentation</a>
+</div>
+<div class="mt-8 md:mt-0 flex gap-4">
+<div class="w-8 h-8 rounded border border-outline-variant/20 flex items-center justify-center hover:bg-surface-container-highest transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[1rem] text-on-surface-variant">terminal</span>
+</div>
+<div class="w-8 h-8 rounded border border-outline-variant/20 flex items-center justify-center hover:bg-surface-container-highest transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[1rem] text-on-surface-variant">share</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

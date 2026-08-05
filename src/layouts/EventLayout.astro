@@ -1,5 +1,7 @@
 ---
 import Layout from './Layout.astro';
+import { useTranslations, getLocalePath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
 	title: string;
@@ -8,27 +10,29 @@ interface Props {
 	location: string;
 	type: 'charla' | 'taller' | 'conferencia' | 'visita' | 'otro';
 	image?: string;
+	lang?: Lang;
 }
 
-const { title, description, date, location, type, image } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const { title, description, date, location, type, image, lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
 
-const typeConfig = {
-	charla: { icon: 'record_voice_over', label: 'Charla Magistral' },
-	taller: { icon: 'build', label: 'Taller Práctico' },
-	conferencia: { icon: 'groups', label: 'Conferencia' },
-	visita: { icon: 'location_away', label: 'Visita Técnica' },
-	otro: { icon: 'event', label: 'Evento Especial' },
+const typeConfig: Record<string, { icon: string; label: string }> = {
+	charla: { icon: 'record_voice_over', label: t('type.charla') },
+	taller: { icon: 'build', label: t('type.taller') },
+	conferencia: { icon: 'groups', label: t('type.conferencia') },
+	visita: { icon: 'location_away', label: t('type.visita') },
+	otro: { icon: 'event', label: t('type.otro') },
 };
 
 const currentType = typeConfig[type] || typeConfig.otro;
+const dateLocale = lang === 'es' ? 'es-ES' : 'en-US';
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} lang={lang}>
 	<div class="event-container">
 		<header class="event-header animate-in">
-			<a href={`${base}/events`} class="back-link">
-				<span class="material-icons">west</span> Calendario de Eventos
+			<a href={getLocalePath(lang, 'events')} class="back-link">
+				<span class="material-icons">west</span> {t('event.back')}
 			</a>
 			
 			<div class="header-main">
@@ -45,64 +49,50 @@ const currentType = typeConfig[type] || typeConfig.otro;
 					<div class="info-card">
 						<span class="material-icons">event</span>
 						<div class="details">
-							<span class="label">Fecha</span>
-							<span class="value">{date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })}</span>
+							<span class="label">{t('event.date')}</span>
+							<span class="value">{date.toLocaleDateString(dateLocale, { weekday: 'long', day: 'numeric', month: 'long' })}</span>
 						</div>
 					</div>
 					<div class="info-card">
 						<span class="material-icons">schedule</span>
 						<div class="details">
-							<span class="label">Hora</span>
-							<span class="value">{date.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</span>
+							<span class="label">{t('event.time')}</span>
+							<span class="value">{date.toLocaleTimeString(dateLocale, { hour: '2-digit', minute: '2-digit' })}</span>
 						</div>
 					</div>
 					<div class="info-card">
 						<span class="material-icons">place</span>
 						<div class="details">
-							<span class="label">Ubicación</span>
+							<span class="label">{t('event.location')}</span>
 							<span class="value">{location}</span>
 						</div>
 					</div>
 				</div>
+				<div class="youtube-broadcast-bar">
+					<a href="https://www.youtube.com/@cbs-unmsm7189" target="_blank" rel="noopener noreferrer" class="btn-youtube">
+						<span class="material-icons yt-icon">play_circle</span>
+						<span>{lang === 'es' ? 'Ver Canal en YouTube' : 'Watch YouTube Channel'}</span>
+						<span class="material-icons">open_in_new</span>
+					</a>
+				</div>
 			</div>
 		</header>
 
-		<div class="event-content-grid">
-			<article class="event-description glass animate-in" style="animation-delay: 0.2s">
-				<div class="section-title">
-					<span class="material-icons">info</span>
-					<h2>Sobre el Evento</h2>
-				</div>
-				<div class="entry-content">
-					<slot />
-				</div>
-			</article>
-
-			<aside class="event-actions animate-in" style="animation-delay: 0.3s">
-				<div class="action-card glass cyan-glow">
-					<h3>Inscripciones</h3>
-					<p>Asegura tu lugar en este evento. Cupos limitados para garantizar el rigor académico.</p>
-					<a href="#" class="cta-button">
-						Reservar Mi Cupo <span class="material-icons">arrow_forward</span>
-					</a>
-					<p class="status"><span class="pulse-dot"></span> Inscripciones Abiertas</p>
-				</div>
-
-				<div class="action-card glass">
-					<h3>Recordatorio</h3>
-					<p>Recibe una notificación 24h antes del inicio del evento.</p>
-					<button class="secondary-button">
-						<span class="material-icons">notifications</span> Notificarme
-					</button>
-				</div>
-			</aside>
-		</div>
+		<article class="event-description glass animate-in" style="animation-delay: 0.2s">
+			<div class="section-title">
+				<span class="material-icons">info</span>
+				<h2>{t('event.about')}</h2>
+			</div>
+			<div class="entry-content">
+				<slot />
+			</div>
+		</article>
 	</div>
 </Layout>
 
 <style>
 	.event-container {
-		max-width: 1100px;
+		max-width: 900px;
 		margin: 0 auto;
 		padding: 6rem 1.5rem;
 	}
@@ -169,6 +159,36 @@ const currentType = typeConfig[type] || typeConfig.otro;
 		padding: 3rem;
 	}
 
+	.youtube-broadcast-bar {
+		padding: 0 3rem 2.5rem;
+		display: flex;
+		justify-content: center;
+	}
+	.btn-youtube {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.85rem 2rem;
+		border-radius: 50px;
+		background: #ff0000;
+		color: white;
+		font-size: 0.8rem;
+		font-weight: 900;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		text-decoration: none;
+		box-shadow: 0 4px 20px rgba(255, 0, 0, 0.4);
+		transition: all 0.3s ease;
+	}
+	.btn-youtube:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 8px 30px rgba(255, 0, 0, 0.6);
+		background: #cc0000;
+	}
+	.yt-icon {
+		font-size: 1.4rem;
+	}
+
 	.info-card {
 		display: flex;
 		align-items: center;
@@ -197,13 +217,6 @@ const currentType = typeConfig[type] || typeConfig.otro;
 	.value {
 		font-size: 1.1rem;
 		font-weight: 700;
-	}
-
-	.event-content-grid {
-		display: grid;
-		grid-template-columns: 1fr 320px;
-		gap: 3rem;
-		align-items: start;
 	}
 
 	.event-description {
@@ -258,110 +271,8 @@ const currentType = typeConfig[type] || typeConfig.otro;
 		line-height: 1;
 	}
 
-	.event-actions {
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
-
-	.action-card {
-		padding: 2.5rem;
-		border-radius: 24px;
-	}
-
-	.cyan-glow {
-		border-color: rgba(var(--accent-cyan-rgb), 0.3);
-		background: linear-gradient(135deg, rgba(var(--accent-cyan-rgb), 0.05), transparent);
-	}
-
-	.action-card h3 {
-		font-size: 1.2rem;
-		margin-bottom: 1rem;
-	}
-
-	.action-card p {
-		font-size: 0.9rem;
-		opacity: 0.7;
-		margin-bottom: 2rem;
-	}
-
-	.cta-button {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.75rem;
-		background: var(--accent-cyan);
-		color: #fff;
-		padding: 1rem;
-		border-radius: 14px;
-		font-weight: 800;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		transition: all 0.3s;
-		box-shadow: 0 10px 20px rgba(var(--accent-cyan-rgb), 0.2);
-	}
-
-	.cta-button:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 15px 30px rgba(var(--accent-cyan-rgb), 0.4);
-		filter: brightness(1.1);
-	}
-
-	.status {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-top: 1.5rem !important;
-		font-weight: 700;
-		color: var(--accent-cyan);
-		font-size: 0.8rem !important;
-		opacity: 1 !important;
-	}
-
-	.pulse-dot {
-		width: 8px;
-		height: 8px;
-		background: var(--accent-cyan);
-		border-radius: 50%;
-		box-shadow: 0 0 10px var(--accent-cyan);
-		animation: pulse 2s infinite;
-	}
-
-	@keyframes pulse {
-		0% { transform: scale(0.95); opacity: 1; }
-		50% { transform: scale(1.2); opacity: 0.7; }
-		100% { transform: scale(0.95); opacity: 1; }
-	}
-
-	.secondary-button {
-		width: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		background: rgba(255, 255, 255, 0.05);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		color: var(--text-color);
-		padding: 0.8rem;
-		border-radius: 12px;
-		font-weight: 700;
-		cursor: pointer;
-		transition: all 0.3s;
-	}
-
-	.secondary-button:hover {
-		background: rgba(255, 255, 255, 0.1);
-	}
-
 	@media (max-width: 900px) {
-		.event-content-grid {
-			grid-template-columns: 1fr;
-		}
-		.event-actions {
-			order: 2;
-		}
 		.event-description {
-			order: 1;
 			padding: 2.5rem;
 		}
 	}

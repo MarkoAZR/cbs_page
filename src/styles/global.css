@@ -7,6 +7,8 @@
     --cbs-emerald-rgb: 23, 158, 117;
     --cbs-gold: #e3df72;
     --cbs-gold-rgb: 227, 223, 114;
+    --cbs-gold-dark: #a38a00;
+    --cbs-gold-dark-rgb: 163, 138, 0;
     --cbs-off-white: #f8efed;
     --cbs-cream: #f8efb7;
 
@@ -20,14 +22,13 @@
     --accent-purple-rgb: var(--cbs-blue-corp-rgb);
     --accent-cyan: var(--cbs-emerald);
     --accent-cyan-rgb: var(--cbs-emerald-rgb);
-    --accent-yellow: var(--cbs-gold);
-    --accent-yellow-rgb: var(--cbs-gold-rgb);
+    --accent-yellow: var(--cbs-gold-dark);
+    --accent-yellow-rgb: var(--cbs-gold-dark-rgb);
     --accent-glow: rgba(var(--cbs-emerald-rgb), 0.3);
 
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
-    --font-fancy: 'Pinyon Script', cursive;
-    --grid-size: 50px;
+    scroll-behavior: smooth;
 }
 
 :root.dark {
@@ -37,6 +38,8 @@
     --card-bg: rgba(21, 79, 155, 0.1);
     --border-color: rgba(255, 255, 255, 0.1);
 
+    --accent-yellow: var(--cbs-gold);
+    --accent-yellow-rgb: var(--cbs-gold-rgb);
     --accent-glow: rgba(23, 158, 117, 0.5);
 }
 
@@ -55,22 +58,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Background Grid Effect */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        linear-gradient(var(--border-color) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
-    background-size: var(--grid-size) var(--grid-size);
-    pointer-events: none;
-    z-index: -1;
-    mask-image: radial-gradient(ellipse at center, black, transparent 80%);
-}
+
 
 h1,
 h2,
@@ -85,6 +73,10 @@ h3 {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border-color);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+:root.dark .glass {
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .organic-blob {
@@ -96,7 +88,7 @@ h3 {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 2rem;
 }
@@ -147,4 +139,16 @@ a {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     display: inline-block;
+}
+
+/* Accessibility: Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }

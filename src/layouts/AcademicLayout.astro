@@ -1,5 +1,7 @@
 ---
 import Layout from './Layout.astro';
+import { useTranslations, getLocalePath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
 
 interface Props {
 	title: string;
@@ -7,17 +9,19 @@ interface Props {
 	pubDate: Date;
 	author: string;
 	tags: string[];
+	lang?: Lang;
 }
 
-const { title, description, pubDate, author, tags } = Astro.props;
-const base = import.meta.env.BASE_URL;
+const { title, description, pubDate, author, tags, lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const dateLocale = lang === 'es' ? 'es-ES' : 'en-US';
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title} description={description} lang={lang}>
 	<div class="academic-container">
 		<header class="academic-header animate-in">
-			<a href={`${base}/articles`} class="back-link">
-				<span class="material-icons">west</span> Volver al archivo
+			<a href={getLocalePath(lang, 'articles')} class="back-link">
+				<span class="material-icons">west</span> {t('article.back')}
 			</a>
 			<div class="header-content">
 				<div class="meta-tags">
@@ -25,9 +29,9 @@ const base = import.meta.env.BASE_URL;
 				</div>
 				<h1>{title}</h1>
 				<div class="header-details">
-					<p class="author">Por <span class="pinyon">{author}</span></p>
+					<p class="author">{t('articles.by')} <span class="author-name">{author}</span></p>
 					<div class="divider-dot"></div>
-					<time>{pubDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</time>
+					<time>{pubDate.toLocaleDateString(dateLocale, { day: 'numeric', month: 'long', year: 'numeric' })}</time>
 				</div>
 			</div>
 		</header>
@@ -35,35 +39,22 @@ const base = import.meta.env.BASE_URL;
 		<div class="academic-grid">
 			<aside class="academic-sidebar animate-in" style="animation-delay: 0.1s">
 				<div class="sidebar-block glass">
-					<h3>Resumen Ejecutivo</h3>
+					<h3>{t('article.summary')}</h3>
 					<p class="abstract">{description}</p>
 				</div>
 				
 				<div class="sidebar-block glass">
-					<h3>Metadatos</h3>
+					<h3>{t('article.metadata')}</h3>
 					<ul class="meta-list">
 						<li>
-							<span class="label">Publicado</span>
-							<span class="value">{pubDate.toLocaleDateString('es-ES')}</span>
+							<span class="label">{t('article.published')}</span>
+							<span class="value">{pubDate.toLocaleDateString(dateLocale)}</span>
 						</li>
 						<li>
-							<span class="label">Entidad</span>
+							<span class="label">{t('article.entity')}</span>
 							<span class="value">CBS-UNMSM</span>
 						</li>
-						<li>
-							<span class="label">DOI</span>
-							<span class="value">CBS.2026.ART.{(Math.random()*1000).toFixed(0)}</span>
-						</li>
 					</ul>
-				</div>
-
-				<div class="sidebar-block glass">
-					<h3>Compartir</h3>
-					<div class="share-links">
-						<!-- Placeholder links -->
-						<button class="share-btn"><span class="material-icons">link</span></button>
-						<button class="share-btn"><span class="material-icons">share</span></button>
-					</div>
 				</div>
 			</aside>
 
@@ -72,7 +63,7 @@ const base = import.meta.env.BASE_URL;
 				
 				<footer class="article-footer">
 					<div class="citation">
-						<h4>Citar este artículo:</h4>
+						<h4>{t('article.cite')}</h4>
 						<p>{author} ({pubDate.getFullYear()}). "{title}". <em>Hub de Divulgación CBS-UNMSM</em>.</p>
 					</div>
 				</footer>
@@ -118,7 +109,7 @@ const base = import.meta.env.BASE_URL;
 		line-height: 1.05;
 		font-weight: 800;
 		margin-bottom: 1.5rem;
-		letter-spacing: -0.02e m;
+		letter-spacing: -0.02em;
 	}
 
 	.header-details {
@@ -129,9 +120,9 @@ const base = import.meta.env.BASE_URL;
 		opacity: 0.8;
 	}
 
-	.author .pinyon {
-		font-family: 'Pinyon Script', cursive;
-		font-size: 1.6rem;
+	.author-name {
+		font-family: var(--font-heading);
+		font-weight: 700;
 		color: var(--accent-yellow);
 		margin-left: 0.3rem;
 	}
@@ -222,27 +213,6 @@ const base = import.meta.env.BASE_URL;
 
 	.value {
 		font-weight: 700;
-	}
-
-	.share-links {
-		display: flex;
-		gap: 1rem;
-	}
-
-	.share-btn {
-		background: rgba(255, 255, 255, 0.05);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		color: var(--text-color);
-		padding: 0.6rem;
-		border-radius: 10px;
-		cursor: pointer;
-		transition: all 0.3s;
-	}
-
-	.share-btn:hover {
-		background: rgba(var(--accent-cyan-rgb), 0.1);
-		border-color: var(--accent-cyan);
-		color: var(--accent-cyan);
 	}
 
 	.academic-body {

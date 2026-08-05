@@ -1,16 +1,18 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import AcademicLayout from '../../layouts/AcademicLayout.astro';
 
 export async function getStaticPaths() {
 	const entries = await getCollection('articles');
 	return entries.map(entry => ({
-		params: { slug: entry.slug }, props: { entry },
+		// Strip file extension from ID: "primera-entrada.mdx" -> "primera-entrada"
+		params: { slug: entry.id.replace(/\.[^.]+$/, '') }, 
+		props: { entry },
 	}));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <AcademicLayout 
@@ -19,10 +21,7 @@ const { Content } = await entry.render();
 	pubDate={entry.data.pubDate}
 	author={entry.data.author}
 	tags={entry.data.tags}
+	lang="es"
 >
 	<Content />
 </AcademicLayout>
-
-<style>
-	/* Los estilos ahora se manejan en AcademicLayout.astro */
-</style>

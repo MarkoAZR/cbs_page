@@ -1,0 +1,386 @@
+export const languages = {
+    es: 'Español',
+    en: 'English',
+};
+
+export const defaultLang = 'es';
+export type Lang = keyof typeof languages;
+
+export const ui = {
+    es: {
+        // Nav
+        'nav.events': 'Eventos',
+        'nav.team': 'Equipo',
+        'nav.partners': 'Aliados',
+        'nav.brand.tag': 'DIVULGACIÓN',
+
+        // Hero
+        'hero.pretitle': 'CBS-UNMSM',
+        'hero.title.line1': 'Comunidad de',
+        'hero.title.highlight': 'Biología Sintética.',
+        'hero.description': 'Somos una comunidad universitaria sin fines de lucro que promueve la formación y divulgación especializada en biología sintética, impulsando su desarrollo con un enfoque integral, científico y humanístico.',
+        'hero.cta.events': 'Próximos Eventos',
+        'hero.cta.symposium': 'I Simposio Internacional',
+        'hero.scroll': 'DESLIZAR PARA EXPLORAR',
+
+        // Impact / Bento
+        'impact.title': 'Nuestra Labor en Cifras y Hechos',
+        'impact.subtitle': 'Modularidad, transparencia y excelencia en cada paso del camino.',
+        'bento.weekly': 'Destacado',
+        'bento.weekly.title': 'I Simposio Internacional Virtual',
+        'bento.weekly.desc': 'Evento clave con ponentes internacionales de más de 7 países, enfocado en integrar a estudiantes de Latinoamérica en la biología sintética.',
+        'bento.weekly.link': 'Ver eventos →',
+        'bento.community': 'Comunidad',
+        'bento.community.title': '+10 Miembros Activos',
+        'bento.community.desc': 'Estudiantes, egresados y profesores sanmarquinos apasionados por la biología sintética.',
+        'bento.mission': 'Misión & Visión',
+        'bento.mission.title': 'Misión & Visión',
+        'bento.mission.desc': 'Promover la formación y divulgación especializada en biología sintética con un enfoque científico y humanista.',
+        'bento.vision.desc': 'Consolidarnos como la comunidad universitaria referente de biología sintética en Latinoamérica, conectando la ciencia con el impacto real.',
+        'bento.next': 'Próximo',
+        'bento.next.title': 'Ciclo de Laboratorios SynBio',
+        'bento.next.desc': 'Presentaciones de laboratorios enfocadas en biosensores. Junio – Agosto 2026.',
+        'bento.projects': 'Proyectos',
+        'bento.projects.title': 'Proyectos Emblemáticos',
+        'bento.projects.desc': 'AURA-Bio: plataforma de inteligencia ambiental con IA y biología sintética para biorremediación de metales pesados en la Amazonía. Yaku: chasis bacterianos para absorción de contaminantes.',
+        'bento.projects.link': 'Próximamente más detalles',
+
+        // Stats Bar
+        'stats.events': '+6',
+        'stats.events.label': 'Eventos realizados',
+        'stats.events.sub': 'Desde 2022',
+        'stats.community': '+300',
+        'stats.community.label': 'Personas en la comunidad',
+        'stats.community.sub': 'Nacionales e internacionales',
+        'stats.members': '+10',
+        'stats.members.label': 'Miembros activos',
+        'stats.members.sub': 'Equipo multidisciplinar',
+        'stats.allies': '8',
+        'stats.allies.label': 'Aliados estratégicos',
+        'stats.allies.sub': 'Nacionales e internacionales',
+
+        // Timeline
+        'timeline.pretitle': 'NUESTRA HISTORIA',
+        'timeline.title': 'Hitos',
+        'timeline.highlight': 'Fundacionales',
+        'timeline.2021.label': 'Fundación',
+        'timeline.2021.desc': 'Nace CBS-UNMSM como comunidad universitaria de biología sintética el 17 de septiembre.',
+        'timeline.2022.label': 'iGEM Design League',
+        'timeline.2022.desc': 'Primera participación en iGEM Design League — Medalla de Oro.',
+        'timeline.2023.label': 'Expansión iGEM',
+        'timeline.2023.desc': 'Más de 2 equipos CBS compiten en la iGEM Design League, consolidando nuestra presencia.',
+        'timeline.2025.label': 'Divulgación',
+        'timeline.2025.desc': 'Primera actividad de divulgación científica en la UNMSM: Ciclo de Foros.',
+        'timeline.2026.label': 'Simposio Internacional',
+        'timeline.2026.desc': 'I Simposio Internacional Virtual reuniendo ponentes de más de 7 países del mundo.',
+
+        // Allies Strip
+        'allies.pretitle': 'RESPALDO INSTITUCIONAL',
+        'allies.title': 'Nuestros',
+        'allies.highlight': 'Aliados',
+
+        // Community CTA
+        'cta.join.pretitle': 'FORMA PARTE DEL CAMBIO',
+        'cta.join.title': '¿Quieres ser parte del futuro de la',
+        'cta.join.highlight': 'Biología Sintética',
+        'cta.join.title2': 'en el Perú?',
+        'cta.join.desc': 'Únete a una comunidad que está construyendo el puente entre la ciencia y el impacto real en Latinoamérica.',
+        'cta.join.btn': 'Únete a la Comunidad',
+        'cta.join.btn2': 'Ver Próximos Eventos',
+
+        // Events page
+        'events.title': 'Próximos Eventos',
+        'events.description': 'Participa en nuestras charlas, talleres y conferencias sobre Biología Sintética.',
+        'events.pretitle': 'Scientific Agenda',
+        'events.heading': 'Próximos',
+        'events.heading.highlight': 'Eventos',
+        'events.subtitle': 'Únete a la conversación científica. Talleres, charlas y más.',
+
+        // Calendar
+        'calendar.pretitle': 'CICLO 2026',
+        'calendar.title': 'Calendario',
+        'calendar.highlight': 'Anual',
+        'calendar.subtitle': 'Nuestra agenda de actividades académicas y de divulgación a lo largo del año.',
+
+        // Luma / Community Frame
+        'community.pretitle': 'LUMA CALENDAR',
+        'community.title': 'Calendario en',
+        'community.highlight': 'Luma',
+        'community.subtitle': 'Sigue nuestras actividades en vivo e inscríbete directamente desde nuestro portal oficial en Luma.',
+        'community.cta': 'Abrir Luma CBS-UNMSM ↗',
+        'community.loading': 'Cargando calendario Luma...',
+        'community.error': 'No se pudo cargar el widget interactivo de Luma.',
+        'community.error.link': 'Ver calendario en lu.ma',
+        'community.mobile.desc': 'Accede a nuestro calendario oficial en Luma para inscribirte y recibir notificaciones de nuestros talleres y conferencias.',
+        'community.mobile.cta': 'Ver Calendario Luma ↗',
+
+        // Articles page
+        'articles.title': 'Artículos de Divulgación',
+        'articles.description': 'Explora la frontera del conocimiento biotecnológico con el archivo científico de CBS-UNMSM.',
+        'articles.pretitle': 'Knowledge Hub',
+        'articles.heading': 'Archivo',
+        'articles.heading.highlight': 'Científico',
+        'articles.subtitle': 'Investigación, análisis y perspectivas sobre la Biología Sintética en el Perú.',
+        'articles.by': 'Por',
+        'articles.read': 'Leer',
+
+        // Team page
+        'team.heading': 'Nuestro',
+        'team.heading.highlight': 'Equipo',
+        'team.subtitle': 'Un equipo multidisciplinar unido por la pasión por la ciencia.',
+        'team.board': 'Junta Directiva',
+        'team.members': 'Miembros y Coordinaciones',
+        'team.members.desc': 'Estudiantes e investigadores impulsando las áreas operativas de nuestra comunidad.',
+        'team.advisors': 'Docente Responsable y Asesores',
+        'team.advisors.desc': 'Supervisión y guía docente para garantizar la excelencia Sanmarquina.',
+        'team.role.president': 'Presidente',
+        'team.role.vice_president': 'Vicepresidente',
+        'team.role.coord_general': 'Coordinadora General',
+        'team.role.advisor_lead': 'Docente Responsable',
+        'team.role.coord_academic': 'Coordinador Académico',
+        'team.role.coord_logistics': 'Coordinador Global',
+        'team.role.member': 'Miembro',
+        'team.role.advisor': 'Investigadora Principal / Supervisora',
+        'team.role.advisor_general': 'Advisor General',
+        'team.role.director_academic': 'Director Académico',
+        'team.role.reviewer': 'Reviewer',
+        'team.role.logistics': 'Logística',
+        'team.role.webdev': 'Web Dev',
+        'team.role.records': 'Registros',
+        'team.role.comms': 'Comunicaciones',
+        'team.role.design': 'Diseño',
+        'team.role.marketing': 'Marketing',
+        'team.role.partnerships': 'Alianzas',
+        'team.dept.academic': 'ACADÉMICA',
+        'team.dept.academic.name': 'Investigación',
+        'team.dept.logistics': 'LOGÍSTICA',
+        'team.dept.logistics.name': 'Suministros',
+        'team.dept.marketing': 'MARKETING',
+        'team.dept.marketing.name': 'Comunicación',
+
+        // Partners page
+        'partners.pretitle': 'ECOSISTEMA INSTITUCIONAL',
+        'partners.heading': 'Nuestros',
+        'partners.heading.highlight': 'Aliados Estratégicos',
+        'partners.subtitle': 'Instituciones académicas, redes internacionales y plataformas que respaldan e impulsan la Biología Sintética en el Perú y Latinoamérica.',
+        'partners.cat.academic': 'Académico e Institucional',
+        'partners.cat.networks': 'Redes & Capítulos Científicos',
+        'partners.cat.edtech': 'Innovación & EdTech',
+        'partners.visit': 'Visitar Portal',
+        'partners.ally_badge': 'Aliado Estratégico',
+
+        // Footer
+        'footer.description': 'Comunidad universitaria que promueve la formación y divulgación especializada en biología sintética.',
+        'footer.copyright': 'CBS-UNMSM. Fundada el 17 de Septiembre, 2021.',
+
+        // Event Layout
+        'event.back': 'Calendario de Eventos',
+        'event.about': 'Sobre el Evento',
+        'event.date': 'Fecha',
+        'event.time': 'Hora',
+        'event.location': 'Ubicación',
+
+        // Article Layout
+        'article.back': 'Volver al archivo',
+        'article.summary': 'Resumen Ejecutivo',
+        'article.metadata': 'Metadatos',
+        'article.published': 'Publicado',
+        'article.entity': 'Entidad',
+        'article.cite': 'Citar este artículo:',
+
+        // Event types
+        'type.charla': 'Charla Magistral',
+        'type.taller': 'Taller Práctico',
+        'type.conferencia': 'Conferencia',
+        'type.visita': 'Visita Técnica',
+        'type.otro': 'Evento Especial',
+    },
+    en: {
+        // Nav
+        'nav.events': 'Events',
+        'nav.team': 'Team',
+        'nav.partners': 'Partners',
+        'nav.brand.tag': 'OUTREACH',
+
+        // Hero
+        'hero.pretitle': 'CBS-UNMSM',
+        'hero.title.line1': 'Synthetic Biology',
+        'hero.title.highlight': 'Community.',
+        'hero.description': 'A nonprofit university community that promotes training and specialized outreach in synthetic biology, driving its development with a comprehensive, scientific and humanistic approach.',
+        'hero.cta.events': 'Upcoming Events',
+        'hero.cta.symposium': '1st International Symposium',
+        'hero.scroll': 'SCROLL TO EXPLORE',
+
+        // Impact / Bento
+        'impact.title': 'Our Work in Numbers and Facts',
+        'impact.subtitle': 'Modularity, transparency and excellence at every step of the way.',
+        'bento.weekly': 'Featured',
+        'bento.weekly.title': '1st Virtual International Symposium',
+        'bento.weekly.desc': 'Key event with international speakers from 7+ countries, focused on integrating Latin American students into synthetic biology.',
+        'bento.weekly.link': 'View events →',
+        'bento.community': 'Community',
+        'bento.community.title': '10+ Active Members',
+        'bento.community.desc': 'Students, graduates and professors from UNMSM passionate about synthetic biology.',
+        'bento.mission': 'Mission & Vision',
+        'bento.mission.title': 'Mission & Vision',
+        'bento.mission.desc': 'Promote specialized training and outreach in synthetic biology with a scientific and humanistic approach.',
+        'bento.vision.desc': 'Establish ourselves as the benchmark synthetic biology university community in Latin America, connecting science with real impact.',
+        'bento.next': 'Coming Up',
+        'bento.next.title': 'SynBio Lab Cycle',
+        'bento.next.desc': 'Lab presentations focused on biosensors. June – August 2026.',
+        'bento.projects': 'Projects',
+        'bento.projects.title': 'Flagship Projects',
+        'bento.projects.desc': 'AURA-Bio: environmental intelligence platform with AI and synthetic biology for heavy metal bioremediation in the Amazon. Yaku: bacterial chassis for contaminant absorption.',
+        'bento.projects.link': 'More details coming soon',
+
+        // Stats Bar
+        'stats.events': '+6',
+        'stats.events.label': 'Events held',
+        'stats.events.sub': 'Since 2022',
+        'stats.community': '+300',
+        'stats.community.label': 'People in the community',
+        'stats.community.sub': 'National & international',
+        'stats.members': '+10',
+        'stats.members.label': 'Active members',
+        'stats.members.sub': 'Multidisciplinary team',
+        'stats.allies': '8',
+        'stats.allies.label': 'Strategic allies',
+        'stats.allies.sub': 'National & international',
+
+        // Timeline
+        'timeline.pretitle': 'OUR HISTORY',
+        'timeline.title': 'Founding',
+        'timeline.highlight': 'Milestones',
+        'timeline.2021.label': 'Foundation',
+        'timeline.2021.desc': 'CBS-UNMSM is born as a synthetic biology university community on September 17th.',
+        'timeline.2022.label': 'iGEM Design League',
+        'timeline.2022.desc': 'First participation in iGEM Design League — Gold Medal.',
+        'timeline.2023.label': 'iGEM Expansion',
+        'timeline.2023.desc': 'More than 2 CBS teams compete in the iGEM Design League, consolidating our presence.',
+        'timeline.2025.label': 'Outreach',
+        'timeline.2025.desc': 'First scientific outreach activity at UNMSM: Cycle of Forums.',
+        'timeline.2026.label': 'Int. Symposium',
+        'timeline.2026.desc': '1st Virtual International Symposium bringing together speakers from 7+ countries worldwide.',
+
+        // Allies Strip
+        'allies.pretitle': 'INSTITUTIONAL SUPPORT',
+        'allies.title': 'Our',
+        'allies.highlight': 'Partners',
+
+        // Community CTA
+        'cta.join.pretitle': 'BE PART OF THE CHANGE',
+        'cta.join.title': 'Want to be part of the future of',
+        'cta.join.highlight': 'Synthetic Biology',
+        'cta.join.title2': 'in Peru?',
+        'cta.join.desc': 'Join a community building the bridge between science and real impact in Latin America.',
+        'cta.join.btn': 'Join the Community',
+        'cta.join.btn2': 'View Upcoming Events',
+
+        // Events page
+        'events.title': 'Upcoming Events',
+        'events.description': 'Join our talks, workshops and conferences on Synthetic Biology.',
+        'events.pretitle': 'Scientific Agenda',
+        'events.heading': 'Upcoming',
+        'events.heading.highlight': 'Events',
+        'events.subtitle': 'Join the scientific conversation. Workshops, talks and more.',
+
+        // Calendar
+        'calendar.pretitle': 'CYCLE 2026',
+        'calendar.title': 'Annual',
+        'calendar.highlight': 'Calendar',
+        'calendar.subtitle': 'Our academic and outreach activity schedule throughout the year.',
+
+        // Luma / Community Frame
+        'community.pretitle': 'LUMA CALENDAR',
+        'community.title': 'Calendar on',
+        'community.highlight': 'Luma',
+        'community.subtitle': 'Follow our live activities and register directly from our official Luma portal.',
+        'community.cta': 'Open Luma CBS-UNMSM ↗',
+        'community.loading': 'Loading Luma calendar...',
+        'community.error': 'Could not load interactive Luma widget.',
+        'community.error.link': 'View calendar on lu.ma',
+        'community.mobile.desc': 'Access our official Luma calendar to register and get notifications for workshops and conferences.',
+        'community.mobile.cta': 'View Luma Calendar ↗',
+
+        // Articles page
+        'articles.title': 'Outreach Articles',
+        'articles.description': 'Explore the frontier of biotechnological knowledge with the CBS-UNMSM scientific archive.',
+        'articles.pretitle': 'Knowledge Hub',
+        'articles.heading': 'Scientific',
+        'articles.heading.highlight': 'Archive',
+        'articles.subtitle': 'Research, analysis, and perspectives on Synthetic Biology in Peru.',
+        'articles.by': 'By',
+        'articles.read': 'Read',
+
+        // Team page
+        'team.heading': 'Our',
+        'team.heading.highlight': 'Team',
+        'team.subtitle': 'A multidisciplinary team united by a passion for science.',
+        'team.board': 'Board of Directors',
+        'team.members': 'Members & Coordinators',
+        'team.members.desc': 'Students and researchers driving the operational areas of our community.',
+        'team.advisors': 'Advisors & Faculty Supervisors',
+        'team.advisors.desc': 'Faculty supervision and guidance to ensure excellence.',
+        'team.role.president': 'President',
+        'team.role.vice_president': 'Vice President',
+        'team.role.coord_general': 'General Coordinator',
+        'team.role.advisor_lead': 'Faculty Advisor',
+        'team.role.coord_academic': 'Academic Coordinator',
+        'team.role.coord_logistics': 'Global Coordinator',
+        'team.role.member': 'Member',
+        'team.role.advisor': 'Principal Investigator / Supervisor',
+        'team.role.advisor_general': 'General Advisor',
+        'team.role.director_academic': 'Academic Director',
+        'team.role.reviewer': 'Reviewer',
+        'team.role.logistics': 'Logistics',
+        'team.role.webdev': 'Web Developer',
+        'team.role.records': 'Records',
+        'team.role.comms': 'Communications',
+        'team.role.design': 'Design',
+        'team.role.marketing': 'Marketing',
+        'team.role.partnerships': 'Partnerships',
+        'team.dept.academic': 'ACADEMIC',
+        'team.dept.academic.name': 'Research',
+        'team.dept.logistics': 'LOGISTICS',
+        'team.dept.logistics.name': 'Supplies',
+        'team.dept.marketing': 'MARKETING',
+        'team.dept.marketing.name': 'Communication',
+
+        // Partners page
+        'partners.pretitle': 'INSTITUTIONAL ECOSYSTEM',
+        'partners.heading': 'Our Strategic',
+        'partners.heading.highlight': 'Partners',
+        'partners.subtitle': 'Academic institutions, international networks, and platforms supporting Synthetic Biology in Peru and Latin America.',
+        'partners.cat.academic': 'Academic & Institutional',
+        'partners.cat.networks': 'Scientific Networks & Chapters',
+        'partners.cat.edtech': 'Innovation & EdTech',
+        'partners.visit': 'Visit Portal',
+        'partners.ally_badge': 'Strategic Partner',
+
+        // Footer
+        'footer.description': 'University community promoting specialized training and outreach in synthetic biology.',
+        'footer.copyright': 'CBS-UNMSM. Founded September 17, 2021.',
+
+        // Event Layout
+        'event.back': 'Event Calendar',
+        'event.about': 'About the Event',
+        'event.date': 'Date',
+        'event.time': 'Time',
+        'event.location': 'Location',
+
+        // Article Layout
+        'article.back': 'Back to archive',
+        'article.summary': 'Executive Summary',
+        'article.metadata': 'Metadata',
+        'article.published': 'Published',
+        'article.entity': 'Entity',
+        'article.cite': 'Cite this article:',
+
+        // Event types
+        'type.charla': 'Keynote Talk',
+        'type.taller': 'Hands-on Workshop',
+        'type.conferencia': 'Conference',
+        'type.visita': 'Technical Visit',
+        'type.otro': 'Special Event',
+    },
+} as const;
