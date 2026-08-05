@@ -15,10 +15,11 @@ export function useTranslations(lang: Lang) {
 }
 
 export function getLocalePath(lang: Lang, path: string = ''): string {
-    const base = import.meta.env.BASE_URL;
+    const rawBase = import.meta.env.BASE_URL;
+    const base = rawBase.replace(/\/$/, '');
     const cleanPath = path.startsWith('/') ? path.slice(1) : path;
     if (lang === defaultLang) {
-        return cleanPath ? `${base}/${cleanPath}` : `${base}/`;
+        return cleanPath ? `${base}/${cleanPath}` : `${base}/` || '/';
     }
     return cleanPath ? `${base}/${lang}/${cleanPath}` : `${base}/${lang}`;
 }
@@ -27,12 +28,13 @@ export function getLocalePath(lang: Lang, path: string = ''): string {
  * Given the current URL, return the equivalent path in the target language.
  */
 export function getAlternateLocalePath(currentUrl: URL, targetLang: Lang): string {
-    const base = import.meta.env.BASE_URL;
+    const rawBase = import.meta.env.BASE_URL;
+    const base = rawBase.replace(/\/$/, '');
     let pathname = currentUrl.pathname;
 
-    // Remove base prefix
-    if (pathname.startsWith(base)) {
-        pathname = pathname.slice(base.length);
+    // Remove base prefix if not '/'
+    if (rawBase !== '/' && pathname.startsWith(rawBase)) {
+        pathname = pathname.slice(rawBase.length);
     }
 
     // Remove current lang prefix if present
@@ -45,9 +47,12 @@ export function getAlternateLocalePath(currentUrl: URL, targetLang: Lang): strin
         }
     }
 
+    // Ensure leading slash on pathname
+    const formattedPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+
     // Build new path with target lang
     if (targetLang === defaultLang) {
-        return `${base}${pathname}`;
+        return `${base}${formattedPath}`;
     }
-    return `${base}/${targetLang}${pathname === '/' ? '' : pathname}`;
+    return `${base}/${targetLang}${formattedPath === '/' ? '' : formattedPath}`;
 }

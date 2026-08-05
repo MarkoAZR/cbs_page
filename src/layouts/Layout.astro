@@ -18,7 +18,8 @@ const t = useTranslations(lang);
 
 const esPath = getAlternateLocalePath(Astro.url, 'es');
 const enPath = getAlternateLocalePath(Astro.url, 'en');
-const siteBase = import.meta.env.SITE + import.meta.env.BASE_URL;
+const cleanBase = import.meta.env.BASE_URL.replace(/\/$/, '');
+const siteBase = import.meta.env.SITE + cleanBase;
 ---
 
 <!doctype html>
@@ -26,7 +27,7 @@ const siteBase = import.meta.env.SITE + import.meta.env.BASE_URL;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}/cbs_logo.png`} />
+		<link rel="icon" type="image/png" href={`${cleanBase}/cbs_logo.png`} />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | CBS-UNMSM</title>
 		<meta name="description" content={description} />
