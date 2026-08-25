@@ -65,7 +65,8 @@ const calendarData = [
 		monthNum: '07',
 		featured: false,
 		events: [
-			{ title: 'Puentes Científicos: Dra. Merino & Dr. Gutiérrez', desc: lang === 'es' ? 'Bioinformática vegetal y charla especial sobre Inteligencia Artificial.' : 'Plant bioinformatics and special AI keynote speech.', date: lang === 'es' ? '31 de Julio' : 'July 31', icon: 'psychology' }
+			{ title: lang === 'es' ? 'Puentes Científicos: Dra. Merino' : 'Scientific Bridges: Dr. Merino', desc: lang === 'es' ? 'Ponencia N°2 sobre bioinformática de interacciones planta-patógeno.' : 'Keynote #2 on plant-pathogen bioinformatics.', date: lang === 'es' ? '31 de Julio' : 'July 31', icon: 'sensors' },
+			{ title: lang === 'es' ? 'Conferencia Magistral: Dr. Gutiérrez' : 'Keynote Lecture: Dr. Gutiérrez', desc: lang === 'es' ? 'Conferencia magistral presencial sobre IA en biología de sistemas.' : 'In-person keynote lecture on AI in systems biology.', date: lang === 'es' ? '31 de Julio' : 'July 31', icon: 'smart_toy' }
 		]
 	},
 	{
@@ -76,6 +77,7 @@ const calendarData = [
 		highlight: lang === 'es' ? 'GIRA ESCOLAR & TALLER' : 'SCHOOL TOUR & WORKSHOP',
 		events: [
 			{ title: lang === 'es' ? 'Taller de Biopartes de ADN' : 'DNA BioParts Workshop', desc: lang === 'es' ? 'Taller de difusión de resultados con respaldo logístico de CBS.' : 'Results workshop backed by CBS community logistics.', date: lang === 'es' ? '7 de Agosto' : 'August 7', icon: 'science' },
+			{ title: lang === 'es' ? 'Puentes Científicos: IA en SynBio' : 'Scientific Bridges: AI in SynBio', desc: lang === 'es' ? 'Ponencia N°3 del ciclo Puentes Científicos: Inteligencia Artificial en Biología Sintética por el Dr. Martín E. Gutiérrez Pescarmona.' : 'Keynote #3 of the Scientific Bridges cycle: AI in Synthetic Biology by Dr. Martín E. Gutiérrez Pescarmona.', date: lang === 'es' ? '31 de Agosto' : 'August 31', icon: 'smart_toy' },
 			{ title: lang === 'es' ? 'Ruta del Biodiseño: Ciencia y Tecnología para Escolares' : 'BioDesign Tour: Science & Tech for High Schools', desc: lang === 'es' ? 'Gira escolar por el proyecto Bootcamp y Hackathon BioDesign 2026, con talleres demostrativos e inscripción preferencial a los colegios visitados.' : 'High school outreach tour for the BioDesign 2026 Bootcamp & Hackathon, with demo workshops and preferential enrollment for visited schools.', date: lang === 'es' ? 'Agosto 2026' : 'August 2026', icon: 'school' }
 		]
 	},
@@ -88,7 +90,7 @@ const calendarData = [
 		events: [
 			{ title: lang === 'es' ? 'I Simposio "Recuperando el valor del agua" — UNALM' : '1st "Recovering Water Value" Symposium — UNALM', desc: lang === 'es' ? 'Taller de diseño de biosensores in silico para biorremediación y presentación de nuestro proyecto YakuPbubbles en la UNALM.' : 'In silico biosensor design workshop for bioremediation and YakuPbubbles project presentation at UNALM.', date: lang === 'es' ? 'Septiembre 2026' : 'September 2026', icon: 'water_drop' },
 			{ title: 'BioBoost 2026', desc: lang === 'es' ? 'Potenciando competencias académicas, profesionales y digitales, combinando trabajo de laboratorio y habilidades blandas.' : 'Boosting academic, professional, and digital skills, combining wet lab training and soft skills.', date: lang === 'es' ? 'Septiembre 2026' : 'September 2026', icon: 'bolt' },
-			{ title: lang === 'es' ? 'BioDesign: Inauguración Oficial' : 'BioDesign: Official Opening', desc: lang === 'es' ? 'Inauguración oficial presencial y primeras sesiones del bootcamp virtual.' : 'Official in-person opening and virtual bootcamp kickoff.', date: lang === 'es' ? '19 de Septiembre' : 'September 19', icon: 'biotech' }
+			{ title: lang === 'es' ? 'BioDesign: Inauguración Oficial' : 'BioDesign: Official Opening', desc: lang === 'es' ? 'Inauguración oficial presencial y primeras sesiones del bootcamp virtual.' : 'Official in-person opening and virtual bootcamp kickoff.', date: lang === 'es' ? '26 de Septiembre' : 'September 26', icon: 'biotech' }
 		]
 	},
 	{
@@ -99,7 +101,7 @@ const calendarData = [
 		highlight: lang === 'es' ? 'FECHAS CENTRALES' : 'MAIN DATES',
 		biodesignPortal: true,
 		events: [
-			{ title: 'Proyecto BioDesign 2026: Hackathon & Clausura', desc: lang === 'es' ? 'Kick-off informativo (2 Oct), Hackathon guiado 48h (3–4 Oct), calificación parcial y gran Pitch Final presencial con premiación (12 Oct).' : 'Informative kick-off (Oct 2), 48h guided Hackathon sprint (Oct 3–4), partial grading, and grand in-person Final Pitch with awards (Oct 12).', date: lang === 'es' ? '2 – 12 de Octubre' : 'October 2 – 12', icon: 'military_tech' }
+			{ title: 'Proyecto BioDesign 2026: Hackathon & Clausura', desc: lang === 'es' ? 'Kick-off informativo (9 Oct), Hackathon guiado 48h (10–11 Oct), calificación parcial y gran Pitch Final presencial con premiación (19 Oct).' : 'Informative kick-off (Oct 9), 48h guided Hackathon sprint (Oct 10–11), partial grading, and grand in-person Final Pitch with awards (Oct 19).', date: lang === 'es' ? '9 – 19 de Octubre' : 'October 9 – 19', icon: 'military_tech' }
 		],
 		cta: { label: t('biodesign.calendar.cta'), url: getLocalePath(lang, 'events/biodesign') }
 	},
