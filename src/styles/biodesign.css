@@ -1,0 +1,389 @@
+/* ============================================
+   BioDesign — Scoped Design System
+   Lab-Tech Futurism | Dark Mode Only
+   ============================================ */
+
+/* ── Palette (scoped to .biodesign-page) ── */
+.biodesign-page {
+	--bd-surface: #131120;
+	--bd-surface-dim: #131120;
+	--bd-surface-bright: #3a3748;
+	--bd-surface-container-lowest: #0e0c1b;
+	--bd-surface-container-low: #1c1a29;
+	--bd-surface-container: #201e2d;
+	--bd-surface-container-high: #2a2838;
+	--bd-surface-container-highest: #353343;
+	--bd-surface-elevated: #232038;
+	--bd-surface-variant: #353343;
+
+	--bd-primary: #79f8d0;
+	--bd-primary-rgb: 121, 248, 208;
+	--bd-primary-container: #5adbb5;
+	--bd-primary-container-rgb: 90, 219, 181;
+	--bd-on-primary: #00382a;
+	--bd-on-primary-container: #005d49;
+
+	--bd-secondary: #c8bfff;
+	--bd-secondary-rgb: 200, 191, 255;
+	--bd-secondary-container: #4526c4;
+	--bd-secondary-container-rgb: 69, 38, 196;
+	--bd-on-secondary: #2c009d;
+
+	--bd-tertiary: #bbf35f;
+	--bd-tertiary-rgb: 187, 243, 95;
+	--bd-tertiary-container: #a0d645;
+	--bd-on-tertiary: #223600;
+	--bd-on-tertiary-container: #3c5a00;
+
+	--bd-text-primary: #F8F9FA;
+	--bd-text-secondary: #A19FB6;
+	--bd-on-surface: #e5dff5;
+	--bd-on-surface-variant: #bccac2;
+
+	--bd-outline: #86948d;
+	--bd-outline-variant: #3d4a44;
+
+	--bd-glass-fill: rgba(35, 32, 56, 0.6);
+	--bd-glow-teal: rgba(90, 219, 181, 0.4);
+	--bd-glow-purple: rgba(69, 38, 196, 0.3);
+	--bd-glow-lime: rgba(187, 243, 95, 0.3);
+
+	--bd-error: #ffb4ab;
+	--bd-error-container: #93000a;
+
+	/* Force dark background regardless of site theme */
+	background-color: var(--bd-surface) !important;
+	color: var(--bd-on-surface);
+}
+
+/* Force dark body & document background on BioDesign pages */
+body:has(.biodesign-page) {
+	background-color: #131120 !important;
+	color: #e5dff5 !important;
+}
+
+/* ── Typography (Fluid with clamp for 375px to 1920px) ── */
+.biodesign-page .bd-headline-xl {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: clamp(2.1rem, 5.2vw, 3.8rem);
+	font-weight: 700;
+	line-height: 1.12;
+	letter-spacing: -0.02em;
+	color: var(--bd-text-primary);
+}
+
+.biodesign-page .bd-headline-lg {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: clamp(1.75rem, 3.8vw, 2.5rem);
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -0.01em;
+	color: var(--bd-text-primary);
+}
+
+.biodesign-page .bd-headline-md {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: clamp(1.2rem, 2vw, 1.45rem);
+	font-weight: 600;
+	line-height: 1.33;
+	color: var(--bd-text-primary);
+}
+
+.biodesign-page .bd-body-lg {
+	font-family: 'Inter', sans-serif;
+	font-size: clamp(1rem, 1.4vw, 1.125rem);
+	font-weight: 400;
+	line-height: 1.55;
+	color: var(--bd-text-secondary);
+}
+
+.biodesign-page .bd-body-md {
+	font-family: 'Inter', sans-serif;
+	font-size: clamp(0.875rem, 1.1vw, 0.975rem);
+	font-weight: 400;
+	line-height: 1.5;
+	color: var(--bd-text-secondary);
+}
+
+.biodesign-page .bd-label-md {
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: clamp(0.75rem, 1vw, 0.875rem);
+	font-weight: 600;
+	line-height: 1.43;
+	letter-spacing: 0.05em;
+}
+
+.biodesign-page .bd-caption {
+	font-family: 'Inter', sans-serif;
+	font-size: 0.75rem;
+	font-weight: 400;
+	line-height: 1.33;
+}
+
+/* ── Gradient text utility ── */
+.biodesign-page .bd-gradient-text {
+	background: linear-gradient(90deg, var(--bd-primary), var(--bd-tertiary));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	display: inline-block;
+}
+
+.biodesign-page .bd-gradient-text-purple {
+	background: linear-gradient(90deg, var(--bd-primary), var(--bd-secondary));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	display: inline-block;
+}
+
+/* ── Glassmorphism Card ── */
+.biodesign-page .bd-glass {
+	background: var(--bd-glass-fill);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(var(--bd-secondary-container-rgb), 0.3);
+	border-radius: 1rem;
+	box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 4px 30px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+}
+
+.biodesign-page .bd-glass:hover {
+	border-color: rgba(var(--bd-secondary-container-rgb), 0.5);
+	transform: translateY(-4px);
+	box-shadow: 0 0 30px rgba(var(--bd-primary-container-rgb), 0.15);
+}
+
+/* ── Buttons ── */
+.biodesign-page .bd-btn-primary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: var(--bd-primary);
+	color: var(--bd-on-primary);
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	padding: 0.875rem 2rem;
+	border-radius: 9999px;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	box-shadow: 0 0 15px var(--bd-glow-teal);
+	transition: all 0.2s ease;
+	transform: scale(0.95);
+}
+
+.biodesign-page .bd-btn-primary:hover {
+	transform: scale(1);
+	box-shadow: 0 0 25px var(--bd-glow-teal);
+}
+
+.biodesign-page .bd-btn-primary:active {
+	transform: scale(0.9);
+}
+
+.biodesign-page .bd-btn-secondary {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: transparent;
+	color: var(--bd-primary);
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	padding: 0.875rem 2rem;
+	border-radius: 9999px;
+	border: 1px solid var(--bd-primary);
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.biodesign-page .bd-btn-secondary:hover {
+	background: rgba(var(--bd-primary-rgb), 0.1);
+	box-shadow: 0 0 15px var(--bd-glow-teal);
+}
+
+.biodesign-page .bd-btn-ghost {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	background: transparent;
+	color: var(--bd-tertiary);
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	padding: 0.875rem 1.5rem;
+	border: none;
+	cursor: pointer;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.biodesign-page .bd-btn-ghost:hover {
+	opacity: 0.8;
+	transform: translateX(4px);
+}
+
+/* ── Chips / Tags ── */
+.biodesign-page .bd-chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.3rem 0.8rem;
+	border-radius: 9999px;
+	font-family: 'Space Grotesk', sans-serif;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+}
+
+.biodesign-page .bd-chip-teal {
+	background: rgba(var(--bd-primary-rgb), 0.1);
+	color: var(--bd-primary);
+	border: 1px solid rgba(var(--bd-primary-rgb), 0.2);
+}
+
+.biodesign-page .bd-chip-lime {
+	background: rgba(var(--bd-tertiary-rgb), 0.1);
+	color: var(--bd-tertiary);
+	border: 1px solid rgba(var(--bd-tertiary-rgb), 0.2);
+	box-shadow: 0 0 10px rgba(var(--bd-tertiary-rgb), 0.1);
+}
+
+.biodesign-page .bd-chip-purple {
+	background: rgba(var(--bd-secondary-container-rgb), 0.15);
+	color: var(--bd-secondary);
+	border: 1px solid rgba(var(--bd-secondary-container-rgb), 0.2);
+}
+
+/* ── Progress Bars (DNA Visualization) ── */
+.biodesign-page .bd-progress-track {
+	height: 0.5rem;
+	width: 100%;
+	background: rgba(var(--bd-secondary-container-rgb), 0.4);
+	border-radius: 9999px;
+	overflow: hidden;
+	border: 1px solid rgba(var(--bd-secondary-rgb), 0.2);
+}
+
+.biodesign-page .bd-progress-fill {
+	height: 100%;
+	background: var(--bd-tertiary);
+	border-radius: 9999px;
+	transition: width 1s ease-out;
+	position: relative;
+}
+
+.biodesign-page .bd-progress-fill.pulse::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: rgba(255, 255, 255, 0.2);
+	animation: bd-pulse 1.5s infinite;
+}
+
+/* ── Section Container ── */
+.biodesign-page .bd-section {
+	max-width: 1400px;
+	margin: 0 auto;
+	padding: clamp(3.5rem, 6vw, 6rem) clamp(1.25rem, 3.5vw, 3rem);
+}
+
+@media (max-width: 768px) {
+	.biodesign-page .bd-section {
+		padding: 3rem 1.25rem;
+	}
+}
+
+/* ── Animations ── */
+@keyframes bd-pulse {
+	0%, 100% { opacity: 0; }
+	50% { opacity: 1; }
+}
+
+@keyframes bd-float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-10px); }
+}
+
+@keyframes bd-pulse-node {
+	0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--bd-primary-rgb), 0.4); }
+	70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(var(--bd-primary-rgb), 0); }
+	100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--bd-primary-rgb), 0); }
+}
+
+@keyframes bd-pulse-node-tertiary {
+	0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--bd-tertiary-rgb), 0.4); }
+	70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(var(--bd-tertiary-rgb), 0); }
+	100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(var(--bd-tertiary-rgb), 0); }
+}
+
+@keyframes bd-glow-teal {
+	0%, 100% { box-shadow: 0 0 15px rgba(var(--bd-primary-rgb), 0.3); }
+	50% { box-shadow: 0 0 30px rgba(var(--bd-primary-rgb), 0.6); }
+}
+
+@keyframes bd-glow-lime {
+	0%, 100% { box-shadow: 0 0 15px rgba(var(--bd-tertiary-rgb), 0.3); }
+	50% { box-shadow: 0 0 30px rgba(var(--bd-tertiary-rgb), 0.6); }
+}
+
+/* Scroll Reveal */
+.biodesign-page .bd-reveal {
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.biodesign-page .bd-reveal.is-visible {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* ── Hologram Effect (used in CalendarBento) ── */
+@keyframes hologram-float {
+	0%, 100% { transform: translateY(0) scale(1); }
+	50% { transform: translateY(-8px) scale(1.03); }
+}
+
+@keyframes hologram-glow {
+	0%, 100% {
+		box-shadow: 0 0 20px rgba(121, 248, 208, 0.3),
+			0 0 40px rgba(121, 248, 208, 0.1);
+		filter: drop-shadow(0 0 8px rgba(121, 248, 208, 0.4));
+	}
+	50% {
+		box-shadow: 0 0 30px rgba(121, 248, 208, 0.5),
+			0 0 60px rgba(121, 248, 208, 0.2);
+		filter: drop-shadow(0 0 16px rgba(121, 248, 208, 0.6));
+	}
+}
+
+@keyframes hologram-scan {
+	0% { transform: translateY(-100%); }
+	100% { transform: translateY(100%); }
+}
+
+@keyframes hologram-ring {
+	0% { transform: translate(-50%, -50%) rotate(0deg); }
+	100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes hologram-ring-reverse {
+	0% { transform: translate(-50%, -50%) rotate(0deg); }
+	100% { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+	.biodesign-page .bd-reveal {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+}

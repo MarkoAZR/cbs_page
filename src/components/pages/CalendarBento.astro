@@ -1,5 +1,5 @@
 ---
-import { useTranslations } from '../../i18n/utils';
+import { useTranslations, getLocalePath } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 
 interface Props {
@@ -8,11 +8,7 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
-
-const monthNames = {
-	es: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-	en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-};
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const calendarData = [
 	{
@@ -77,9 +73,10 @@ const calendarData = [
 		label: lang === 'es' ? 'Agosto' : 'August',
 		monthNum: '08',
 		featured: true,
-		highlight: lang === 'es' ? '¡PRÓXIMO EVENTO!' : 'UPCOMING EVENT!',
+		highlight: lang === 'es' ? 'GIRA ESCOLAR & TALLER' : 'SCHOOL TOUR & WORKSHOP',
 		events: [
-			{ title: lang === 'es' ? 'Taller de Biopartes de ADN' : 'DNA BioParts Workshop', desc: lang === 'es' ? 'Taller de difusión de resultados con respaldo logístico de CBS.' : 'Results workshop backed by CBS community logistics.', date: lang === 'es' ? '7 de Agosto' : 'August 7', icon: 'science' }
+			{ title: lang === 'es' ? 'Taller de Biopartes de ADN' : 'DNA BioParts Workshop', desc: lang === 'es' ? 'Taller de difusión de resultados con respaldo logístico de CBS.' : 'Results workshop backed by CBS community logistics.', date: lang === 'es' ? '7 de Agosto' : 'August 7', icon: 'science' },
+			{ title: lang === 'es' ? 'Ruta del Biodiseño: Ciencia y Tecnología para Escolares' : 'BioDesign Tour: Science & Tech for High Schools', desc: lang === 'es' ? 'Gira escolar por el proyecto Bootcamp y Hackathon BioDesign 2026, con talleres demostrativos e inscripción preferencial a los colegios visitados.' : 'High school outreach tour for the BioDesign 2026 Bootcamp & Hackathon, with demo workshops and preferential enrollment for visited schools.', date: lang === 'es' ? 'Agosto 2026' : 'August 2026', icon: 'school' }
 		]
 	},
 	{
@@ -87,9 +84,41 @@ const calendarData = [
 		label: lang === 'es' ? 'Septiembre' : 'September',
 		monthNum: '09',
 		featured: true,
-		highlight: lang === 'es' ? 'EDICIÓN ESCOLAR' : 'SCHOOL BOOTCAMP',
+		highlight: lang === 'es' ? 'SIMPOSIO & BIOBOOST' : 'SYMPOSIUM & BIOBOOST',
 		events: [
-			{ title: 'Proyecto BioDesign', desc: lang === 'es' ? 'Bootcamp de inmersión en biología sintética orientado a escolares.' : 'Synthetic biology immersion bootcamp for school students.', date: lang === 'es' ? '15 de Septiembre' : 'September 15', icon: 'school' }
+			{ title: lang === 'es' ? 'I Simposio "Recuperando el valor del agua" — UNALM' : '1st "Recovering Water Value" Symposium — UNALM', desc: lang === 'es' ? 'Taller de diseño de biosensores in silico para biorremediación y presentación de nuestro proyecto YakuPbubbles en la UNALM.' : 'In silico biosensor design workshop for bioremediation and YakuPbubbles project presentation at UNALM.', date: lang === 'es' ? 'Septiembre 2026' : 'September 2026', icon: 'water_drop' },
+			{ title: 'BioBoost 2026', desc: lang === 'es' ? 'Potenciando competencias académicas, profesionales y digitales, combinando trabajo de laboratorio y habilidades blandas.' : 'Boosting academic, professional, and digital skills, combining wet lab training and soft skills.', date: lang === 'es' ? 'Septiembre 2026' : 'September 2026', icon: 'bolt' },
+			{ title: lang === 'es' ? 'BioDesign: Inauguración Oficial' : 'BioDesign: Official Opening', desc: lang === 'es' ? 'Inauguración oficial presencial y primeras sesiones del bootcamp virtual.' : 'Official in-person opening and virtual bootcamp kickoff.', date: lang === 'es' ? '19 de Septiembre' : 'September 19', icon: 'biotech' }
+		]
+	},
+	{
+		id: 'oct',
+		label: lang === 'es' ? 'Octubre' : 'October',
+		monthNum: '10',
+		featured: true,
+		highlight: lang === 'es' ? 'FECHAS CENTRALES' : 'MAIN DATES',
+		biodesignPortal: true,
+		events: [
+			{ title: 'Proyecto BioDesign 2026: Hackathon & Clausura', desc: lang === 'es' ? 'Kick-off informativo (2 Oct), Hackathon guiado 48h (3–4 Oct), calificación parcial y gran Pitch Final presencial con premiación (12 Oct).' : 'Informative kick-off (Oct 2), 48h guided Hackathon sprint (Oct 3–4), partial grading, and grand in-person Final Pitch with awards (Oct 12).', date: lang === 'es' ? '2 – 12 de Octubre' : 'October 2 – 12', icon: 'military_tech' }
+		],
+		cta: { label: t('biodesign.calendar.cta'), url: getLocalePath(lang, 'events/biodesign') }
+	},
+	{
+		id: 'nov',
+		label: lang === 'es' ? 'Noviembre' : 'November',
+		monthNum: '11',
+		featured: false,
+		events: [
+			{ title: 'Puentes Científicos: Sesión Noviembre', desc: lang === 'es' ? 'Conferencias magistrales de biología sintética y biotecnología. Mayor información por confirmar.' : 'International synthetic biology and biotech keynotes. Further details to be confirmed.', date: lang === 'es' ? 'Noviembre 2026' : 'November 2026', icon: 'psychology' }
+		]
+	},
+	{
+		id: 'dec',
+		label: lang === 'es' ? 'Diciembre' : 'December',
+		monthNum: '12',
+		featured: false,
+		events: [
+			{ title: 'Puentes Científicos: Sesión Final & Cierre Anual', desc: lang === 'es' ? 'Clausura del ciclo anual de conferencias y balance de proyectos CBS. Por confirmar.' : 'Annual keynote cycle closing and yearly CBS projects recap. To be confirmed.', date: lang === 'es' ? 'Diciembre 2026' : 'December 2026', icon: 'celebration' }
 		]
 	}
 ];
@@ -103,34 +132,64 @@ const calendarData = [
 	</div>
 
 	<div class="calendar-grid">
-		{calendarData.map(block => (
-			<div class={`cal-card glass-minimal ${block.featured ? 'featured' : ''}`}>
-				{block.highlight && <span class="cal-highlight">{block.highlight}</span>}
-				<div class="cal-card-header">
-					<span class="cal-num">{block.monthNum}</span>
-					<h3 class="cal-month">{block.label}</h3>
-				</div>
-				<div class="cal-events">
-					{block.events.map(ev => (
-						<div class="cal-event">
-							<div class="cal-event-top">
-								<span class="material-icons cal-event-icon">{ev.icon}</span>
-								<div>
-									<div class="cal-event-title">{ev.title}</div>
-									<div class="cal-event-date">{ev.date}</div>
-								</div>
+		{calendarData.map(block => {
+			const CardTag = block.biodesignPortal ? 'a' : 'div';
+			const portalProps = block.biodesignPortal && block.cta ? {
+				href: block.cta.url,
+				'aria-label': block.cta.label,
+			} : {};
+			return (
+				<CardTag 
+					class={`cal-card glass-minimal ${block.featured ? 'featured' : ''} ${block.biodesignPortal ? 'biodesign-portal' : ''}`}
+					{...portalProps}
+				>
+					{block.biodesignPortal && (
+						<div class="hologram-container" aria-hidden="true">
+							<div class="hologram-ring hologram-ring-1"></div>
+							<div class="hologram-ring hologram-ring-2"></div>
+							<div class="hologram-core">
+								<div class="hologram-scanner"></div>
+								<img src={`${base}/Biodesign/logo_biodesign_mm.png`} alt="BioDesign" class="hologram-logo" width="56" height="56" />
 							</div>
-							<p class="cal-event-desc">{ev.desc}</p>
 						</div>
-					))}
-				</div>
-				{block.cta && (
-					<a href={block.cta.url} target="_blank" rel="noopener noreferrer" class="cal-cta">
-						{block.cta.label} <span class="material-icons cal-cta-arrow">arrow_forward</span>
-					</a>
-				)}
-			</div>
-		))}
+					)}
+					{block.highlight && <span class={`cal-highlight ${block.biodesignPortal ? 'biodesign-highlight' : ''}`}>{block.highlight}</span>}
+					<div class="cal-card-header">
+						<span class="cal-num">{block.monthNum}</span>
+						<h3 class="cal-month">{block.label}</h3>
+					</div>
+					<div class="cal-events">
+						{block.events.map(ev => (
+							<div class={`cal-event ${block.biodesignPortal ? 'biodesign-event' : ''}`}>
+								<div class="cal-event-top">
+									<span class="material-icons cal-event-icon">{ev.icon}</span>
+									<div>
+										<div class="cal-event-title">{ev.title}</div>
+										<div class="cal-event-date">{ev.date}</div>
+									</div>
+								</div>
+								<p class="cal-event-desc">{ev.desc}</p>
+							</div>
+						))}
+					</div>
+					{block.cta && !block.biodesignPortal && (
+						<a 
+							href={block.cta.url} 
+							target={block.cta.url.startsWith('http') ? "_blank" : undefined} 
+							rel={block.cta.url.startsWith('http') ? "noopener noreferrer" : undefined} 
+							class="cal-cta"
+						>
+							{block.cta.label} <span class="material-icons cal-cta-arrow">arrow_forward</span>
+						</a>
+					)}
+					{block.biodesignPortal && block.cta && (
+						<span class="cal-cta biodesign-cta">
+							{block.cta.label} <span class="material-icons cal-cta-arrow">arrow_forward</span>
+						</span>
+					)}
+				</CardTag>
+			);
+		})}
 	</div>
 </section>
 
@@ -250,6 +309,184 @@ const calendarData = [
 		font-size: 1.8rem;
 	}
 
+	/* Biodesign Portal Card */
+	.cal-card.biodesign-portal {
+		position: relative;
+		overflow: visible; /* allow hologram to overflow top */
+		border-left: 4px solid #79f8d0;
+		background: linear-gradient(135deg, rgba(121, 248, 208, 0.08), rgba(69, 38, 196, 0.08));
+		border-color: rgba(121, 248, 208, 0.3);
+		transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		padding-top: 3.5rem; /* space for floating hologram */
+		cursor: pointer;
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+	}
+	:root.dark .cal-card.biodesign-portal {
+		background: linear-gradient(135deg, rgba(121, 248, 208, 0.12), rgba(69, 38, 196, 0.15));
+		border-color: rgba(121, 248, 208, 0.35);
+	}
+	.cal-card.biodesign-portal:hover {
+		transform: translateY(-8px) scale(1.02);
+		border-color: #79f8d0;
+		box-shadow: 0 16px 40px rgba(121, 248, 208, 0.3), inset 0 0 20px rgba(121, 248, 208, 0.08);
+	}
+
+	.biodesign-highlight {
+		background: linear-gradient(90deg, #79f8d0, #bbf35f) !important;
+		color: #00382a !important;
+		box-shadow: 0 2px 10px rgba(121, 248, 208, 0.4);
+	}
+
+	.cal-card.biodesign-portal .cal-month {
+		background: linear-gradient(90deg, #79f8d0, #bbf35f);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.cal-card.biodesign-portal .cal-event-icon {
+		color: #79f8d0;
+	}
+
+	.cal-card.biodesign-portal .cal-event-title {
+		color: #79f8d0;
+	}
+
+	.biodesign-cta {
+		background: linear-gradient(90deg, #79f8d0, #5adbb5) !important;
+		color: #00382a !important;
+		box-shadow: 0 4px 18px rgba(121, 248, 208, 0.4) !important;
+	}
+	.biodesign-cta:hover {
+		box-shadow: 0 6px 25px rgba(121, 248, 208, 0.6) !important;
+		transform: translateY(-3px) scale(1.02);
+	}
+
+	/* Hologram Effect — centered at top, floats above card */
+	.hologram-container {
+		position: absolute;
+		top: -38px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 88px;
+		height: 88px;
+		pointer-events: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+		z-index: 5;
+	}
+
+	.cal-card.biodesign-portal:hover .hologram-container {
+		transform: translateX(-50%) scale(1.15);
+		top: -44px;
+	}
+
+	.hologram-core {
+		position: relative;
+		z-index: 3;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		animation: hologram-float 4s ease-in-out infinite;
+	}
+
+	/* Scanner: beam of light passing through the logo */
+	.hologram-scanner {
+		position: absolute;
+		left: -8px;
+		right: -8px;
+		height: 30%;
+		background: linear-gradient(
+			to bottom,
+			transparent 0%,
+			rgba(121, 248, 208, 0.25) 35%,
+			rgba(121, 248, 208, 0.5) 50%,
+			rgba(121, 248, 208, 0.25) 65%,
+			transparent 100%
+		);
+		z-index: 4;
+		pointer-events: none;
+		animation: hologram-scan 2.5s ease-in-out infinite;
+	}
+
+	.hologram-ring {
+		position: absolute;
+		border-radius: 50%;
+		border: 1px dashed rgba(121, 248, 208, 0.5);
+		transition: all 0.4s ease;
+	}
+
+	.hologram-ring-1 {
+		width: 68px;
+		height: 68px;
+		animation: hologram-rotate 10s linear infinite;
+	}
+
+	.hologram-ring-2 {
+		width: 84px;
+		height: 84px;
+		border-color: rgba(200, 191, 255, 0.4);
+		border-style: dotted;
+		animation: hologram-rotate-rev 7s linear infinite;
+	}
+
+	.cal-card.biodesign-portal:hover .hologram-ring-1 {
+		border-color: rgba(121, 248, 208, 0.9);
+		width: 72px;
+		height: 72px;
+	}
+
+	.cal-card.biodesign-portal:hover .hologram-ring-2 {
+		border-color: rgba(187, 243, 95, 0.6);
+	}
+
+	.hologram-logo {
+		width: 56px;
+		height: 56px;
+		object-fit: contain;
+		filter:
+			drop-shadow(0 0 8px rgba(121, 248, 208, 0.8))
+			drop-shadow(0 0 18px rgba(121, 248, 208, 0.4));
+		transition: all 0.4s ease;
+		border-radius: 12px;
+		background: rgba(19, 17, 32, 0.8);
+		padding: 4px;
+	}
+
+	.cal-card.biodesign-portal:hover .hologram-logo {
+		transform: scale(1.12) rotate(4deg);
+		filter:
+			drop-shadow(0 0 14px rgba(121, 248, 208, 1))
+			drop-shadow(0 0 28px rgba(187, 243, 95, 0.7));
+	}
+
+	@keyframes hologram-rotate {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+
+	@keyframes hologram-rotate-rev {
+		from { transform: rotate(360deg); }
+		to { transform: rotate(0deg); }
+	}
+
+	@keyframes hologram-scan {
+		0% { transform: translateY(-36px); opacity: 0; }
+		20% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { transform: translateY(36px); opacity: 0; }
+	}
+
+	@keyframes hologram-float {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-5px); }
+	}
+
 	/* Events inside card */
 	.cal-events {
 		flex-grow: 1;
@@ -342,6 +579,10 @@ const calendarData = [
 		}
 		.cal-card.featured {
 			grid-column: span 1;
+		}
+		.hologram-container {
+			position: static;
+			margin: 0 auto 1rem;
 		}
 	}
 </style>

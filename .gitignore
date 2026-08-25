@@ -20,5 +20,10 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# jetbrains setting folder
+# IDE and editor settings
 .idea/
+.vscode/
+
+# Local design examples, bases, and reference drafts
+Biodesign_pages/
+example/

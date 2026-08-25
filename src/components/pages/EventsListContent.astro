@@ -25,6 +25,29 @@ const pastEvents = allLangEvents.filter(e => e.data.date < now && !e.data.featur
 pastEvents.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const events = [...upcomingEvents, ...pastEvents];
+
+// Months metadata for filtering
+const monthsList = [
+	{ id: 'all', num: '', label: lang === 'es' ? 'Todos' : 'All' },
+	{ id: 'feb', num: '02', label: 'Feb' },
+	{ id: 'mar', num: '03', label: 'Mar' },
+	{ id: 'apr', num: '04', label: lang === 'es' ? 'Abr' : 'Apr' },
+	{ id: 'may', num: '05', label: 'May' },
+	{ id: 'jun', num: '06', label: 'Jun' },
+	{ id: 'jul', num: '07', label: 'Jul' },
+	{ id: 'aug', num: '08', label: lang === 'es' ? 'Ago' : 'Aug' },
+	{ id: 'sep', num: '09', label: 'Sep' },
+	{ id: 'oct', num: '10', label: 'Oct' },
+	{ id: 'nov', num: '11', label: 'Nov' },
+	{ id: 'dec', num: '12', label: lang === 'es' ? 'Dic' : 'Dec' },
+];
+
+const eventCounts: Record<string, number> = {};
+allLangEvents.forEach(e => {
+	const m = String(e.data.date.getMonth() + 1).padStart(2, '0');
+	eventCounts[m] = (eventCounts[m] || 0) + 1;
+});
+eventCounts['all'] = allLangEvents.length;
 ---
 
 <Layout title={t('events.title')} description={t('events.description')} lang={lang}>
@@ -35,31 +58,59 @@ const events = [...upcomingEvents, ...pastEvents];
 			<p>{t('events.subtitle')}</p>
 		</header>
 
-		<!-- Calendar Bento Section -->
+		<!-- Calendar Bento Section (Febrero a Diciembre 2026) -->
 		<CalendarBento lang={lang} />
 
 		<!-- Luma Official Calendar Section -->
 		<CommunityFrame lang={lang} />
 
-		<!-- Divider -->
-		{events.length > 0 && (
-			<div class="section-divider animate-in" style="animation-delay: 0.3s">
-				<div class="divider-line"></div>
-				<span class="divider-label">{lang === 'es' ? 'Cronograma Completo & Hitos' : 'Full Agenda & Milestones'}</span>
-				<div class="divider-line"></div>
-			</div>
-		)}
+		<!-- Divider: Baraja Interactiva por Meses -->
+		<div class="section-divider animate-in" style="animation-delay: 0.3s">
+			<div class="divider-line"></div>
+			<span class="divider-label">{lang === 'es' ? 'Baraja de Eventos por Mes' : 'Event Deck by Month'}</span>
+			<div class="divider-line"></div>
+		</div>
 
-		<div class="events-grid animate-in" style="animation-delay: 0.4s">
+		<!-- Month Selector Tabs Bar -->
+		<div class="month-filter-container animate-in" style="animation-delay: 0.35s">
+			<div class="month-tabs-track" role="tablist" aria-label={lang === 'es' ? 'Filtrar eventos por mes' : 'Filter events by month'}>
+				{monthsList.map(m => {
+					const count = m.id === 'all' ? eventCounts['all'] : (eventCounts[m.num] || 0);
+					return (
+						<button 
+							type="button" 
+							class={`month-tab-btn ${m.id === 'all' ? 'active' : ''}`}
+							data-month={m.id === 'all' ? 'all' : m.num}
+							role="tab"
+							aria-selected={m.id === 'all' ? 'true' : 'false'}
+						>
+							<span class="month-tab-label">{m.label}</span>
+							{count > 0 && <span class="month-tab-badge">{count}</span>}
+						</button>
+					);
+				})}
+			</div>
+		</div>
+
+		<!-- Events Grid / Interactive Card Deck -->
+		<div class="events-grid animate-in" id="events-card-deck" style="animation-delay: 0.4s">
 			{events.map((event, index) => {
 				const isUpcoming = event.data.date >= now || event.data.featured;
 				const slug = event.id.replace(`${lang}/`, '').replace(/\.[^.]+$/, '');
+				const eventMonth = String(event.data.date.getMonth() + 1).padStart(2, '0');
+				const isBioDesign = slug.includes('biodesign');
+				const eventUrl = isBioDesign ? getLocalePath(lang, 'events/biodesign') : getLocalePath(lang, `events/${slug}`);
+
 				return (
-					<a href={getLocalePath(lang, `events/${slug}`)} class={`event-card glass ${isUpcoming ? 'upcoming-card' : ''} ${index === 0 ? 'large' : ''}`}>
+					<a 
+						href={eventUrl} 
+						class={`event-card glass ${isUpcoming ? 'upcoming-card' : ''} ${isBioDesign ? 'biodesign-event-card' : ''} ${index === 0 ? 'large' : ''}`}
+						data-event-month={eventMonth}
+					>
 						<div class="card-header">
 							<span class="date">{event.data.date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
 							<div class="card-tags">
-								{event.data.badge && <span class="badge-pill">{event.data.badge}</span>}
+								{event.data.badge && <span class={`badge-pill ${isBioDesign ? 'badge-biodesign' : ''}`}>{event.data.badge}</span>}
 								<span class="type-pill">{t(`type.${event.data.type}`)}</span>
 							</div>
 						</div>
@@ -81,9 +132,61 @@ const events = [...upcomingEvents, ...pastEvents];
 					</a>
 				);
 			})}
+
+			<!-- Empty State for months with no events -->
+			<div class="events-empty-state glass" id="events-empty-state" style="display: none;">
+				<span class="material-icons empty-icon">event_note</span>
+				<h4>{lang === 'es' ? 'Próximamente más detalles' : 'More details coming soon'}</h4>
+				<p>{lang === 'es' ? 'Estamos afinando la agenda de ponentes y fechas para este mes. ¡Mantente atento a nuestros canales oficiales!' : 'We are finalizing speakers and dates for this month. Stay tuned to our official channels!'}</p>
+			</div>
 		</div>
 	</div>
 </Layout>
+
+<script is:inline>
+	function setupMonthFilter() {
+		const container = document.querySelector('.month-tabs-track');
+		if (!container) return;
+
+		const tabs = container.querySelectorAll('.month-tab-btn');
+		const cards = document.querySelectorAll('#events-card-deck .event-card');
+		const emptyState = document.getElementById('events-empty-state');
+
+		tabs.forEach(tab => {
+			tab.addEventListener('click', () => {
+				const selectedMonth = tab.getAttribute('data-month');
+
+				tabs.forEach(t => {
+					t.classList.remove('active');
+					t.setAttribute('aria-selected', 'false');
+				});
+				tab.classList.add('active');
+				tab.setAttribute('aria-selected', 'true');
+
+				let visibleCount = 0;
+				cards.forEach(card => {
+					const cardMonth = card.getAttribute('data-event-month');
+					if (selectedMonth === 'all' || cardMonth === selectedMonth) {
+						card.style.display = 'flex';
+						card.style.animation = 'fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+						visibleCount++;
+					} else {
+						card.style.display = 'none';
+					}
+				});
+
+				if (emptyState) {
+					emptyState.style.display = visibleCount === 0 ? 'flex' : 'none';
+				}
+			});
+		});
+	}
+
+	// Initialize on page load and on Astro View Transitions lifecycle
+	setupMonthFilter();
+	document.addEventListener('astro:page-load', setupMonthFilter);
+	document.addEventListener('astro:after-swap', setupMonthFilter);
+</script>
 
 <style>
 	.page-content {
@@ -94,7 +197,7 @@ const events = [...upcomingEvents, ...pastEvents];
 		display: flex;
 		align-items: center;
 		gap: 2rem;
-		margin: 4rem 0 3rem;
+		margin: 5rem 0 2rem;
 	}
 	.divider-line {
 		flex: 1;
@@ -102,12 +205,12 @@ const events = [...upcomingEvents, ...pastEvents];
 		background: var(--border-color);
 	}
 	.divider-label {
-		font-size: 0.7rem;
+		font-size: 0.75rem;
 		font-weight: 900;
 		text-transform: uppercase;
 		letter-spacing: 0.2em;
 		color: var(--text-color);
-		opacity: 0.4;
+		opacity: 0.55;
 		white-space: nowrap;
 	}
 
@@ -143,28 +246,118 @@ const events = [...upcomingEvents, ...pastEvents];
 		margin: 0 auto;
 	}
 
+	/* ── Month Selector Filter Bar ── */
+	.month-filter-container {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 3rem;
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.month-tabs-track {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.4rem;
+		border-radius: 9999px;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		overflow-x: auto;
+		max-width: 100%;
+		scrollbar-width: none;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+	}
+	.month-tabs-track::-webkit-scrollbar {
+		display: none;
+	}
+
+	.month-tab-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.45rem 0.95rem;
+		border-radius: 9999px;
+		border: 1px solid transparent;
+		background: transparent;
+		color: var(--text-color);
+		opacity: 0.65;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		cursor: pointer;
+		transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	.month-tab-btn:hover {
+		opacity: 1;
+		background: rgba(255, 255, 255, 0.06);
+		color: var(--accent-cyan);
+	}
+
+	.month-tab-btn.active {
+		opacity: 1;
+		background: linear-gradient(135deg, rgba(var(--cbs-emerald-rgb), 0.25), rgba(var(--cbs-blue-corp-rgb), 0.2));
+		border-color: rgba(var(--cbs-emerald-rgb), 0.6);
+		color: var(--accent-cyan);
+		box-shadow: 0 0 16px rgba(var(--cbs-emerald-rgb), 0.35);
+	}
+
+	.month-tab-badge {
+		font-size: 0.65rem;
+		font-weight: 800;
+		padding: 0.1rem 0.4rem;
+		border-radius: 9999px;
+		background: rgba(255, 255, 255, 0.1);
+		color: var(--text-color);
+	}
+	.month-tab-btn.active .month-tab-badge {
+		background: var(--cbs-emerald);
+		color: #030308;
+	}
+
+	/* ── Events Grid / Card Deck ── */
 	.events-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		grid-auto-rows: minmax(350px, auto);
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		grid-auto-rows: minmax(360px, auto);
 		gap: 1.5rem;
 	}
 
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(16px) scale(0.98);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
 	.event-card {
-		padding: 2.5rem;
-		border-radius: 28px;
+		padding: 2.25rem;
+		border-radius: 24px;
 		display: flex;
 		flex-direction: column;
 		text-decoration: none;
 		color: inherit;
 		transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 		border: 1px solid var(--border-color);
+		background: rgba(255, 255, 255, 0.02);
+		position: relative;
 	}
 
 	.event-card:hover {
 		transform: translateY(-8px) scale(1.02);
 		border-color: var(--accent-purple);
 		background: rgba(var(--accent-purple-rgb), 0.05);
+		box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
 	}
 
 	.event-card.large {
@@ -182,11 +375,26 @@ const events = [...upcomingEvents, ...pastEvents];
 		box-shadow: 0 16px 48px rgba(var(--cbs-emerald-rgb), 0.2);
 	}
 
+	/* BioDesign card accent */
+	.event-card.biodesign-event-card {
+		border-color: rgba(121, 248, 208, 0.4);
+		background: linear-gradient(135deg, rgba(121, 248, 208, 0.08), rgba(69, 38, 196, 0.08));
+	}
+	.event-card.biodesign-event-card:hover {
+		border-color: #79f8d0;
+		box-shadow: 0 16px 40px rgba(121, 248, 208, 0.25);
+	}
+
+	.badge-biodesign {
+		background: linear-gradient(90deg, #79f8d0, #bbf35f) !important;
+		color: #00382a !important;
+	}
+
 	.card-header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: 2rem;
+		margin-bottom: 1.5rem;
 		flex-wrap: wrap;
 		gap: 0.75rem;
 	}
@@ -211,7 +419,7 @@ const events = [...upcomingEvents, ...pastEvents];
 	}
 
 	.date {
-		font-size: 1.4rem;
+		font-size: 1.3rem;
 		font-weight: 800;
 		color: var(--accent-cyan);
 		font-variant-numeric: tabular-nums;
@@ -230,22 +438,22 @@ const events = [...upcomingEvents, ...pastEvents];
 	}
 
 	.card-body h3 {
-		font-size: 1.8rem;
-		line-height: 1.2;
-		margin-bottom: 1rem;
+		font-size: 1.6rem;
+		line-height: 1.25;
+		margin-bottom: 0.75rem;
 		color: var(--text-color);
 		font-weight: 800;
 	}
 
 	.event-card.large h3 {
-		font-size: 2.5rem;
+		font-size: 2.2rem;
 	}
 
 	.card-body p {
-		font-size: 1rem;
+		font-size: 0.95rem;
 		line-height: 1.6;
 		opacity: 0.7;
-		margin-bottom: 2rem;
+		margin-bottom: 1.5rem;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
@@ -257,7 +465,7 @@ const events = [...upcomingEvents, ...pastEvents];
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		padding-top: 1.5rem;
+		padding-top: 1.25rem;
 		border-top: 1px solid rgba(255, 255, 255, 0.05);
 	}
 
@@ -293,12 +501,47 @@ const events = [...upcomingEvents, ...pastEvents];
 		transform: translateX(5px);
 	}
 
+	/* Empty State */
+	.events-empty-state {
+		grid-column: 1 / -1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 4rem 2rem;
+		border-radius: 24px;
+		border: 1px dashed rgba(255, 255, 255, 0.15);
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.empty-icon {
+		font-size: 3rem;
+		color: var(--accent-cyan);
+		opacity: 0.6;
+		margin-bottom: 1rem;
+	}
+
+	.events-empty-state h4 {
+		font-size: 1.4rem;
+		font-weight: 700;
+		color: var(--text-color);
+		margin-bottom: 0.5rem;
+	}
+
+	.events-empty-state p {
+		font-size: 0.95rem;
+		opacity: 0.65;
+		max-width: 500px;
+		margin: 0;
+	}
+
 	@media (max-width: 900px) {
 		.event-card.large {
 			grid-column: span 1;
 		}
 		.event-card.large h3 {
-			font-size: 1.8rem;
+			font-size: 1.6rem;
 		}
 	}
 
@@ -308,6 +551,10 @@ const events = [...upcomingEvents, ...pastEvents];
 		}
 		.event-card {
 			padding: 1.5rem;
+		}
+		.month-tabs-track {
+			justify-content: flex-start;
+			border-radius: 1rem;
 		}
 	}
 </style>

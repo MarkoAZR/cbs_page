@@ -10,6 +10,7 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navLinks = [
 	{ name: t('nav.events'), icon: 'event', href: getLocalePath(lang, 'events') },
@@ -36,13 +37,26 @@ const navLinks = [
 		<!-- Nav Items -->
 		{navLinks.map(link => {
 			const isExternal = link.href.startsWith('http');
+			const isEvents = link.icon === 'event';
 			return (
 				<a 
 					href={link.href} 
-					class="dock-item"
+					class={`dock-item ${isEvents ? 'has-badge' : ''}`}
 					target={isExternal ? "_blank" : undefined}
 					rel={isExternal ? "noopener noreferrer" : undefined}
 				>
+					{isEvents && (
+						<span 
+							class="biodesign-nav-badge" 
+							title="BioDesign Bootcamp"
+							role="button"
+							tabindex="0"
+							onclick={`event.stopPropagation(); window.location.href='${getLocalePath(lang, 'events/biodesign')}';`}
+						>
+							<img src={`${base}/Biodesign/logo_biodesign_mm.png`} alt="BioDesign" width="16" height="16" class="badge-logo" />
+							<span class="badge-pulse-ring"></span>
+						</span>
+					)}
 					<span class="material-icons">{link.icon}</span>
 					<span class="label">{link.name}</span>
 					<div class="active-indicator"></div>
@@ -195,6 +209,69 @@ const navLinks = [
 		color: var(--accent-cyan);
 	}
 
+	/* BioDesign Floating Nav Badge */
+	.biodesign-nav-badge {
+		position: absolute;
+		top: -14px;
+		right: -2px;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: #131120;
+		border: 2px solid #79f8d0;
+		box-shadow: 0 0 12px rgba(121, 248, 208, 0.7);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 10;
+		cursor: pointer;
+		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		animation: bd-badge-float 3s ease-in-out infinite;
+	}
+
+	.biodesign-nav-badge:hover {
+		transform: scale(1.25) translateY(-3px);
+		box-shadow: 0 0 20px rgba(121, 248, 208, 0.9), 0 0 35px rgba(187, 243, 95, 0.5);
+		border-color: #bbf35f;
+	}
+
+	.badge-logo {
+		width: 22px;
+		height: 22px;
+		object-fit: contain;
+		border-radius: 50%;
+	}
+
+	.badge-pulse-ring {
+		position: absolute;
+		inset: -3px;
+		border-radius: 50%;
+		border: 1px solid #79f8d0;
+		opacity: 0.8;
+		animation: bd-badge-pulse 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+		pointer-events: none;
+	}
+
+	@keyframes bd-badge-pulse {
+		0% {
+			transform: scale(0.9);
+			opacity: 0.9;
+		}
+		100% {
+			transform: scale(1.6);
+			opacity: 0;
+		}
+	}
+
+	@keyframes bd-badge-float {
+		0%, 100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-3px);
+		}
+	}
+
 	@media (max-width: 768px) {
 		.branding-text, .divider {
 			display: none;
@@ -215,6 +292,16 @@ const navLinks = [
 		}
 		.dock-item .material-icons {
 			font-size: 1.2rem;
+		}
+		.biodesign-nav-badge {
+			top: -12px;
+			right: -2px;
+			width: 26px;
+			height: 26px;
+		}
+		.badge-logo {
+			width: 18px;
+			height: 18px;
 		}
 	}
 </style>

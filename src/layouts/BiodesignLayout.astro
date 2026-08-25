@@ -1,0 +1,372 @@
+---
+import Layout from './Layout.astro';
+import LanguageSwitcher from '../components/common/LanguageSwitcher.astro';
+import { useTranslations, getLocalePath } from '../i18n/utils';
+import type { Lang } from '../i18n/ui';
+import '../styles/biodesign.css';
+
+interface Props {
+	title: string;
+	description?: string;
+	lang?: Lang;
+}
+
+const { title, description = 'BioDesign Bootcamp - Biología Sintética para Escolares', lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const FORM_URL = 'https://forms.gle/NoDNkHumVhDA9beE6';
+
+const navLinks = [
+	{ label: t('biodesign.nav.tracks'), href: '#tracks' },
+	{ label: t('biodesign.nav.fases'), href: '#fases' },
+	{ label: t('biodesign.nav.rubrica'), href: '#rubrica' },
+	{ label: t('biodesign.nav.aliados'), href: '#aliados' },
+];
+---
+
+<Layout title={title} description={description} lang={lang} hideTopActions={true}>
+	<div class="biodesign-page">
+		<!-- BioDesign Top Navbar -->
+		<header class="bd-navbar" id="bd-main-header">
+			<div class="bd-navbar-inner">
+				<div class="bd-navbar-left">
+					<a href={getLocalePath(lang, 'events')} class="bd-navbar-back" aria-label={t('biodesign.back')}>
+						<span class="material-icons">arrow_back</span>
+					</a>
+					<a href={getLocalePath(lang, 'events/biodesign')} class="bd-navbar-brand">
+						<img src={`${base}/Biodesign/logo_biodesign_mm.png`} alt="BioDesign Logo" class="bd-navbar-logo" width="36" height="36" />
+						<span class="bd-navbar-title">BioDesign</span>
+					</a>
+				</div>
+
+				<nav class="bd-navbar-nav">
+					{navLinks.map(link => (
+						<a href={link.href} class="bd-navbar-link">{link.label}</a>
+					))}
+				</nav>
+
+				<div class="bd-navbar-right">
+					<a href={FORM_URL} target="_blank" rel="noopener noreferrer" class="bd-btn-primary bd-navbar-cta">
+						{t('biodesign.nav.cta')}
+					</a>
+					<div class="bd-lang-wrap">
+						<LanguageSwitcher lang={lang} />
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<!-- Page Content -->
+		<div class="bd-page-content">
+			<slot />
+		</div>
+	</div>
+</Layout>
+
+<style>
+	/* ── BioDesign Navbar ── */
+	.bd-navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 1050;
+		background: rgba(19, 17, 32, 0.85);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border-bottom: 1px solid rgba(200, 191, 255, 0.12);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+		transition: all 0.3s ease;
+	}
+
+	.bd-navbar.scrolled {
+		background: rgba(19, 17, 32, 0.96);
+		backdrop-filter: blur(24px);
+		-webkit-backdrop-filter: blur(24px);
+		border-bottom-color: rgba(121, 248, 208, 0.25);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+	}
+
+	.bd-navbar-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0.75rem 2rem;
+		gap: 1rem;
+		width: 100%;
+		box-sizing: border-box;
+	}
+
+	.bd-navbar-left {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-shrink: 0;
+	}
+
+	.bd-navbar-back {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		color: #bccac2;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		flex-shrink: 0;
+	}
+
+	.bd-navbar-back:hover {
+		background: rgba(121, 248, 208, 0.1);
+		border-color: rgba(121, 248, 208, 0.3);
+		color: #79f8d0;
+		transform: translateX(-2px);
+	}
+
+	.bd-navbar-brand {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		flex-shrink: 0;
+	}
+
+	.bd-navbar-brand:hover {
+		transform: scale(1.02);
+	}
+
+	.bd-navbar-logo {
+		width: 36px;
+		height: 36px;
+		object-fit: contain;
+		border-radius: 10px;
+		filter: drop-shadow(0 0 8px rgba(121, 248, 208, 0.4));
+	}
+
+	.bd-navbar-title {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.4rem;
+		font-weight: 700;
+		color: #79f8d0;
+		letter-spacing: -0.01em;
+	}
+
+	.bd-navbar-nav {
+		display: flex;
+		align-items: center;
+		gap: 2rem;
+	}
+
+	.bd-navbar-link {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.875rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		color: #bccac2;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		position: relative;
+	}
+
+	.bd-navbar-link::after {
+		content: '';
+		position: absolute;
+		bottom: -4px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #79f8d0;
+		transition: width 0.3s ease;
+		box-shadow: 0 0 8px rgba(121, 248, 208, 0.5);
+	}
+
+	.bd-navbar-link:hover {
+		color: #79f8d0;
+		filter: drop-shadow(0 0 8px rgba(90, 219, 181, 0.8));
+	}
+
+	.bd-navbar-link:hover::after {
+		width: 100%;
+	}
+
+	.bd-navbar-right {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-shrink: 0;
+	}
+
+	.bd-navbar-cta {
+		padding: 0.5rem 1.4rem !important;
+		font-size: 0.8rem !important;
+		flex-shrink: 0;
+	}
+
+	/* Language Switcher Dark Theme Styling for BioDesign Navbar */
+	.bd-lang-wrap :global(.lang-toggle) {
+		width: 38px;
+		height: 38px;
+		background: rgba(35, 32, 56, 0.75) !important;
+		border: 1px solid rgba(121, 248, 208, 0.3) !important;
+		color: #79f8d0 !important;
+		box-shadow: 0 0 10px rgba(121, 248, 208, 0.2) !important;
+	}
+
+	.bd-lang-wrap :global(.lang-toggle:hover) {
+		background: #79f8d0 !important;
+		color: #00382a !important;
+		box-shadow: 0 0 16px rgba(121, 248, 208, 0.7) !important;
+		transform: scale(1.08) !important;
+	}
+
+	.bd-lang-wrap :global(.lang-code) {
+		font-size: 0.8rem;
+		font-weight: 700;
+	}
+
+	.bd-page-content {
+		padding-top: 65px; /* Navbar height offset */
+		padding-bottom: 7rem; /* Bottom clearance for BottomNav */
+		min-height: 100vh;
+	}
+
+	/* Force dark cosmic aesthetic on footer when on BioDesign page */
+	:global(.main-footer) {
+		background: #0e0c1b !important;
+		border-top-color: rgba(200, 191, 255, 0.15) !important;
+		color: #bccac2 !important;
+	}
+
+	:global(.main-footer .footer-description),
+	:global(.main-footer .copyright) {
+		color: #A19FB6 !important;
+	}
+
+	:global(.main-footer .social-icon) {
+		color: #bccac2 !important;
+	}
+
+	:global(.main-footer .social-icon:hover) {
+		color: #79f8d0 !important;
+	}
+
+	/* ── Responsive Breakpoints ── */
+	@media (max-width: 1100px) {
+		.bd-navbar-nav {
+			gap: 1.25rem;
+		}
+		.bd-navbar-link {
+			font-size: 0.8rem;
+		}
+	}
+
+	@media (max-width: 900px) {
+		.bd-navbar-nav {
+			display: none;
+		}
+		.bd-navbar-inner {
+			padding: 0.65rem 1.25rem;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.bd-navbar-inner {
+			padding: 0.55rem 0.75rem;
+			gap: 0.5rem;
+		}
+		.bd-navbar-left {
+			gap: 0.45rem;
+		}
+		.bd-navbar-back {
+			width: 32px;
+			height: 32px;
+			border-radius: 8px;
+		}
+		.bd-navbar-brand {
+			gap: 0.45rem;
+		}
+		.bd-navbar-logo {
+			width: 28px;
+			height: 28px;
+			border-radius: 8px;
+		}
+		.bd-navbar-title {
+			font-size: 1.15rem;
+		}
+		.bd-navbar-right {
+			gap: 0.45rem;
+		}
+		.bd-navbar-cta {
+			padding: 0.4rem 0.85rem !important;
+			font-size: 0.75rem !important;
+		}
+		.bd-lang-wrap :global(.lang-toggle) {
+			width: 32px;
+			height: 32px;
+		}
+		.bd-lang-wrap :global(.lang-code) {
+			font-size: 0.72rem;
+		}
+	}
+
+	@media (max-width: 380px) {
+		.bd-navbar-inner {
+			padding: 0.5rem 0.4rem;
+			gap: 0.3rem;
+		}
+		.bd-navbar-left {
+			gap: 0.35rem;
+		}
+		.bd-navbar-back {
+			width: 28px;
+			height: 28px;
+		}
+		.bd-navbar-logo {
+			width: 22px;
+			height: 22px;
+		}
+		.bd-navbar-title {
+			font-size: 0.95rem;
+		}
+		.bd-navbar-cta {
+			padding: 0.35rem 0.65rem !important;
+			font-size: 0.7rem !important;
+		}
+		.bd-lang-wrap :global(.lang-toggle) {
+			width: 28px;
+			height: 28px;
+		}
+		.bd-lang-wrap :global(.lang-code) {
+			font-size: 0.65rem;
+		}
+	}
+</style>
+
+<script>
+	// Header scroll effect
+	function initBdNavbar() {
+		const header = document.getElementById('bd-main-header');
+		if (!header) return;
+
+		const handleScroll = () => {
+			if (window.scrollY > 50) {
+				header.classList.add('scrolled');
+			} else {
+				header.classList.remove('scrolled');
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		handleScroll();
+	}
+
+	initBdNavbar();
+	document.addEventListener('astro:after-swap', initBdNavbar);
+</script>

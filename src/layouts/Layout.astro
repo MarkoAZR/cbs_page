@@ -11,9 +11,15 @@ interface Props {
 	title: string;
 	description?: string;
 	lang?: Lang;
+	hideTopActions?: boolean;
 }
 
-const { title, description = "Grupo de Divulgación Científica - Avances y Eventos", lang = 'es' } = Astro.props;
+const { 
+	title, 
+	description = "Grupo de Divulgación Científica - Avances y Eventos", 
+	lang = 'es',
+	hideTopActions = false 
+} = Astro.props;
 const t = useTranslations(lang);
 
 const esPath = getAlternateLocalePath(Astro.url, 'es');
@@ -106,10 +112,12 @@ const siteBase = import.meta.env.SITE + cleanBase;
 		<ClientRouter />
 	</head>
 	<body>
-		<div class="top-actions">
-			<LanguageSwitcher lang={lang} />
-			<ThemeToggle />
-		</div>
+		{!hideTopActions && (
+			<div class="top-actions">
+				<LanguageSwitcher lang={lang} />
+				<ThemeToggle />
+			</div>
+		)}
 		<main>
 			<slot />
 		</main>
@@ -135,6 +143,9 @@ const siteBase = import.meta.env.SITE + cleanBase;
 						{t('footer.description')}
 					</p>
 					<p class="copyright">&copy; {new Date().getFullYear()} {t('footer.copyright')}</p>
+					<p class="footer-credits">
+						{lang === 'es' ? 'Diseño y desarrollo web por' : 'Web design & development by'} <a href="https://www.linkedin.com/in/marko-zapata/" target="_blank" rel="noopener noreferrer" class="footer-credit-link">Marko Zapata</a>
+					</p>
 				</div>
 			</div>
 		</footer>
@@ -208,6 +219,27 @@ const siteBase = import.meta.env.SITE + cleanBase;
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
 		opacity: 0.4;
+	}
+
+	.footer-credits {
+		font-size: 0.82rem;
+		opacity: 0.65;
+		margin-top: 0.5rem;
+		color: var(--text-color);
+		line-height: 1.5;
+	}
+
+	.footer-credit-link {
+		color: var(--accent-cyan, #79f8d0);
+		text-decoration: none;
+		font-weight: 600;
+		transition: all 0.2s ease;
+	}
+
+	.footer-credit-link:hover {
+		text-decoration: underline;
+		opacity: 1;
+		filter: drop-shadow(0 0 6px rgba(121, 248, 208, 0.6));
 	}
 
 	@media (max-width: 700px) {

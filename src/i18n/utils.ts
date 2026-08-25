@@ -9,9 +9,9 @@ export function getLangFromUrl(url: URL): Lang {
 }
 
 export function useTranslations(lang: Lang) {
-    return function t(key: keyof typeof ui[typeof defaultLang]): string {
-        return ui[lang]?.[key] || ui[defaultLang][key];
-    }
+    return function t(key: (keyof (typeof ui)[typeof defaultLang]) | (string & {})): string {
+        return (ui[lang] as any)?.[key] || (ui[defaultLang] as any)?.[key] || key;
+    };
 }
 
 export function getLocalePath(lang: Lang, path: string = ''): string {
