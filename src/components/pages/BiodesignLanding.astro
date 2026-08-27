@@ -495,7 +495,7 @@ const alliedOrgs = [
 			<p class="bd-body-md">{t('biodesign.fases.fase2.desc')}</p>
 			<div class="bd-fase-dates">
 				<span class="material-icons" style="font-size:1rem; color:var(--bd-tertiary);">calendar_today</span>
-				<span>9 Oct — 19 Oct 2026</span>
+				<span>9 Oct — 23 Oct 2026</span>
 				<span class="bd-fase-format-badge">Sprint + Clausura</span>
 			</div>
 		</div>
@@ -874,6 +874,8 @@ const alliedOrgs = [
 		width: 100%;
 		max-height: 90dvh;
 		overflow-y: auto;
+		overscroll-behavior: contain;
+		-webkit-overflow-scrolling: touch;
 		transform: scale(0.93);
 		transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 		display: flex;
@@ -1837,7 +1839,7 @@ const alliedOrgs = [
 			margin-left: auto;
 		}
 
-		/* Bottom-sheet popup on mobile */
+		/* Bottom-sheet popup on mobile — School Modal */
 		.bd-school-modal-overlay {
 			align-items: flex-end;
 			padding: 0;
@@ -1845,13 +1847,34 @@ const alliedOrgs = [
 
 		.bd-school-modal-overlay .bd-school-modal {
 			max-height: 85vh;
+			max-height: 85dvh;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+			width: 100%;
+			transform: translateY(20px);
+			overscroll-behavior: contain;
+		}
+
+		.bd-school-modal-overlay:not([hidden]) .bd-school-modal {
+			transform: translateY(0);
+		}
+
+		/* Bottom-sheet popup on mobile — Track Modals */
+		.bd-modal-overlay:not(.bd-school-modal-overlay) {
+			align-items: flex-end;
+			padding: 0;
+		}
+
+		.bd-modal-overlay:not(.bd-school-modal-overlay) .bd-modal {
+			max-height: 85vh;
+			max-height: 85dvh;
 			border-bottom-left-radius: 0;
 			border-bottom-right-radius: 0;
 			width: 100%;
 			transform: translateY(20px);
 		}
 
-		.bd-school-modal-overlay:not([hidden]) .bd-school-modal {
+		.bd-modal-overlay:not(.bd-school-modal-overlay):not([hidden]) .bd-modal {
 			transform: translateY(0);
 		}
 
@@ -2870,6 +2893,27 @@ void main() {
 		elements.forEach(el => observer.observe(el));
 	}
 
+	// ── Body Lock Helpers (iOS Safari compatible) ─────────────────
+	let _bodyScrollY = 0;
+	function lockBody() {
+		_bodyScrollY = window.scrollY;
+		document.body.style.overflow = 'hidden';
+		document.body.style.position = 'fixed';
+		document.body.style.top = `-${_bodyScrollY}px`;
+		document.body.style.left = '0';
+		document.body.style.right = '0';
+		document.documentElement.style.overflow = 'hidden';
+	}
+	function unlockBody() {
+		document.body.style.overflow = '';
+		document.body.style.position = '';
+		document.body.style.top = '';
+		document.body.style.left = '';
+		document.body.style.right = '';
+		document.documentElement.style.overflow = '';
+		window.scrollTo(0, _bodyScrollY);
+	}
+
 	// ── Track Modals ───────────────────────────────────────────────
 	function initBdTrackModals() {
 		const trackCards = document.querySelectorAll('[data-track-id]');
@@ -2879,7 +2923,7 @@ void main() {
 			const overlay = document.getElementById(`modal-${trackId}`);
 			if (!overlay) return;
 			overlay.hidden = false;
-			document.body.style.overflow = 'hidden';
+			lockBody();
 			// Focus first focusable element
 			requestAnimationFrame(() => {
 				const focusable = overlay.querySelector('button, [tabindex]');
@@ -2890,7 +2934,7 @@ void main() {
 		function closeModal(overlay) {
 			if (!overlay) return;
 			overlay.hidden = true;
-			document.body.style.overflow = '';
+			unlockBody();
 		}
 
 		// Open on card click or Enter/Space
@@ -2971,7 +3015,7 @@ void main() {
 
 		function openSchoolModal() {
 			overlay.hidden = false;
-			document.body.style.overflow = 'hidden';
+			lockBody();
 			requestAnimationFrame(() => {
 				const closeBtn = overlay.querySelector('[data-close-school-modal]');
 				if (closeBtn) closeBtn.focus();
@@ -2980,7 +3024,7 @@ void main() {
 
 		function closeSchoolModal() {
 			overlay.hidden = true;
-			document.body.style.overflow = '';
+			unlockBody();
 		}
 
 		openBtn.addEventListener('click', openSchoolModal);
