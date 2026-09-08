@@ -10,7 +10,9 @@ const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const FORM_URL = 'https://forms.gle/NoDNkHumVhDA9beE6';
+const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
+const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
+const FORM_URL = FORM_URL_INDIVIDUAL; // individual fallback for hero CTA
 const LINKEDIN_URL = 'https://www.linkedin.com/company/cbs-unmsm';
 const EMAIL_CONTACT = 'cbs.unmsm@gmail.com';
 
@@ -233,14 +235,39 @@ const alliedOrgs = [
 			</p>
 
 			<div class="bd-hero-actions">
-				<a href={FORM_URL} target="_blank" rel="noopener noreferrer" class="bd-btn-primary">
-					<span class="material-icons" style="font-size:1rem;">edit_note</span>
-					{t('biodesign.hero.cta.primary')}
-				</a>
-				<a href="#tracks" class="bd-btn-ghost">
-					{t('biodesign.hero.cta.secondary')}
-					<span class="material-icons">arrow_forward</span>
-				</a>
+				<div class="bd-hero-cta-buttons">
+					<a
+						href={FORM_URL_GROUP}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="bd-btn-primary bd-hero-btn bd-hero-btn--teal"
+						id="btn-hero-grupal"
+					>
+						<span class="material-icons" style="font-size:1.1rem;">groups</span>
+						{t('biodesign.hero.cta.group')}
+					</a>
+					<a
+						href={FORM_URL_INDIVIDUAL}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="bd-btn-primary bd-hero-btn bd-hero-btn--lime"
+						id="btn-hero-individual"
+					>
+						<span class="material-icons" style="font-size:1.1rem;">person</span>
+						{t('biodesign.hero.cta.individual')}
+					</a>
+				</div>
+				<div class="bd-hero-sub-actions">
+					<a href="#inscripcion" class="bd-btn-ghost bd-hero-sublink">
+						<span class="material-icons" style="font-size:1rem;">how_to_reg</span>
+						{t('biodesign.hero.cta.requirements')}
+					</a>
+					<span class="bd-hero-sep" aria-hidden="true">•</span>
+					<a href="#tracks" class="bd-btn-ghost bd-hero-sublink">
+						{t('biodesign.hero.cta.secondary')}
+						<span class="material-icons" style="font-size:1rem;">arrow_forward</span>
+					</a>
+				</div>
 			</div>
 		</div>
 
@@ -347,6 +374,187 @@ const alliedOrgs = [
 		</div>
 	</div>
 </div>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN DE INSCRIPCIÓN DEDICADA
+     ═══════════════════════════════════════════ -->
+<section class="bd-section bd-inscripcion-section" id="inscripcion">
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">how_to_reg</span>
+			{t('biodesign.inscripcion.badge')}
+		</span>
+		<h2 class="bd-headline-lg">
+			{t('biodesign.inscripcion.title1')} <span class="bd-gradient-text">{t('biodesign.inscripcion.title2')}</span>
+		</h2>
+		<p class="bd-body-md" style="max-width:720px; margin:0 auto;">
+			{t('biodesign.inscripcion.subtitle')}
+		</p>
+		<div class="bd-inscripcion-dates-banner">
+			<span class="material-icons" style="font-size:16px; color:var(--bd-tertiary);">event_available</span>
+			<span class="bd-inscripcion-dates-text">{t('biodesign.inscripcion.dates')}</span>
+		</div>
+	</div>
+
+	<!-- Bento Grid de Modalidades -->
+	<div class="bd-inscripcion-cards-grid bd-reveal">
+		<!-- Tarjeta 1: Modalidad Grupal (Colegios Visitados) -->
+		<div class="bd-glass bd-modalidad-card bd-modalidad-card--group">
+			<div class="bd-modalidad-badge-row">
+				<span class="bd-chip bd-chip-teal">
+					<span class="material-icons" style="font-size:13px;">school</span>
+					{t('biodesign.inscripcion.group.badge')}
+				</span>
+				<span class="bd-modalidad-pill-tag">
+					{t('biodesign.inscripcion.group.tag')}
+				</span>
+			</div>
+
+			<div class="bd-modalidad-header">
+				<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--teal">
+					<span class="material-icons bd-modalidad-icon">groups</span>
+				</div>
+				<div>
+					<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.group.title')}</h3>
+					<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.group.desc')}</p>
+				</div>
+			</div>
+
+			<div class="bd-modalidad-divider"></div>
+
+			<ul class="bd-modalidad-features">
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">group_add</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.group.f1.title')}:</strong> {t('biodesign.inscripcion.group.f1.desc')}
+					</div>
+				</li>
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">domain</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.group.f2.title')}:</strong> {t('biodesign.inscripcion.group.f2.desc')}
+					</div>
+				</li>
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">person_pin</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.group.f3.title')}:</strong> {t('biodesign.inscripcion.group.f3.desc')}
+					</div>
+				</li>
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">psychology</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.group.f4.title')}:</strong> {t('biodesign.inscripcion.group.f4.desc')}
+					</div>
+				</li>
+			</ul>
+
+			<div class="bd-modalidad-footer">
+				<a
+					href={FORM_URL_GROUP}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--teal"
+					id="btn-inscripcion-seccion-grupal"
+				>
+					<span class="material-icons" style="font-size:1.1rem;">assignment</span>
+					{t('biodesign.inscripcion.group.cta')}
+				</a>
+				<span class="bd-caption bd-modalidad-note">
+					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
+					{t('biodesign.inscripcion.group.note')}
+				</span>
+			</div>
+		</div>
+
+		<!-- Tarjeta 2: Modalidad Individual (Estudiantes Libres) -->
+		<div class="bd-glass bd-modalidad-card bd-modalidad-card--individual">
+			<div class="bd-modalidad-badge-row">
+				<span class="bd-chip bd-chip-lime">
+					<span class="material-icons" style="font-size:13px;">person</span>
+					{t('biodesign.inscripcion.ind.badge')}
+				</span>
+				<span class="bd-modalidad-pill-tag bd-modalidad-pill-tag--lime">
+					{t('biodesign.inscripcion.ind.tag')}
+				</span>
+			</div>
+
+			<div class="bd-modalidad-header">
+				<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--lime">
+					<span class="material-icons bd-modalidad-icon">person</span>
+				</div>
+				<div>
+					<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.ind.title')}</h3>
+					<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.ind.desc')}</p>
+				</div>
+			</div>
+
+			<div class="bd-modalidad-divider"></div>
+
+			<ul class="bd-modalidad-features">
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--lime">how_to_reg</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.ind.f1.title')}:</strong> {t('biodesign.inscripcion.ind.f1.desc')}
+					</div>
+				</li>
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--lime">hub</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.ind.f2.title')}:</strong> {t('biodesign.inscripcion.ind.f2.desc')}
+					</div>
+				</li>
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--lime">public</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.ind.f3.title')}:</strong> {t('biodesign.inscripcion.ind.f3.desc')}
+					</div>
+				</li>
+				<li class="bd-modalidad-feature">
+					<span class="material-icons bd-feature-icon bd-feature-icon--lime">handshake</span>
+					<div>
+						<strong>{t('biodesign.inscripcion.ind.f4.title')}:</strong> {t('biodesign.inscripcion.ind.f4.desc')}
+					</div>
+				</li>
+			</ul>
+
+			<div class="bd-modalidad-footer">
+				<a
+					href={FORM_URL_INDIVIDUAL}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--lime"
+					id="btn-inscripcion-seccion-individual"
+				>
+					<span class="material-icons" style="font-size:1.1rem;">edit_note</span>
+					{t('biodesign.inscripcion.ind.cta')}
+				</a>
+				<span class="bd-caption bd-modalidad-note">
+					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
+					{t('biodesign.inscripcion.ind.note')}
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Notice Banner: Etapa Presencial -->
+	<div class="bd-glass bd-inscripcion-notice-banner bd-reveal">
+		<div class="bd-inscripcion-notice-glow" aria-hidden="true"></div>
+		<div class="bd-inscripcion-notice-inner">
+			<div class="bd-inscripcion-notice-icon-wrap">
+				<span class="material-icons bd-inscripcion-notice-icon">place</span>
+			</div>
+			<div class="bd-inscripcion-notice-content">
+				<h4 class="bd-headline-sm bd-inscripcion-notice-title">
+					{t('biodesign.inscripcion.notice.title')}
+				</h4>
+				<p class="bd-body-sm bd-inscripcion-notice-desc">
+					{t('biodesign.inscripcion.notice.desc')}
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
 
 <!-- ═══════════════════════════════════════════
      TRACKS SECTION (Reemplaza a Impacto)
@@ -648,30 +856,6 @@ const alliedOrgs = [
 		</div>
 	</div>
 
-	<!-- SENAJU — Respaldo Institucional -->
-	<div class="bd-senaju-banner bd-reveal">
-		<div class="bd-senaju-banner-inner">
-			<div class="bd-senaju-logo-wrap">
-				<img
-					src={`${base}/Biodesign/senaju_logo.png`}
-					alt="SENAJU — Secretaría Nacional de la Juventud"
-					class="bd-senaju-logo"
-					width="140"
-					height="60"
-					loading="lazy"
-				/>
-			</div>
-			<div class="bd-senaju-text">
-				<span class="bd-chip bd-chip-lime bd-senaju-badge">
-					<span class="material-icons" style="font-size:13px;">shield</span>
-					{t('biodesign.aliados.senaju.badge')}
-				</span>
-				<h2 class="bd-headline-md bd-senaju-title">{t('biodesign.aliados.senaju.title')}</h2>
-				<p class="bd-body-md">{t('biodesign.aliados.senaju.subtitle')}</p>
-			</div>
-		</div>
-		<div class="bd-senaju-glow" aria-hidden="true"></div>
-	</div>
 
 
 	<!-- Allied Organizations — real logos -->
@@ -2011,10 +2195,369 @@ const alliedOrgs = [
 
 	.bd-hero-actions {
 		display: flex;
+		flex-direction: column;
+		gap: 1.15rem;
+		align-items: flex-start;
+		margin-top: 0.5rem;
+	}
+
+	.bd-hero-cta-buttons {
+		display: flex;
 		align-items: center;
-		gap: 1rem;
+		gap: 0.9rem;
 		flex-wrap: wrap;
 	}
+
+	.bd-hero-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.8rem 1.45rem !important;
+		font-size: 0.9rem !important;
+		font-weight: 600;
+		border-radius: 0.85rem !important;
+	}
+
+	.bd-hero-btn--teal {
+		background: linear-gradient(135deg, var(--bd-primary), hsl(164, 70%, 35%)) !important;
+		box-shadow: 0 4px 20px rgba(var(--bd-primary-rgb), 0.35) !important;
+	}
+
+	.bd-hero-btn--teal:hover {
+		background: linear-gradient(135deg, hsl(164, 90%, 65%), hsl(164, 70%, 40%)) !important;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 25px rgba(var(--bd-primary-rgb), 0.5) !important;
+	}
+
+	.bd-hero-btn--lime {
+		background: linear-gradient(135deg, var(--bd-tertiary), hsl(80, 70%, 35%)) !important;
+		box-shadow: 0 4px 20px rgba(var(--bd-tertiary-rgb), 0.35) !important;
+		color: #0d1e00 !important;
+	}
+
+	.bd-hero-btn--lime:hover {
+		background: linear-gradient(135deg, hsl(80, 85%, 55%), hsl(80, 70%, 40%)) !important;
+		transform: translateY(-2px);
+		box-shadow: 0 6px 25px rgba(var(--bd-tertiary-rgb), 0.5) !important;
+	}
+
+	.bd-hero-sub-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-hero-sublink {
+		font-size: 0.84rem !important;
+		padding: 0.35rem 0.75rem !important;
+		color: var(--bd-on-surface-variant);
+		gap: 0.35rem !important;
+	}
+
+	.bd-hero-sublink:hover {
+		color: var(--bd-text-primary);
+	}
+
+	.bd-hero-sep {
+		color: rgba(255, 255, 255, 0.2);
+		font-size: 0.8rem;
+	}
+
+	/* ══════════════════════════════
+	   SECCIÓN DE INSCRIPCIÓN DEDICADA
+	   ══════════════════════════════ */
+	.bd-inscripcion-section {
+		scroll-margin-top: 90px;
+		padding-top: clamp(2.5rem, 5vw, 4.5rem);
+	}
+
+	.bd-inscripcion-dates-banner {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.55rem;
+		margin-top: 1.25rem;
+		padding: 0.45rem 1.2rem;
+		border-radius: 9999px;
+		background: rgba(35, 32, 56, 0.65);
+		border: 1px solid rgba(121, 248, 208, 0.25);
+		box-shadow: 0 0 20px rgba(121, 248, 208, 0.1);
+	}
+
+	.bd-inscripcion-dates-text {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.88rem;
+		font-weight: 600;
+		color: var(--bd-text-primary);
+		letter-spacing: 0.02em;
+	}
+
+	.bd-inscripcion-cards-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: clamp(1.25rem, 2.5vw, 2rem);
+		margin-top: 2.75rem;
+		width: 100%;
+	}
+
+	.bd-modalidad-card {
+		display: flex;
+		flex-direction: column;
+		border-radius: 1.5rem;
+		padding: clamp(1.5rem, 2.5vw, 2.25rem);
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+			box-shadow 0.3s ease, border-color 0.3s ease;
+	}
+
+	.bd-modalidad-card--group {
+		border-color: rgba(var(--bd-primary-rgb), 0.3);
+		background: radial-gradient(circle at top left, rgba(var(--bd-primary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
+	}
+
+	.bd-modalidad-card--group:hover {
+		border-color: rgba(var(--bd-primary-rgb), 0.65);
+		box-shadow: 0 0 35px rgba(var(--bd-primary-rgb), 0.2);
+		transform: translateY(-4px);
+	}
+
+	.bd-modalidad-card--individual {
+		border-color: rgba(var(--bd-tertiary-rgb), 0.3);
+		background: radial-gradient(circle at top left, rgba(var(--bd-tertiary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
+	}
+
+	.bd-modalidad-card--individual:hover {
+		border-color: rgba(var(--bd-tertiary-rgb), 0.65);
+		box-shadow: 0 0 35px rgba(var(--bd-tertiary-rgb), 0.2);
+		transform: translateY(-4px);
+	}
+
+	.bd-modalidad-badge-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1.25rem;
+		gap: 0.5rem;
+	}
+
+	.bd-modalidad-pill-tag {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--bd-primary);
+		padding: 0.2rem 0.65rem;
+		border-radius: 6px;
+		background: rgba(var(--bd-primary-rgb), 0.1);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.2);
+	}
+
+	.bd-modalidad-pill-tag--lime {
+		color: var(--bd-tertiary);
+		background: rgba(var(--bd-tertiary-rgb), 0.1);
+		border-color: rgba(var(--bd-tertiary-rgb), 0.2);
+	}
+
+	.bd-modalidad-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.bd-modalidad-icon-wrap {
+		width: 48px;
+		height: 48px;
+		border-radius: 14px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.bd-modalidad-icon-wrap--teal {
+		background: rgba(var(--bd-primary-rgb), 0.15);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.3);
+		color: var(--bd-primary);
+		box-shadow: 0 0 15px rgba(var(--bd-primary-rgb), 0.2);
+	}
+
+	.bd-modalidad-icon-wrap--lime {
+		background: rgba(var(--bd-tertiary-rgb), 0.15);
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.3);
+		color: var(--bd-tertiary);
+		box-shadow: 0 0 15px rgba(var(--bd-tertiary-rgb), 0.2);
+	}
+
+	.bd-modalidad-icon {
+		font-size: 1.6rem;
+	}
+
+	.bd-modalidad-title {
+		font-size: clamp(1.15rem, 2vw, 1.35rem);
+		margin: 0 0 0.35rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-modalidad-desc {
+		color: var(--bd-on-surface-variant);
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	.bd-modalidad-divider {
+		height: 1px;
+		background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+		margin: 1.25rem 0 1.5rem;
+	}
+
+	.bd-modalidad-features {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.bd-modalidad-feature {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		font-size: 0.88rem;
+		line-height: 1.5;
+		color: #bccac2;
+	}
+
+	.bd-modalidad-feature strong {
+		color: var(--bd-text-primary);
+		font-weight: 600;
+	}
+
+	.bd-feature-icon {
+		font-size: 1.2rem;
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.bd-feature-icon--teal {
+		color: var(--bd-primary);
+	}
+
+	.bd-feature-icon--lime {
+		color: var(--bd-tertiary);
+	}
+
+	.bd-modalidad-footer {
+		margin-top: auto;
+		padding-top: 1.75rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		align-items: center;
+		width: 100%;
+	}
+
+	.bd-modalidad-btn {
+		width: 100%;
+		justify-content: center;
+		padding: 0.85rem 1.5rem !important;
+		font-size: 0.92rem !important;
+		border-radius: 0.85rem !important;
+	}
+
+	.bd-modalidad-btn--teal {
+		background: linear-gradient(135deg, var(--bd-primary), hsl(164, 70%, 35%)) !important;
+		box-shadow: 0 4px 20px rgba(var(--bd-primary-rgb), 0.35) !important;
+	}
+
+	.bd-modalidad-btn--teal:hover {
+		background: linear-gradient(135deg, hsl(164, 90%, 65%), hsl(164, 70%, 40%)) !important;
+		box-shadow: 0 6px 25px rgba(var(--bd-primary-rgb), 0.5) !important;
+	}
+
+	.bd-modalidad-btn--lime {
+		background: linear-gradient(135deg, var(--bd-tertiary), hsl(80, 70%, 35%)) !important;
+		box-shadow: 0 4px 20px rgba(var(--bd-tertiary-rgb), 0.35) !important;
+		color: #0d1e00 !important;
+	}
+
+	.bd-modalidad-btn--lime:hover {
+		background: linear-gradient(135deg, hsl(80, 85%, 55%), hsl(80, 70%, 40%)) !important;
+		box-shadow: 0 6px 25px rgba(var(--bd-tertiary-rgb), 0.5) !important;
+	}
+
+	.bd-modalidad-note {
+		font-size: 0.76rem;
+		color: var(--bd-on-surface-variant);
+		text-align: center;
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	/* Aviso Presencial */
+	.bd-inscripcion-notice-banner {
+		margin-top: 2rem;
+		border-radius: 1.25rem;
+		padding: 1.35rem 1.75rem;
+		position: relative;
+		overflow: hidden;
+		border: 1px solid rgba(200, 191, 255, 0.2);
+		background: rgba(35, 32, 56, 0.55);
+	}
+
+	.bd-inscripcion-notice-glow {
+		position: absolute;
+		top: -40%;
+		left: 20%;
+		width: 60%;
+		height: 180%;
+		background: radial-gradient(ellipse, rgba(121, 248, 208, 0.08) 0%, transparent 70%);
+		pointer-events: none;
+	}
+
+	.bd-inscripcion-notice-inner {
+		position: relative;
+		display: flex;
+		align-items: flex-start;
+		gap: 1.15rem;
+	}
+
+	.bd-inscripcion-notice-icon-wrap {
+		width: 42px;
+		height: 42px;
+		border-radius: 12px;
+		background: rgba(121, 248, 208, 0.12);
+		border: 1px solid rgba(121, 248, 208, 0.25);
+		color: var(--bd-primary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.bd-inscripcion-notice-icon {
+		font-size: 1.4rem;
+	}
+
+	.bd-inscripcion-notice-title {
+		margin: 0 0 0.35rem;
+		color: var(--bd-text-primary);
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.bd-inscripcion-notice-desc {
+		margin: 0;
+		color: #bccac2;
+		line-height: 1.55;
+		font-size: 0.85rem;
+	}
+
+
 
 	.bd-hero-visual {
 		position: relative;
@@ -2068,20 +2611,48 @@ const alliedOrgs = [
 		}
 	}
 
-	@media (max-width: 480px) {
-		.bd-hero-actions {
-			width: 100%;
-			flex-direction: column;
-			gap: 0.75rem;
-		}
-		.bd-hero-actions .bd-btn-primary,
-		.bd-hero-actions .bd-btn-ghost {
-			width: 100%;
-			justify-content: center;
-			text-align: center;
-			padding: 0.75rem 1.5rem;
+	@media (max-width: 860px) {
+		.bd-inscripcion-cards-grid {
+			grid-template-columns: 1fr;
+			max-width: 580px;
+			margin-left: auto;
+			margin-right: auto;
 		}
 	}
+
+	@media (max-width: 768px) {
+		.bd-hero-actions {
+			align-items: center;
+			width: 100%;
+		}
+		.bd-hero-cta-buttons {
+			justify-content: center;
+		}
+		.bd-hero-sub-actions {
+			justify-content: center;
+		}
+	}
+
+	@media (max-width: 540px) {
+		.bd-hero-cta-buttons {
+			width: 100%;
+			flex-direction: column;
+		}
+		.bd-hero-btn {
+			width: 100%;
+			justify-content: center;
+		}
+		.bd-hero-sub-actions {
+			width: 100%;
+			justify-content: center;
+		}
+		.bd-inscripcion-notice-inner {
+			flex-direction: column;
+			gap: 0.85rem;
+		}
+	}
+
+
 
 	/* ══════════════════════════════
 	   IMPACTO

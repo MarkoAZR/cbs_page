@@ -18,6 +18,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const FORM_URL = 'https://forms.gle/NoDNkHumVhDA9beE6';
 
 const navLinks = [
+	{ label: t('biodesign.nav.inscripcion'), href: '#inscripcion' },
 	{ label: t('biodesign.nav.tracks'), href: '#tracks' },
 	{ label: t('biodesign.nav.fases'), href: '#fases' },
 	{ label: t('biodesign.nav.rubrica'), href: '#rubrica' },
@@ -47,7 +48,7 @@ const navLinks = [
 				</nav>
 
 				<div class="bd-navbar-right">
-					<a href={FORM_URL} target="_blank" rel="noopener noreferrer" class="bd-btn-primary bd-navbar-cta">
+					<a href="#inscripcion" class="bd-btn-primary bd-navbar-cta">
 						{t('biodesign.nav.cta')}
 					</a>
 					<div class="bd-lang-wrap">
