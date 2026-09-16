@@ -1827,6 +1827,8 @@ const alliedOrgs = [
 		gap: 0.5rem;
 		padding: 0.35rem 0.85rem;
 		min-height: 36px;
+		max-width: 100%;
+		box-sizing: border-box;
 		border-radius: 9999px;
 		background: rgba(var(--bd-tertiary-rgb), 0.08);
 		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.35);
@@ -2025,12 +2027,30 @@ const alliedOrgs = [
 
 		.bd-school-pill-btn {
 			width: 100%;
+			max-width: 100%;
+			box-sizing: border-box;
 			justify-content: flex-start;
-			padding: 0.5rem 0.85rem;
+			padding: 0.45rem 0.75rem;
+			gap: 0.35rem;
+		}
+
+		.bd-school-pill-text {
+			font-size: clamp(0.68rem, 2.7vw, 0.78rem);
+			line-height: 1.25;
+			white-space: normal;
+			text-align: left;
+			flex: 1;
+		}
+
+		.bd-school-pill-tag {
+			font-size: 0.62rem;
+			padding: 0.15rem 0.45rem;
+			flex-shrink: 0;
 		}
 
 		.bd-school-pill-arrow {
 			margin-left: auto;
+			flex-shrink: 0;
 		}
 
 		/* Bottom-sheet popup on mobile — School Modal */
