@@ -12,7 +12,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
 const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
-const FORM_URL = FORM_URL_INDIVIDUAL; // individual fallback for hero CTA
 const LINKEDIN_URL = 'https://www.linkedin.com/company/cbs-unmsm';
 const EMAIL_CONTACT = 'cbs.unmsm@gmail.com';
 
@@ -48,7 +47,19 @@ const tracks = [
 ];
 
 // ── Sesiones y Cronograma Oficial (10 Hitos) ─────────────────
-const sesiones = [
+interface Sesion {
+	key: string;
+	icon: string;
+	special: string;
+	fase: number;
+	ponente: string;
+	avatars: string[];
+	org: string;
+	role: string;
+	pending?: boolean;
+}
+
+const sesiones: Sesion[] = [
 	{
 		key: 's0',
 		icon: 'celebration',
@@ -423,25 +434,25 @@ const alliedOrgs = [
 
 			<ul class="bd-modalidad-features">
 				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">group_add</span>
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">groups</span>
 					<div>
 						<strong>{t('biodesign.inscripcion.group.f1.title')}:</strong> {t('biodesign.inscripcion.group.f1.desc')}
 					</div>
 				</li>
 				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">domain</span>
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">verified</span>
 					<div>
 						<strong>{t('biodesign.inscripcion.group.f2.title')}:</strong> {t('biodesign.inscripcion.group.f2.desc')}
 					</div>
 				</li>
 				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">person_pin</span>
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">school</span>
 					<div>
 						<strong>{t('biodesign.inscripcion.group.f3.title')}:</strong> {t('biodesign.inscripcion.group.f3.desc')}
 					</div>
 				</li>
 				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">psychology</span>
+					<span class="material-icons bd-feature-icon bd-feature-icon--teal">diversity_3</span>
 					<div>
 						<strong>{t('biodesign.inscripcion.group.f4.title')}:</strong> {t('biodesign.inscripcion.group.f4.desc')}
 					</div>
