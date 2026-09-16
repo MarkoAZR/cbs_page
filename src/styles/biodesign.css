@@ -51,15 +51,70 @@
 	--bd-error: #ffb4ab;
 	--bd-error-container: #93000a;
 
-	/* Force dark background regardless of site theme */
 	background-color: var(--bd-surface) !important;
 	color: var(--bd-on-surface);
 }
 
-/* Force dark body & document background on BioDesign pages */
-body:has(.biodesign-page) {
+/* ── Light Mode Palette (Lab-Tech Ceramic / Nordic Clean) ── */
+:root:not(.dark) .biodesign-page {
+	--bd-surface: #f8f9fc;
+	--bd-surface-dim: #f1f4f9;
+	--bd-surface-bright: #ffffff;
+	--bd-surface-container-lowest: #ffffff;
+	--bd-surface-container-low: #f1f5f9;
+	--bd-surface-container: #e2e8f0;
+	--bd-surface-container-high: #cbd5e1;
+	--bd-surface-container-highest: #94a3b8;
+	--bd-surface-elevated: #ffffff;
+	--bd-surface-variant: #f1f5f9;
+
+	--bd-primary: #059669;
+	--bd-primary-rgb: 5, 150, 105;
+	--bd-primary-container: #ecfdf5;
+	--bd-primary-container-rgb: 236, 253, 245;
+	--bd-on-primary: #ffffff;
+	--bd-on-primary-container: #065f46;
+
+	--bd-secondary: #6344d4;
+	--bd-secondary-rgb: 99, 68, 212;
+	--bd-secondary-container: #f3f0ff;
+	--bd-secondary-container-rgb: 243, 240, 255;
+	--bd-on-secondary: #ffffff;
+
+	--bd-tertiary: #4d7c0f;
+	--bd-tertiary-rgb: 77, 124, 15;
+	--bd-tertiary-container: #f7fee7;
+	--bd-tertiary-container-rgb: 247, 254, 231;
+	--bd-on-tertiary: #ffffff;
+	--bd-on-tertiary-container: #365314;
+
+	--bd-text-primary: #0f172a;
+	--bd-text-secondary: #475569;
+	--bd-on-surface: #1e293b;
+	--bd-on-surface-variant: #64748b;
+
+	--bd-outline: #cbd5e1;
+	--bd-outline-variant: #e2e8f0;
+
+	--bd-glass-fill: rgba(255, 255, 255, 0.84);
+	--bd-glow-teal: rgba(5, 150, 105, 0.18);
+	--bd-glow-purple: rgba(99, 68, 212, 0.15);
+	--bd-glow-lime: rgba(77, 124, 15, 0.15);
+
+	background-color: var(--bd-surface) !important;
+	color: var(--bd-on-surface);
+}
+
+/* Force body background according to theme on BioDesign pages */
+:root.dark body:has(.biodesign-page),
+body:has(.biodesign-page):not(.light) {
 	background-color: #131120 !important;
 	color: #e5dff5 !important;
+}
+
+:root:not(.dark) body:has(.biodesign-page) {
+	background-color: #f8f9fc !important;
+	color: #0f172a !important;
 }
 
 /* ── Typography (Fluid with clamp for 375px to 1920px) ── */
@@ -386,4 +441,229 @@ body:has(.biodesign-page) {
 		transform: none;
 		transition: none;
 	}
+}
+
+/* ============================================
+   BioDesign — Light Theme Refinements
+   ============================================ */
+:root:not(.dark) .biodesign-page .bd-glass {
+	background: var(--bd-glass-fill);
+	border: 1px solid rgba(226, 232, 240, 0.95);
+	box-shadow: 0 4px 25px rgba(15, 23, 42, 0.05), 0 1px 3px rgba(15, 23, 42, 0.03);
+}
+
+:root:not(.dark) .biodesign-page .bd-glass:hover {
+	border-color: rgba(5, 150, 105, 0.35);
+	box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08), 0 0 20px rgba(5, 150, 105, 0.08);
+}
+
+:root:not(.dark) .biodesign-page .bd-gradient-text {
+	background: linear-gradient(90deg, #059669, #4d7c0f);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+:root:not(.dark) .biodesign-page .bd-gradient-text-purple {
+	background: linear-gradient(90deg, #059669, #6344d4);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+:root:not(.dark) .biodesign-page .bd-btn-primary {
+	background: linear-gradient(135deg, #059669, #047857);
+	color: #ffffff;
+	box-shadow: 0 4px 18px rgba(5, 150, 105, 0.28);
+}
+
+:root:not(.dark) .biodesign-page .bd-btn-primary:hover {
+	background: linear-gradient(135deg, #10b981, #059669);
+	box-shadow: 0 6px 24px rgba(5, 150, 105, 0.38);
+}
+
+:root:not(.dark) .biodesign-page .bd-btn-secondary {
+	color: #059669;
+	border-color: #059669;
+	background: rgba(5, 150, 105, 0.05);
+}
+
+:root:not(.dark) .biodesign-page .bd-btn-secondary:hover {
+	background: rgba(5, 150, 105, 0.12);
+	box-shadow: 0 0 15px rgba(5, 150, 105, 0.2);
+}
+
+:root:not(.dark) .biodesign-page .bd-btn-ghost {
+	color: #334155;
+	background: rgba(15, 23, 42, 0.04);
+	border-color: rgba(15, 23, 42, 0.1);
+}
+
+:root:not(.dark) .biodesign-page .bd-btn-ghost:hover {
+	background: rgba(15, 23, 42, 0.08);
+	color: #0f172a;
+}
+
+:root:not(.dark) .biodesign-page .bd-chip-teal {
+	background: #ecfdf5;
+	color: #065f46;
+	border-color: rgba(5, 150, 105, 0.3);
+}
+
+:root:not(.dark) .biodesign-page .bd-chip-lime {
+	background: #f7fee7;
+	color: #365314;
+	border-color: rgba(77, 124, 15, 0.3);
+	box-shadow: 0 0 10px rgba(77, 124, 15, 0.08);
+}
+
+:root:not(.dark) .biodesign-page .bd-chip-purple {
+	background: #f3f0ff;
+	color: #4c1d95;
+	border-color: rgba(99, 68, 212, 0.3);
+}
+
+:root:not(.dark) .biodesign-page .bd-school-pill-btn {
+	background: rgba(255, 255, 255, 0.9);
+	border-color: rgba(15, 23, 42, 0.12);
+	box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+}
+
+:root:not(.dark) .biodesign-page .bd-school-pill-btn:hover {
+	border-color: rgba(5, 150, 105, 0.4);
+	box-shadow: 0 4px 18px rgba(5, 150, 105, 0.15);
+	background: #ffffff;
+}
+
+:root:not(.dark) .biodesign-page .bd-school-pill-tag {
+	background: #ecfdf5;
+	color: #065f46;
+}
+
+:root:not(.dark) .biodesign-page .bd-school-pill-text {
+	color: #334155;
+}
+
+:root:not(.dark) .biodesign-page .bd-school-pill-arrow {
+	color: #059669;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-card--group {
+	border-color: rgba(5, 150, 105, 0.3);
+	background: radial-gradient(circle at top left, rgba(5, 150, 105, 0.06) 0%, rgba(255, 255, 255, 0.9) 60%);
+	box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-card--group:hover {
+	border-color: rgba(5, 150, 105, 0.6);
+	box-shadow: 0 12px 35px rgba(5, 150, 105, 0.15);
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-card--individual {
+	border-color: rgba(77, 124, 15, 0.3);
+	background: radial-gradient(circle at top left, rgba(77, 124, 15, 0.06) 0%, rgba(255, 255, 255, 0.9) 60%);
+	box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-card--individual:hover {
+	border-color: rgba(77, 124, 15, 0.6);
+	box-shadow: 0 12px 35px rgba(77, 124, 15, 0.15);
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-feature {
+	color: #475569;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-divider {
+	background: linear-gradient(90deg, rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.02));
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-btn--teal {
+	background: linear-gradient(135deg, #059669, #047857) !important;
+	color: #ffffff !important;
+	box-shadow: 0 4px 18px rgba(5, 150, 105, 0.3) !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-btn--teal:hover {
+	background: linear-gradient(135deg, #10b981, #059669) !important;
+	box-shadow: 0 6px 24px rgba(5, 150, 105, 0.4) !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-btn--lime {
+	background: linear-gradient(135deg, #4d7c0f, #3f6212) !important;
+	color: #ffffff !important;
+	box-shadow: 0 4px 18px rgba(77, 124, 15, 0.3) !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-btn--lime:hover {
+	background: linear-gradient(135deg, #65a30d, #4d7c0f) !important;
+	box-shadow: 0 6px 24px rgba(77, 124, 15, 0.4) !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-inscripcion-notice-banner {
+	background: rgba(255, 255, 255, 0.88);
+	border-color: rgba(99, 68, 212, 0.25);
+	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+}
+
+:root:not(.dark) .biodesign-page .bd-inscripcion-notice-title {
+	color: #0f172a;
+}
+
+:root:not(.dark) .biodesign-page .bd-inscripcion-notice-desc {
+	color: #475569;
+}
+
+:root:not(.dark) .biodesign-page .bd-inscripcion-dates-banner {
+	background: rgba(77, 124, 15, 0.08);
+	border-color: rgba(77, 124, 15, 0.25);
+	color: #365314;
+}
+
+:root:not(.dark) .biodesign-page .bd-inscripcion-dates-text {
+	color: #365314;
+}
+
+:root:not(.dark) .biodesign-page .bd-modal-content {
+	background: #ffffff;
+	border-color: rgba(15, 23, 42, 0.12);
+	box-shadow: 0 25px 60px rgba(15, 23, 42, 0.15);
+}
+
+:root:not(.dark) .biodesign-page .bd-modal-overlay {
+	background: rgba(15, 23, 42, 0.6);
+}
+
+:root:not(.dark) .biodesign-page .bd-track-number {
+	color: rgba(15, 23, 42, 0.06);
+}
+
+:root:not(.dark) .biodesign-page .bd-sesion-card {
+	background: rgba(255, 255, 255, 0.85);
+	border: 1px solid rgba(226, 232, 240, 0.9);
+	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+:root:not(.dark) .biodesign-page .bd-sesion-speaker-name {
+	color: #0f172a;
+}
+
+:root:not(.dark) .biodesign-page .bd-sesion-speaker-meta {
+	color: #64748b;
+}
+
+:root:not(.dark) .biodesign-page .bd-sesion-title {
+	color: #0f172a;
+}
+
+:root:not(.dark) .biodesign-page .bd-sesion-desc {
+	color: #475569;
+}
+
+:root:not(.dark) .biodesign-page .bd-hero-subtitle {
+	color: #475569;
+}
+
+:root:not(.dark) .biodesign-page .bd-hero-sep {
+	color: #cbd5e1;
 }

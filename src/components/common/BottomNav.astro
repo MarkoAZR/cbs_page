@@ -6,9 +6,10 @@ import type { Lang } from '../../i18n/ui';
 
 interface Props {
 	lang?: Lang;
+	isBiodesign?: boolean;
 }
 
-const { lang = 'es' } = Astro.props;
+const { lang = 'es', isBiodesign = false } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -19,55 +20,182 @@ const navLinks = [
 ];
 ---
 
-<nav class="bottom-nav">
-	<div class="dock-container glass">
-		<!-- Branding Anchor (Home) -->
-		<a href={getLocalePath(lang)} class="dock-branding">
-			<div class="logo-wrapper">
-				<Image src={logo} alt="CBS Logo" width={32} height={32} class="logo-img" />
+{isBiodesign ? (
+	<aside class="bd-back-dock">
+		<a href={getLocalePath(lang)} class="bd-back-btn" aria-label={t('nav.backToCbsFull')}>
+			<div class="bd-back-logo-wrap">
+				<Image src={logo} alt="CBS Logo" width={22} height={22} class="bd-back-logo" />
 			</div>
-			<div class="branding-text">
-				<span class="brand-name">CBS-<span class="highlight">UNMSM</span></span>
-				<span class="brand-tag">{t('nav.brand.tag')}</span>
-			</div>
+			<span class="bd-back-text bd-back-text--full">{t('nav.backToCbsFull')}</span>
+			<span class="bd-back-text bd-back-text--short">{t('nav.backToCbs')}</span>
+			<span class="bd-back-text bd-back-text--mini">{t('nav.backToCbsMobile')}</span>
 		</a>
+	</aside>
+) : (
+	<nav class="bottom-nav">
+		<div class="dock-container glass">
+			{/* Branding Anchor (Home) */}
+			<a href={getLocalePath(lang)} class="dock-branding">
+				<div class="logo-wrapper">
+					<Image src={logo} alt="CBS Logo" width={32} height={32} class="logo-img" />
+				</div>
+				<div class="branding-text">
+					<span class="brand-name">CBS-<span class="highlight">UNMSM</span></span>
+					<span class="brand-tag">{t('nav.brand.tag')}</span>
+				</div>
+			</a>
 
-		<div class="divider"></div>
+			<div class="divider"></div>
 
-		<!-- Nav Items -->
-		{navLinks.map(link => {
-			const isExternal = link.href.startsWith('http');
-			const isEvents = link.icon === 'event';
-			return (
-				<a 
-					href={link.href} 
-					class={`dock-item ${isEvents ? 'has-badge' : ''}`}
-					target={isExternal ? "_blank" : undefined}
-					rel={isExternal ? "noopener noreferrer" : undefined}
-				>
-					{isEvents && (
-						<span 
-							class="biodesign-nav-badge" 
-							title="BioDesign Bootcamp"
-							role="button"
-							tabindex="0"
-							onclick={`event.stopPropagation(); window.location.href='${getLocalePath(lang, 'events/biodesign')}';`}
+			{/* Nav Items */}
+			{navLinks.map(link => {
+				const isExternal = link.href.startsWith('http');
+				const isEvents = link.icon === 'event';
+				return (
+					<div class="dock-item-wrapper">
+						<a 
+							href={link.href} 
+							class={`dock-item ${isEvents ? 'has-badge' : ''}`}
+							target={isExternal ? "_blank" : undefined}
+							rel={isExternal ? "noopener noreferrer" : undefined}
 						>
-							<img src={`${base}/Biodesign/logo_biodesign_mm.png`} alt="BioDesign" width="16" height="16" class="badge-logo" />
-							<span class="badge-pulse-ring"></span>
-						</span>
-					)}
-					<span class="material-icons">{link.icon}</span>
-					<span class="label">{link.name}</span>
-					<div class="active-indicator"></div>
-					{isExternal && <span class="external-indicator material-icons">north_east</span>}
-				</a>
-			);
-		})}
-	</div>
-</nav>
+							<span class="material-icons">{link.icon}</span>
+							<span class="label">{link.name}</span>
+							<div class="active-indicator"></div>
+							{isExternal && <span class="external-indicator material-icons">north_east</span>}
+						</a>
+
+						{isEvents && (
+							<a 
+								href={getLocalePath(lang, 'events/biodesign')}
+								class="biodesign-badge-container" 
+								aria-label={t('biodesign.dock.goTo')}
+							>
+								<span class="biodesign-nav-badge">
+									<img src={`${base}/Biodesign/logo_biodesign_mm.png`} alt="BioDesign" width="16" height="16" class="badge-logo" />
+									<span class="badge-pulse-ring"></span>
+								</span>
+								<span class="biodesign-dock-tooltip">
+									<span class="tooltip-dot"></span>
+									<span class="tooltip-text">{t('biodesign.dock.goTo')}</span>
+									<span class="material-icons tooltip-arrow">arrow_forward</span>
+								</span>
+							</a>
+						)}
+					</div>
+				);
+			})}
+		</div>
+	</nav>
+)}
 
 <style>
+	/* ── BioDesign Back to CBS Floating Button ── */
+	.bd-back-dock {
+		position: fixed;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		z-index: 1000;
+		pointer-events: none;
+	}
+
+	.bd-back-btn {
+		pointer-events: auto;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0.45rem 1.15rem 0.45rem 0.75rem;
+		border-radius: 999px;
+		background: rgba(19, 17, 32, 0.55);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		color: #A19FB6;
+		text-decoration: none;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.82rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		opacity: 0.55;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		user-select: none;
+	}
+
+	.bd-back-btn:hover {
+		opacity: 1;
+		color: #F8F9FA;
+		background: rgba(26, 24, 40, 0.88);
+		border-color: rgba(121, 248, 208, 0.5);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(121, 248, 208, 0.3);
+		transform: translateY(-3px);
+	}
+
+	.bd-back-btn:active {
+		transform: translateY(-1px) scale(0.97);
+	}
+
+	.bd-back-logo-wrap {
+		width: 24px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.06);
+		transition: transform 0.3s ease, filter 0.3s ease;
+	}
+
+	.bd-back-btn:hover .bd-back-logo-wrap {
+		transform: rotate(-10deg) scale(1.1);
+		filter: drop-shadow(0 0 8px rgba(121, 248, 208, 0.7));
+	}
+
+	.bd-back-logo {
+		width: 18px;
+		height: 18px;
+		object-fit: contain;
+	}
+
+	.bd-back-text--full {
+		display: inline;
+	}
+
+	.bd-back-text--short {
+		display: none;
+	}
+
+	.bd-back-text--mini {
+		display: none;
+	}
+
+	/* Light Mode Support for BioDesign Back Button */
+	:root:not(.dark) .bd-back-btn {
+		background: rgba(255, 255, 255, 0.75);
+		border-color: rgba(15, 23, 42, 0.12);
+		color: #475569;
+		box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+		opacity: 0.75;
+	}
+
+	:root:not(.dark) .bd-back-btn:hover {
+		opacity: 1;
+		color: #0f172a;
+		background: rgba(255, 255, 255, 0.95);
+		border-color: rgba(5, 150, 105, 0.4);
+		box-shadow: 0 8px 30px rgba(15, 23, 42, 0.12), 0 0 20px rgba(5, 150, 105, 0.2);
+	}
+
+	:root:not(.dark) .bd-back-logo-wrap {
+		background: rgba(15, 23, 42, 0.05);
+	}
+
+	:root:not(.dark) .bd-back-btn:hover .bd-back-logo-wrap {
+		filter: drop-shadow(0 0 8px rgba(5, 150, 105, 0.5));
+	}
+
+	/* ── General CBS Bottom Nav ── */
 	.bottom-nav {
 		position: fixed;
 		bottom: 2rem;
@@ -209,11 +337,29 @@ const navLinks = [
 		color: var(--accent-cyan);
 	}
 
-	/* BioDesign Floating Nav Badge */
-	.biodesign-nav-badge {
+	.dock-item-wrapper {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	/* BioDesign Badge Container in CBS Dock */
+	.biodesign-badge-container {
 		position: absolute;
 		top: -14px;
 		right: -2px;
+		z-index: 20;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-decoration: none;
+		color: inherit;
+		cursor: pointer;
+	}
+
+	.biodesign-nav-badge {
+		position: relative;
 		width: 32px;
 		height: 32px;
 		border-radius: 50%;
@@ -223,14 +369,14 @@ const navLinks = [
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		z-index: 10;
 		cursor: pointer;
 		transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 		animation: bd-badge-float 3s ease-in-out infinite;
 	}
 
-	.biodesign-nav-badge:hover {
-		transform: scale(1.25) translateY(-3px);
+	.biodesign-nav-badge:hover,
+	.biodesign-badge-container:hover .biodesign-nav-badge {
+		transform: scale(1.18) translateY(-2px);
 		box-shadow: 0 0 20px rgba(121, 248, 208, 0.9), 0 0 35px rgba(187, 243, 95, 0.5);
 		border-color: #bbf35f;
 	}
@@ -250,6 +396,75 @@ const navLinks = [
 		opacity: 0.8;
 		animation: bd-badge-pulse 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
 		pointer-events: none;
+	}
+
+	/* Interactive Floating Tooltip "Ir a BioDesign" */
+	.biodesign-dock-tooltip {
+		position: absolute;
+		bottom: calc(100% + 10px);
+		left: 50%;
+		transform: translateX(-50%) translateY(6px);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.35rem 0.85rem;
+		background: rgba(19, 17, 32, 0.95);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border: 1px solid rgba(121, 248, 208, 0.45);
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(121, 248, 208, 0.35);
+		border-radius: 999px;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: #79f8d0;
+		letter-spacing: 0.03em;
+		white-space: nowrap;
+		cursor: pointer;
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+			transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+		user-select: none;
+	}
+
+	/* Micro-indicator Arrow below tooltip */
+	.biodesign-dock-tooltip::after {
+		content: '';
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border: 5px solid transparent;
+		border-top-color: rgba(121, 248, 208, 0.6);
+	}
+
+	.tooltip-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #bbf35f;
+		box-shadow: 0 0 8px #bbf35f;
+		flex-shrink: 0;
+	}
+
+	.tooltip-arrow {
+		font-size: 0.9rem !important;
+		color: #79f8d0;
+		transition: transform 0.2s ease;
+	}
+
+	/* Show tooltip on Hover of either the badge or the whole Events item */
+	.biodesign-badge-container:hover .biodesign-dock-tooltip,
+	.dock-item-wrapper:hover .biodesign-dock-tooltip,
+	.dock-item.has-badge:hover .biodesign-dock-tooltip {
+		opacity: 1;
+		pointer-events: auto;
+		transform: translateX(-50%) translateY(0);
+	}
+
+	.biodesign-dock-tooltip:hover .tooltip-arrow {
+		transform: translateX(3px);
 	}
 
 	@keyframes bd-badge-pulse {
@@ -272,7 +487,31 @@ const navLinks = [
 		}
 	}
 
+	/* ── Mobile Breakpoints ── */
 	@media (max-width: 768px) {
+		/* BioDesign Back Button on Mobile */
+		.bd-back-dock {
+			bottom: 1.35rem;
+		}
+		.bd-back-btn {
+			padding: 0.38rem 0.9rem 0.38rem 0.6rem;
+			font-size: 0.78rem;
+			gap: 0.5rem;
+			opacity: 0.72;
+			background: rgba(19, 17, 32, 0.78);
+			border-color: rgba(200, 191, 255, 0.18);
+		}
+		.bd-back-text--full {
+			display: none;
+		}
+		.bd-back-text--short {
+			display: inline;
+		}
+		.bd-back-text--mini {
+			display: none;
+		}
+
+		/* General Dock on Mobile */
 		.branding-text, .divider {
 			display: none;
 		}
@@ -293,15 +532,47 @@ const navLinks = [
 		.dock-item .material-icons {
 			font-size: 1.2rem;
 		}
-		.biodesign-nav-badge {
+		.biodesign-badge-container {
 			top: -12px;
 			right: -2px;
-			width: 26px;
-			height: 26px;
+		}
+		.biodesign-nav-badge {
+			width: 28px;
+			height: 28px;
 		}
 		.badge-logo {
 			width: 18px;
 			height: 18px;
+		}
+		.biodesign-dock-tooltip {
+			bottom: calc(100% + 8px);
+			font-size: 0.68rem;
+			padding: 0.25rem 0.6rem;
+		}
+	}
+
+	@media (max-width: 400px) {
+		.bd-back-btn {
+			padding: 0.32rem 0.75rem 0.32rem 0.5rem;
+			font-size: 0.74rem;
+			gap: 0.38rem;
+		}
+		.bd-back-logo-wrap {
+			width: 20px;
+			height: 20px;
+		}
+		.bd-back-logo {
+			width: 15px;
+			height: 15px;
+		}
+		.bd-back-text--full {
+			display: none;
+		}
+		.bd-back-text--short {
+			display: none;
+		}
+		.bd-back-text--mini {
+			display: inline;
 		}
 	}
 </style>

@@ -13,6 +13,10 @@ export const ui = {
         'nav.team': 'Equipo',
         'nav.partners': 'Aliados',
         'nav.brand.tag': 'DIVULGACIÓN',
+        'nav.backToCbs': 'Volver a CBS',
+        'nav.backToCbsFull': '← Volver a la CBS',
+        'nav.backToCbsMobile': '← CBS',
+        'biodesign.dock.goTo': 'Ir a BioDesign',
 
         // Hero
         'hero.pretitle': 'CBS-UNMSM',
@@ -502,6 +506,10 @@ export const ui = {
         'nav.team': 'Team',
         'nav.partners': 'Partners',
         'nav.brand.tag': 'OUTREACH',
+        'nav.backToCbs': 'Back to CBS',
+        'nav.backToCbsFull': '← Back to CBS',
+        'nav.backToCbsMobile': '← CBS',
+        'biodesign.dock.goTo': 'Go to BioDesign',
 
         // Hero
         'hero.pretitle': 'CBS-UNMSM',

@@ -12,15 +12,18 @@ interface Props {
 	description?: string;
 	lang?: Lang;
 	hideTopActions?: boolean;
+	isBiodesign?: boolean;
 }
 
 const { 
 	title, 
 	description = "Grupo de Divulgación Científica - Avances y Eventos", 
 	lang = 'es',
-	hideTopActions = false 
+	hideTopActions = false,
+	isBiodesign = false
 } = Astro.props;
 const t = useTranslations(lang);
+const isBd = isBiodesign || Astro.url.pathname.includes('/events/biodesign');
 
 const esPath = getAlternateLocalePath(Astro.url, 'es');
 const enPath = getAlternateLocalePath(Astro.url, 'en');
@@ -85,6 +88,7 @@ const siteBase = import.meta.env.SITE + cleanBase;
 					const getTheme = () => {
 						const stored = localStorage.getItem('theme');
 						if (stored) return stored;
+						if (window.location.pathname.includes('/events/biodesign')) return 'dark';
 						const hour = new Date().getHours();
 						if (hour >= 19 || hour < 4) return 'dark';
 						return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -121,7 +125,7 @@ const siteBase = import.meta.env.SITE + cleanBase;
 		<main>
 			<slot />
 		</main>
-		<BottomNav lang={lang} />
+		<BottomNav lang={lang} isBiodesign={isBd} />
 		<footer class="main-footer">
 			<div class="container footer-content">
 				<div class="footer-left">
