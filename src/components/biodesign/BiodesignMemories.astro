@@ -1,0 +1,2111 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// ── 3 Instituciones Educativas Oficiales con Fotos Específicas ─────
+const schools = [
+	{
+		id: 'school1',
+		name: t('biodesign.memorias.school1.name'),
+		district: t('biodesign.memorias.school1.district'),
+		badge: t('biodesign.memorias.school1.badge'),
+		tagline: t('biodesign.memorias.school1.tagline'),
+		desc: t('biodesign.memorias.school1.desc'),
+		icon: 'biotech',
+		accentColor: 'var(--bd-primary)',
+		rgbColor: 'var(--bd-primary-rgb)',
+		focus: 'ADN & Modelado de UT',
+		photos: [
+			{
+				id: 'puruchuco-1',
+				title: t('biodesign.memorias.school1.p1.title'),
+				desc: t('biodesign.memorias.school1.p1.desc'),
+				tag: 'Estructura ADN',
+				code: 'SEQ: 5\'-ATG-DNA-3\'',
+				imageSrc: `${base}/Biodesign/memorias/gira_puruchuco_1.jpg`,
+				icon: 'biotech',
+				isSpotlight: true,
+			},
+			{
+				id: 'puruchuco-2',
+				title: t('biodesign.memorias.school1.p2.title'),
+				desc: t('biodesign.memorias.school1.p2.desc'),
+				tag: 'Ensamblaje UT',
+				code: 'UT: P+RBS+CDS+T',
+				imageSrc: `${base}/Biodesign/memorias/gira_puruchuco_2.jpg`,
+				icon: 'schema',
+				isSpotlight: false,
+			},
+			{
+				id: 'puruchuco-3',
+				title: t('biodesign.memorias.school1.p3.title'),
+				desc: t('biodesign.memorias.school1.p3.desc'),
+				tag: 'Comunidad Docente',
+				code: 'DOCENTES: CIENCIA-PERU',
+				imageSrc: `${base}/Biodesign/memorias/gira_puruchuco_3.jpg`,
+				icon: 'groups',
+				isSpotlight: false,
+			},
+		],
+	},
+	{
+		id: 'school2',
+		name: t('biodesign.memorias.school2.name'),
+		district: t('biodesign.memorias.school2.district'),
+		badge: t('biodesign.memorias.school2.badge'),
+		tagline: t('biodesign.memorias.school2.tagline'),
+		desc: t('biodesign.memorias.school2.desc'),
+		icon: 'science',
+		accentColor: 'var(--bd-secondary)',
+		rgbColor: 'var(--bd-secondary-rgb)',
+		focus: 'Expresión Génica & BioBricks',
+		photos: [
+			{
+				id: 'vivanco-1',
+				title: t('biodesign.memorias.school2.p1.title'),
+				desc: t('biodesign.memorias.school2.p1.desc'),
+				tag: 'Regulación ON/OFF',
+				code: 'REG: TF-PROMOTER-SWITCH',
+				imageSrc: `${base}/Biodesign/memorias/gira_vivanco_1.jpg`,
+				icon: 'toggle_on',
+				isSpotlight: true,
+			},
+			{
+				id: 'vivanco-2',
+				title: t('biodesign.memorias.school2.p2.title'),
+				desc: t('biodesign.memorias.school2.p2.desc'),
+				tag: 'Diseño en Equipo',
+				code: 'TEAMS: CIRCUIT-DESIGN',
+				imageSrc: `${base}/Biodesign/memorias/gira_vivanco_2.jpg`,
+				icon: 'psychology',
+				isSpotlight: false,
+			},
+			{
+				id: 'vivanco-3',
+				title: t('biodesign.memorias.school2.p3.title'),
+				desc: t('biodesign.memorias.school2.p3.desc'),
+				tag: 'Vocación STEM',
+				code: 'MENTOR: UNMSM-RESEARCH',
+				imageSrc: `${base}/Biodesign/memorias/gira_vivanco_3.jpg`,
+				icon: 'school',
+				isSpotlight: false,
+			},
+		],
+	},
+	{
+		id: 'school3',
+		name: t('biodesign.memorias.school3.name'),
+		district: t('biodesign.memorias.school3.district'),
+		badge: t('biodesign.memorias.school3.badge'),
+		tagline: t('biodesign.memorias.school3.tagline'),
+		desc: t('biodesign.memorias.school3.desc'),
+		icon: 'school',
+		accentColor: 'var(--bd-tertiary)',
+		rgbColor: 'var(--bd-tertiary-rgb)',
+		focus: 'Biosensores & Vocación STEM',
+		photos: [
+			{
+				id: 'leoncio-1',
+				title: t('biodesign.memorias.school3.p1.title'),
+				desc: t('biodesign.memorias.school3.p1.desc'),
+				tag: 'Biosensores Vivos',
+				code: 'SENSOR: HEAVY-METALS',
+				imageSrc: `${base}/Biodesign/memorias/gira_leoncio_prado_1.jpg`,
+				icon: 'sensors',
+				isSpotlight: true,
+			},
+			{
+				id: 'leoncio-2',
+				title: t('biodesign.memorias.school3.p2.title'),
+				desc: t('biodesign.memorias.school3.p2.desc'),
+				tag: 'Laboratorio de Partes',
+				code: 'BIOBRICK: BIO-PARTS',
+				imageSrc: `${base}/Biodesign/memorias/gira_leoncio_prado_2.jpg`,
+				icon: 'scatter_plot',
+				isSpotlight: false,
+			},
+			{
+				id: 'leoncio-3',
+				title: t('biodesign.memorias.school3.p3.title'),
+				desc: t('biodesign.memorias.school3.p3.desc'),
+				tag: 'Pases al Bootcamp',
+				code: 'PASS: BIODESIGN-2026',
+				imageSrc: `${base}/Biodesign/memorias/gira_leoncio_prado_3.jpg`,
+				icon: 'rocket_launch',
+				isSpotlight: false,
+			},
+		],
+	},
+];
+
+// ── Hitos Hackathon BioDesign 2026 (Octubre 2026) ──────────────────
+const hackathonMilestones = [
+	{
+		id: 'hack-1',
+		icon: 'terminal',
+		tag: 'SPRINT 48H',
+		code: 'CAD: BENCHLING-SILICO',
+		title: t('biodesign.memorias.hackathon.m1.title'),
+		desc: t('biodesign.memorias.hackathon.m1.desc'),
+		accent: 'var(--bd-primary)',
+		rgb: 'var(--bd-primary-rgb)',
+	},
+	{
+		id: 'hack-2',
+		icon: 'psychology',
+		tag: 'MENTORÍA EXPERTA',
+		code: 'RESEARCH: CBS-NEA-INS',
+		title: t('biodesign.memorias.hackathon.m2.title'),
+		desc: t('biodesign.memorias.hackathon.m2.desc'),
+		accent: 'var(--bd-secondary)',
+		rgb: 'var(--bd-secondary-rgb)',
+	},
+	{
+		id: 'hack-3',
+		icon: 'emoji_events',
+		tag: 'PITCH & PODIO',
+		code: 'AWARDS: TOP-3-WINNERS',
+		title: t('biodesign.memorias.hackathon.m3.title'),
+		desc: t('biodesign.memorias.hackathon.m3.desc'),
+		accent: 'var(--bd-tertiary)',
+		rgb: 'var(--bd-tertiary-rgb)',
+	},
+];
+---
+
+<section class="bd-section bd-memorias-section" id="memorias">
+	<!-- Ambient glow orbs -->
+	<div class="bd-memorias-ambient" aria-hidden="true">
+		<div class="bd-memorias-orb bd-memorias-orb--1"></div>
+		<div class="bd-memorias-orb bd-memorias-orb--2"></div>
+		<div class="bd-memorias-grid-pattern"></div>
+	</div>
+
+	<div class="bd-memorias-container">
+		<!-- Header Principal -->
+		<div class="bd-memorias-header">
+			<div class="bd-chip bd-chip-lime bd-memorias-badge">
+				<span class="material-icons" style="font-size: 15px;">history_edu</span>
+				{t('biodesign.memorias.badge')}
+			</div>
+			<h2 class="bd-headline-lg bd-memorias-title">
+				{t('biodesign.memorias.title')}
+			</h2>
+			<p class="bd-body-lg bd-memorias-subtitle">
+				{t('biodesign.memorias.subtitle')}
+			</p>
+		</div>
+
+		<!-- ══════════════════════════════════════════════════════
+		     SELECTOR DE HITOS (MILESTONE SEGMENTED CONTROL)
+		     ══════════════════════════════════════════════════════ -->
+		<div class="bd-milestones-nav-wrap">
+			<div class="bd-milestones-nav" role="tablist" aria-label={t('biodesign.memorias.milestones.tag')}>
+				<button 
+					type="button" 
+					class="bd-milestone-tab is-active" 
+					id="tab-btn-gira"
+					role="tab" 
+					aria-selected="true" 
+					aria-controls="milestone-panel-gira"
+					data-milestone-target="gira"
+				>
+					<span class="material-icons bd-tab-icon">domain</span>
+					<div class="bd-tab-text">
+						<span class="bd-tab-label">{t('biodesign.memorias.milestones.gira')}</span>
+						<span class="bd-tab-status">
+							<span class="bd-status-dot bd-status-dot--green"></span>
+							{t('biodesign.memorias.milestones.gira_status')}
+						</span>
+					</div>
+				</button>
+
+				<button 
+					type="button" 
+					class="bd-milestone-tab" 
+					id="tab-btn-hackathon"
+					role="tab" 
+					aria-selected="false" 
+					aria-controls="milestone-panel-hackathon"
+					data-milestone-target="hackathon"
+				>
+					<span class="material-icons bd-tab-icon">emoji_events</span>
+					<div class="bd-tab-text">
+						<span class="bd-tab-label">{t('biodesign.memorias.milestones.hackathon')}</span>
+						<span class="bd-tab-status">
+							<span class="bd-status-dot bd-status-dot--amber"></span>
+							{t('biodesign.memorias.milestones.hackathon_status')}
+						</span>
+					</div>
+				</button>
+			</div>
+		</div>
+
+		<!-- ══════════════════════════════════════════════════════
+		     PANEL 1: GIRA ESCOLAR (MASTER-DETAIL BENTO HUB)
+		     ══════════════════════════════════════════════════════ -->
+		<div 
+			id="milestone-panel-gira" 
+			class="bd-milestone-panel is-active" 
+			role="tabpanel" 
+			aria-labelledby="tab-btn-gira"
+		>
+			<!-- Cinta Molecular Compacta: Unidad de Transcripción (UT) -->
+			<div class="bd-ut-strip" aria-label="Estructura de la Unidad de Transcripción">
+				<div class="bd-ut-strip-header">
+					<span class="material-icons bd-ut-dna-icon">schema</span>
+					<div class="bd-ut-strip-titles">
+						<span class="bd-ut-strip-tag">{t('biodesign.memorias.ut.badge')}</span>
+						<span class="bd-ut-strip-title">{t('biodesign.memorias.ut.title')}</span>
+					</div>
+				</div>
+
+				<div class="bd-ut-strip-pipeline">
+					<div class="bd-ut-chip-node bd-ut-chip-node--promoter" tabindex="0" title={t('biodesign.memorias.ut.part1.desc')}>
+						<span class="bd-ut-node-num">01</span>
+						<span class="bd-ut-node-name">{t('biodesign.memorias.ut.part1.name')}</span>
+						<span class="bd-ut-node-role">{t('biodesign.memorias.ut.part1.role')}</span>
+					</div>
+					<span class="bd-ut-strip-arrow" aria-hidden="true">➔</span>
+
+					<div class="bd-ut-chip-node bd-ut-chip-node--rbs" tabindex="0" title={t('biodesign.memorias.ut.part2.desc')}>
+						<span class="bd-ut-node-num">02</span>
+						<span class="bd-ut-node-name">{t('biodesign.memorias.ut.part2.name')}</span>
+						<span class="bd-ut-node-role">{t('biodesign.memorias.ut.part2.role')}</span>
+					</div>
+					<span class="bd-ut-strip-arrow" aria-hidden="true">➔</span>
+
+					<div class="bd-ut-chip-node bd-ut-chip-node--cds" tabindex="0" title={t('biodesign.memorias.ut.part3.desc')}>
+						<span class="bd-ut-node-num">03</span>
+						<span class="bd-ut-node-name">{t('biodesign.memorias.ut.part3.name')}</span>
+						<span class="bd-ut-node-role">{t('biodesign.memorias.ut.part3.role')}</span>
+					</div>
+					<span class="bd-ut-strip-arrow" aria-hidden="true">➔</span>
+
+					<div class="bd-ut-chip-node bd-ut-chip-node--term" tabindex="0" title={t('biodesign.memorias.ut.part4.desc')}>
+						<span class="bd-ut-node-num">04</span>
+						<span class="bd-ut-node-name">{t('biodesign.memorias.ut.part4.name')}</span>
+						<span class="bd-ut-node-role">{t('biodesign.memorias.ut.part4.role')}</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Master-Detail Stage: Selector de Colegios ➔ Collage Dinámico -->
+			<div class="bd-showcase-layout">
+				<!-- MASTER: Columna de Selección de Colegios -->
+				<div class="bd-master-column" role="tablist" aria-label={t('biodesign.memorias.schools_tag')}>
+					<div class="bd-column-header">
+						<span class="material-icons" style="font-size:16px;">domain</span>
+						<span>{t('biodesign.memorias.schools_tag')}</span>
+					</div>
+
+					<div class="bd-school-triggers">
+						{schools.map((school, index) => (
+							<button
+								type="button"
+								class={`bd-school-trigger-card ${index === 0 ? 'is-selected' : ''}`}
+								id={`school-tab-${school.id}`}
+								role="tab"
+								aria-selected={index === 0 ? 'true' : 'false'}
+								aria-controls={`school-panel-${school.id}`}
+								data-school-id={school.id}
+								style={`--school-accent: ${school.accentColor}; --school-rgb: ${school.rgbColor};`}
+							>
+								<div class="bd-st-glow" aria-hidden="true"></div>
+								<div class="bd-st-header">
+									<div class="bd-st-icon-box">
+										<span class="material-icons">{school.icon}</span>
+									</div>
+									<div class="bd-st-badges">
+										<span class="bd-st-chip">{school.badge}</span>
+										<span class="bd-st-count">
+											<span class="material-icons" style="font-size: 12px;">photo_camera</span>
+											{t('biodesign.memorias.photos_count')}
+										</span>
+									</div>
+								</div>
+
+								<div class="bd-st-info">
+									<h3 class="bd-st-name">{school.name}</h3>
+									<span class="bd-st-district">
+										<span class="material-icons">place</span>
+										{school.district}
+									</span>
+									<p class="bd-st-focus">{school.focus}</p>
+								</div>
+
+								<div class="bd-st-indicator" aria-hidden="true">
+									<span class="material-icons">arrow_forward</span>
+								</div>
+							</button>
+						))}
+					</div>
+				</div>
+
+				<!-- DETAIL: Canvas Reactivo de Fotografías del Colegio Seleccionado -->
+				<div class="bd-detail-column">
+					{schools.map((school, index) => (
+						<div
+							class={`bd-school-panel ${index === 0 ? 'is-active' : ''}`}
+							id={`school-panel-${school.id}`}
+							role="tabpanel"
+							aria-labelledby={`school-tab-${school.id}`}
+							data-school-content={school.id}
+						>
+							<!-- Encabezado del Colegio Activo -->
+							<div class="bd-panel-header">
+								<div class="bd-panel-meta">
+									<span class="bd-chip bd-chip-sm" style={`color: ${school.accentColor}; border-color: rgba(${school.rgbColor}, 0.35); background: rgba(${school.rgbColor}, 0.08);`}>
+										<span class="material-icons" style="font-size: 13px;">verified</span>
+										{t('biodesign.memorias.active_school_badge')}
+									</span>
+									<span class="bd-panel-district">
+										<span class="material-icons">place</span>
+										{school.district}
+									</span>
+								</div>
+								<h3 class="bd-panel-title">{school.name}</h3>
+								<p class="bd-panel-desc">{school.desc}</p>
+							</div>
+
+							<!-- Mini-Bento Collage de 3 Fotos -->
+							<div class="bd-school-bento">
+								<!-- Foto 1: Spotlight (Grande, izq/top) -->
+								<div
+									class="bd-bento-card bd-bento-card--spotlight"
+									data-lightbox-trigger
+									data-item-title={school.photos[0].title}
+									data-item-desc={school.photos[0].desc}
+									data-item-tag={school.photos[0].tag}
+									data-item-code={school.photos[0].code}
+									data-item-src={school.photos[0].imageSrc}
+									tabindex="0"
+									role="button"
+									aria-label={`Ver foto: ${school.photos[0].title}`}
+								>
+									<div class="bd-bento-media">
+										<img
+											src={school.photos[0].imageSrc}
+											alt={school.photos[0].title}
+											class="bd-bento-img"
+											loading="lazy"
+											onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+										/>
+										<div class="bd-bento-ph" style="display: none;">
+											<div class="bd-ph-circuit"></div>
+											<div class="bd-ph-glow" style={`background: radial-gradient(circle, rgba(${school.rgbColor}, 0.3), transparent 70%);`}></div>
+											<div class="bd-ph-box">
+												<span class="material-icons bd-ph-icon" style={`color: ${school.accentColor};`}>{school.photos[0].icon}</span>
+												<span class="bd-ph-code">{school.photos[0].code}</span>
+												<span class="bd-ph-tag">{school.photos[0].tag}</span>
+												<span class="bd-ph-note">
+													<span class="material-icons" style="font-size:12px;">zoom_in</span>
+													{lang === 'es' ? 'Fotografía oficial en proceso' : 'Official photo slot'}
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="bd-bento-overlay">
+										<div class="bd-overlay-top">
+											<span class="bd-badge-pill">{school.photos[0].tag}</span>
+											<span class="bd-zoom-btn" aria-hidden="true">
+												<span class="material-icons">fullscreen</span>
+											</span>
+										</div>
+										<div class="bd-overlay-bottom">
+											<span class="bd-code-crumb">{school.photos[0].code}</span>
+											<h4 class="bd-photo-title">{school.photos[0].title}</h4>
+											<p class="bd-photo-desc">{school.photos[0].desc}</p>
+										</div>
+									</div>
+								</div>
+
+								<!-- Fotos 2 y 3: Companion Tiles (Columna derecha) -->
+								<div class="bd-bento-companions">
+									{school.photos.slice(1).map((photo) => (
+										<div
+											class="bd-bento-card bd-bento-card--companion"
+											data-lightbox-trigger
+											data-item-title={photo.title}
+											data-item-desc={photo.desc}
+											data-item-tag={photo.tag}
+											data-item-code={photo.code}
+											data-item-src={photo.imageSrc}
+											tabindex="0"
+											role="button"
+											aria-label={`Ver foto: ${photo.title}`}
+										>
+											<div class="bd-bento-media">
+												<img
+													src={photo.imageSrc}
+													alt={photo.title}
+													class="bd-bento-img"
+													loading="lazy"
+													onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+												/>
+												<div class="bd-bento-ph" style="display: none;">
+													<div class="bd-ph-circuit"></div>
+													<div class="bd-ph-box">
+														<span class="material-icons bd-ph-icon" style={`color: ${school.accentColor}; font-size:1.8rem;`}>{photo.icon}</span>
+														<span class="bd-ph-code" style="font-size:0.6rem;">{photo.code}</span>
+														<span class="bd-ph-tag" style="font-size:0.68rem;">{photo.tag}</span>
+													</div>
+												</div>
+											</div>
+
+											<div class="bd-bento-overlay bd-bento-overlay--compact">
+												<div class="bd-overlay-top">
+													<span class="bd-badge-pill bd-badge-pill--sm">{photo.tag}</span>
+													<span class="bd-zoom-btn bd-zoom-btn--sm" aria-hidden="true">
+														<span class="material-icons" style="font-size:16px;">fullscreen</span>
+													</span>
+												</div>
+												<div class="bd-overlay-bottom">
+													<h4 class="bd-photo-title bd-photo-title--sm">{photo.title}</h4>
+													<p class="bd-photo-desc bd-photo-desc--sm">{photo.desc}</p>
+												</div>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						</div>
+					))}
+				</div>
+			</div>
+		</div>
+
+		<!-- ══════════════════════════════════════════════════════
+		     PANEL 2: HACKATHON BIODESIGN 2026 (FASE FINAL)
+		     ══════════════════════════════════════════════════════ -->
+		<div 
+			id="milestone-panel-hackathon" 
+			class="bd-milestone-panel" 
+			role="tabpanel" 
+			aria-labelledby="tab-btn-hackathon"
+			hidden
+		>
+			<div class="bd-hackathon-stage">
+				<!-- Banner Principal de Telemetría -->
+				<div class="bd-hack-hero-card">
+					<div class="bd-hack-hero-ambient" aria-hidden="true"></div>
+					<div class="bd-hack-hero-content">
+						<div class="bd-hack-status-row">
+							<span class="bd-chip bd-chip-lime">
+								<span class="bd-status-dot bd-status-dot--amber"></span>
+								{t('biodesign.memorias.hackathon.status_pill')}
+							</span>
+							<span class="bd-hack-code-pill">REG: FA-HACK-2026-OCT</span>
+						</div>
+						<h3 class="bd-hack-title">{t('biodesign.memorias.hackathon.title')}</h3>
+						<p class="bd-hack-desc">{t('biodesign.memorias.hackathon.desc')}</p>
+					</div>
+				</div>
+
+				<!-- Banner Cibernético: ¡Se desbloquea el 29 de Octubre! -->
+				<div class="bd-hack-unlock-banner">
+					<div class="bd-unlock-glow" aria-hidden="true"></div>
+					<div class="bd-unlock-icon-wrap">
+						<span class="material-icons bd-unlock-icon">lock</span>
+					</div>
+					<div class="bd-unlock-info">
+						<div class="bd-unlock-badge-row">
+							<span class="bd-unlock-badge">
+								<span class="material-icons" style="font-size: 13px;">lock_clock</span>
+								{t('biodesign.memorias.hackathon.unlock_badge')}
+							</span>
+							<span class="bd-unlock-tag">COUNTDOWN: 29-OCT-2026</span>
+						</div>
+						<h4 class="bd-unlock-title">{t('biodesign.memorias.hackathon.unlock_title')}</h4>
+						<p class="bd-unlock-desc">{t('biodesign.memorias.hackathon.unlock_desc')}</p>
+					</div>
+				</div>
+
+				<!-- Grilla Bento de 3 Fases del Hackathon -->
+				<div class="bd-hack-grid">
+					{hackathonMilestones.map((milestone) => (
+						<div 
+							class="bd-hack-card" 
+							style={`--hack-accent: ${milestone.accent}; --hack-rgb: ${milestone.rgb};`}
+						>
+							<div class="bd-hack-card-top">
+								<div class="bd-hack-icon-box">
+									<span class="material-icons">{milestone.icon}</span>
+								</div>
+								<div class="bd-hack-tags">
+									<span class="bd-hack-tag">{milestone.tag}</span>
+									<span class="bd-hack-code">{milestone.code}</span>
+								</div>
+							</div>
+
+							<h4 class="bd-hack-card-title">{milestone.title}</h4>
+							<p class="bd-hack-card-desc">{milestone.desc}</p>
+
+							<div class="bd-hack-card-footer">
+								<span class="bd-hack-state-badge">
+									<span class="material-icons" style="font-size:13px;">schedule</span>
+									{lang === 'es' ? 'Despliegue en Octubre' : 'October Deployment'}
+								</span>
+							</div>
+						</div>
+					))}
+				</div>
+
+				<!-- Aviso Informativo de Actualización de Memorias -->
+				<div class="bd-hack-notice-strip">
+					<span class="material-icons bd-notice-icon">info</span>
+					<p class="bd-notice-text">{t('biodesign.memorias.hackathon.notice')}</p>
+				</div>
+			</div>
+		</div>
+
+		<!-- ══════════════════════════════════════════════════════
+		     CTA PUENTE COMPACTO HACIA EL BOOTCAMP
+		     ══════════════════════════════════════════════════════ -->
+		<div class="bd-memorias-cta-compact">
+			<div class="bd-cta-compact-inner">
+				<div class="bd-cta-compact-info">
+					<span class="bd-chip bd-chip-lime bd-cta-compact-chip">
+						<span class="material-icons" style="font-size: 13px;">rocket_launch</span>
+						{t('biodesign.memorias.cta.tag')}
+					</span>
+					<h3 class="bd-cta-compact-title">{t('biodesign.memorias.cta.title')}</h3>
+					<p class="bd-cta-compact-desc">{t('biodesign.memorias.cta.desc')}</p>
+				</div>
+				<div class="bd-cta-compact-action">
+					<a href="#inscripcion" class="bd-btn-primary bd-cta-btn">
+						<span class="material-icons">send</span>
+						<span>{t('biodesign.memorias.cta.btn')}</span>
+						<span class="material-icons" style="font-size: 16px;">arrow_downward</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ══════════════════════════════════════════════════════
+	     LIGHTBOX MODAL ACCESIBLE
+	     ══════════════════════════════════════════════════════ -->
+	<dialog class="bd-lightbox-dialog" id="bd-memorias-lightbox" aria-modal="true">
+		<div class="bd-lightbox-backdrop" data-close-lightbox></div>
+		<div class="bd-lightbox-content">
+			<button class="bd-lightbox-close" data-close-lightbox aria-label={t('biodesign.memorias.lightbox_close')}>
+				<span class="material-icons">close</span>
+			</button>
+			<div class="bd-lightbox-view">
+				<div class="bd-lightbox-image-wrap">
+					<img id="bd-lightbox-img" src="" alt="" class="bd-lightbox-img" />
+					<div id="bd-lightbox-placeholder" class="bd-lightbox-placeholder">
+						<span class="material-icons bd-lb-icon">biotech</span>
+						<p id="bd-lb-tag" class="bd-lb-tag"></p>
+						<p id="bd-lb-code" class="bd-lb-code"></p>
+						<span class="bd-lb-hint">{lang === 'es' ? 'Archivo oficial CBS-UNMSM' : 'Official CBS-UNMSM Archive'}</span>
+					</div>
+				</div>
+				<div class="bd-lightbox-info">
+					<h3 id="bd-lightbox-title" class="bd-lightbox-title"></h3>
+					<p id="bd-lightbox-desc" class="bd-lightbox-desc"></p>
+				</div>
+			</div>
+		</div>
+	</dialog>
+</section>
+
+<script>
+	// ── Controlador Interactivo Vanilla (Hub de Memorias) ───────────
+	function initMemoriesHub() {
+		// 1. Selector de Hitos (Gira Escolar ⇄ Hackathon)
+		const milestoneTabs = document.querySelectorAll<HTMLButtonElement>('.bd-milestone-tab');
+		const milestonePanels = document.querySelectorAll<HTMLElement>('.bd-milestone-panel');
+
+		milestoneTabs.forEach(tab => {
+			tab.addEventListener('click', () => {
+				const target = tab.getAttribute('data-milestone-target');
+				if (!target) return;
+
+				milestoneTabs.forEach(t => {
+					const isActive = t === tab;
+					t.classList.toggle('is-active', isActive);
+					t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+				});
+
+				milestonePanels.forEach(panel => {
+					const isTarget = panel.id === `milestone-panel-${target}`;
+					panel.classList.toggle('is-active', isTarget);
+					panel.hidden = !isTarget;
+				});
+			});
+		});
+
+		// 2. Master-Detail Selector de Colegios
+		const schoolTriggers = document.querySelectorAll<HTMLButtonElement>('.bd-school-trigger-card');
+		const schoolPanels = document.querySelectorAll<HTMLElement>('.bd-school-panel');
+
+		schoolTriggers.forEach(btn => {
+			btn.addEventListener('click', () => {
+				const schoolId = btn.getAttribute('data-school-id');
+				if (!schoolId) return;
+
+				schoolTriggers.forEach(b => {
+					const isSelected = b === btn;
+					b.classList.toggle('is-selected', isSelected);
+					b.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+				});
+
+				schoolPanels.forEach(panel => {
+					const isPanelActive = panel.getAttribute('data-school-content') === schoolId;
+					panel.classList.toggle('is-active', isPanelActive);
+				});
+			});
+		});
+
+		// 3. Lightbox Accesible
+		const lightboxTriggers = document.querySelectorAll<HTMLElement>('[data-lightbox-trigger]');
+		const dialog = document.getElementById('bd-memorias-lightbox') as HTMLDialogElement | null;
+		if (!dialog) return;
+
+		const closeBtns = dialog.querySelectorAll('[data-close-lightbox]');
+		const lbImg = document.getElementById('bd-lightbox-img') as HTMLImageElement | null;
+		const lbPlaceholder = document.getElementById('bd-lightbox-placeholder');
+		const lbTitle = document.getElementById('bd-lightbox-title');
+		const lbDesc = document.getElementById('bd-lightbox-desc');
+		const lbTag = document.getElementById('bd-lb-tag');
+		const lbCode = document.getElementById('bd-lb-code');
+
+		function openLightbox(trigger: HTMLElement) {
+			const title = trigger.getAttribute('data-item-title') || '';
+			const desc = trigger.getAttribute('data-item-desc') || '';
+			const tag = trigger.getAttribute('data-item-tag') || '';
+			const code = trigger.getAttribute('data-item-code') || '';
+			const src = trigger.getAttribute('data-item-src') || '';
+
+			if (lbTitle) lbTitle.textContent = title;
+			if (lbDesc) lbDesc.textContent = desc;
+			if (lbTag) lbTag.textContent = tag;
+			if (lbCode) lbCode.textContent = code;
+
+			if (lbImg && lbPlaceholder) {
+				lbImg.src = src;
+				lbImg.alt = title;
+				lbImg.style.display = 'block';
+				lbPlaceholder.style.display = 'none';
+
+				lbImg.onerror = () => {
+					lbImg.style.display = 'none';
+					lbPlaceholder.style.display = 'flex';
+				};
+			}
+
+			if (typeof dialog?.showModal === 'function') {
+				dialog.showModal();
+			} else {
+				dialog?.setAttribute('open', 'true');
+			}
+			document.body.style.overflow = 'hidden';
+		}
+
+		function closeLightbox() {
+			if (typeof dialog?.close === 'function') {
+				dialog.close();
+			} else {
+				dialog?.removeAttribute('open');
+			}
+			document.body.style.overflow = '';
+		}
+
+		lightboxTriggers.forEach(trigger => {
+			trigger.addEventListener('click', () => openLightbox(trigger));
+			trigger.addEventListener('keydown', (e: KeyboardEvent) => {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					openLightbox(trigger);
+				}
+			});
+		});
+
+		closeBtns.forEach(btn => {
+			btn.addEventListener('click', closeLightbox);
+		});
+
+		dialog.addEventListener('cancel', () => {
+			document.body.style.overflow = '';
+		});
+	}
+
+	initMemoriesHub();
+	document.addEventListener('astro:after-swap', initMemoriesHub);
+</script>
+
+<style>
+	/* ══════════════════════════════════════════════════════
+	   ESTILOS COSMIC-TECH: HUB COMPACTO DE MEMORIAS
+	   ══════════════════════════════════════════════════════ */
+	.bd-memorias-section {
+		position: relative;
+		padding: 4.5rem 1.5rem 3.5rem;
+		overflow: hidden;
+		border-top: 1px solid rgba(var(--bd-tertiary-rgb), 0.12);
+	}
+
+	.bd-memorias-ambient {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.bd-memorias-orb {
+		position: absolute;
+		border-radius: 50%;
+		filter: blur(100px);
+		opacity: 0.14;
+	}
+
+	.bd-memorias-orb--1 {
+		width: clamp(260px, 30vw, 450px);
+		height: clamp(260px, 30vw, 450px);
+		background: rgba(var(--bd-tertiary-rgb), 0.7);
+		top: -5%;
+		right: -5%;
+		animation: bd-float 10s ease-in-out infinite;
+	}
+
+	.bd-memorias-orb--2 {
+		width: clamp(240px, 26vw, 380px);
+		height: clamp(240px, 26vw, 380px);
+		background: rgba(var(--bd-primary-rgb), 0.6);
+		bottom: 5%;
+		left: -5%;
+		animation: bd-float 8s ease-in-out infinite reverse;
+	}
+
+	.bd-memorias-grid-pattern {
+		position: absolute;
+		inset: 0;
+		background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+		background-size: 32px 32px;
+		opacity: 0.5;
+	}
+
+	.bd-memorias-container {
+		position: relative;
+		z-index: 1;
+		max-width: 1240px;
+		margin: 0 auto;
+	}
+
+	/* Encabezado */
+	.bd-memorias-header {
+		text-align: center;
+		max-width: 820px;
+		margin: 0 auto 2.25rem;
+	}
+
+	.bd-memorias-badge {
+		margin-bottom: 1rem;
+		box-shadow: 0 0 20px rgba(var(--bd-tertiary-rgb), 0.25);
+	}
+
+	.bd-memorias-title {
+		font-size: clamp(1.85rem, 3.8vw, 2.65rem);
+		font-weight: 800;
+		line-height: 1.18;
+		margin-bottom: 0.85rem;
+		letter-spacing: -0.02em;
+	}
+
+	.bd-memorias-subtitle {
+		color: var(--bd-text-secondary);
+		line-height: 1.65;
+		font-size: 0.98rem;
+	}
+
+	/* ── Control Segmentado de Hitos (Milestones) ── */
+	.bd-milestones-nav-wrap {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 2rem;
+	}
+
+	.bd-milestones-nav {
+		display: inline-flex;
+		align-items: center;
+		background: rgba(24, 21, 38, 0.85);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 100px;
+		padding: 0.35rem;
+		gap: 0.35rem;
+		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+	}
+
+	:root:not(.dark) .bd-milestones-nav {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.1);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+	}
+
+	.bd-milestone-tab {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.6rem 1.4rem;
+		border-radius: 100px;
+		border: 1px solid transparent;
+		background: transparent;
+		color: var(--bd-text-secondary);
+		cursor: pointer;
+		font-family: inherit;
+		transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+		text-align: left;
+	}
+
+	.bd-milestone-tab:hover {
+		color: var(--bd-text-primary);
+		background: rgba(255, 255, 255, 0.04);
+	}
+
+	.bd-milestone-tab.is-active {
+		background: linear-gradient(135deg, rgba(42, 38, 64, 0.95), rgba(28, 25, 45, 0.95));
+		border-color: rgba(var(--bd-tertiary-rgb), 0.4);
+		color: var(--bd-text-primary);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--bd-tertiary-rgb), 0.15);
+	}
+
+	:root:not(.dark) .bd-milestone-tab.is-active {
+		background: #f1f5f9;
+		border-color: rgba(77, 124, 15, 0.35);
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+	}
+
+	.bd-tab-icon {
+		font-size: 1.35rem;
+		color: var(--bd-tertiary);
+	}
+
+	.bd-tab-text {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.25;
+	}
+
+	.bd-tab-label {
+		font-size: 0.88rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+	}
+
+	.bd-tab-status {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.68rem;
+		color: var(--bd-text-secondary);
+		font-weight: 500;
+	}
+
+	.bd-status-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+	}
+
+	.bd-status-dot--green {
+		background: var(--bd-primary);
+		box-shadow: 0 0 6px var(--bd-primary);
+	}
+
+	.bd-status-dot--amber {
+		background: #f59e0b;
+		box-shadow: 0 0 6px #f59e0b;
+	}
+
+	/* ── Paneles de Hitos ── */
+	.bd-milestone-panel {
+		display: none;
+		animation: bd-panel-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.bd-milestone-panel.is-active {
+		display: block;
+	}
+
+	@keyframes bd-panel-in {
+		from {
+			opacity: 0;
+			transform: translateY(6px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* ── Cinta Molecular Compacta (UT) ── */
+	.bd-ut-strip {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.25rem;
+		padding: 0.85rem 1.4rem;
+		background: rgba(22, 20, 35, 0.7);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.2);
+		border-radius: 16px;
+		margin-bottom: 2rem;
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+	}
+
+	:root:not(.dark) .bd-ut-strip {
+		background: #f8fafc;
+		border-color: rgba(5, 150, 105, 0.25);
+	}
+
+	.bd-ut-strip-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-shrink: 0;
+	}
+
+	.bd-ut-dna-icon {
+		font-size: 1.4rem;
+		color: var(--bd-primary);
+	}
+
+	.bd-ut-strip-titles {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.bd-ut-strip-tag {
+		font-size: 0.64rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--bd-primary);
+	}
+
+	.bd-ut-strip-title {
+		font-size: 0.88rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-ut-strip-pipeline {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-ut-chip-node {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		padding: 0.35rem 0.75rem;
+		border-radius: 100px;
+		font-size: 0.72rem;
+		cursor: help;
+		transition: all 0.2s ease;
+	}
+
+	:root:not(.dark) .bd-ut-chip-node {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.1);
+	}
+
+	.bd-ut-chip-node:hover,
+	.bd-ut-chip-node:focus-visible {
+		transform: translateY(-2px);
+		outline: none;
+	}
+
+	.bd-ut-chip-node--promoter:hover {
+		border-color: var(--bd-tertiary);
+		color: var(--bd-tertiary);
+		box-shadow: 0 0 14px rgba(var(--bd-tertiary-rgb), 0.3);
+	}
+
+	.bd-ut-chip-node--rbs:hover {
+		border-color: var(--bd-primary);
+		color: var(--bd-primary);
+		box-shadow: 0 0 14px rgba(var(--bd-primary-rgb), 0.3);
+	}
+
+	.bd-ut-chip-node--cds:hover {
+		border-color: var(--bd-secondary);
+		color: var(--bd-secondary);
+		box-shadow: 0 0 14px rgba(var(--bd-secondary-rgb), 0.3);
+	}
+
+	.bd-ut-chip-node--term:hover {
+		border-color: #f87171;
+		color: #f87171;
+		box-shadow: 0 0 14px rgba(248, 113, 113, 0.3);
+	}
+
+	.bd-ut-node-num {
+		font-family: 'Space Grotesk', monospace;
+		font-weight: 800;
+		font-size: 0.65rem;
+		opacity: 0.6;
+	}
+
+	.bd-ut-node-name {
+		font-weight: 800;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-ut-node-role {
+		font-size: 0.65rem;
+		opacity: 0.75;
+	}
+
+	.bd-ut-strip-arrow {
+		color: var(--bd-text-secondary);
+		opacity: 0.4;
+		font-size: 0.75rem;
+	}
+
+	@media (max-width: 900px) {
+		.bd-ut-strip {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.75rem;
+		}
+	}
+
+	/* ── Master-Detail Layout de Colegios ── */
+	.bd-showcase-layout {
+		display: grid;
+		grid-template-columns: 360px 1fr;
+		gap: 1.75rem;
+		align-items: start;
+		margin-bottom: 2.5rem;
+	}
+
+	@media (max-width: 992px) {
+		.bd-showcase-layout {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-column-header {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--bd-tertiary);
+		margin-bottom: 0.85rem;
+	}
+
+	/* MASTER: Tarjetas Selectoras */
+	.bd-school-triggers {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	@media (max-width: 992px) {
+		.bd-school-triggers {
+			flex-direction: row;
+			overflow-x: auto;
+			padding-bottom: 0.5rem;
+			scrollbar-width: thin;
+		}
+	}
+
+	.bd-school-trigger-card {
+		position: relative;
+		width: 100%;
+		text-align: left;
+		padding: 1.25rem 1.4rem;
+		background: rgba(28, 25, 42, 0.7);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 18px;
+		cursor: pointer;
+		font-family: inherit;
+		overflow: hidden;
+		transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	:root:not(.dark) .bd-school-trigger-card {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+	}
+
+	@media (max-width: 992px) {
+		.bd-school-trigger-card {
+			min-width: 280px;
+			flex-shrink: 0;
+		}
+	}
+
+	.bd-school-trigger-card:hover {
+		transform: translateY(-2px);
+		border-color: rgba(var(--school-rgb), 0.4);
+	}
+
+	.bd-school-trigger-card.is-selected {
+		background: linear-gradient(145deg, rgba(35, 31, 56, 0.95), rgba(22, 19, 37, 0.95));
+		border-color: var(--school-accent);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 24px rgba(var(--school-rgb), 0.22);
+	}
+
+	:root:not(.dark) .bd-school-trigger-card.is-selected {
+		background: linear-gradient(145deg, #ffffff, #f1f5f9);
+		border-color: var(--school-accent);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+	}
+
+	.bd-st-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.bd-st-icon-box {
+		width: 38px;
+		height: 38px;
+		border-radius: 10px;
+		background: rgba(var(--school-rgb), 0.14);
+		color: var(--school-accent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bd-st-icon-box .material-icons {
+		font-size: 1.3rem;
+	}
+
+	.bd-st-badges {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.25rem;
+	}
+
+	.bd-st-chip {
+		font-size: 0.65rem;
+		font-weight: 800;
+		padding: 0.18rem 0.5rem;
+		border-radius: 4px;
+		color: var(--school-accent);
+		background: rgba(var(--school-rgb), 0.1);
+		border: 1px solid rgba(var(--school-rgb), 0.25);
+	}
+
+	.bd-st-count {
+		font-size: 0.62rem;
+		color: var(--bd-text-secondary);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.bd-st-name {
+		font-size: 1.05rem;
+		font-weight: 700;
+		line-height: 1.3;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.25rem;
+	}
+
+	.bd-st-district {
+		font-size: 0.78rem;
+		color: var(--bd-text-secondary);
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		margin-bottom: 0.35rem;
+	}
+
+	.bd-st-district .material-icons {
+		font-size: 0.9rem;
+		color: var(--school-accent);
+	}
+
+	.bd-st-focus {
+		font-size: 0.75rem;
+		line-height: 1.4;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-st-indicator {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(255, 255, 255, 0.06);
+		color: var(--bd-text-secondary);
+		opacity: 0.5;
+		transition: all 0.2s ease;
+	}
+
+	.bd-school-trigger-card.is-selected .bd-st-indicator {
+		background: var(--school-accent);
+		color: #0b0914;
+		opacity: 1;
+		transform: translateX(2px);
+	}
+
+	/* DETAIL: Paneles de Colegios */
+	.bd-school-panel {
+		display: none;
+		animation: bd-panel-in 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	.bd-school-panel.is-active {
+		display: block;
+	}
+
+	.bd-panel-header {
+		margin-bottom: 1.25rem;
+		background: rgba(22, 20, 35, 0.5);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		border-radius: 18px;
+		padding: 1.25rem 1.5rem;
+	}
+
+	:root:not(.dark) .bd-panel-header {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	.bd-panel-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.4rem;
+	}
+
+	.bd-panel-district {
+		font-size: 0.75rem;
+		color: var(--bd-text-secondary);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	.bd-panel-district .material-icons {
+		font-size: 0.85rem;
+	}
+
+	.bd-panel-title {
+		font-size: 1.35rem;
+		font-weight: 800;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.3rem;
+	}
+
+	.bd-panel-desc {
+		font-size: 0.88rem;
+		line-height: 1.55;
+		color: var(--bd-text-secondary);
+	}
+
+	/* Bento de 3 Fotos */
+	.bd-school-bento {
+		display: grid;
+		grid-template-columns: 1.25fr 1fr;
+		gap: 1rem;
+		align-items: stretch;
+	}
+
+	@media (max-width: 768px) {
+		.bd-school-bento {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-bento-companions {
+		display: grid;
+		grid-template-rows: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.bd-bento-card {
+		position: relative;
+		border-radius: 18px;
+		overflow: hidden;
+		cursor: pointer;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(22, 20, 35, 0.8);
+		transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+	}
+
+	:root:not(.dark) .bd-bento-card {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	.bd-bento-card--spotlight {
+		min-height: 380px;
+	}
+
+	.bd-bento-card--companion {
+		min-height: 180px;
+	}
+
+	.bd-bento-card:hover,
+	.bd-bento-card:focus-visible {
+		transform: translateY(-3px);
+		border-color: rgba(var(--bd-tertiary-rgb), 0.45);
+		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(var(--bd-tertiary-rgb), 0.15);
+		outline: none;
+	}
+
+	.bd-bento-media {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 0;
+	}
+
+	.bd-bento-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+	}
+
+	.bd-bento-card:hover .bd-bento-img {
+		transform: scale(1.05);
+	}
+
+	/* Fallback Placeholders */
+	.bd-bento-ph {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: radial-gradient(circle at 50% 40%, rgba(32, 28, 50, 0.98), rgba(15, 13, 26, 1));
+		padding: 1.5rem;
+		text-align: center;
+	}
+
+	:root:not(.dark) .bd-bento-ph {
+		background: radial-gradient(circle at 50% 40%, #f8fafc, #e2e8f0);
+	}
+
+	.bd-ph-circuit {
+		position: absolute;
+		inset: 0;
+		background-image: 
+			linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+		background-size: 20px 20px;
+	}
+
+	.bd-ph-glow {
+		position: absolute;
+		width: 140px;
+		height: 140px;
+		border-radius: 50%;
+		filter: blur(24px);
+		pointer-events: none;
+	}
+
+	.bd-ph-box {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.35rem;
+	}
+
+	.bd-ph-icon {
+		font-size: 2.2rem;
+		margin-bottom: 0.2rem;
+	}
+
+	.bd-ph-code {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 0.65rem;
+		color: var(--bd-primary);
+		background: rgba(var(--bd-primary-rgb), 0.1);
+		padding: 0.12rem 0.45rem;
+		border-radius: 4px;
+	}
+
+	.bd-ph-tag {
+		font-size: 0.72rem;
+		font-weight: 800;
+		color: var(--bd-text-primary);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.bd-ph-note {
+		font-size: 0.68rem;
+		color: var(--bd-text-secondary);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+	}
+
+	/* Card Overlays */
+	.bd-bento-overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		padding: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		background: linear-gradient(180deg, rgba(14, 12, 27, 0.2) 0%, rgba(14, 12, 27, 0.88) 70%, rgba(14, 12, 27, 0.98) 100%);
+	}
+
+	:root:not(.dark) .bd-bento-overlay {
+		background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(240, 243, 248, 0.9) 65%, rgba(240, 243, 248, 0.98) 100%);
+	}
+
+	.bd-bento-overlay--compact {
+		padding: 0.85rem 1rem;
+	}
+
+	.bd-overlay-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+
+	.bd-badge-pill {
+		font-size: 0.65rem;
+		font-weight: 800;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		padding: 0.22rem 0.55rem;
+		border-radius: 100px;
+		background: rgba(19, 17, 32, 0.85);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		color: var(--bd-text-primary);
+	}
+
+	.bd-badge-pill--sm {
+		font-size: 0.6rem;
+		padding: 0.15rem 0.45rem;
+	}
+
+	.bd-zoom-btn {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(19, 17, 32, 0.7);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: var(--bd-text-primary);
+		transition: all 0.2s ease;
+	}
+
+	.bd-bento-card:hover .bd-zoom-btn {
+		color: var(--bd-tertiary);
+		border-color: var(--bd-tertiary);
+		transform: scale(1.1);
+	}
+
+	.bd-zoom-btn--sm {
+		width: 26px;
+		height: 26px;
+	}
+
+	.bd-overlay-bottom {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+
+	.bd-code-crumb {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 0.62rem;
+		color: var(--bd-tertiary);
+	}
+
+	.bd-photo-title {
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		line-height: 1.25;
+	}
+
+	.bd-photo-title--sm {
+		font-size: 0.88rem;
+	}
+
+	.bd-photo-desc {
+		font-size: 0.78rem;
+		line-height: 1.45;
+		color: var(--bd-text-secondary);
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.bd-photo-desc--sm {
+		font-size: 0.72rem;
+		-webkit-line-clamp: 1;
+	}
+
+	/* ── PANEL 2: HACKATHON BIODESIGN STAGE ── */
+	.bd-hackathon-stage {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+		margin-bottom: 2.5rem;
+	}
+
+	.bd-hack-hero-card {
+		position: relative;
+		border-radius: 20px;
+		padding: 2.25rem 2rem;
+		background: linear-gradient(135deg, rgba(35, 30, 56, 0.85), rgba(18, 16, 32, 0.95));
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.3);
+		overflow: hidden;
+		box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+	}
+
+	:root:not(.dark) .bd-hack-hero-card {
+		background: linear-gradient(135deg, #ffffff, #f8fafc);
+		border-color: rgba(77, 124, 15, 0.3);
+	}
+
+	.bd-hack-hero-ambient {
+		position: absolute;
+		top: -40%;
+		right: -10%;
+		width: 320px;
+		height: 320px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(var(--bd-tertiary-rgb), 0.22), transparent 70%);
+		filter: blur(40px);
+		pointer-events: none;
+	}
+
+	.bd-hack-hero-content {
+		position: relative;
+		z-index: 1;
+		max-width: 780px;
+	}
+
+	.bd-hack-status-row {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.85rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-hack-code-pill {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 0.68rem;
+		color: var(--bd-tertiary);
+		background: rgba(var(--bd-tertiary-rgb), 0.1);
+		padding: 0.2rem 0.55rem;
+		border-radius: 4px;
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.2);
+	}
+
+	.bd-hack-title {
+		font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+		font-weight: 800;
+		color: var(--bd-text-primary);
+		line-height: 1.25;
+		margin-bottom: 0.65rem;
+	}
+
+	.bd-hack-desc {
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: var(--bd-text-secondary);
+	}
+
+	/* Banner Cibernético: ¡Se desbloquea el 29 de Octubre! */
+	.bd-hack-unlock-banner {
+		position: relative;
+		border-radius: 18px;
+		padding: 1.5rem 1.75rem;
+		background: linear-gradient(135deg, rgba(42, 30, 68, 0.9), rgba(20, 16, 36, 0.95));
+		border: 1px solid rgba(var(--bd-secondary-rgb), 0.4);
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35), inset 0 0 25px rgba(var(--bd-secondary-rgb), 0.1);
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		overflow: hidden;
+	}
+
+	:root:not(.dark) .bd-hack-unlock-banner {
+		background: linear-gradient(135deg, #ffffff, #f5f3ff);
+		border-color: rgba(147, 51, 234, 0.3);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	}
+
+	.bd-unlock-glow {
+		position: absolute;
+		top: -40%;
+		left: -20px;
+		width: 180px;
+		height: 180px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(var(--bd-secondary-rgb), 0.35), transparent 70%);
+		filter: blur(30px);
+		pointer-events: none;
+	}
+
+	.bd-unlock-icon-wrap {
+		width: 54px;
+		height: 54px;
+		border-radius: 16px;
+		background: rgba(var(--bd-secondary-rgb), 0.18);
+		border: 1px solid rgba(var(--bd-secondary-rgb), 0.35);
+		color: var(--bd-secondary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		box-shadow: 0 0 20px rgba(var(--bd-secondary-rgb), 0.25);
+	}
+
+	.bd-unlock-icon {
+		font-size: 1.85rem;
+	}
+
+	.bd-unlock-info {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.bd-unlock-badge-row {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-unlock-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.72rem;
+		font-weight: 800;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: #f59e0b;
+		background: rgba(245, 158, 11, 0.15);
+		border: 1px solid rgba(245, 158, 11, 0.35);
+		padding: 0.25rem 0.65rem;
+		border-radius: 100px;
+		box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+	}
+
+	.bd-unlock-tag {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 0.65rem;
+		color: var(--bd-secondary);
+		letter-spacing: 0.08em;
+	}
+
+	.bd-unlock-title {
+		font-size: 1.15rem;
+		font-weight: 800;
+		color: var(--bd-text-primary);
+		margin: 0;
+	}
+
+	.bd-unlock-desc {
+		font-size: 0.84rem;
+		line-height: 1.5;
+		color: var(--bd-text-secondary);
+		margin: 0;
+	}
+
+	@media (max-width: 680px) {
+		.bd-hack-unlock-banner {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 1rem;
+		}
+	}
+
+	.bd-hack-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 860px) {
+		.bd-hack-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-hack-card {
+		background: rgba(26, 23, 40, 0.75);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 18px;
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		transition: all 0.25s ease;
+	}
+
+	:root:not(.dark) .bd-hack-card {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	.bd-hack-card:hover {
+		transform: translateY(-3px);
+		border-color: rgba(var(--hack-rgb), 0.45);
+		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35), 0 0 20px rgba(var(--hack-rgb), 0.15);
+	}
+
+	.bd-hack-card-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+	}
+
+	.bd-hack-icon-box {
+		width: 40px;
+		height: 40px;
+		border-radius: 12px;
+		background: rgba(var(--hack-rgb), 0.14);
+		color: var(--hack-accent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bd-hack-tags {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 0.2rem;
+	}
+
+	.bd-hack-tag {
+		font-size: 0.65rem;
+		font-weight: 800;
+		color: var(--hack-accent);
+	}
+
+	.bd-hack-code {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 0.6rem;
+		color: var(--bd-text-secondary);
+		opacity: 0.75;
+	}
+
+	.bd-hack-card-title {
+		font-size: 1.1rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.4rem;
+	}
+
+	.bd-hack-card-desc {
+		font-size: 0.82rem;
+		line-height: 1.5;
+		color: var(--bd-text-secondary);
+		margin-bottom: 1.25rem;
+	}
+
+	.bd-hack-card-footer {
+		margin-top: auto;
+	}
+
+	.bd-hack-state-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.68rem;
+		font-weight: 700;
+		color: var(--bd-text-secondary);
+		background: rgba(255, 255, 255, 0.04);
+		padding: 0.25rem 0.6rem;
+		border-radius: 6px;
+	}
+
+	.bd-hack-notice-strip {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		background: rgba(var(--bd-tertiary-rgb), 0.08);
+		border: 1px dashed rgba(var(--bd-tertiary-rgb), 0.3);
+		border-radius: 14px;
+		padding: 0.85rem 1.25rem;
+	}
+
+	.bd-notice-icon {
+		color: var(--bd-tertiary);
+		font-size: 1.25rem;
+		flex-shrink: 0;
+	}
+
+	.bd-notice-text {
+		font-size: 0.82rem;
+		line-height: 1.5;
+		color: var(--bd-text-primary);
+		margin: 0;
+	}
+
+	/* ── CTA Puente Compacto ── */
+	.bd-memorias-cta-compact {
+		position: relative;
+		border-radius: 20px;
+		padding: 1.75rem 2rem;
+		background: linear-gradient(135deg, rgba(32, 28, 52, 0.8), rgba(18, 16, 32, 0.95));
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.25);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+	}
+
+	:root:not(.dark) .bd-memorias-cta-compact {
+		background: linear-gradient(135deg, #ffffff, #f1f5f9);
+		border-color: rgba(77, 124, 15, 0.3);
+	}
+
+	.bd-cta-compact-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+	}
+
+	@media (max-width: 860px) {
+		.bd-cta-compact-inner {
+			flex-direction: column;
+			text-align: center;
+			gap: 1.25rem;
+		}
+	}
+
+	.bd-cta-compact-info {
+		max-width: 720px;
+	}
+
+	.bd-cta-compact-chip {
+		margin-bottom: 0.5rem;
+		font-size: 0.65rem;
+	}
+
+	.bd-cta-compact-title {
+		font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+		font-weight: 800;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.35rem;
+	}
+
+	.bd-cta-compact-desc {
+		font-size: 0.88rem;
+		line-height: 1.5;
+		color: var(--bd-text-secondary);
+		margin: 0;
+	}
+
+	.bd-cta-compact-action {
+		flex-shrink: 0;
+	}
+
+	.bd-cta-btn {
+		font-size: 0.88rem;
+		padding: 0.75rem 1.6rem;
+		gap: 0.5rem;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	/* ── Lightbox Modal ── */
+	.bd-lightbox-dialog {
+		position: fixed;
+		inset: 0;
+		width: 100vw;
+		height: 100vh;
+		max-width: 100vw;
+		max-height: 100vh;
+		padding: 0;
+		margin: 0;
+		background: transparent;
+		border: none;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		z-index: 2000;
+	}
+
+	.bd-lightbox-dialog[open] {
+		display: flex;
+	}
+
+	.bd-lightbox-backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(10, 8, 18, 0.88);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+	}
+
+	.bd-lightbox-content {
+		position: relative;
+		z-index: 1;
+		width: 90%;
+		max-width: 840px;
+		max-height: 90vh;
+		background: rgba(28, 25, 42, 0.96);
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.35);
+		border-radius: 22px;
+		box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		animation: bd-panel-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	:root:not(.dark) .bd-lightbox-content {
+		background: #ffffff;
+		border-color: rgba(0, 0, 0, 0.15);
+	}
+
+	.bd-lightbox-close {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		width: 38px;
+		height: 38px;
+		border-radius: 50%;
+		background: rgba(14, 12, 24, 0.7);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		color: #ffffff;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		z-index: 2;
+		transition: all 0.2s ease;
+	}
+
+	.bd-lightbox-close:hover {
+		transform: scale(1.1);
+		background: var(--bd-tertiary);
+		color: var(--bd-on-tertiary);
+	}
+
+	.bd-lightbox-image-wrap {
+		width: 100%;
+		min-height: 300px;
+		max-height: 52vh;
+		position: relative;
+		background: #0d0b16;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.bd-lightbox-img {
+		width: 100%;
+		height: 100%;
+		max-height: 52vh;
+		object-fit: contain;
+	}
+
+	.bd-lightbox-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 2.5rem;
+		color: var(--bd-text-secondary);
+	}
+
+	.bd-lb-icon {
+		font-size: 3.2rem;
+		color: var(--bd-tertiary);
+	}
+
+	.bd-lb-tag {
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-lb-code {
+		font-family: 'Space Grotesk', monospace;
+		font-size: 0.75rem;
+		color: var(--bd-primary);
+	}
+
+	.bd-lb-hint {
+		font-size: 0.7rem;
+		color: var(--bd-text-secondary);
+		opacity: 0.7;
+	}
+
+	.bd-lightbox-info {
+		padding: 1.25rem 1.75rem;
+		background: rgba(20, 18, 30, 0.95);
+		border-top: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+	:root:not(.dark) .bd-lightbox-info {
+		background: #f8f9fa;
+		border-color: rgba(0, 0, 0, 0.08);
+	}
+
+	.bd-lightbox-title {
+		font-size: 1.2rem;
+		font-weight: 700;
+		margin-bottom: 0.35rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-lightbox-desc {
+		font-size: 0.88rem;
+		line-height: 1.55;
+		color: var(--bd-text-secondary);
+	}
+</style>

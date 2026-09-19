@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
+// import BiodesignMemories from '../biodesign/BiodesignMemories.astro';
 
 interface Props {
 	lang?: Lang;
@@ -200,9 +201,14 @@ const alliedOrgs = [
 		desc: t('biodesign.aliados.asmutec.desc'),
 	},
 	{
-		name: 'BIOMIN',
+		name: 'BIOMIM',
 		logo: `${base}/allies/logo_biomin.jpeg`,
 		desc: t('biodesign.aliados.biomin.desc'),
+	},
+	{
+		name: t('biodesign.aliados.clubesciencia.name'),
+		logo: `${base}/allies/club_ciencia.jpeg`,
+		desc: t('biodesign.aliados.clubesciencia.desc'),
 	},
 ];
 ---
@@ -221,18 +227,20 @@ const alliedOrgs = [
 
 	<div class="bd-section bd-hero-content">
 		<div class="bd-hero-text">
-			<!-- Badges Row: Registration Badge + School Pill Trigger -->
+			<!-- Badges Row: Registration Badge + School Pill Trigger (Oculto temporalmente hasta tener fotos listas) -->
 			<div class="bd-hero-top-badges">
 				<div class="bd-chip bd-chip-lime bd-hero-badge">
 					<span class="material-icons" style="font-size: 14px;">schedule</span>
 					{t('biodesign.hero.badge')}
 				</div>
-				<button class="bd-school-pill-btn" id="open-school-modal" type="button" aria-haspopup="dialog">
-					<span class="material-icons bd-school-pill-icon">school</span>
+				<!-- Enlace a memorias oculto temporalmente
+				<a href="#memorias" class="bd-school-pill-btn" id="hero-memorias-pill" aria-label={t('biodesign.school.pill.text')}>
+					<span class="material-icons bd-school-pill-icon">history_edu</span>
 					<span class="bd-school-pill-tag">{t('biodesign.school.pill.badge')}</span>
 					<span class="bd-school-pill-text">{t('biodesign.school.pill.text')}</span>
-					<span class="material-icons bd-school-pill-arrow">arrow_forward</span>
-				</button>
+					<span class="material-icons bd-school-pill-arrow">arrow_downward</span>
+				</a>
+				-->
 			</div>
 
 			<h1 class="bd-headline-xl">
@@ -837,6 +845,12 @@ const alliedOrgs = [
 </section>
 
 <!-- ═══════════════════════════════════════════
+     MEMORIAS DE LA GIRA ESCOLAR Y HACKATHON 2026
+     (Oculto temporalmente hasta la siguiente sesión para fotos elegidas)
+     ═══════════════════════════════════════════ -->
+<!-- <BiodesignMemories lang={lang} /> -->
+
+<!-- ═══════════════════════════════════════════
      ALIADOS / SPONSORS SECTION
      ═══════════════════════════════════════════ -->
 <section class="bd-section bd-aliados-section" id="aliados">
@@ -868,31 +882,52 @@ const alliedOrgs = [
 
 
 
-	<!-- Allied Organizations — real logos -->
+	<!-- Allied Organizations — Continuous Cosmic Carousel -->
 	<div class="bd-reveal" style="margin-top: 5rem;">
 		<h2 class="bd-headline-lg bd-gradient-text" style="text-align: center;">
 			{t('biodesign.aliados.allies.title')}
 		</h2>
-		<p class="bd-body-md" style="text-align: center; max-width: 500px; margin: 0 auto 3rem;">
+		<p class="bd-body-md" style="text-align: center; max-width: 540px; margin: 0 auto 2.5rem;">
 			{t('biodesign.aliados.allies.subtitle')}
 		</p>
-		<div class="bd-allies-grid">
-			{alliedOrgs.map(org => (
-				<div class="bd-glass bd-ally-card">
-					<div class="bd-ally-logo-wrap">
-						<img
-							src={org.logo}
-							alt={org.name}
-							class="bd-ally-logo"
-							width="120"
-							height="80"
-							loading="lazy"
-						/>
+		
+		<div class="bd-allies-carousel-wrapper" aria-label="Carrusel de Organizaciones Aliadas">
+			<div class="bd-allies-carousel-track">
+				{/* Loop 1 */}
+				{alliedOrgs.map(org => (
+					<div class="bd-glass bd-ally-card">
+						<div class="bd-ally-logo-wrap">
+							<img
+								src={org.logo}
+								alt={org.name}
+								class="bd-ally-logo"
+								width="120"
+								height="80"
+								loading="lazy"
+							/>
+						</div>
+						<h3 class="bd-headline-md bd-ally-name">{org.name}</h3>
+						<p class="bd-body-md bd-ally-desc">{org.desc}</p>
 					</div>
-					<h3 class="bd-headline-md" style="font-size:1rem; margin-top:1rem;">{org.name}</h3>
-					<p class="bd-body-md" style="font-size:0.82rem; color:var(--bd-on-surface-variant);">{org.desc}</p>
-				</div>
-			))}
+				))}
+				{/* Loop 2 (Duplicación para loop infinito continuo) */}
+				{alliedOrgs.map(org => (
+					<div class="bd-glass bd-ally-card" aria-hidden="true" tabindex="-1">
+						<div class="bd-ally-logo-wrap">
+							<img
+								src={org.logo}
+								alt=""
+								class="bd-ally-logo"
+								width="120"
+								height="80"
+								loading="lazy"
+							/>
+						</div>
+						<h3 class="bd-headline-md bd-ally-name">{org.name}</h3>
+						<p class="bd-body-md bd-ally-desc">{org.desc}</p>
+					</div>
+				))}
+			</div>
 		</div>
 	</div>
 
@@ -1777,38 +1812,104 @@ const alliedOrgs = [
 	/* ══════════════════════════════
 	   ALLIES REAL LOGOS
 	   ══════════════════════════════ */
-	.bd-allies-grid {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1.5rem;
-		max-width: 900px;
-		margin: 0 auto;
+	/* ── Allies Continuous Cosmic Marquee / Carousel ── */
+	.bd-allies-carousel-wrapper {
+		width: 100%;
+		overflow: hidden;
+		position: relative;
+		padding: 1.5rem 0 2rem;
+		mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+		-webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 	}
+
+	.bd-allies-carousel-track {
+		display: flex;
+		gap: 2rem;
+		width: max-content;
+		animation: bd-allies-scroll 26s linear infinite;
+	}
+
+	.bd-allies-carousel-wrapper:hover .bd-allies-carousel-track,
+	.bd-allies-carousel-wrapper:focus-within .bd-allies-carousel-track {
+		animation-play-state: paused;
+	}
+
+	@keyframes bd-allies-scroll {
+		0% {
+			transform: translateX(0);
+		}
+		100% {
+			transform: translateX(-50%);
+		}
+	}
+
 	.bd-ally-card {
-		padding: 1.75rem;
+		width: 290px;
+		min-height: 240px;
+		flex-shrink: 0;
+		padding: 2rem 1.75rem;
 		text-align: center;
-		transition: all 0.3s ease;
-		border-color: rgba(var(--bd-secondary-container-rgb), 0.25);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		border-radius: 20px;
+		border: 1px solid rgba(var(--bd-secondary-container-rgb), 0.25);
+		background: rgba(28, 25, 42, 0.75);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 	}
+
+	:root:not(.dark) .bd-ally-card {
+		background: rgba(255, 255, 255, 0.95);
+		border-color: rgba(0, 0, 0, 0.08);
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+	}
+
 	.bd-ally-card:hover {
-		transform: translateY(-5px);
-		border-color: rgba(var(--bd-primary-rgb), 0.4);
-		box-shadow: 0 0 25px rgba(var(--bd-primary-rgb), 0.1);
+		transform: translateY(-6px);
+		border-color: rgba(var(--bd-primary-rgb), 0.5);
+		box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(var(--bd-primary-rgb), 0.15);
 	}
+
 	.bd-ally-logo-wrap {
-		height: 80px;
+		height: 75px;
+		width: 100%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 1rem;
+		margin-bottom: 1.25rem;
+		padding: 0.5rem;
+		box-sizing: border-box;
 	}
+
 	.bd-ally-logo {
 		max-height: 64px;
+		max-width: 140px;
 		width: auto;
 		object-fit: contain;
 		border-radius: 0.5rem;
-		filter: brightness(0.95) saturate(0.9);
-		transition: filter 0.3s;
+		filter: brightness(0.95) saturate(0.95);
+		transition: filter 0.3s, transform 0.3s;
+	}
+
+	.bd-ally-card:hover .bd-ally-logo {
+		filter: brightness(1) saturate(1.1);
+		transform: scale(1.05);
+	}
+
+	.bd-ally-name {
+		font-size: 1.1rem;
+		font-weight: 700;
+		margin-bottom: 0.5rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-ally-desc {
+		font-size: 0.84rem;
+		line-height: 1.55;
+		color: var(--bd-on-surface-variant);
+		margin: 0;
 	}
 	/* ══════════════════════════════
 	   HERO TOP BADGES & SCHOOL PILL
@@ -1841,6 +1942,7 @@ const alliedOrgs = [
 		position: relative;
 		overflow: hidden;
 		text-align: left;
+		text-decoration: none;
 	}
 
 	.bd-school-pill-btn:hover {
