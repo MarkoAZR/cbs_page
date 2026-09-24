@@ -553,33 +553,41 @@ body:has(.biodesign-page):not(.light) {
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-card--group {
-	border-color: rgba(5, 150, 105, 0.3);
-	background: radial-gradient(circle at top left, rgba(5, 150, 105, 0.06) 0%, rgba(255, 255, 255, 0.9) 60%);
+	border-color: rgba(5, 150, 105, 0.4);
+	background: radial-gradient(circle at top left, rgba(5, 150, 105, 0.06) 0%, rgba(255, 255, 255, 0.98) 60%);
 	box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-card--group:hover {
-	border-color: rgba(5, 150, 105, 0.6);
+	border-color: rgba(5, 150, 105, 0.65);
 	box-shadow: 0 12px 35px rgba(5, 150, 105, 0.15);
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-card--individual {
-	border-color: rgba(77, 124, 15, 0.3);
-	background: radial-gradient(circle at top left, rgba(77, 124, 15, 0.06) 0%, rgba(255, 255, 255, 0.9) 60%);
+	border-color: rgba(77, 124, 15, 0.4);
+	background: radial-gradient(circle at top left, rgba(77, 124, 15, 0.06) 0%, rgba(255, 255, 255, 0.98) 60%);
 	box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-card--individual:hover {
-	border-color: rgba(77, 124, 15, 0.6);
+	border-color: rgba(77, 124, 15, 0.65);
 	box-shadow: 0 12px 35px rgba(77, 124, 15, 0.15);
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-feature {
-	color: #475569;
+	color: #334155;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-feature strong {
+	color: #0f172a;
+}
+
+:root:not(.dark) .biodesign-page .bd-modalidad-desc {
+	color: #334155;
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-divider {
-	background: linear-gradient(90deg, rgba(15, 23, 42, 0.1), rgba(15, 23, 42, 0.02));
+	background: linear-gradient(90deg, rgba(15, 23, 42, 0.12), rgba(15, 23, 42, 0.02));
 }
 
 :root:not(.dark) .biodesign-page .bd-modalidad-btn--teal {
@@ -604,18 +612,25 @@ body:has(.biodesign-page):not(.light) {
 	box-shadow: 0 6px 24px rgba(77, 124, 15, 0.4) !important;
 }
 
+:root:not(.dark) .biodesign-page .bd-modalidad-btn-disabled {
+	background: #f1f5f9 !important;
+	border: 1.5px solid #cbd5e1 !important;
+	color: #334155 !important;
+	font-weight: 700 !important;
+}
+
 :root:not(.dark) .biodesign-page .bd-inscripcion-notice-banner {
-	background: rgba(255, 255, 255, 0.88);
-	border-color: rgba(99, 68, 212, 0.25);
-	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+	background: #ffffff !important;
+	border: 1.5px solid #cbd5e1 !important;
+	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
 }
 
 :root:not(.dark) .biodesign-page .bd-inscripcion-notice-title {
-	color: #0f172a;
+	color: #0f172a !important;
 }
 
 :root:not(.dark) .biodesign-page .bd-inscripcion-notice-desc {
-	color: #475569;
+	color: #334155 !important;
 }
 
 :root:not(.dark) .biodesign-page .bd-inscripcion-dates-banner {
@@ -639,13 +654,13 @@ body:has(.biodesign-page):not(.light) {
 }
 
 :root:not(.dark) .biodesign-page .bd-track-number {
-	color: rgba(15, 23, 42, 0.06);
+	color: rgba(15, 23, 42, 0.08);
 }
 
 :root:not(.dark) .biodesign-page .bd-sesion-card {
-	background: rgba(255, 255, 255, 0.85);
-	border: 1px solid rgba(226, 232, 240, 0.9);
-	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+	background: #ffffff !important;
+	border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+	box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04) !important;
 }
 
 :root:not(.dark) .biodesign-page .bd-sesion-speaker-name {
@@ -653,7 +668,11 @@ body:has(.biodesign-page):not(.light) {
 }
 
 :root:not(.dark) .biodesign-page .bd-sesion-speaker-meta {
-	color: #64748b;
+	color: #475569;
+}
+
+:root:not(.dark) .biodesign-page .bd-sesion-speaker-role {
+	color: #475569;
 }
 
 :root:not(.dark) .biodesign-page .bd-sesion-title {
@@ -661,13 +680,64 @@ body:has(.biodesign-page):not(.light) {
 }
 
 :root:not(.dark) .biodesign-page .bd-sesion-desc {
-	color: #475569;
+	color: #334155 !important;
 }
 
 :root:not(.dark) .biodesign-page .bd-hero-subtitle {
-	color: #475569;
+	color: #334155 !important;
 }
 
 :root:not(.dark) .biodesign-page .bd-hero-sep {
 	color: #cbd5e1;
 }
+
+/* Gate 2 Alert in Light Mode */
+:root:not(.dark) .biodesign-page .bd-inaug-gate-alert {
+	background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%) !important;
+	border: 1.5px solid #f59e0b !important;
+	box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15) !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-gate-alert-pill {
+	color: #78350f !important;
+	background: #fef08a !important;
+	border: 1px solid #eab308 !important;
+	font-weight: 800 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-gate-alert-title {
+	color: #78350f !important;
+	font-weight: 800 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-gate-alert-icon {
+	color: #b45309 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-gate-alert-desc {
+	color: #451a03 !important;
+	font-weight: 500 !important;
+	line-height: 1.55 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-inaug-guide-item {
+	color: #334155 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-inaug-guide-item strong {
+	color: #0f172a !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-inaug-meta-item {
+	background: #f8fafc !important;
+	border: 1px solid #cbd5e1 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-meta-label {
+	color: #475569 !important;
+}
+
+:root:not(.dark) .biodesign-page .bd-meta-val {
+	color: #0f172a !important;
+}
+
