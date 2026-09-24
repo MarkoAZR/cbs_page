@@ -11,8 +11,9 @@ const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
-const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
+// Formularios oficiales cerrados el 23 de septiembre de 2026:
+// const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
+// const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
 const LINKEDIN_URL = 'https://www.linkedin.com/company/cbs-unmsm';
 const EMAIL_CONTACT = 'cbs.unmsm@gmail.com';
 
@@ -227,20 +228,12 @@ const alliedOrgs = [
 
 	<div class="bd-section bd-hero-content">
 		<div class="bd-hero-text">
-			<!-- Badges Row: Registration Badge + School Pill Trigger (Oculto temporalmente hasta tener fotos listas) -->
+			<!-- Badges Row: Status Badge (Inscripciones Concluidas) -->
 			<div class="bd-hero-top-badges">
 				<div class="bd-chip bd-chip-lime bd-hero-badge">
-					<span class="material-icons" style="font-size: 14px;">schedule</span>
+					<span class="material-icons" style="font-size: 14px;">event</span>
 					{t('biodesign.hero.badge')}
 				</div>
-				<!-- Enlace a memorias oculto temporalmente
-				<a href="#memorias" class="bd-school-pill-btn" id="hero-memorias-pill" aria-label={t('biodesign.school.pill.text')}>
-					<span class="material-icons bd-school-pill-icon">history_edu</span>
-					<span class="bd-school-pill-tag">{t('biodesign.school.pill.badge')}</span>
-					<span class="bd-school-pill-text">{t('biodesign.school.pill.text')}</span>
-					<span class="material-icons bd-school-pill-arrow">arrow_downward</span>
-				</a>
-				-->
 			</div>
 
 			<h1 class="bd-headline-xl">
@@ -255,30 +248,26 @@ const alliedOrgs = [
 			<div class="bd-hero-actions">
 				<div class="bd-hero-cta-buttons">
 					<a
-						href={FORM_URL_GROUP}
-						target="_blank"
-						rel="noopener noreferrer"
+						href="#inauguracion"
 						class="bd-btn-primary bd-hero-btn bd-hero-btn--teal"
-						id="btn-hero-grupal"
+						id="btn-hero-inauguracion"
 					>
-						<span class="material-icons" style="font-size:1.1rem;">groups</span>
-						{t('biodesign.hero.cta.group')}
+						<span class="material-icons" style="font-size:1.1rem;">celebration</span>
+						{t('biodesign.hero.cta.inauguracion')}
 					</a>
 					<a
-						href={FORM_URL_INDIVIDUAL}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="bd-btn-primary bd-hero-btn bd-hero-btn--lime"
-						id="btn-hero-individual"
+						href="#fases"
+						class="bd-btn-secondary bd-hero-btn bd-hero-btn--lime"
+						id="btn-hero-cronograma"
 					>
-						<span class="material-icons" style="font-size:1.1rem;">person</span>
-						{t('biodesign.hero.cta.individual')}
+						<span class="material-icons" style="font-size:1.1rem;">calendar_month</span>
+						{t('biodesign.hero.cta.cronograma')}
 					</a>
 				</div>
 				<div class="bd-hero-sub-actions">
-					<a href="#inscripcion" class="bd-btn-ghost bd-hero-sublink">
-						<span class="material-icons" style="font-size:1rem;">how_to_reg</span>
-						{t('biodesign.hero.cta.requirements')}
+					<a href="#inauguracion" class="bd-btn-ghost bd-hero-sublink">
+						<span class="material-icons" style="font-size:1rem;">place</span>
+						{lang === 'es' ? 'Cómo llegar (Puerta 2)' : 'How to get there (Gate 2)'}
 					</a>
 					<span class="bd-hero-sep" aria-hidden="true">•</span>
 					<a href="#tracks" class="bd-btn-ghost bd-hero-sublink">
@@ -394,12 +383,148 @@ const alliedOrgs = [
 </div>
 
 <!-- ═══════════════════════════════════════════
-     SECCIÓN DE INSCRIPCIÓN DEDICADA
+     SECCIÓN DE INAUGURACIÓN PRESENCIAL
+     ═══════════════════════════════════════════ -->
+<section class="bd-section bd-inauguracion-section" id="inauguracion">
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">celebration</span>
+			{t('biodesign.inauguracion.badge')}
+		</span>
+		<h2 class="bd-headline-lg">
+			{t('biodesign.inauguracion.title1')} <span class="bd-gradient-text">{t('biodesign.inauguracion.title2')}</span>
+		</h2>
+		<p class="bd-body-md" style="max-width:760px; margin:0 auto;">
+			{t('biodesign.inauguracion.subtitle')}
+		</p>
+	</div>
+
+	<!-- Bento Grid de Inauguración (Logística + Mapa) -->
+	<div class="bd-inauguracion-bento bd-reveal">
+		<!-- Card 1: Datos Logísticos & Alerta de Acceso Puerta 2 -->
+		<div class="bd-glass bd-inaug-card bd-inaug-card--info">
+			<div class="bd-inaug-header">
+				<div class="bd-inaug-icon-wrap">
+					<span class="material-icons bd-inaug-icon">location_on</span>
+				</div>
+				<div>
+					<span class="bd-chip bd-chip-teal bd-inaug-badge">UNMSM — CIUDAD UNIVERSITARIA</span>
+					<h3 class="bd-headline-md bd-inaug-title">{t('biodesign.inauguracion.lugar.val')}</h3>
+				</div>
+			</div>
+
+			<!-- Grid de Metadatos de Inauguración -->
+			<div class="bd-inaug-meta-grid">
+				<div class="bd-inaug-meta-item">
+					<span class="material-icons bd-meta-icon">calendar_today</span>
+					<div>
+						<span class="bd-meta-label">{t('biodesign.inauguracion.fecha.label')}</span>
+						<strong class="bd-meta-val">{t('biodesign.inauguracion.fecha.val')}</strong>
+					</div>
+				</div>
+				<div class="bd-inaug-meta-item">
+					<span class="material-icons bd-meta-icon">schedule</span>
+					<div>
+						<span class="bd-meta-label">{t('biodesign.inauguracion.hora.label')}</span>
+						<strong class="bd-meta-val">{t('biodesign.inauguracion.hora.val')}</strong>
+					</div>
+				</div>
+			</div>
+
+			<!-- ALERTA CRÍTICA: Puerta N° 2 -->
+			<div class="bd-inaug-gate-alert">
+				<div class="bd-gate-alert-badge-row">
+					<span class="bd-gate-alert-pill">
+						<span class="material-icons" style="font-size:13px;">door_front</span>
+						{t('biodesign.inauguracion.puerta.badge')}
+					</span>
+				</div>
+				<h4 class="bd-gate-alert-title">
+					<span class="material-icons bd-gate-alert-icon">warning_amber</span>
+					{t('biodesign.inauguracion.puerta.title')}
+				</h4>
+				<p class="bd-gate-alert-desc">
+					{t('biodesign.inauguracion.puerta.desc')}
+				</p>
+			</div>
+
+			<!-- Lista de Indicaciones Clave -->
+			<ul class="bd-inaug-guidelines">
+				<li class="bd-inaug-guide-item">
+					<span class="material-icons bd-guide-icon">badge</span>
+					<div>
+						<strong>{t('biodesign.inauguracion.dni.title')}:</strong> {t('biodesign.inauguracion.dni.desc')}
+					</div>
+				</li>
+				<li class="bd-inaug-guide-item">
+					<span class="material-icons bd-guide-icon">groups</span>
+					<div>
+						<strong>{t('biodesign.inauguracion.delegacion.title')}:</strong> {t('biodesign.inauguracion.delegacion.desc')}
+					</div>
+				</li>
+			</ul>
+
+			<div class="bd-inaug-support-row">
+				<span class="material-icons" style="font-size:15px; color:var(--bd-primary);">help_outline</span>
+				<span class="bd-caption">{t('biodesign.inauguracion.support')}</span>
+			</div>
+		</div>
+
+		<!-- Card 2: Mapa Satelital/Interactivo con Zoom en la Facultad -->
+		<div class="bd-glass bd-inaug-card bd-inaug-card--map">
+			<div class="bd-map-header">
+				<div class="bd-map-header-left">
+					<span class="material-icons" style="color:var(--bd-primary);">map</span>
+					<span class="bd-map-title">{t('biodesign.inauguracion.map.title')}</span>
+				</div>
+				<span class="bd-chip bd-chip-lime bd-map-tag">
+					<span class="material-icons" style="font-size:12px;">door_front</span>
+					Puerta N° 2 (Acceso)
+				</span>
+			</div>
+
+			<div class="bd-map-frame-wrapper">
+				<iframe
+					src="https://maps.google.com/maps?q=Facultad%20de%20Ciencias%20Matem%C3%A1ticas%20UNMSM&t=&z=17&ie=UTF8&iwloc=&output=embed"
+					class="bd-map-iframe"
+					loading="lazy"
+					title="Mapa de Ubicación: Facultad de Ciencias Matemáticas UNMSM"
+					allowfullscreen
+					referrerpolicy="no-referrer-when-downgrade"
+				></iframe>
+				<div class="bd-map-overlay-badge">
+					<span class="material-icons" style="font-size:14px; color:var(--bd-tertiary);">pin_drop</span>
+					<span>Facultad de Ciencias Matemáticas</span>
+				</div>
+			</div>
+
+			<div class="bd-map-footer">
+				<a
+					href="https://www.google.com/maps/search/?api=1&query=Facultad+de+Ciencias+Matem%C3%A1ticas+UNMSM"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bd-btn-primary bd-map-cta-btn"
+					id="btn-abrir-google-maps"
+				>
+					<span class="material-icons" style="font-size:1.1rem;">directions</span>
+					{t('biodesign.inauguracion.map.cta')}
+				</a>
+				<span class="bd-caption bd-map-route-hint">
+					<span class="material-icons" style="font-size:12px; vertical-align:middle;">navigation</span>
+					{lang === 'es' ? 'Ingreso por Av. Germán Amézaga (Puerta 2) hacia Ciencias Matemáticas' : 'Entry via Av. Germán Amézaga (Gate 2) to Mathematical Sciences'}
+				</span>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN DE ESTADO DE INSCRIPCIONES
      ═══════════════════════════════════════════ -->
 <section class="bd-section bd-inscripcion-section" id="inscripcion">
 	<div class="bd-section-header bd-reveal" style="text-align:center;">
-		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
-			<span class="material-icons" style="font-size:14px;">how_to_reg</span>
+		<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">task_alt</span>
 			{t('biodesign.inscripcion.badge')}
 		</span>
 		<h2 class="bd-headline-lg">
@@ -408,16 +533,16 @@ const alliedOrgs = [
 		<p class="bd-body-md" style="max-width:720px; margin:0 auto;">
 			{t('biodesign.inscripcion.subtitle')}
 		</p>
-		<div class="bd-inscripcion-dates-banner">
-			<span class="material-icons" style="font-size:16px; color:var(--bd-tertiary);">event_available</span>
+		<div class="bd-inscripcion-dates-banner bd-inscripcion-dates-banner--closed">
+			<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">event_busy</span>
 			<span class="bd-inscripcion-dates-text">{t('biodesign.inscripcion.dates')}</span>
 		</div>
 	</div>
 
-	<!-- Bento Grid de Modalidades -->
+	<!-- Bento Grid de Modalidades (Estado Cerrado) -->
 	<div class="bd-inscripcion-cards-grid bd-reveal">
-		<!-- Tarjeta 1: Modalidad Grupal (Colegios Visitados) -->
-		<div class="bd-glass bd-modalidad-card bd-modalidad-card--group">
+		<!-- Tarjeta 1: Modalidad Grupal -->
+		<div class="bd-glass bd-modalidad-card bd-modalidad-card--group bd-modalidad-card--closed">
 			<div class="bd-modalidad-badge-row">
 				<span class="bd-chip bd-chip-teal">
 					<span class="material-icons" style="font-size:13px;">school</span>
@@ -468,16 +593,10 @@ const alliedOrgs = [
 			</ul>
 
 			<div class="bd-modalidad-footer">
-				<a
-					href={FORM_URL_GROUP}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--teal"
-					id="btn-inscripcion-seccion-grupal"
-				>
-					<span class="material-icons" style="font-size:1.1rem;">assignment</span>
+				<div class="bd-modalidad-btn-disabled" id="btn-inscripcion-seccion-grupal">
+					<span class="material-icons" style="font-size:1.1rem;">lock</span>
 					{t('biodesign.inscripcion.group.cta')}
-				</a>
+				</div>
 				<span class="bd-caption bd-modalidad-note">
 					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
 					{t('biodesign.inscripcion.group.note')}
@@ -485,8 +604,8 @@ const alliedOrgs = [
 			</div>
 		</div>
 
-		<!-- Tarjeta 2: Modalidad Individual (Estudiantes Libres) -->
-		<div class="bd-glass bd-modalidad-card bd-modalidad-card--individual">
+		<!-- Tarjeta 2: Modalidad Individual -->
+		<div class="bd-glass bd-modalidad-card bd-modalidad-card--individual bd-modalidad-card--closed">
 			<div class="bd-modalidad-badge-row">
 				<span class="bd-chip bd-chip-lime">
 					<span class="material-icons" style="font-size:13px;">person</span>
@@ -537,16 +656,10 @@ const alliedOrgs = [
 			</ul>
 
 			<div class="bd-modalidad-footer">
-				<a
-					href={FORM_URL_INDIVIDUAL}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--lime"
-					id="btn-inscripcion-seccion-individual"
-				>
-					<span class="material-icons" style="font-size:1.1rem;">edit_note</span>
+				<div class="bd-modalidad-btn-disabled" id="btn-inscripcion-seccion-individual">
+					<span class="material-icons" style="font-size:1.1rem;">lock</span>
 					{t('biodesign.inscripcion.ind.cta')}
-				</a>
+				</div>
 				<span class="bd-caption bd-modalidad-note">
 					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
 					{t('biodesign.inscripcion.ind.note')}
@@ -739,7 +852,7 @@ const alliedOrgs = [
 
 	<div class="bd-sesiones-grid">
 		{sesiones.map((sesion) => (
-			<div class={`bd-glass bd-sesion-card bd-reveal ${sesion.special === 'clausura' ? 'bd-sesion-card--clausura' : sesion.special === 'hackathon' ? 'bd-sesion-card--hackathon' : sesion.special === 'kickoff' ? 'bd-sesion-card--kickoff' : sesion.special === 'eval' ? 'bd-sesion-card--eval' : ''}`}>
+			<div class={`bd-glass bd-sesion-card bd-reveal ${sesion.special === 'open' ? 'bd-sesion-card--open' : sesion.special === 'clausura' ? 'bd-sesion-card--clausura' : sesion.special === 'hackathon' ? 'bd-sesion-card--hackathon' : sesion.special === 'kickoff' ? 'bd-sesion-card--kickoff' : sesion.special === 'eval' ? 'bd-sesion-card--eval' : ''}`}>
 				<div class="bd-sesion-top-row">
 					<span class="bd-sesion-fecha">{t(`biodesign.sesiones.${sesion.key}.fecha`)}</span>
 					<span class={`bd-sesion-phase-chip ${sesion.fase === 1 ? 'bd-sesion-phase--bootcamp' : 'bd-sesion-phase--hackathon'}`}>
@@ -1545,6 +1658,18 @@ const alliedOrgs = [
 		background: linear-gradient(135deg, rgba(var(--bd-secondary-rgb), 0.06) 0%, rgba(var(--bd-surface-container), 0.9) 100%);
 	}
 	.bd-sesion-card--eval .bd-sesion-icon { color: var(--bd-secondary); }
+
+	.bd-sesion-card--open {
+		border-color: rgba(var(--bd-primary-rgb), 0.55);
+		background: linear-gradient(135deg, rgba(var(--bd-primary-rgb), 0.12) 0%, rgba(var(--bd-surface-container), 0.9) 100%);
+		box-shadow: 0 0 30px rgba(var(--bd-primary-rgb), 0.18);
+	}
+	.bd-sesion-card--open .bd-sesion-icon { color: var(--bd-primary); }
+	.bd-sesion-card--open .bd-sesion-fecha {
+		color: var(--bd-primary);
+		background: rgba(var(--bd-primary-rgb), 0.15);
+		font-weight: 700;
+	}
 
 	.bd-sesion-card--clausura {
 		border-color: rgba(251, 191, 36, 0.5);
@@ -2414,6 +2539,336 @@ const alliedOrgs = [
 		background: rgba(35, 32, 56, 0.65);
 		border: 1px solid rgba(121, 248, 208, 0.25);
 		box-shadow: 0 0 20px rgba(121, 248, 208, 0.1);
+	}
+
+	/* ══════════════════════════════
+	   INAUGURACIÓN PRESENCIAL
+	   ══════════════════════════════ */
+	.bd-inauguracion-section {
+		position: relative;
+		overflow: hidden;
+	}
+
+	.bd-inauguracion-bento {
+		display: grid;
+		grid-template-columns: 1.15fr 0.85fr;
+		gap: clamp(1.25rem, 2.5vw, 2rem);
+		align-items: stretch;
+		margin-top: 2.5rem;
+	}
+
+	.bd-inaug-card {
+		border-radius: 1.5rem;
+		padding: clamp(1.5rem, 2.5vw, 2.25rem);
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+	}
+
+	.bd-inaug-card--info {
+		border-color: rgba(var(--bd-primary-rgb), 0.3);
+		background: radial-gradient(circle at top left, rgba(var(--bd-primary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
+	}
+
+	.bd-inaug-card--map {
+		border-color: rgba(var(--bd-tertiary-rgb), 0.3);
+		background: radial-gradient(circle at top right, rgba(var(--bd-tertiary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
+	}
+
+	.bd-inaug-header {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.bd-inaug-icon-wrap {
+		width: 52px;
+		height: 52px;
+		border-radius: 14px;
+		background: rgba(var(--bd-primary-rgb), 0.15);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.3);
+		color: var(--bd-primary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		box-shadow: 0 0 20px rgba(var(--bd-primary-rgb), 0.25);
+	}
+
+	.bd-inaug-icon {
+		font-size: 1.8rem;
+	}
+
+	.bd-inaug-badge {
+		margin-bottom: 0.4rem;
+	}
+
+	.bd-inaug-title {
+		font-size: clamp(1.2rem, 2vw, 1.5rem);
+		color: var(--bd-text-primary);
+		margin: 0;
+	}
+
+	.bd-inaug-meta-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.bd-inaug-meta-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.85rem 1rem;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-meta-icon {
+		font-size: 1.35rem;
+		color: var(--bd-tertiary);
+		flex-shrink: 0;
+	}
+
+	.bd-meta-label {
+		display: block;
+		font-size: 0.72rem;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--bd-on-surface-variant);
+		font-family: 'Space Grotesk', sans-serif;
+	}
+
+	.bd-meta-val {
+		display: block;
+		font-size: 0.92rem;
+		color: var(--bd-text-primary);
+	}
+
+	/* Gate Alert */
+	.bd-inaug-gate-alert {
+		border-radius: 14px;
+		padding: 1.15rem 1.25rem;
+		margin-bottom: 1.5rem;
+		background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
+		border: 1px solid rgba(245, 158, 11, 0.4);
+		box-shadow: 0 0 25px rgba(245, 158, 11, 0.12);
+	}
+
+	.bd-gate-alert-badge-row {
+		margin-bottom: 0.45rem;
+	}
+
+	.bd-gate-alert-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #fde047;
+		background: rgba(234, 179, 8, 0.2);
+		padding: 0.15rem 0.6rem;
+		border-radius: 999px;
+		border: 1px solid rgba(234, 179, 8, 0.4);
+	}
+
+	.bd-gate-alert-title {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: #fef08a;
+		margin: 0 0 0.45rem;
+	}
+
+	.bd-gate-alert-icon {
+		font-size: 1.3rem;
+		color: #f59e0b;
+	}
+
+	.bd-gate-alert-desc {
+		font-size: 0.88rem;
+		line-height: 1.5;
+		color: #fef3c7;
+		margin: 0;
+	}
+
+	.bd-inaug-guidelines {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	.bd-inaug-guide-item {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		font-size: 0.86rem;
+		line-height: 1.5;
+		color: #cbd5e1;
+	}
+
+	.bd-guide-icon {
+		font-size: 1.2rem;
+		color: var(--bd-primary);
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+
+	.bd-inaug-guide-item strong {
+		color: var(--bd-text-primary);
+	}
+
+	.bd-inaug-support-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: auto;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		color: var(--bd-on-surface-variant);
+	}
+
+	/* Map Card */
+	.bd-map-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1rem;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-map-header-left {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.bd-map-title {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.95rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-map-frame-wrapper {
+		position: relative;
+		width: 100%;
+		height: 320px;
+		border-radius: 1rem;
+		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: #0f172a;
+		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+	}
+
+	.bd-map-iframe {
+		width: 100%;
+		height: 100%;
+		border: 0;
+		display: block;
+		filter: contrast(1.05) brightness(0.95);
+	}
+
+	:root.dark .bd-map-iframe {
+		filter: invert(90%) hue-rotate(180deg) contrast(0.9) brightness(0.95);
+	}
+
+	.bd-map-overlay-badge {
+		position: absolute;
+		bottom: 10px;
+		left: 10px;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.35rem 0.75rem;
+		border-radius: 8px;
+		background: rgba(15, 23, 42, 0.85);
+		backdrop-filter: blur(8px);
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 600;
+		color: #e2e8f0;
+		pointer-events: none;
+	}
+
+	.bd-map-footer {
+		margin-top: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+		align-items: center;
+	}
+
+	.bd-map-cta-btn {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.bd-map-route-hint {
+		color: var(--bd-on-surface-variant);
+		text-align: center;
+	}
+
+	/* Disabled registration buttons */
+	.bd-modalidad-card--closed {
+		opacity: 0.92;
+	}
+
+	.bd-modalidad-btn-disabled {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5rem;
+		padding: 0.85rem 1.5rem;
+		border-radius: 0.85rem;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: #94a3b8;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.92rem;
+		font-weight: 700;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		user-select: none;
+		cursor: default;
+	}
+
+	.bd-inscripcion-dates-banner--closed {
+		border-color: rgba(var(--bd-primary-rgb), 0.3) !important;
+	}
+
+	@media (max-width: 992px) {
+		.bd-inauguracion-bento {
+			grid-template-columns: 1fr;
+		}
+		.bd-map-frame-wrapper {
+			height: 280px;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.bd-inaug-meta-grid {
+			grid-template-columns: 1fr;
+		}
+		.bd-map-frame-wrapper {
+			height: 240px;
+		}
 	}
 
 	.bd-inscripcion-dates-text {
