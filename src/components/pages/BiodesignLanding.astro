@@ -11,9 +11,9 @@ const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Formularios oficiales cerrados el 23 de septiembre de 2026:
-// const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
-// const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
+// Formularios oficiales (Plazo extendido hasta el 25 de septiembre de 2026):
+const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
+const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
 const LINKEDIN_URL = 'https://www.linkedin.com/company/cbs-unmsm';
 const EMAIL_CONTACT = 'cbs.unmsm@gmail.com';
 
@@ -70,7 +70,7 @@ const sesiones: Sesion[] = [
 		ponente: lang === 'es' ? 'Comité Organizador (CBS & NEA)' : 'Organizing Committee (CBS & NEA)',
 		avatars: [`${base}/cbs_logo.png`, `${base}/allies/logo_nea.jpeg`],
 		org: 'CBS & NEA',
-		role: lang === 'es' ? 'Bienvenida Presencial en Lima' : 'In-Person Welcome in Lima'
+		role: lang === 'es' ? 'Inauguración y Bienvenida 100% Virtual' : '100% Virtual Welcome & Opening'
 	},
 	{
 		key: 's1',
@@ -228,10 +228,10 @@ const alliedOrgs = [
 
 	<div class="bd-section bd-hero-content">
 		<div class="bd-hero-text">
-			<!-- Badges Row: Status Badge (Inscripciones Concluidas) -->
+			<!-- Badges Row: Status Badge (Inauguración Virtual Lun 28) -->
 			<div class="bd-hero-top-badges">
 				<div class="bd-chip bd-chip-lime bd-hero-badge">
-					<span class="material-icons" style="font-size: 14px;">event</span>
+					<span class="material-icons" style="font-size: 14px;">campaign</span>
 					{t('biodesign.hero.badge')}
 				</div>
 			</div>
@@ -245,6 +245,16 @@ const alliedOrgs = [
 				{t('biodesign.hero.subtitle')}
 			</p>
 
+			<!-- Banner de Aviso Urgente en Hero -->
+			<div class="bd-hero-notice-banner">
+				<div class="bd-hero-notice-glow" aria-hidden="true"></div>
+				<span class="material-icons bd-hero-notice-icon">emergency</span>
+				<div class="bd-hero-notice-body">
+					<span class="bd-hero-notice-pill">{t('biodesign.hero.notice.badge')}</span>
+					<p class="bd-hero-notice-text">{t('biodesign.hero.notice.text')}</p>
+				</div>
+			</div>
+
 			<div class="bd-hero-actions">
 				<div class="bd-hero-cta-buttons">
 					<a
@@ -252,7 +262,7 @@ const alliedOrgs = [
 						class="bd-btn-primary bd-hero-btn bd-hero-btn--teal"
 						id="btn-hero-inauguracion"
 					>
-						<span class="material-icons" style="font-size:1.1rem;">celebration</span>
+						<span class="material-icons" style="font-size:1.1rem;">devices</span>
 						{t('biodesign.hero.cta.inauguracion')}
 					</a>
 					<a
@@ -265,13 +275,18 @@ const alliedOrgs = [
 					</a>
 				</div>
 				<div class="bd-hero-sub-actions">
-					<a href="#inauguracion" class="bd-btn-ghost bd-hero-sublink">
-						<span class="material-icons" style="font-size:1rem;">place</span>
-						{lang === 'es' ? 'Cómo llegar (Puerta 2)' : 'How to get there (Gate 2)'}
+					<a href="#inscripcion" class="bd-btn-ghost bd-hero-sublink bd-hero-sublink--highlight">
+						<span class="material-icons" style="font-size:1rem; color: #10b981;">event_available</span>
+						{lang === 'es' ? 'Inscripciones hasta el 25 Sep' : 'Registration open until Sep 25'}
 					</a>
 					<span class="bd-hero-sep" aria-hidden="true">•</span>
-					<a href="#tracks" class="bd-btn-ghost bd-hero-sublink">
-						{t('biodesign.hero.cta.secondary')}
+					<a href="#inauguracion" class="bd-btn-ghost bd-hero-sublink">
+						<span class="material-icons" style="font-size:1rem;">laptop_chromebook</span>
+						{lang === 'es' ? 'Pautas de Acceso Virtual' : 'Virtual Access Guidelines'}
+					</a>
+					<span class="bd-hero-sep" aria-hidden="true">•</span>
+					<a href="#fases" class="bd-btn-ghost bd-hero-sublink">
+						{lang === 'es' ? 'Sesión 1 a las 6:00 p.m.' : 'Session 1 at 6:00 PM'}
 						<span class="material-icons" style="font-size:1rem;">arrow_forward</span>
 					</a>
 				</div>
@@ -383,12 +398,12 @@ const alliedOrgs = [
 </div>
 
 <!-- ═══════════════════════════════════════════
-     SECCIÓN DE INAUGURACIÓN PRESENCIAL
+     SECCIÓN DE INAUGURACIÓN VIRTUAL
      ═══════════════════════════════════════════ -->
 <section class="bd-section bd-inauguracion-section" id="inauguracion">
 	<div class="bd-section-header bd-reveal" style="text-align:center;">
 		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
-			<span class="material-icons" style="font-size:14px;">celebration</span>
+			<span class="material-icons" style="font-size:14px;">devices</span>
 			{t('biodesign.inauguracion.badge')}
 		</span>
 		<h2 class="bd-headline-lg">
@@ -399,16 +414,16 @@ const alliedOrgs = [
 		</p>
 	</div>
 
-	<!-- Bento Grid de Inauguración (Logística + Mapa) -->
+	<!-- Bento Grid de Inauguración (Logística + Hub de Conectividad y Pautas) -->
 	<div class="bd-inauguracion-bento bd-reveal">
-		<!-- Card 1: Datos Logísticos & Alerta de Acceso Puerta 2 -->
+		<!-- Card 1: Datos Logísticos & Comunicado Institucional con Disculpas Públicas -->
 		<div class="bd-glass bd-inaug-card bd-inaug-card--info">
 			<div class="bd-inaug-header">
 				<div class="bd-inaug-icon-wrap">
-					<span class="material-icons bd-inaug-icon">location_on</span>
+					<span class="material-icons bd-inaug-icon">laptop_chromebook</span>
 				</div>
 				<div>
-					<span class="bd-chip bd-chip-teal bd-inaug-badge">UNMSM — CIUDAD UNIVERSITARIA</span>
+					<span class="bd-chip bd-chip-teal bd-inaug-badge">{t('biodesign.inauguracion.sede.val')}</span>
 					<h3 class="bd-headline-md bd-inaug-title">{t('biodesign.inauguracion.lugar.val')}</h3>
 				</div>
 			</div>
@@ -431,16 +446,16 @@ const alliedOrgs = [
 				</div>
 			</div>
 
-			<!-- ALERTA CRÍTICA: Puerta N° 2 -->
+			<!-- COMUNICADO INSTITUCIONAL: Disculpas Públicas e Integración de Regiones -->
 			<div class="bd-inaug-gate-alert">
 				<div class="bd-gate-alert-badge-row">
 					<span class="bd-gate-alert-pill">
-						<span class="material-icons" style="font-size:13px;">door_front</span>
+						<span class="material-icons" style="font-size:13px;">campaign</span>
 						{t('biodesign.inauguracion.puerta.badge')}
 					</span>
 				</div>
 				<h4 class="bd-gate-alert-title">
-					<span class="material-icons bd-gate-alert-icon">warning_amber</span>
+					<span class="material-icons bd-gate-alert-icon">info</span>
 					{t('biodesign.inauguracion.puerta.title')}
 				</h4>
 				<p class="bd-gate-alert-desc">
@@ -451,13 +466,13 @@ const alliedOrgs = [
 			<!-- Lista de Indicaciones Clave -->
 			<ul class="bd-inaug-guidelines">
 				<li class="bd-inaug-guide-item">
-					<span class="material-icons bd-guide-icon">badge</span>
+					<span class="material-icons bd-guide-icon">mark_email_read</span>
 					<div>
 						<strong>{t('biodesign.inauguracion.dni.title')}:</strong> {t('biodesign.inauguracion.dni.desc')}
 					</div>
 				</li>
 				<li class="bd-inaug-guide-item">
-					<span class="material-icons bd-guide-icon">groups</span>
+					<span class="material-icons bd-guide-icon">fast_forward</span>
 					<div>
 						<strong>{t('biodesign.inauguracion.delegacion.title')}:</strong> {t('biodesign.inauguracion.delegacion.desc')}
 					</div>
@@ -470,48 +485,92 @@ const alliedOrgs = [
 			</div>
 		</div>
 
-		<!-- Card 2: Mapa Satelital/Interactivo con Zoom en la Facultad -->
-		<div class="bd-glass bd-inaug-card bd-inaug-card--map">
-			<div class="bd-map-header">
-				<div class="bd-map-header-left">
-					<span class="material-icons" style="color:var(--bd-primary);">map</span>
-					<span class="bd-map-title">{t('biodesign.inauguracion.map.title')}</span>
+		<!-- Card 2: Hub de Conectividad y Pautas de Acceso Seguro (Sin enlaces privados) -->
+		<div class="bd-glass bd-inaug-card bd-inaug-card--hub">
+			<div class="bd-hub-header">
+				<div class="bd-hub-header-left">
+					<span class="material-icons bd-hub-header-icon">verified_user</span>
+					<span class="bd-hub-title">{t('biodesign.inauguracion.hub.card_title')}</span>
 				</div>
-				<span class="bd-chip bd-chip-lime bd-map-tag">
-					<span class="material-icons" style="font-size:12px;">door_front</span>
-					Puerta N° 2 (Acceso)
+				<span class="bd-chip bd-chip-lime bd-hub-tag">
+					<span class="material-icons" style="font-size:12px;">lock</span>
+					{t('biodesign.inauguracion.map.tag')}
 				</span>
 			</div>
 
-			<div class="bd-map-frame-wrapper">
-				<iframe
-					src="https://maps.google.com/maps?q=Facultad%20de%20Ciencias%20Matem%C3%A1ticas%20UNMSM&t=&z=17&ie=UTF8&iwloc=&output=embed"
-					class="bd-map-iframe"
-					loading="lazy"
-					title="Mapa de Ubicación: Facultad de Ciencias Matemáticas UNMSM"
-					allowfullscreen
-					referrerpolicy="no-referrer-when-downgrade"
-				></iframe>
-				<div class="bd-map-overlay-badge">
-					<span class="material-icons" style="font-size:14px; color:var(--bd-tertiary);">pin_drop</span>
-					<span>Facultad de Ciencias Matemáticas</span>
+			<!-- Banner de Seguridad: Enlaces Privados por Correo -->
+			<div class="bd-hub-security-banner">
+				<div class="bd-hub-security-icon-wrap">
+					<span class="material-icons" style="font-size:1.4rem; color:var(--bd-primary);">shield</span>
+				</div>
+				<div class="bd-hub-security-text">
+					<strong class="bd-hub-security-title">
+						{lang === 'es' ? 'Acceso Privado para Equipos Registrados' : 'Private Access for Registered Teams'}
+					</strong>
+					<p class="bd-hub-security-desc">
+						{lang === 'es'
+							? 'Por protección y resguardo de los estudiantes escolares, las credenciales de la sala Zoom/Meet se envían exclusivamente por correo electrónico a los participantes y docentes acreditados. No se publican enlaces abiertos en redes ni en la web.'
+							: 'For the safety and privacy of high school students, Zoom/Meet room credentials are distributed exclusively via email to accredited participants and mentors. No public access links are shared openly.'}
+					</p>
 				</div>
 			</div>
 
-			<div class="bd-map-footer">
+			<!-- Grid 2x2 de Pautas de Conectividad -->
+			<div class="bd-hub-grid">
+				<div class="bd-hub-item">
+					<div class="bd-hub-item-icon">
+						<span class="material-icons">forward_to_inbox</span>
+					</div>
+					<div class="bd-hub-item-body">
+						<h5 class="bd-hub-item-title">{t('biodesign.inauguracion.hub.item1_title')}</h5>
+						<p class="bd-hub-item-desc">{t('biodesign.inauguracion.hub.item1_desc')}</p>
+					</div>
+				</div>
+
+				<div class="bd-hub-item">
+					<div class="bd-hub-item-icon">
+						<span class="material-icons">alarm</span>
+					</div>
+					<div class="bd-hub-item-body">
+						<h5 class="bd-hub-item-title">{t('biodesign.inauguracion.hub.item2_title')}</h5>
+						<p class="bd-hub-item-desc">{t('biodesign.inauguracion.hub.item2_desc')}</p>
+					</div>
+				</div>
+
+				<div class="bd-hub-item">
+					<div class="bd-hub-item-icon">
+						<span class="material-icons">video_settings</span>
+					</div>
+					<div class="bd-hub-item-body">
+						<h5 class="bd-hub-item-title">{t('biodesign.inauguracion.hub.item3_title')}</h5>
+						<p class="bd-hub-item-desc">{t('biodesign.inauguracion.hub.item3_desc')}</p>
+					</div>
+				</div>
+
+				<div class="bd-hub-item">
+					<div class="bd-hub-item-icon">
+						<span class="material-icons">travel_explore</span>
+					</div>
+					<div class="bd-hub-item-body">
+						<h5 class="bd-hub-item-title">{t('biodesign.inauguracion.hub.item4_title')}</h5>
+						<p class="bd-hub-item-desc">{t('biodesign.inauguracion.hub.item4_desc')}</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Footer con Botón Oficial de Soporte por Correo -->
+			<div class="bd-hub-footer">
 				<a
-					href="https://www.google.com/maps/search/?api=1&query=Facultad+de+Ciencias+Matem%C3%A1ticas+UNMSM"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bd-btn-primary bd-map-cta-btn"
-					id="btn-abrir-google-maps"
+					href="mailto:cbs.unmsm@gmail.com?subject=[BioDesign%20-%20Acceso%20Virtual]"
+					class="bd-btn-primary bd-hub-cta-btn"
+					id="btn-contacto-soporte-virtual"
 				>
-					<span class="material-icons" style="font-size:1.1rem;">directions</span>
+					<span class="material-icons" style="font-size:1.1rem;">mail</span>
 					{t('biodesign.inauguracion.map.cta')}
 				</a>
-				<span class="bd-caption bd-map-route-hint">
-					<span class="material-icons" style="font-size:12px; vertical-align:middle;">navigation</span>
-					{lang === 'es' ? 'Ingreso por Av. Germán Amézaga (Puerta 2) hacia Ciencias Matemáticas' : 'Entry via Av. Germán Amézaga (Gate 2) to Mathematical Sciences'}
+				<span class="bd-caption bd-hub-route-hint">
+					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
+					{lang === 'es' ? 'Si tu tutor o equipo no recibe el correo oficial antes de las 12:00 m. del lunes 28, contáctanos de inmediato para validar tu acceso.' : 'If your tutor or team has not received the official email by 12:00 PM on Monday 28, contact us immediately to validate access.'}
 				</span>
 			</div>
 		</div>
@@ -524,7 +583,7 @@ const alliedOrgs = [
 <section class="bd-section bd-inscripcion-section" id="inscripcion">
 	<div class="bd-section-header bd-reveal" style="text-align:center;">
 		<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
-			<span class="material-icons" style="font-size:14px;">task_alt</span>
+			<span class="material-icons" style="font-size:14px;">hourglass_top</span>
 			{t('biodesign.inscripcion.badge')}
 		</span>
 		<h2 class="bd-headline-lg">
@@ -533,155 +592,235 @@ const alliedOrgs = [
 		<p class="bd-body-md" style="max-width:720px; margin:0 auto;">
 			{t('biodesign.inscripcion.subtitle')}
 		</p>
-		<div class="bd-inscripcion-dates-banner bd-inscripcion-dates-banner--closed">
-			<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">event_busy</span>
+		<div class="bd-inscripcion-dates-banner">
+			<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">event_available</span>
 			<span class="bd-inscripcion-dates-text">{t('biodesign.inscripcion.dates')}</span>
 		</div>
 	</div>
 
-	<!-- Bento Grid de Modalidades (Estado Cerrado) -->
-	<div class="bd-inscripcion-cards-grid bd-reveal">
-		<!-- Tarjeta 1: Modalidad Grupal -->
-		<div class="bd-glass bd-modalidad-card bd-modalidad-card--group bd-modalidad-card--closed">
-			<div class="bd-modalidad-badge-row">
-				<span class="bd-chip bd-chip-teal">
-					<span class="material-icons" style="font-size:13px;">school</span>
-					{t('biodesign.inscripcion.group.badge')}
-				</span>
-				<span class="bd-modalidad-pill-tag">
-					{t('biodesign.inscripcion.group.tag')}
-				</span>
-			</div>
-
-			<div class="bd-modalidad-header">
-				<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--teal">
-					<span class="material-icons bd-modalidad-icon">groups</span>
-				</div>
-				<div>
-					<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.group.title')}</h3>
-					<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.group.desc')}</p>
+	<!-- Quick Registration Action Bar (Compacto y Directo) -->
+	<div class="bd-inscripcion-quick-bar bd-reveal">
+		<div class="bd-quick-bar-main">
+			<div class="bd-quick-bar-info">
+				<span class="bd-quick-pulse-dot" aria-hidden="true"></span>
+				<div class="bd-quick-text-col">
+					<strong class="bd-quick-title">{lang === 'es' ? '¡Plazo extraordinario de postulación activo!' : 'Extended registration active!'}</strong>
+					<span class="bd-quick-desc">{lang === 'es' ? 'Accede a los formularios oficiales antes del cierre el 25 de septiembre:' : 'Access official application forms before deadline on Sep 25:'}</span>
 				</div>
 			</div>
-
-			<div class="bd-modalidad-divider"></div>
-
-			<ul class="bd-modalidad-features">
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">groups</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.group.f1.title')}:</strong> {t('biodesign.inscripcion.group.f1.desc')}
-					</div>
-				</li>
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">verified</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.group.f2.title')}:</strong> {t('biodesign.inscripcion.group.f2.desc')}
-					</div>
-				</li>
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">school</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.group.f3.title')}:</strong> {t('biodesign.inscripcion.group.f3.desc')}
-					</div>
-				</li>
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--teal">diversity_3</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.group.f4.title')}:</strong> {t('biodesign.inscripcion.group.f4.desc')}
-					</div>
-				</li>
-			</ul>
-
-			<div class="bd-modalidad-footer">
-				<div class="bd-modalidad-btn-disabled" id="btn-inscripcion-seccion-grupal">
-					<span class="material-icons" style="font-size:1.1rem;">lock</span>
+			<div class="bd-quick-bar-btns">
+				<a
+					href={FORM_URL_GROUP}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bd-btn-primary bd-quick-cta-btn bd-quick-cta-btn--teal"
+					id="btn-quick-grupal"
+				>
+					<span class="material-icons" style="font-size:1.1rem;">groups</span>
 					{t('biodesign.inscripcion.group.cta')}
-				</div>
-				<span class="bd-caption bd-modalidad-note">
-					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
-					{t('biodesign.inscripcion.group.note')}
-				</span>
+				</a>
+				<a
+					href={FORM_URL_INDIVIDUAL}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bd-btn-secondary bd-quick-cta-btn bd-quick-cta-btn--lime"
+					id="btn-quick-individual"
+				>
+					<span class="material-icons" style="font-size:1.1rem;">person</span>
+					{t('biodesign.inscripcion.ind.cta')}
+				</a>
 			</div>
 		</div>
 
-		<!-- Tarjeta 2: Modalidad Individual -->
-		<div class="bd-glass bd-modalidad-card bd-modalidad-card--individual bd-modalidad-card--closed">
-			<div class="bd-modalidad-badge-row">
-				<span class="bd-chip bd-chip-lime">
-					<span class="material-icons" style="font-size:13px;">person</span>
-					{t('biodesign.inscripcion.ind.badge')}
+		<!-- Botón Desglosable / Expandible -->
+		<div class="bd-quick-bar-toggle-row">
+			<button
+				type="button"
+				class="bd-btn-ghost bd-inscripcion-toggle-btn"
+				id="btn-toggle-inscripcion-detalles"
+				aria-expanded="false"
+				aria-controls="bd-inscripcion-collapsible-wrapper"
+			>
+				<span class="material-icons bd-toggle-icon">expand_more</span>
+				<span
+					class="bd-toggle-label"
+					data-expand-text={t('biodesign.inscripcion.toggle.expand')}
+					data-collapse-text={t('biodesign.inscripcion.toggle.collapse')}
+				>
+					{t('biodesign.inscripcion.toggle.expand')}
 				</span>
-				<span class="bd-modalidad-pill-tag bd-modalidad-pill-tag--lime">
-					{t('biodesign.inscripcion.ind.tag')}
-				</span>
-			</div>
-
-			<div class="bd-modalidad-header">
-				<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--lime">
-					<span class="material-icons bd-modalidad-icon">person</span>
-				</div>
-				<div>
-					<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.ind.title')}</h3>
-					<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.ind.desc')}</p>
-				</div>
-			</div>
-
-			<div class="bd-modalidad-divider"></div>
-
-			<ul class="bd-modalidad-features">
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--lime">how_to_reg</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.ind.f1.title')}:</strong> {t('biodesign.inscripcion.ind.f1.desc')}
-					</div>
-				</li>
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--lime">hub</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.ind.f2.title')}:</strong> {t('biodesign.inscripcion.ind.f2.desc')}
-					</div>
-				</li>
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--lime">public</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.ind.f3.title')}:</strong> {t('biodesign.inscripcion.ind.f3.desc')}
-					</div>
-				</li>
-				<li class="bd-modalidad-feature">
-					<span class="material-icons bd-feature-icon bd-feature-icon--lime">handshake</span>
-					<div>
-						<strong>{t('biodesign.inscripcion.ind.f4.title')}:</strong> {t('biodesign.inscripcion.ind.f4.desc')}
-					</div>
-				</li>
-			</ul>
-
-			<div class="bd-modalidad-footer">
-				<div class="bd-modalidad-btn-disabled" id="btn-inscripcion-seccion-individual">
-					<span class="material-icons" style="font-size:1.1rem;">lock</span>
-					{t('biodesign.inscripcion.ind.cta')}
-				</div>
-				<span class="bd-caption bd-modalidad-note">
-					<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
-					{t('biodesign.inscripcion.ind.note')}
-				</span>
-			</div>
+			</button>
 		</div>
 	</div>
 
-	<!-- Notice Banner: Etapa Presencial -->
-	<div class="bd-glass bd-inscripcion-notice-banner bd-reveal">
-		<div class="bd-inscripcion-notice-glow" aria-hidden="true"></div>
-		<div class="bd-inscripcion-notice-inner">
-			<div class="bd-inscripcion-notice-icon-wrap">
-				<span class="material-icons bd-inscripcion-notice-icon">place</span>
+	<!-- Contenedor Desglosable con un Clic -->
+	<div class="bd-inscripcion-collapsible" id="bd-inscripcion-collapsible-wrapper">
+		<div class="bd-inscripcion-collapsible-inner">
+			<!-- Bento Grid de Modalidades -->
+			<div class="bd-inscripcion-cards-grid">
+				<!-- Tarjeta 1: Modalidad Grupal -->
+				<div class="bd-glass bd-modalidad-card bd-modalidad-card--group">
+					<div class="bd-modalidad-badge-row">
+						<span class="bd-chip bd-chip-teal">
+							<span class="material-icons" style="font-size:13px;">school</span>
+							{t('biodesign.inscripcion.group.badge')}
+						</span>
+						<span class="bd-modalidad-pill-tag">
+							{t('biodesign.inscripcion.group.tag')}
+						</span>
+					</div>
+
+					<div class="bd-modalidad-header">
+						<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--teal">
+							<span class="material-icons bd-modalidad-icon">groups</span>
+						</div>
+						<div>
+							<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.group.title')}</h3>
+							<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.group.desc')}</p>
+						</div>
+					</div>
+
+					<div class="bd-modalidad-divider"></div>
+
+					<ul class="bd-modalidad-features">
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--teal">groups</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.group.f1.title')}:</strong> {t('biodesign.inscripcion.group.f1.desc')}
+							</div>
+						</li>
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--teal">verified</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.group.f2.title')}:</strong> {t('biodesign.inscripcion.group.f2.desc')}
+							</div>
+						</li>
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--teal">school</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.group.f3.title')}:</strong> {t('biodesign.inscripcion.group.f3.desc')}
+							</div>
+						</li>
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--teal">diversity_3</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.group.f4.title')}:</strong> {t('biodesign.inscripcion.group.f4.desc')}
+							</div>
+						</li>
+					</ul>
+
+					<div class="bd-modalidad-footer">
+						<a
+							href={FORM_URL_GROUP}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--teal"
+							id="btn-inscripcion-seccion-grupal"
+						>
+							<span class="material-icons" style="font-size:1.1rem;">assignment</span>
+							{t('biodesign.inscripcion.group.cta')}
+						</a>
+						<span class="bd-caption bd-modalidad-note">
+							<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
+							{t('biodesign.inscripcion.group.note')}
+						</span>
+					</div>
+				</div>
+
+				<!-- Tarjeta 2: Modalidad Individual -->
+				<div class="bd-glass bd-modalidad-card bd-modalidad-card--individual">
+					<div class="bd-modalidad-badge-row">
+						<span class="bd-chip bd-chip-lime">
+							<span class="material-icons" style="font-size:13px;">person</span>
+							{t('biodesign.inscripcion.ind.badge')}
+						</span>
+						<span class="bd-modalidad-pill-tag bd-modalidad-pill-tag--lime">
+							{t('biodesign.inscripcion.ind.tag')}
+						</span>
+					</div>
+
+					<div class="bd-modalidad-header">
+						<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--lime">
+							<span class="material-icons bd-modalidad-icon">person</span>
+						</div>
+						<div>
+							<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.ind.title')}</h3>
+							<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.ind.desc')}</p>
+						</div>
+					</div>
+
+					<div class="bd-modalidad-divider"></div>
+
+					<ul class="bd-modalidad-features">
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--lime">how_to_reg</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.ind.f1.title')}:</strong> {t('biodesign.inscripcion.ind.f1.desc')}
+							</div>
+						</li>
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--lime">hub</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.ind.f2.title')}:</strong> {t('biodesign.inscripcion.ind.f2.desc')}
+							</div>
+						</li>
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--lime">public</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.ind.f3.title')}:</strong> {t('biodesign.inscripcion.ind.f3.desc')}
+							</div>
+						</li>
+						<li class="bd-modalidad-feature">
+							<span class="material-icons bd-feature-icon bd-feature-icon--lime">handshake</span>
+							<div>
+								<strong>{t('biodesign.inscripcion.ind.f4.title')}:</strong> {t('biodesign.inscripcion.ind.f4.desc')}
+							</div>
+						</li>
+					</ul>
+
+					<div class="bd-modalidad-footer">
+						<a
+							href={FORM_URL_INDIVIDUAL}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--lime"
+							id="btn-inscripcion-seccion-individual"
+						>
+							<span class="material-icons" style="font-size:1.1rem;">edit_note</span>
+							{t('biodesign.inscripcion.ind.cta')}
+						</a>
+						<span class="bd-caption bd-modalidad-note">
+							<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
+							{t('biodesign.inscripcion.ind.note')}
+						</span>
+					</div>
+				</div>
 			</div>
-			<div class="bd-inscripcion-notice-content">
-				<h4 class="bd-headline-sm bd-inscripcion-notice-title">
-					{t('biodesign.inscripcion.notice.title')}
-				</h4>
-				<p class="bd-body-sm bd-inscripcion-notice-desc">
-					{t('biodesign.inscripcion.notice.desc')}
-				</p>
+
+			<!-- Notice Banner: Etapa Presencial -->
+			<div class="bd-glass bd-inscripcion-notice-banner">
+				<div class="bd-inscripcion-notice-glow" aria-hidden="true"></div>
+				<div class="bd-inscripcion-notice-inner">
+					<div class="bd-inscripcion-notice-icon-wrap">
+						<span class="material-icons bd-inscripcion-notice-icon">place</span>
+					</div>
+					<div class="bd-inscripcion-notice-content">
+						<h4 class="bd-headline-sm bd-inscripcion-notice-title">
+							{t('biodesign.inscripcion.notice.title')}
+						</h4>
+						<p class="bd-body-sm bd-inscripcion-notice-desc">
+							{t('biodesign.inscripcion.notice.desc')}
+						</p>
+					</div>
+				</div>
+			</div>
+
+			<!-- Botón inferior para plegar -->
+			<div class="bd-collapsible-collapse-btn-wrap">
+				<button type="button" class="bd-btn-ghost bd-collapse-close-btn" id="btn-collapse-inscripcion">
+					<span class="material-icons" style="font-size:1.1rem;">expand_less</span>
+					{t('biodesign.inscripcion.toggle.collapse')}
+				</button>
 			</div>
 		</div>
 	</div>
@@ -2572,9 +2711,9 @@ const alliedOrgs = [
 		background: radial-gradient(circle at top left, rgba(var(--bd-primary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
 	}
 
-	.bd-inaug-card--map {
-		border-color: rgba(var(--bd-tertiary-rgb), 0.3);
-		background: radial-gradient(circle at top right, rgba(var(--bd-tertiary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
+	.bd-inaug-card--hub {
+		border-color: rgba(var(--bd-primary-rgb), 0.3);
+		background: radial-gradient(circle at top right, rgba(var(--bd-primary-rgb), 0.08) 0%, rgba(27, 24, 45, 0.7) 60%);
 	}
 
 	.bd-inaug-header {
@@ -2741,87 +2880,234 @@ const alliedOrgs = [
 		color: var(--bd-on-surface-variant);
 	}
 
-	/* Map Card */
-	.bd-map-header {
+	/* Hero Urgent Notice Banner */
+	.bd-hero-notice-banner {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.95rem 1.25rem;
+		border-radius: 1rem;
+		background: linear-gradient(135deg, rgba(239, 68, 68, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
+		border: 1.5px solid rgba(245, 158, 11, 0.4);
+		box-shadow: 0 4px 25px rgba(245, 158, 11, 0.12);
+		margin-bottom: 2rem;
+		backdrop-filter: blur(10px);
+		overflow: hidden;
+		max-width: 680px;
+	}
+
+	.bd-hero-notice-glow {
+		position: absolute;
+		top: -20px;
+		left: -20px;
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, transparent 70%);
+		pointer-events: none;
+	}
+
+	.bd-hero-notice-icon {
+		font-size: 1.8rem;
+		color: #f59e0b;
+		flex-shrink: 0;
+		animation: pulse-attention 2s infinite ease-in-out;
+	}
+
+	@keyframes pulse-attention {
+		0%, 100% { transform: scale(1); opacity: 0.9; }
+		50% { transform: scale(1.12); opacity: 1; filter: drop-shadow(0 0 8px #f59e0b); }
+	}
+
+	.bd-hero-notice-body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+
+	.bd-hero-notice-pill {
+		align-self: flex-start;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.68rem;
+		font-weight: 800;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: #fde047;
+		background: rgba(234, 179, 8, 0.2);
+		padding: 0.12rem 0.55rem;
+		border-radius: 999px;
+		border: 1px solid rgba(234, 179, 8, 0.4);
+	}
+
+	.bd-hero-notice-text {
+		font-size: 0.88rem;
+		line-height: 1.45;
+		color: #fef3c7;
+		margin: 0;
+	}
+
+	/* Card 2: Hub de Conectividad y Pautas */
+	.bd-hub-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 1rem;
+		margin-bottom: 1.25rem;
 		gap: 0.5rem;
 		flex-wrap: wrap;
 	}
 
-	.bd-map-header-left {
+	.bd-hub-header-left {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.6rem;
 	}
 
-	.bd-map-title {
+	.bd-hub-header-icon {
+		font-size: 1.4rem;
+		color: var(--bd-primary);
+	}
+
+	.bd-hub-title {
 		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.95rem;
+		font-size: 1.05rem;
 		font-weight: 700;
 		color: var(--bd-text-primary);
+		margin: 0;
 	}
 
-	.bd-map-frame-wrapper {
-		position: relative;
-		width: 100%;
-		height: 320px;
-		border-radius: 1rem;
-		overflow: hidden;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		background: #0f172a;
-		box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+	.bd-hub-tag {
+		font-size: 0.72rem;
+		padding: 0.2rem 0.65rem;
 	}
 
-	.bd-map-iframe {
-		width: 100%;
-		height: 100%;
-		border: 0;
-		display: block;
-		filter: contrast(1.05) brightness(0.95);
+	/* Hub Security Banner */
+	.bd-hub-security-banner {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		padding: 0.9rem 1.1rem;
+		border-radius: 12px;
+		background: rgba(var(--bd-primary-rgb), 0.08);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.25);
+		margin-bottom: 1.25rem;
 	}
 
-	:root.dark .bd-map-iframe {
-		filter: invert(90%) hue-rotate(180deg) contrast(0.9) brightness(0.95);
-	}
-
-	.bd-map-overlay-badge {
-		position: absolute;
-		bottom: 10px;
-		left: 10px;
-		display: inline-flex;
+	.bd-hub-security-icon-wrap {
+		width: 36px;
+		height: 36px;
+		border-radius: 10px;
+		background: rgba(var(--bd-primary-rgb), 0.15);
+		display: flex;
 		align-items: center;
-		gap: 0.35rem;
-		padding: 0.35rem 0.75rem;
-		border-radius: 8px;
-		background: rgba(15, 23, 42, 0.85);
-		backdrop-filter: blur(8px);
-		border: 1px solid rgba(255, 255, 255, 0.15);
-		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.75rem;
-		font-weight: 600;
-		color: #e2e8f0;
-		pointer-events: none;
+		justify-content: center;
+		flex-shrink: 0;
 	}
 
-	.bd-map-footer {
-		margin-top: 1.25rem;
+	.bd-hub-security-text {
+		flex: 1;
+	}
+
+	.bd-hub-security-title {
+		display: block;
+		font-size: 0.88rem;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.2rem;
+	}
+
+	.bd-hub-security-desc {
+		font-size: 0.8rem;
+		line-height: 1.45;
+		color: var(--bd-on-surface-variant);
+		margin: 0;
+	}
+
+	/* Hub 2x2 Grid */
+	.bd-hub-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.85rem;
+		margin-bottom: 1.25rem;
+	}
+
+	@media (max-width: 640px) {
+		.bd-hub-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-hub-item {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.75rem;
+		padding: 0.85rem;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.07);
+		transition: background 0.2s ease, border-color 0.2s ease;
+	}
+
+	.bd-hub-item:hover {
+		background: rgba(255, 255, 255, 0.06);
+		border-color: rgba(var(--bd-primary-rgb), 0.3);
+	}
+
+	.bd-hub-item-icon {
+		width: 32px;
+		height: 32px;
+		border-radius: 8px;
+		background: rgba(var(--bd-tertiary-rgb), 0.12);
+		color: var(--bd-tertiary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.bd-hub-item-icon .material-icons {
+		font-size: 1.15rem;
+	}
+
+	.bd-hub-item-body {
+		flex: 1;
+	}
+
+	.bd-hub-item-title {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.82rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		margin: 0 0 0.2rem;
+	}
+
+	.bd-hub-item-desc {
+		font-size: 0.76rem;
+		line-height: 1.4;
+		color: var(--bd-on-surface-variant);
+		margin: 0;
+	}
+
+	/* Hub Footer */
+	.bd-hub-footer {
+		margin-top: auto;
 		display: flex;
 		flex-direction: column;
 		gap: 0.6rem;
 		align-items: center;
+		padding-top: 0.75rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
 	}
 
-	.bd-map-cta-btn {
+	.bd-hub-cta-btn {
 		width: 100%;
 		justify-content: center;
 	}
 
-	.bd-map-route-hint {
+	.bd-hub-route-hint {
 		color: var(--bd-on-surface-variant);
 		text-align: center;
+		font-size: 0.76rem;
+		line-height: 1.4;
 	}
 
 	/* Disabled registration buttons */
@@ -3550,19 +3836,178 @@ const alliedOrgs = [
 		letter-spacing: 0.02em;
 	}
 
+	/* Quick Registration Bar */
+	.bd-inscripcion-quick-bar {
+		margin-top: 2rem;
+		border-radius: 1.25rem;
+		padding: 1.15rem 1.5rem;
+		background: radial-gradient(circle at top left, rgba(var(--bd-primary-rgb), 0.12) 0%, rgba(27, 24, 45, 0.85) 70%);
+		border: 1.5px solid rgba(var(--bd-primary-rgb), 0.35);
+		box-shadow: 0 4px 25px rgba(var(--bd-primary-rgb), 0.12);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.bd-quick-bar-main {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.25rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-quick-bar-info {
+		display: flex;
+		align-items: center;
+		gap: 0.85rem;
+		flex: 1;
+		min-width: 260px;
+	}
+
+	.bd-quick-pulse-dot {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+		background: #10b981;
+		box-shadow: 0 0 12px #10b981;
+		flex-shrink: 0;
+		animation: pulse-quick-dot 1.8s infinite ease-in-out;
+	}
+
+	@keyframes pulse-quick-dot {
+		0%, 100% { transform: scale(1); opacity: 0.85; }
+		50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 16px #10b981; }
+	}
+
+	.bd-quick-text-col {
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+	}
+
+	.bd-quick-title {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.95rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-quick-desc {
+		font-size: 0.82rem;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-quick-bar-btns {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-quick-cta-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.65rem 1.15rem !important;
+		font-size: 0.86rem !important;
+		font-weight: 600;
+		border-radius: 0.75rem !important;
+	}
+
+	.bd-quick-cta-btn--teal {
+		background: linear-gradient(135deg, var(--bd-primary), hsl(164, 70%, 35%)) !important;
+		box-shadow: 0 4px 15px rgba(var(--bd-primary-rgb), 0.3) !important;
+	}
+
+	.bd-quick-cta-btn--lime {
+		background: linear-gradient(135deg, var(--bd-tertiary), hsl(80, 70%, 35%)) !important;
+		color: #0d1e00 !important;
+		box-shadow: 0 4px 15px rgba(var(--bd-tertiary-rgb), 0.3) !important;
+	}
+
+	.bd-quick-bar-toggle-row {
+		display: flex;
+		justify-content: center;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		padding-top: 0.75rem;
+	}
+
+	.bd-inscripcion-toggle-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.85rem !important;
+		font-weight: 600;
+		color: var(--bd-primary) !important;
+		cursor: pointer;
+		padding: 0.4rem 1rem !important;
+		border-radius: 999px !important;
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.3) !important;
+		background: rgba(var(--bd-primary-rgb), 0.08) !important;
+		transition: all 0.25s ease;
+	}
+
+	.bd-inscripcion-toggle-btn:hover {
+		background: rgba(var(--bd-primary-rgb), 0.16) !important;
+		border-color: rgba(var(--bd-primary-rgb), 0.5) !important;
+		transform: translateY(-1px);
+	}
+
+	.bd-toggle-icon {
+		font-size: 1.25rem;
+		transition: transform 0.3s ease;
+	}
+
+	/* Collapsible Container with smooth CSS grid transition */
+	.bd-inscripcion-collapsible {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+		overflow: hidden;
+	}
+
+	.bd-inscripcion-collapsible.is-open {
+		grid-template-rows: 1fr;
+	}
+
+	.bd-inscripcion-collapsible-inner {
+		min-height: 0;
+		overflow: hidden;
+	}
+
+	.bd-collapsible-collapse-btn-wrap {
+		display: flex;
+		justify-content: center;
+		margin-top: 1.25rem;
+		padding-bottom: 0.5rem;
+	}
+
+	.bd-collapse-close-btn {
+		font-size: 0.82rem !important;
+		gap: 0.35rem !important;
+		color: var(--bd-on-surface-variant) !important;
+		cursor: pointer;
+	}
+
+	.bd-collapse-close-btn:hover {
+		color: var(--bd-text-primary) !important;
+	}
+
 	.bd-inscripcion-cards-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: clamp(1.25rem, 2.5vw, 2rem);
-		margin-top: 2.75rem;
+		gap: clamp(1rem, 2vw, 1.5rem);
+		margin-top: 1.75rem;
 		width: 100%;
 	}
 
 	.bd-modalidad-card {
 		display: flex;
 		flex-direction: column;
-		border-radius: 1.5rem;
-		padding: clamp(1.5rem, 2.5vw, 2.25rem);
+		border-radius: 1.25rem;
+		padding: clamp(1.2rem, 2vw, 1.6rem);
 		position: relative;
 		overflow: hidden;
 		transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
@@ -3595,18 +4040,18 @@ const alliedOrgs = [
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 1.25rem;
+		margin-bottom: 0.9rem;
 		gap: 0.5rem;
 	}
 
 	.bd-modalidad-pill-tag {
 		font-family: 'Space Grotesk', sans-serif;
-		font-size: 0.75rem;
+		font-size: 0.72rem;
 		font-weight: 700;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		color: var(--bd-primary);
-		padding: 0.2rem 0.65rem;
+		padding: 0.18rem 0.6rem;
 		border-radius: 6px;
 		background: rgba(var(--bd-primary-rgb), 0.1);
 		border: 1px solid rgba(var(--bd-primary-rgb), 0.2);
@@ -3621,14 +4066,14 @@ const alliedOrgs = [
 	.bd-modalidad-header {
 		display: flex;
 		align-items: flex-start;
-		gap: 1rem;
-		margin-bottom: 1rem;
+		gap: 0.85rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.bd-modalidad-icon-wrap {
-		width: 48px;
-		height: 48px;
-		border-radius: 14px;
+		width: 44px;
+		height: 44px;
+		border-radius: 12px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -3650,25 +4095,26 @@ const alliedOrgs = [
 	}
 
 	.bd-modalidad-icon {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
 	}
 
 	.bd-modalidad-title {
-		font-size: clamp(1.15rem, 2vw, 1.35rem);
-		margin: 0 0 0.35rem;
+		font-size: clamp(1.1rem, 1.8vw, 1.25rem);
+		margin: 0 0 0.25rem;
 		color: var(--bd-text-primary);
 	}
 
 	.bd-modalidad-desc {
 		color: var(--bd-on-surface-variant);
 		margin: 0;
-		line-height: 1.5;
+		line-height: 1.45;
+		font-size: 0.82rem;
 	}
 
 	.bd-modalidad-divider {
 		height: 1px;
 		background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
-		margin: 1.25rem 0 1.5rem;
+		margin: 0.85rem 0 1rem;
 	}
 
 	.bd-modalidad-features {
@@ -3677,15 +4123,15 @@ const alliedOrgs = [
 		margin: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.65rem;
 	}
 
 	.bd-modalidad-feature {
 		display: flex;
 		align-items: flex-start;
-		gap: 0.85rem;
-		font-size: 0.88rem;
-		line-height: 1.5;
+		gap: 0.65rem;
+		font-size: 0.83rem;
+		line-height: 1.42;
 		color: #bccac2;
 	}
 
@@ -4945,12 +5391,41 @@ void main() {
 		});
 	}
 
+	// ── Collapsible Inscripcion Toggle ────────────────────────────
+	function initBdInscripcionToggle() {
+		const toggleBtn = document.getElementById('btn-toggle-inscripcion-detalles');
+		const collapseBtn = document.getElementById('btn-collapse-inscripcion');
+		const wrapper = document.getElementById('bd-inscripcion-collapsible-wrapper');
+		if (!toggleBtn || !wrapper) return;
+
+		function setExpanded(expand) {
+			const isExpanded = expand !== undefined ? expand : toggleBtn.getAttribute('aria-expanded') !== 'true';
+			toggleBtn.setAttribute('aria-expanded', String(isExpanded));
+			wrapper.classList.toggle('is-open', isExpanded);
+			const icon = toggleBtn.querySelector('.bd-toggle-icon');
+			const textEl = toggleBtn.querySelector('.bd-toggle-label');
+			if (icon) icon.textContent = isExpanded ? 'expand_less' : 'expand_more';
+			if (textEl) {
+				textEl.textContent = isExpanded ? textEl.dataset.collapseText : textEl.dataset.expandText;
+			}
+		}
+
+		toggleBtn.addEventListener('click', () => setExpanded());
+		if (collapseBtn) {
+			collapseBtn.addEventListener('click', () => {
+				setExpanded(false);
+				toggleBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+			});
+		}
+	}
+
 	initBdShader();
 	initBdReveal();
 	initBdTrackModals();
 	initBdRubrica();
 	initBdSchoolModal();
 	initBdCopyButtons();
+	initBdInscripcionToggle();
 	document.addEventListener('astro:after-swap', () => {
 		initBdShader();
 		initBdReveal();
@@ -4958,5 +5433,6 @@ void main() {
 		initBdRubrica();
 		initBdSchoolModal();
 		initBdCopyButtons();
+		initBdInscripcionToggle();
 	});
 </script>
