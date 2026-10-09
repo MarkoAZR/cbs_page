@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
+import BiodesignHackathonPortal from '../biodesign/BiodesignHackathonPortal.astro';
 // import BiodesignMemories from '../biodesign/BiodesignMemories.astro';
 
 interface Props {
@@ -11,9 +12,6 @@ const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-// Formularios oficiales (Plazo extendido hasta el 25 de septiembre de 2026):
-const FORM_URL_INDIVIDUAL = 'https://forms.gle/mSu1fALd9AFnN15y8';
-const FORM_URL_GROUP = 'https://forms.gle/NoDNkHumVhDA9beE6';
 const LINKEDIN_URL = 'https://www.linkedin.com/company/cbs-unmsm';
 const EMAIL_CONTACT = 'cbs.unmsm@gmail.com';
 
@@ -189,6 +187,20 @@ const rubricaCriterios = [
 	{ key: 'c5', peso: 20, etapa: 2, desempate: true },
 ];
 
+// ── Auspiciadores Institucionales ────────────────────────────
+const institutionalSponsors = [
+	{
+		name: t('biodesign.aliados.ieee.name'),
+		logo: `${base}/Biodesign/logo_IEEE.png`,
+		desc: t('biodesign.aliados.ieee.desc'),
+	},
+	{
+		name: t('biodesign.aliados.fcm.name'),
+		logo: `${base}/Biodesign/logo_FCM.jpeg`,
+		desc: t('biodesign.aliados.fcm.desc'),
+	},
+];
+
 // ── Aliados ──────────────────────────────────────────────────
 const alliedOrgs = [
 	{
@@ -205,6 +217,11 @@ const alliedOrgs = [
 		name: 'BIOMIM',
 		logo: `${base}/allies/logo_biomin.jpeg`,
 		desc: t('biodesign.aliados.biomin.desc'),
+	},
+	{
+		name: t('biodesign.aliados.biomicas.name'),
+		logo: `${base}/Biodesign/logo_biomicas.png`,
+		desc: t('biodesign.aliados.biomicas.desc'),
 	},
 	{
 		name: t('biodesign.aliados.clubesciencia.name'),
@@ -258,35 +275,35 @@ const alliedOrgs = [
 			<div class="bd-hero-actions">
 				<div class="bd-hero-cta-buttons">
 					<a
-						href="#inauguracion"
+						href="#hackathon"
 						class="bd-btn-primary bd-hero-btn bd-hero-btn--teal"
-						id="btn-hero-inauguracion"
+						id="btn-hero-hackathon"
 					>
-						<span class="material-icons" style="font-size:1.1rem;">devices</span>
-						{t('biodesign.hero.cta.inauguracion')}
+						<span class="material-icons" style="font-size:1.1rem;">rocket_launch</span>
+						{t('biodesign.hero.cta.primary')}
 					</a>
 					<a
-						href="#fases"
+						href="#acceso-virtual"
 						class="bd-btn-secondary bd-hero-btn bd-hero-btn--lime"
-						id="btn-hero-cronograma"
+						id="btn-hero-acceso"
 					>
-						<span class="material-icons" style="font-size:1.1rem;">calendar_month</span>
-						{t('biodesign.hero.cta.cronograma')}
+						<span class="material-icons" style="font-size:1.1rem;">laptop_chromebook</span>
+						{t('biodesign.hero.cta.inauguracion')}
 					</a>
 				</div>
 				<div class="bd-hero-sub-actions">
-					<a href="#inscripcion" class="bd-btn-ghost bd-hero-sublink bd-hero-sublink--highlight">
-						<span class="material-icons" style="font-size:1rem; color: #10b981;">event_available</span>
-						{lang === 'es' ? 'Inscripciones hasta el 25 Sep' : 'Registration open until Sep 25'}
+					<a href="#hackathon" class="bd-btn-ghost bd-hero-sublink bd-hero-sublink--highlight">
+						<span class="material-icons" style="font-size:1rem; color: #10b981;">timer</span>
+						{lang === 'es' ? 'Sprint 48h (10-11 Oct)' : '48h Sprint (Oct 10-11)'}
 					</a>
 					<span class="bd-hero-sep" aria-hidden="true">•</span>
-					<a href="#inauguracion" class="bd-btn-ghost bd-hero-sublink">
-						<span class="material-icons" style="font-size:1rem;">laptop_chromebook</span>
-						{lang === 'es' ? 'Pautas de Acceso Virtual' : 'Virtual Access Guidelines'}
+					<a href="#acceso-virtual" class="bd-btn-ghost bd-hero-sublink">
+						<span class="material-icons" style="font-size:1rem;">devices</span>
+						{lang === 'es' ? 'Kick-off Hoy 6:00 p.m.' : 'Kick-off Today 6:00 PM'}
 					</a>
 					<span class="bd-hero-sep" aria-hidden="true">•</span>
 					<a href="#fases" class="bd-btn-ghost bd-hero-sublink">
-						{lang === 'es' ? 'Sesión 1 a las 6:00 p.m.' : 'Session 1 at 6:00 PM'}
+						{lang === 'es' ? 'Top 15 Gran Final (30 Oct)' : 'Top 15 Grand Final (Oct 30)'}
 						<span class="material-icons" style="font-size:1rem;">arrow_forward</span>
 					</a>
 				</div>
@@ -398,9 +415,9 @@ const alliedOrgs = [
 </div>
 
 <!-- ═══════════════════════════════════════════
-     SECCIÓN DE INAUGURACIÓN VIRTUAL
+     SECCIÓN DE ACCESO VIRTUAL AL HACKATHON
      ═══════════════════════════════════════════ -->
-<section class="bd-section bd-inauguracion-section" id="inauguracion">
+<section class="bd-section bd-inauguracion-section" id="acceso-virtual">
 	<div class="bd-section-header bd-reveal" style="text-align:center;">
 		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
 			<span class="material-icons" style="font-size:14px;">devices</span>
@@ -578,249 +595,28 @@ const alliedOrgs = [
 </section>
 
 <!-- ═══════════════════════════════════════════
-     SECCIÓN DE ESTADO DE INSCRIPCIONES
+     SECCIÓN INTERACTIVA: HACKATHON BIODESIGN
      ═══════════════════════════════════════════ -->
-<section class="bd-section bd-inscripcion-section" id="inscripcion">
-	<div class="bd-section-header bd-reveal" style="text-align:center;">
-		<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
-			<span class="material-icons" style="font-size:14px;">hourglass_top</span>
-			{t('biodesign.inscripcion.badge')}
-		</span>
-		<h2 class="bd-headline-lg">
-			{t('biodesign.inscripcion.title1')} <span class="bd-gradient-text">{t('biodesign.inscripcion.title2')}</span>
-		</h2>
-		<p class="bd-body-md" style="max-width:720px; margin:0 auto;">
-			{t('biodesign.inscripcion.subtitle')}
-		</p>
-		<div class="bd-inscripcion-dates-banner">
-			<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">event_available</span>
-			<span class="bd-inscripcion-dates-text">{t('biodesign.inscripcion.dates')}</span>
-		</div>
-	</div>
+<BiodesignHackathonPortal lang={lang} />
 
-	<!-- Quick Registration Action Bar (Compacto y Directo) -->
+<!-- ═══════════════════════════════════════════
+     ESTADO DE INSCRIPCIONES (Convocatoria cerrada)
+     ═══════════════════════════════════════════ -->
+<section class="bd-section bd-inscripcion-section bd-inscripcion-section--closed" id="inscripcion">
 	<div class="bd-inscripcion-quick-bar bd-reveal">
 		<div class="bd-quick-bar-main">
 			<div class="bd-quick-bar-info">
-				<span class="bd-quick-pulse-dot" aria-hidden="true"></span>
+				<span class="material-icons" style="font-size:1.5rem; color:var(--bd-tertiary);" aria-hidden="true">how_to_reg</span>
 				<div class="bd-quick-text-col">
-					<strong class="bd-quick-title">{lang === 'es' ? '¡Plazo extraordinario de postulación activo!' : 'Extended registration active!'}</strong>
-					<span class="bd-quick-desc">{lang === 'es' ? 'Accede a los formularios oficiales antes del cierre el 25 de septiembre:' : 'Access official application forms before deadline on Sep 25:'}</span>
+					<strong class="bd-quick-title">{t('biodesign.inscripcion.closed.title')}</strong>
+					<span class="bd-quick-desc">{t('biodesign.inscripcion.closed.desc')}</span>
 				</div>
 			</div>
 			<div class="bd-quick-bar-btns">
-				<a
-					href={FORM_URL_GROUP}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bd-btn-primary bd-quick-cta-btn bd-quick-cta-btn--teal"
-					id="btn-quick-grupal"
-				>
-					<span class="material-icons" style="font-size:1.1rem;">groups</span>
-					{t('biodesign.inscripcion.group.cta')}
+				<a href="#fases" class="bd-btn-secondary bd-quick-cta-btn bd-quick-cta-btn--lime" id="btn-inscripcion-cronograma">
+					<span class="material-icons" style="font-size:1.1rem;">calendar_month</span>
+					{t('biodesign.inscripcion.closed.cta')}
 				</a>
-				<a
-					href={FORM_URL_INDIVIDUAL}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bd-btn-secondary bd-quick-cta-btn bd-quick-cta-btn--lime"
-					id="btn-quick-individual"
-				>
-					<span class="material-icons" style="font-size:1.1rem;">person</span>
-					{t('biodesign.inscripcion.ind.cta')}
-				</a>
-			</div>
-		</div>
-
-		<!-- Botón Desglosable / Expandible -->
-		<div class="bd-quick-bar-toggle-row">
-			<button
-				type="button"
-				class="bd-btn-ghost bd-inscripcion-toggle-btn"
-				id="btn-toggle-inscripcion-detalles"
-				aria-expanded="false"
-				aria-controls="bd-inscripcion-collapsible-wrapper"
-			>
-				<span class="material-icons bd-toggle-icon">expand_more</span>
-				<span
-					class="bd-toggle-label"
-					data-expand-text={t('biodesign.inscripcion.toggle.expand')}
-					data-collapse-text={t('biodesign.inscripcion.toggle.collapse')}
-				>
-					{t('biodesign.inscripcion.toggle.expand')}
-				</span>
-			</button>
-		</div>
-	</div>
-
-	<!-- Contenedor Desglosable con un Clic -->
-	<div class="bd-inscripcion-collapsible" id="bd-inscripcion-collapsible-wrapper">
-		<div class="bd-inscripcion-collapsible-inner">
-			<!-- Bento Grid de Modalidades -->
-			<div class="bd-inscripcion-cards-grid">
-				<!-- Tarjeta 1: Modalidad Grupal -->
-				<div class="bd-glass bd-modalidad-card bd-modalidad-card--group">
-					<div class="bd-modalidad-badge-row">
-						<span class="bd-chip bd-chip-teal">
-							<span class="material-icons" style="font-size:13px;">school</span>
-							{t('biodesign.inscripcion.group.badge')}
-						</span>
-						<span class="bd-modalidad-pill-tag">
-							{t('biodesign.inscripcion.group.tag')}
-						</span>
-					</div>
-
-					<div class="bd-modalidad-header">
-						<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--teal">
-							<span class="material-icons bd-modalidad-icon">groups</span>
-						</div>
-						<div>
-							<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.group.title')}</h3>
-							<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.group.desc')}</p>
-						</div>
-					</div>
-
-					<div class="bd-modalidad-divider"></div>
-
-					<ul class="bd-modalidad-features">
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--teal">groups</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.group.f1.title')}:</strong> {t('biodesign.inscripcion.group.f1.desc')}
-							</div>
-						</li>
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--teal">verified</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.group.f2.title')}:</strong> {t('biodesign.inscripcion.group.f2.desc')}
-							</div>
-						</li>
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--teal">school</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.group.f3.title')}:</strong> {t('biodesign.inscripcion.group.f3.desc')}
-							</div>
-						</li>
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--teal">diversity_3</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.group.f4.title')}:</strong> {t('biodesign.inscripcion.group.f4.desc')}
-							</div>
-						</li>
-					</ul>
-
-					<div class="bd-modalidad-footer">
-						<a
-							href={FORM_URL_GROUP}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--teal"
-							id="btn-inscripcion-seccion-grupal"
-						>
-							<span class="material-icons" style="font-size:1.1rem;">assignment</span>
-							{t('biodesign.inscripcion.group.cta')}
-						</a>
-						<span class="bd-caption bd-modalidad-note">
-							<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
-							{t('biodesign.inscripcion.group.note')}
-						</span>
-					</div>
-				</div>
-
-				<!-- Tarjeta 2: Modalidad Individual -->
-				<div class="bd-glass bd-modalidad-card bd-modalidad-card--individual">
-					<div class="bd-modalidad-badge-row">
-						<span class="bd-chip bd-chip-lime">
-							<span class="material-icons" style="font-size:13px;">person</span>
-							{t('biodesign.inscripcion.ind.badge')}
-						</span>
-						<span class="bd-modalidad-pill-tag bd-modalidad-pill-tag--lime">
-							{t('biodesign.inscripcion.ind.tag')}
-						</span>
-					</div>
-
-					<div class="bd-modalidad-header">
-						<div class="bd-modalidad-icon-wrap bd-modalidad-icon-wrap--lime">
-							<span class="material-icons bd-modalidad-icon">person</span>
-						</div>
-						<div>
-							<h3 class="bd-headline-md bd-modalidad-title">{t('biodesign.inscripcion.ind.title')}</h3>
-							<p class="bd-body-sm bd-modalidad-desc">{t('biodesign.inscripcion.ind.desc')}</p>
-						</div>
-					</div>
-
-					<div class="bd-modalidad-divider"></div>
-
-					<ul class="bd-modalidad-features">
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--lime">how_to_reg</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.ind.f1.title')}:</strong> {t('biodesign.inscripcion.ind.f1.desc')}
-							</div>
-						</li>
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--lime">hub</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.ind.f2.title')}:</strong> {t('biodesign.inscripcion.ind.f2.desc')}
-							</div>
-						</li>
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--lime">public</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.ind.f3.title')}:</strong> {t('biodesign.inscripcion.ind.f3.desc')}
-							</div>
-						</li>
-						<li class="bd-modalidad-feature">
-							<span class="material-icons bd-feature-icon bd-feature-icon--lime">handshake</span>
-							<div>
-								<strong>{t('biodesign.inscripcion.ind.f4.title')}:</strong> {t('biodesign.inscripcion.ind.f4.desc')}
-							</div>
-						</li>
-					</ul>
-
-					<div class="bd-modalidad-footer">
-						<a
-							href={FORM_URL_INDIVIDUAL}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="bd-btn-primary bd-modalidad-btn bd-modalidad-btn--lime"
-							id="btn-inscripcion-seccion-individual"
-						>
-							<span class="material-icons" style="font-size:1.1rem;">edit_note</span>
-							{t('biodesign.inscripcion.ind.cta')}
-						</a>
-						<span class="bd-caption bd-modalidad-note">
-							<span class="material-icons" style="font-size:12px; vertical-align:middle;">info</span>
-							{t('biodesign.inscripcion.ind.note')}
-						</span>
-					</div>
-				</div>
-			</div>
-
-			<!-- Notice Banner: Etapa Presencial -->
-			<div class="bd-glass bd-inscripcion-notice-banner">
-				<div class="bd-inscripcion-notice-glow" aria-hidden="true"></div>
-				<div class="bd-inscripcion-notice-inner">
-					<div class="bd-inscripcion-notice-icon-wrap">
-						<span class="material-icons bd-inscripcion-notice-icon">place</span>
-					</div>
-					<div class="bd-inscripcion-notice-content">
-						<h4 class="bd-headline-sm bd-inscripcion-notice-title">
-							{t('biodesign.inscripcion.notice.title')}
-						</h4>
-						<p class="bd-body-sm bd-inscripcion-notice-desc">
-							{t('biodesign.inscripcion.notice.desc')}
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!-- Botón inferior para plegar -->
-			<div class="bd-collapsible-collapse-btn-wrap">
-				<button type="button" class="bd-btn-ghost bd-collapse-close-btn" id="btn-collapse-inscripcion">
-					<span class="material-icons" style="font-size:1.1rem;">expand_less</span>
-					{t('biodesign.inscripcion.toggle.collapse')}
-				</button>
 			</div>
 		</div>
 	</div>
@@ -973,7 +769,7 @@ const alliedOrgs = [
 			<p class="bd-body-md">{t('biodesign.fases.fase2.desc')}</p>
 			<div class="bd-fase-dates">
 				<span class="material-icons" style="font-size:1rem; color:var(--bd-tertiary);">calendar_today</span>
-				<span>9 Oct — 23 Oct 2026</span>
+				<span>9 Oct — 30 Oct 2026</span>
 				<span class="bd-fase-format-badge">Sprint + Clausura</span>
 			</div>
 		</div>
@@ -1132,7 +928,30 @@ const alliedOrgs = [
 		</div>
 	</div>
 
+	<!-- Auspiciadores Institucionales (IEEE UNMSM & FCM UNMSM) -->
+	<div class="bd-reveal" style="margin-top: 4.5rem; margin-bottom: 4.5rem;">
+		<div class="bd-section-header" style="text-align:center;">
+			<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
+				<span class="material-icons" style="font-size:14px;">verified</span>
+				{lang === 'es' ? 'RESPALDO INSTITUCIONAL' : 'INSTITUTIONAL ENDORSEMENTS'}
+			</span>
+			<h2 class="bd-headline-lg bd-gradient-text">{t('biodesign.aliados.auspiciadores.title')}</h2>
+			<p class="bd-body-md" style="max-width:680px; margin:0 auto;">{t('biodesign.aliados.auspiciadores.subtitle')}</p>
+		</div>
 
+		<div class="bd-org-grid">
+			{institutionalSponsors.map((sponsor) => (
+				<div class="bd-glass bd-org-card">
+					<div class="bd-org-logo-wrap" style="background: rgba(255,255,255,0.06); padding: 8px;">
+						<img src={sponsor.logo} alt={sponsor.name} class="bd-org-logo" width="72" height="72" style="object-fit: contain;" loading="lazy" />
+					</div>
+					<span class="bd-chip bd-chip-lime bd-org-badge">{lang === 'es' ? 'Auspicio Académico' : 'Academic Endorsement'}</span>
+					<h3 class="bd-headline-md bd-org-name">{sponsor.name}</h3>
+					<p class="bd-body-md bd-org-desc">{sponsor.desc}</p>
+				</div>
+			))}
+		</div>
+	</div>
 
 	<!-- Allied Organizations — Continuous Cosmic Carousel -->
 	<div class="bd-reveal" style="margin-top: 5rem;">
@@ -5391,41 +5210,12 @@ void main() {
 		});
 	}
 
-	// ── Collapsible Inscripcion Toggle ────────────────────────────
-	function initBdInscripcionToggle() {
-		const toggleBtn = document.getElementById('btn-toggle-inscripcion-detalles');
-		const collapseBtn = document.getElementById('btn-collapse-inscripcion');
-		const wrapper = document.getElementById('bd-inscripcion-collapsible-wrapper');
-		if (!toggleBtn || !wrapper) return;
-
-		function setExpanded(expand) {
-			const isExpanded = expand !== undefined ? expand : toggleBtn.getAttribute('aria-expanded') !== 'true';
-			toggleBtn.setAttribute('aria-expanded', String(isExpanded));
-			wrapper.classList.toggle('is-open', isExpanded);
-			const icon = toggleBtn.querySelector('.bd-toggle-icon');
-			const textEl = toggleBtn.querySelector('.bd-toggle-label');
-			if (icon) icon.textContent = isExpanded ? 'expand_less' : 'expand_more';
-			if (textEl) {
-				textEl.textContent = isExpanded ? textEl.dataset.collapseText : textEl.dataset.expandText;
-			}
-		}
-
-		toggleBtn.addEventListener('click', () => setExpanded());
-		if (collapseBtn) {
-			collapseBtn.addEventListener('click', () => {
-				setExpanded(false);
-				toggleBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-			});
-		}
-	}
-
 	initBdShader();
 	initBdReveal();
 	initBdTrackModals();
 	initBdRubrica();
 	initBdSchoolModal();
 	initBdCopyButtons();
-	initBdInscripcionToggle();
 	document.addEventListener('astro:after-swap', () => {
 		initBdShader();
 		initBdReveal();
@@ -5433,6 +5223,5 @@ void main() {
 		initBdRubrica();
 		initBdSchoolModal();
 		initBdCopyButtons();
-		initBdInscripcionToggle();
 	});
 </script>

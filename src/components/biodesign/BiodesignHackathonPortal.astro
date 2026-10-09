@@ -1,0 +1,3257 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// URLs de documentos oficiales en public/Biodesign/docs/
+const DOC_BASES = `${base}/Biodesign/docs/Bases_y_Rubrica_BioDesign_2026.pdf`;
+const DOC_FICHAS = `${base}/Biodesign/docs/Fichas_Tecnicas_BioDesign_2026.pdf`;
+const DOC_HANDBOOK = `${base}/Biodesign/docs/Handbook_BioDesign_2026.pdf`;
+const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
+---
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN OFICIAL: HACKATHON BIODESIGN 2026
+     ═══════════════════════════════════════════ -->
+<section class="bd-section bd-hackathon-section" id="hackathon">
+	<!-- Encabezado de la sección -->
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">rocket_launch</span>
+			{t('biodesign.hackathon.badge')}
+		</span>
+		<h2 class="bd-headline-lg">
+			{t('biodesign.hackathon.title1')} <span class="bd-gradient-text">{t('biodesign.hackathon.title2')}</span>
+		</h2>
+		<p class="bd-body-md" style="max-width:760px; margin:0 auto;">
+			{t('biodesign.hackathon.subtitle')}
+		</p>
+	</div>
+
+	<!-- Banner Hero Interactivo: Lanzador del Bio-Terminal Fluorescente -->
+	<div class="bd-terminal-launcher-card bd-glass bd-reveal">
+		<div class="bd-launcher-glow" aria-hidden="true"></div>
+		<div class="bd-launcher-content">
+			<div class="bd-launcher-info">
+				<div class="bd-launcher-chip">
+					<span class="bd-colony-dot bd-colony-dot--live"></span>
+					<span>{lang === 'es' ? 'MODO PRESENTACIÓN KICK-OFF • 7 ESTACIONES VIVAS' : 'KICK-OFF PRESENTATION MODE • 7 LIVE STATIONS'}</span>
+				</div>
+				<h3 class="bd-headline-md" style="margin:0.5rem 0 0.35rem; color:var(--bd-text-primary);">
+					{t('biodesign.hackathon.launch_portal')}
+				</h3>
+				<p class="bd-body-sm" style="color:var(--bd-on-surface-variant); margin:0; max-width:620px;">
+					{t('biodesign.hackathon.launch_portal_desc')}
+				</p>
+			</div>
+			<div class="bd-launcher-action">
+				<button type="button" class="bd-btn-primary bd-launcher-btn" id="btn-open-bio-terminal">
+					<span class="material-icons">biotech</span>
+					{t('biodesign.hackathon.launch_portal')}
+					<span class="bd-btn-shortcut">Space / Click</span>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Barra de Controles de los Acordeones Desplegables -->
+	<div class="bd-accordion-top-bar bd-reveal">
+		<div class="bd-accordion-meta">
+			<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">dashboard_customize</span>
+			<span class="bd-accordion-count">{lang === 'es' ? '7 Módulos de Información Oficial' : '7 Official Information Modules'}</span>
+		</div>
+		<div class="bd-accordion-actions">
+			<button type="button" class="bd-btn-ghost bd-accordion-ctrl-btn" id="btn-accordion-expand-all">
+				<span class="material-icons" style="font-size:15px;">unfold_more</span>
+				{t('biodesign.hackathon.accordion.expand_all')}
+			</button>
+			<button type="button" class="bd-btn-ghost bd-accordion-ctrl-btn" id="btn-accordion-collapse-all">
+				<span class="material-icons" style="font-size:15px;">unfold_less</span>
+				{t('biodesign.hackathon.accordion.collapse_all')}
+			</button>
+		</div>
+	</div>
+
+	<!-- Lista de Módulos Desplegables Cósmicos (7 Módulos Ordenados) -->
+	<div class="bd-hack-accordion-list bd-reveal" id="hackathon-accordion-list">
+
+		<!-- MÓDULO 1: Misión del Evento & CNEB -->
+		<article class="bd-hack-accordion bd-glass is-open" data-module="1">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="true" aria-controls="mod-content-1" id="mod-trigger-1">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">01</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--teal">
+						<span class="material-icons">flag</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-teal">{t('biodesign.hackathon.mision.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.mision.title')}</h3>
+						<p class="bd-caption bd-acc-summary">Competencia 22 CNEB • Democratización de la Biología Sintética Escolar</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-1" role="region" aria-labelledby="mod-trigger-1">
+				<div class="bd-accordion-inner">
+					<div class="bd-cneb-callout">
+						<div class="bd-cneb-badge">
+							<span class="material-icons" style="font-size:16px;">school</span>
+							<strong>{t('biodesign.hackathon.mision.cneb_title')}</strong>
+						</div>
+						<p class="bd-body-sm">{t('biodesign.hackathon.mision.cneb_desc')}</p>
+					</div>
+					<div class="bd-hack-feature-item" style="margin-top:1.25rem;">
+						<span class="material-icons" style="color:var(--bd-primary);">public</span>
+						<div>
+							<strong>{t('biodesign.hackathon.mision.focus_title')}</strong>
+							<p class="bd-caption" style="margin:0.25rem 0 0;">{t('biodesign.hackathon.mision.focus_desc')}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<!-- MÓDULO 2: Sprint de 48 Horas & Dinámica de Mentores -->
+		<article class="bd-hack-accordion bd-glass" data-module="2">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-2" id="mod-trigger-2">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">02</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--lime">
+						<span class="material-icons">timer</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-lime">{t('biodesign.hackathon.sprint.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.sprint.title')}</h3>
+						<p class="bd-caption bd-acc-summary">Viernes 9 a Domingo 11 Oct • Turnos Mañana (10-12m) y Tarde (2-5pm)</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-2" role="region" aria-labelledby="mod-trigger-2">
+				<div class="bd-accordion-inner">
+					<div class="bd-sprint-time-chip">
+						<span class="material-icons" style="font-size:16px; color:var(--bd-tertiary);">schedule</span>
+						<span>{t('biodesign.hackathon.sprint.timeline')}</span>
+					</div>
+
+					<div class="bd-mentor-rules-list">
+						<div class="bd-mentor-rule-item">
+							<span class="material-icons bd-rule-icon" style="color:var(--bd-secondary);">record_voice_over</span>
+							<div>
+								<strong>{t('biodesign.hackathon.sprint.kickoff_mentor_title')}</strong>
+								<p class="bd-caption">{t('biodesign.hackathon.sprint.kickoff_mentor_desc')}</p>
+							</div>
+						</div>
+
+						<div class="bd-mentor-rule-item">
+							<span class="material-icons bd-rule-icon" style="color:#5865f2;">chat</span>
+							<div>
+								<strong>{t('biodesign.hackathon.sprint.contact_title')}</strong>
+								<p class="bd-caption">{t('biodesign.hackathon.sprint.contact_desc')}</p>
+							</div>
+						</div>
+
+						<!-- Turnos de Sábado y Domingo -->
+						<div class="bd-shifts-box">
+							<strong class="bd-shifts-title">
+								<span class="material-icons" style="font-size:14px; vertical-align:middle; color:var(--bd-secondary);">event_available</span>
+								{t('biodesign.hackathon.sprint.shifts_title')}
+							</strong>
+							<div class="bd-shift-pills">
+								<div class="bd-shift-pill">
+									<span class="material-icons" style="font-size:14px; color:var(--bd-tertiary);">wb_sunny</span>
+									<span>{t('biodesign.hackathon.sprint.shift_morning')}</span>
+								</div>
+								<div class="bd-shift-pill">
+									<span class="material-icons" style="font-size:14px; color:var(--bd-primary);">wb_twilight</span>
+									<span>{t('biodesign.hackathon.sprint.shift_afternoon')}</span>
+								</div>
+							</div>
+							<p class="bd-caption" style="margin:0.5rem 0 0; color:var(--bd-on-surface-variant);">
+								{t('biodesign.hackathon.sprint.shifts_note')}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<!-- MÓDULO 3: Kit de Entregables & Descarga de Ficha 1 (.docx) -->
+		<article class="bd-hack-accordion bd-glass" data-module="3">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-3" id="mod-trigger-3">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">03</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--purple">
+						<span class="material-icons">inventory_2</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-purple">{t('biodesign.hackathon.kit.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.kit.title')}</h3>
+						<p class="bd-caption bd-acc-summary">Ficha 1 (Informe), Enlace Benchling y Pitch Deck 3 min • Cierre Domingo 11 Oct 11:59 p.m.</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-3" role="region" aria-labelledby="mod-trigger-3">
+				<div class="bd-accordion-inner">
+					<div class="bd-deadline-notice">
+						<span class="material-icons" style="font-size:16px; color:#ef4444;">alarm</span>
+						<strong>{t('biodesign.hackathon.kit.deadline')}</strong>
+					</div>
+
+					<!-- Destacado: Descarga de Ficha 1 en Word .docx -->
+					<div class="bd-doc-download-hero">
+						<div class="bd-doc-hero-info">
+							<span class="material-icons bd-doc-hero-icon">description</span>
+							<div>
+								<span class="bd-chip bd-chip-lime" style="font-size:0.65rem;">PLANTILLA OFICIAL DE INFORME</span>
+								<h4 class="bd-label-lg" style="margin:0.25rem 0 0.2rem; color:var(--bd-text-primary);">
+									{t('biodesign.hackathon.kit.btn_ficha1_word')}
+								</h4>
+								<p class="bd-caption" style="margin:0; color:var(--bd-on-surface-variant);">
+									{t('biodesign.hackathon.kit.ficha1_word_desc')}
+								</p>
+							</div>
+						</div>
+						<a href={DOC_FICHA1_WORD} download="Biodesign_ficha_informe.docx" class="bd-btn-primary bd-btn-word-download">
+							<span class="material-icons">download</span>
+							{lang === 'es' ? 'Descargar Word (.docx)' : 'Download Word (.docx)'}
+						</a>
+					</div>
+
+					<div class="bd-kit-grid" style="margin-top:1.5rem;">
+						<!-- Entregable 1: Ficha Resumen -->
+						<div class="bd-kit-item bd-kit-item--doc">
+							<div class="bd-kit-item-head">
+								<span class="material-icons bd-kit-icon">description</span>
+								<div>
+									<strong class="bd-kit-name">{t('biodesign.hackathon.kit.doc1_title')}</strong>
+									<span class="bd-caption" style="color:var(--bd-on-surface-variant); display:block;">7 componentes obligatorios</span>
+								</div>
+							</div>
+							<ul class="bd-kit-check-list">
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c1')}</li>
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c2')}</li>
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c3')}</li>
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c4')}</li>
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c5')}</li>
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c6')}</li>
+								<li><span class="material-icons">check_circle</span> {t('biodesign.hackathon.kit.doc1_c7')}</li>
+							</ul>
+						</div>
+
+						<!-- Entregable 2 & 3: Benchling + Pitch Deck -->
+						<div class="bd-kit-col-sub">
+							<div class="bd-kit-item">
+								<div class="bd-kit-item-head">
+									<span class="material-icons bd-kit-icon" style="color:var(--bd-primary);">link</span>
+									<div>
+										<strong class="bd-kit-name">{t('biodesign.hackathon.kit.doc2_title')}</strong>
+									</div>
+								</div>
+								<p class="bd-caption" style="margin:0.25rem 0 0;">{t('biodesign.hackathon.kit.doc2_desc')}</p>
+							</div>
+
+							<div class="bd-kit-item" style="margin-top:0.75rem;">
+								<div class="bd-kit-item-head">
+									<span class="material-icons bd-kit-icon" style="color:var(--bd-tertiary);">slideshow</span>
+									<div>
+										<strong class="bd-kit-name">{t('biodesign.hackathon.kit.doc3_title')}</strong>
+									</div>
+								</div>
+								<p class="bd-caption" style="margin:0.25rem 0 0;">{t('biodesign.hackathon.kit.doc3_desc')}</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Zona de Descargas Oficiales -->
+					<div class="bd-kit-downloads-section">
+						<h4 class="bd-label-md" style="color:var(--bd-text-primary); margin:0 0 0.75rem;">
+							<span class="material-icons" style="font-size:16px; vertical-align:middle; color:var(--bd-tertiary);">cloud_download</span>
+							{t('biodesign.hackathon.kit.downloads_title')}
+						</h4>
+						<div class="bd-download-buttons-row">
+							<a href={DOC_BASES} target="_blank" rel="noopener noreferrer" class="bd-btn-secondary bd-dl-btn">
+								<span class="material-icons">gavel</span>
+								{t('biodesign.hackathon.kit.btn_bases')}
+							</a>
+							<a href={DOC_FICHAS} target="_blank" rel="noopener noreferrer" class="bd-btn-secondary bd-dl-btn">
+								<span class="material-icons">menu_book</span>
+								{t('biodesign.hackathon.kit.btn_fichas')}
+							</a>
+							<a href={DOC_HANDBOOK} target="_blank" rel="noopener noreferrer" class="bd-btn-secondary bd-dl-btn">
+								<span class="material-icons">auto_stories</span>
+								{t('biodesign.hackathon.kit.btn_handbook')}
+							</a>
+							<button type="button" class="bd-btn-primary bd-dl-btn bd-dl-btn--lime" id="btn-open-template-modal">
+								<span class="material-icons">content_paste</span>
+								{t('biodesign.hackathon.kit.btn_template')}
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<!-- MÓDULO 4: Rúbrica Oficial de Evaluación -->
+		<article class="bd-hack-accordion bd-glass" data-module="4">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-4" id="mod-trigger-4">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">04</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--amber">
+						<span class="material-icons">fact_check</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-teal">{t('biodesign.hackathon.rubrica.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.rubrica.title')}</h3>
+						<p class="bd-caption bd-acc-summary">5 Criterios Ponderados (100%) • Desempate 1: Coherencia Biológica (25%)</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-4" role="region" aria-labelledby="mod-trigger-4">
+				<div class="bd-accordion-inner">
+					<p class="bd-caption" style="margin-bottom:1rem; color:var(--bd-on-surface-variant);">
+						{t('biodesign.hackathon.rubrica.desc')}
+					</p>
+
+					<div class="bd-rubric-bars">
+						<div class="bd-rubric-bar-item">
+							<div class="bd-bar-labels">
+								<span>C1: Problema & Chasis BSL-1</span>
+								<strong>20%</strong>
+							</div>
+							<div class="bd-bar-track"><div class="bd-bar-fill" style="width:20%; background:var(--bd-primary);"></div></div>
+						</div>
+
+						<div class="bd-rubric-bar-item">
+							<div class="bd-bar-labels">
+								<span>C2: Circuito & SBOL</span>
+								<strong>20%</strong>
+							</div>
+							<div class="bd-bar-track"><div class="bd-bar-fill" style="width:20%; background:var(--bd-primary);"></div></div>
+						</div>
+
+						<div class="bd-rubric-bar-item bd-rubric-bar-item--highlight">
+							<div class="bd-bar-labels">
+								<span>C3: Coherencia Biológica (1er Desempate)</span>
+								<strong>25%</strong>
+							</div>
+							<div class="bd-bar-track"><div class="bd-bar-fill" style="width:25%; background:var(--bd-tertiary);"></div></div>
+						</div>
+
+						<div class="bd-rubric-bar-item">
+							<div class="bd-bar-labels">
+								<span>C4: Impacto Social & Bioseguridad</span>
+								<strong>15%</strong>
+							</div>
+							<div class="bd-bar-track"><div class="bd-bar-fill" style="width:15%; background:var(--bd-secondary);"></div></div>
+						</div>
+
+						<div class="bd-rubric-bar-item bd-rubric-bar-item--highlight">
+							<div class="bd-bar-labels">
+								<span>C5: Pitch, Video 3 min & Calidad (3er Desempate)</span>
+								<strong>20%</strong>
+							</div>
+							<div class="bd-bar-track"><div class="bd-bar-fill" style="width:20%; background:var(--bd-secondary);"></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<!-- MÓDULO 5: Pitch, Gran Final & Premiación (NUEVA SECCIÓN) -->
+		<article class="bd-hack-accordion bd-glass" data-module="5">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-5" id="mod-trigger-5">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">05</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--pink">
+						<span class="material-icons">military_tech</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-lime">{t('biodesign.hackathon.pitch.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.pitch.title')}</h3>
+						<p class="bd-caption bd-acc-summary">Top 15 Clasificados • Viernes 30 Oct en UNMSM (Acompañados de tutor) • Diplomas, Medallas & Premios Sorpresa</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-5" role="region" aria-labelledby="mod-trigger-5">
+				<div class="bd-accordion-inner">
+					<p class="bd-body-sm" style="color:var(--bd-on-surface-variant); margin-bottom:1.25rem;">
+						{t('biodesign.hackathon.pitch.desc')}
+					</p>
+
+					<div class="bd-pitch-details-grid">
+						<!-- Clasificados Top 15 -->
+						<div class="bd-pitch-card">
+							<div class="bd-pitch-card-head">
+								<span class="material-icons" style="color:var(--bd-tertiary);">stars</span>
+								<strong>{t('biodesign.hackathon.pitch.top15_title')}</strong>
+							</div>
+							<p class="bd-caption">{t('biodesign.hackathon.pitch.top15_desc')}</p>
+						</div>
+
+						<!-- Lineamientos de Asistencia a UNMSM -->
+						<div class="bd-pitch-card bd-pitch-card--alert">
+							<div class="bd-pitch-card-head">
+								<span class="material-icons" style="color:#f59e0b;">escalator_warning</span>
+								<strong>{t('biodesign.hackathon.pitch.attendance_title')}</strong>
+							</div>
+							<p class="bd-caption">{t('biodesign.hackathon.pitch.attendance_desc')}</p>
+						</div>
+					</div>
+
+					<!-- Premios Oficiales -->
+					<div class="bd-awards-box" style="margin-top:1.25rem;">
+						<h4 class="bd-label-md" style="color:var(--bd-text-primary); margin:0 0 0.85rem;">
+							<span class="material-icons" style="font-size:18px; vertical-align:middle; color:#fbbf24;">workspace_premium</span>
+							{t('biodesign.hackathon.pitch.awards_title')}
+						</h4>
+						<div class="bd-awards-list">
+							<div class="bd-award-item">
+								<span class="material-icons" style="color:#fbbf24;">emoji_events</span>
+								<span>{t('biodesign.hackathon.pitch.awards_top3')}</span>
+							</div>
+							<div class="bd-award-item">
+								<span class="material-icons" style="color:var(--bd-primary);">military_tech</span>
+								<span>{t('biodesign.hackathon.pitch.awards_areas')}</span>
+							</div>
+							<div class="bd-award-item">
+								<span class="material-icons" style="color:var(--bd-secondary);">auto_awesome</span>
+								<span>{t('biodesign.hackathon.pitch.awards_mentions')}</span>
+							</div>
+						</div>
+						<div class="bd-awards-kit-pill">
+							<span class="material-icons" style="color:var(--bd-tertiary); font-size:18px;">redeem</span>
+							<p class="bd-caption" style="margin:0; color:var(--bd-text-primary);">
+								{t('biodesign.hackathon.pitch.awards_kit')}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<!-- MÓDULO 6: Buenas Prácticas Científicas, IA & Recursos -->
+		<article class="bd-hack-accordion bd-glass" data-module="6">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-6" id="mod-trigger-6">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">06</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--coral">
+						<span class="material-icons">psychology</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-purple">{t('biodesign.hackathon.practices.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.practices.title')}</h3>
+						<p class="bd-caption bd-acc-summary">Uso Ético de la IA • Nomenclatura en Benchling • Acceso Libre a Grabaciones</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-6" role="region" aria-labelledby="mod-trigger-6">
+				<div class="bd-accordion-inner">
+					<div class="bd-practices-list">
+						<div class="bd-practice-item">
+							<span class="material-icons bd-practice-icon" style="color:var(--bd-tertiary);">smart_toy</span>
+							<div>
+								<strong>{t('biodesign.hackathon.practices.ia_title')}</strong>
+								<p class="bd-caption" style="margin:0.25rem 0 0;">{t('biodesign.hackathon.practices.ia_desc')}</p>
+							</div>
+						</div>
+
+						<div class="bd-practice-item">
+							<span class="material-icons bd-practice-icon" style="color:var(--bd-primary);">folder_special</span>
+							<div>
+								<strong>{t('biodesign.hackathon.practices.benchling_title')}</strong>
+								<p class="bd-caption" style="margin:0.25rem 0 0;">{t('biodesign.hackathon.practices.benchling_desc')}</p>
+							</div>
+						</div>
+
+						<div class="bd-practice-item">
+							<span class="material-icons bd-practice-icon" style="color:var(--bd-secondary);">video_library</span>
+							<div>
+								<strong>{t('biodesign.hackathon.practices.records_title')}</strong>
+								<p class="bd-caption" style="margin:0.25rem 0 0;">{t('biodesign.hackathon.practices.records_desc')}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+		<!-- MÓDULO 7: Constructo SBOL & Coherencia Biológica -->
+		<article class="bd-hack-accordion bd-glass" data-module="7">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-7" id="mod-trigger-7">
+				<div class="bd-acc-header-left">
+					<span class="bd-acc-num">07</span>
+					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--emerald">
+						<span class="material-icons">schema</span>
+					</div>
+					<div class="bd-acc-titles">
+						<div class="bd-acc-badge-row">
+							<span class="bd-chip bd-chip-lime">{t('biodesign.hackathon.sbol.badge')}</span>
+						</div>
+						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.sbol.title')}</h3>
+						<p class="bd-caption bd-acc-summary">Simbología Estándar (Promotor, RBS, CDS, Terminador) • Ensayo de Traducción</p>
+					</div>
+				</div>
+				<div class="bd-acc-header-right">
+					<span class="material-icons bd-acc-chevron">expand_more</span>
+				</div>
+			</button>
+			<div class="bd-accordion-content" id="mod-content-7" role="region" aria-labelledby="mod-trigger-7">
+				<div class="bd-accordion-inner">
+					<p class="bd-body-sm" style="color:var(--bd-on-surface-variant); margin-bottom:1.25rem;">
+						{t('biodesign.hackathon.sbol.desc')}
+					</p>
+
+					<!-- Visualizador Interactivo de Biopartes SBOL -->
+					<div class="bd-sbol-circuit-wrap">
+						<div class="bd-sbol-circuit" id="sbol-circuit-display">
+							<div class="bd-sbol-part bd-sbol-part--promoter" data-part="promoter" title="Promotor: Inicia transcripción">
+								<span class="bd-sbol-symbol">↱</span>
+								<span class="bd-sbol-name">{t('biodesign.hackathon.sbol.p_name')}</span>
+								<span class="bd-sbol-role">{t('biodesign.hackathon.sbol.p_role')}</span>
+							</div>
+							<div class="bd-sbol-connector"></div>
+							<div class="bd-sbol-part bd-sbol-part--rbs" data-part="rbs" title="RBS: Sitio de unión ribosomal">
+								<span class="bd-sbol-symbol">◒</span>
+								<span class="bd-sbol-name">{t('biodesign.hackathon.sbol.r_name')}</span>
+								<span class="bd-sbol-role">{t('biodesign.hackathon.sbol.r_role')}</span>
+							</div>
+							<div class="bd-sbol-connector"></div>
+							<div class="bd-sbol-part bd-sbol-part--cds" data-part="cds" title="CDS: Secuencia codificante">
+								<span class="bd-sbol-symbol">➡</span>
+								<span class="bd-sbol-name">{t('biodesign.hackathon.sbol.c_name')}</span>
+								<span class="bd-sbol-role">{t('biodesign.hackathon.sbol.c_role')}</span>
+							</div>
+							<div class="bd-sbol-connector"></div>
+							<div class="bd-sbol-part bd-sbol-part--terminator" data-part="terminator" title="Terminador: Detiene transcripción">
+								<span class="bd-sbol-symbol">⊣</span>
+								<span class="bd-sbol-name">{t('biodesign.hackathon.sbol.t_name')}</span>
+								<span class="bd-sbol-role">{t('biodesign.hackathon.sbol.t_role')}</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Coherencia Biológica: Ensayo de Traducción de la CDS -->
+					<div class="bd-translation-assay-box">
+						<div class="bd-translation-header">
+							<div class="bd-translation-title">
+								<span class="material-icons" style="font-size:18px; color:var(--bd-primary);">translate</span>
+								<strong>{t('biodesign.hackathon.sbol.coherence_title')}</strong>
+							</div>
+							<button type="button" class="bd-btn-ghost bd-assay-btn" id="btn-toggle-translation-assay">
+								<span class="material-icons" style="font-size:16px;">play_arrow</span>
+								<span id="txt-assay-btn">{lang === 'es' ? 'Simular en Benchling' : 'Simulate in Benchling'}</span>
+							</button>
+						</div>
+						<p class="bd-caption" style="margin:0 0 0.5rem; color:var(--bd-on-surface-variant);">
+							{t('biodesign.hackathon.sbol.coherence_desc')}
+						</p>
+
+						<!-- Visualización animada de Codones y Aminoácidos -->
+						<div class="bd-assay-seq-stream" id="assay-seq-stream">
+							<div class="bd-seq-row bd-seq-dna">
+								<span class="bd-seq-tag">ADN:</span>
+								<code>5'-ATG GCG AGC GAG AAC GTC ATC ACG GAG TAA-3'</code>
+							</div>
+							<div class="bd-seq-row bd-seq-protein" id="assay-protein-row">
+								<span class="bd-seq-tag">Péptido:</span>
+								<span class="bd-aa-chain">
+									<span class="bd-aa bd-aa--met">Met</span>-
+									<span class="bd-aa">Ala</span>-
+									<span class="bd-aa">Ser</span>-
+									<span class="bd-aa">Glu</span>-
+									<span class="bd-aa">Asn</span>-
+									<span class="bd-aa">Val</span>-
+									<span class="bd-aa">Ile</span>-
+									<span class="bd-aa">Thr</span>-
+									<span class="bd-aa">Glu</span>-
+									<span class="bd-aa bd-aa--stop">Stop (✓)</span>
+								</span>
+							</div>
+						</div>
+
+						<!-- Nota Pedagógica: Marco de Lectura Obviado -->
+						<div class="bd-frame-note-box">
+							<span class="bd-chip bd-chip-lime" style="font-size:0.65rem;">
+								<span class="material-icons" style="font-size:12px;">info</span>
+								{t('biodesign.hackathon.sbol.frame_note_badge')}
+							</span>
+							<p class="bd-caption" style="margin:0.35rem 0 0; color:var(--bd-text-primary);">
+								{t('biodesign.hackathon.sbol.frame_note')}
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+
+	</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MODAL 1: VISOR & PLANTILLA FICHA RESUMEN
+     ═══════════════════════════════════════════ -->
+<div class="bd-modal-overlay" id="modal-template-sheet" role="dialog" aria-modal="true" aria-labelledby="modal-template-title" hidden>
+	<div class="bd-modal bd-modal--teal bd-template-modal">
+		<div class="bd-modal-header">
+			<span class="material-icons bd-modal-icon" style="color:var(--bd-primary);">description</span>
+			<div>
+				<span class="bd-chip bd-chip-teal" style="font-size:0.65rem;">MODELO OFICIAL</span>
+				<h3 class="bd-headline-sm" id="modal-template-title" style="margin:0.25rem 0 0;">
+					{lang === 'es' ? 'Plantilla Estructurada: Ficha Resumen BioDesign 2026' : 'Structured Template: BioDesign 2026 Summary Sheet'}
+				</h3>
+			</div>
+			<button class="bd-modal-close" id="btn-close-template-modal" aria-label="Cerrar">
+				<span class="material-icons">close</span>
+			</button>
+		</div>
+		<div class="bd-modal-body">
+			<p class="bd-body-sm" style="margin-bottom:1rem; color:var(--bd-on-surface-variant);">
+				{lang === 'es'
+					? 'Utiliza esta estructura estándar para redactar el informe técnico de tu proyecto. También puedes descargar la plantilla en formato Word (.docx):'
+					: 'Use this standard structure to write your technical project report. You can also download the template in Word format (.docx):'}
+			</p>
+
+			<div class="bd-template-code-box">
+				<pre id="template-text-content"><code>{`# FICHA RESUMEN - HACKATHON BIODESIGN 2026
+NOMBRE DEL EQUIPO: [Nombre del equipo]
+TRACK SELECCIONADO: [Agua y Medio Ambiente / Salud y Diagnóstico / Agroindustria y Alimentos]
+INSTITUCIÓN EDUCATIVA / DELEGACIÓN: [Colegio o Equipo Independiente]
+TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
+
+1. PROBLEMÁTICA LOCAL DELIMITADA
+   - Descripción clara y contextualizada del problema identificado en su comunidad o región.
+   - Datos y evidencias locales que respaldan la necesidad de la solución.
+
+2. JUSTIFICACIÓN DEL CHASIS BIOLÓGICO (BSL-1)
+   - Microorganismo seleccionado (ej. Escherichia coli DH5α, Bacillus subtilis 168).
+   - Justificación de bioseguridad: justificar por qué es nivel BSL-1 inocuo para uso escolar.
+   - Idoneidad biológica para la expresión de la solución propuesta.
+
+3. EXPLICACIÓN BIOLÓGICA DEL CIRCUITO GENÉTICO
+   - Mecanismo biológico del constructo (inducción, transcripción, traducción y función esperada).
+   - ¿Cómo responde el circuito al estímulo o cómo genera el producto final?
+
+4. GRÁFICO POR SIMBOLOGÍA SBOL DEL CIRCUITO
+   - Diagrama claro con simbología estandarizada SBOL (Promotor ↱, RBS ◒, CDS ➡, Terminador ⊣).
+   - Correcto etiquetado de cada parte con su sentido 5' a 3'.
+
+5. TABLA DE BIOPARTES ESTANDARIZADAS
+   | Bioparte    | Tipo       | Código / ID de Registro | Fuente / Repositorio (iGEM, Addgene, etc.) | Función en el Circuito |
+   |-------------|------------|-------------------------|--------------------------------------------|------------------------|
+   | Parte 1     | Promotor   | [ej. BBa_J23100]        | Registry of Standard Biological Parts      | [Función]              |
+   | Parte 2     | RBS        | [ej. BBa_B0034]         | Registry of Standard Biological Parts      | [Función]              |
+   | Parte 3     | CDS        | [ej. BBa_E0040]         | Registry of Standard Biological Parts      | [Función]              |
+   | Parte 4     | Terminador | [ej. BBa_B0015]         | Registry of Standard Biological Parts      | [Función]              |
+
+6. IMPACTO SOCIAL Y COMUNITARIO ESPERADO
+   - Beneficiarios directos e indirectos en su entorno local.
+   - Viabilidad de implementación a mediano y largo plazo.
+
+7. REFERENCIAS BIBLIOGRÁFICAS (FORMATO APA 7ma EDICIÓN)
+   - Mínimo 3 referencias académicas y fuentes primarias contrastadas.
+   - En caso de uso de herramientas de IA, citar los prompts de consulta utilizados.`}</code></pre>
+			</div>
+		</div>
+		<div class="bd-modal-footer bd-template-modal-footer">
+			<a href={DOC_FICHA1_WORD} download="Biodesign_ficha_informe.docx" class="bd-btn-primary">
+				<span class="material-icons">download</span>
+				{t('biodesign.hackathon.kit.btn_ficha1_word')}
+			</a>
+			<button type="button" class="bd-btn-secondary" id="btn-copy-template-text">
+				<span class="material-icons">content_copy</span>
+				<span id="txt-copy-template">{t('biodesign.hackathon.kit.copy_template')}</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MODAL 2: MODO PRESENTACIÓN DINÁMICO
+     "BIO-TERMINAL FLUORESCENTE: PLACA PETRI & ADN"
+     (7 ESTACIONES VIVAS)
+     ═══════════════════════════════════════════ -->
+<div class="bd-modal-overlay bd-terminal-overlay" id="modal-bio-terminal" role="dialog" aria-modal="true" aria-labelledby="bio-terminal-title" hidden>
+	<div class="bd-terminal-window">
+		<!-- Barra Superior del Terminal -->
+		<header class="bd-terminal-bar">
+			<div class="bd-terminal-bar-left">
+				<div class="bd-terminal-status-dot"></div>
+				<span class="bd-terminal-sys-tag">BIO-TERMINAL v2.7 // KICK-OFF BIODESIGN</span>
+				<span class="bd-terminal-station-badge" id="terminal-step-badge">ESTACIÓN 1 DE 7</span>
+			</div>
+			<div class="bd-terminal-bar-right">
+				<button type="button" class="bd-terminal-icon-btn" id="btn-terminal-audio" title="Activar/Silenciar Bio-Synth Audio">
+					<span class="material-icons" id="icon-terminal-audio">volume_up</span>
+					<span class="bd-btn-lbl">Audio Bio-Synth</span>
+				</button>
+				<button type="button" class="bd-terminal-icon-btn" id="btn-terminal-fullscreen" title="Pantalla Completa (F)">
+					<span class="material-icons" id="icon-terminal-fullscreen">fullscreen</span>
+				</button>
+				<button type="button" class="bd-terminal-icon-btn bd-terminal-close-btn" id="btn-close-bio-terminal" title="Cerrar Terminal (Esc)">
+					<span class="material-icons">close</span>
+				</button>
+			</div>
+		</header>
+
+		<!-- Cuerpo Principal del Bio-Terminal -->
+		<div class="bd-terminal-body">
+			<!-- Columna Izquierda: Placa Petri con 7 Colonias Bacterianas Fluorescentes -->
+			<div class="bd-petri-col">
+				<div class="bd-petri-dish" id="petri-dish">
+					<div class="bd-petri-rim"></div>
+					<div class="bd-petri-agar">
+						<div class="bd-petri-grid" aria-hidden="true"></div>
+
+						<!-- 7 Colonias Bacterianas Bioluminiscentes en Anillo Equidistante -->
+						<!-- 1. Misión (CFP Cian) -->
+						<button type="button" class="bd-colony bd-colony--7-1 bd-colony--active" data-station="1" id="colony-1" title="Estación 1: Misión">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">01</span>
+								<span class="bd-colony-fluor">CFP</span>
+							</div>
+							<span class="bd-colony-label">Misión</span>
+						</button>
+
+						<!-- 2. Sprint (YFP Lima) -->
+						<button type="button" class="bd-colony bd-colony--7-2" data-station="2" id="colony-2" title="Estación 2: Sprint 48h">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">02</span>
+								<span class="bd-colony-fluor">YFP</span>
+							</div>
+							<span class="bd-colony-label">Sprint</span>
+						</button>
+
+						<!-- 3. Entregables (mCherry Púrpura) -->
+						<button type="button" class="bd-colony bd-colony--7-3" data-station="3" id="colony-3" title="Estación 3: Entregables">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">03</span>
+								<span class="bd-colony-fluor">mCherry</span>
+							</div>
+							<span class="bd-colony-label">Entregables</span>
+						</button>
+
+						<!-- 4. Rúbrica (Amber Dorado) -->
+						<button type="button" class="bd-colony bd-colony--7-4" data-station="4" id="colony-4" title="Estación 4: Rúbrica">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">04</span>
+								<span class="bd-colony-fluor">Amber</span>
+							</div>
+							<span class="bd-colony-label">Rúbrica</span>
+						</button>
+
+						<!-- 5. Pitch & Premios (Pink / Fuchsia) - NUEVA ESTACIÓN -->
+						<button type="button" class="bd-colony bd-colony--7-5" data-station="5" id="colony-5" title="Estación 5: Pitch & Premios">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">05</span>
+								<span class="bd-colony-fluor">mPink</span>
+							</div>
+							<span class="bd-colony-label">Pitch & Premios</span>
+						</button>
+
+						<!-- 6. Ética & IA (RFP Coral) -->
+						<button type="button" class="bd-colony bd-colony--7-6" data-station="6" id="colony-6" title="Estación 6: Ética & IA">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">06</span>
+								<span class="bd-colony-fluor">RFP</span>
+							</div>
+							<span class="bd-colony-label">Ética & IA</span>
+						</button>
+
+						<!-- 7. SBOL (GFP Esmeralda) -->
+						<button type="button" class="bd-colony bd-colony--7-7" data-station="7" id="colony-7" title="Estación 7: SBOL">
+							<div class="bd-colony-pulse"></div>
+							<div class="bd-colony-core">
+								<span class="bd-colony-id">07</span>
+								<span class="bd-colony-fluor">GFP</span>
+							</div>
+							<span class="bd-colony-label">SBOL</span>
+						</button>
+					</div>
+				</div>
+				<p class="bd-petri-hint">
+					<span class="material-icons" style="font-size:14px; vertical-align:middle; color:var(--bd-tertiary);">touch_app</span>
+					{lang === 'es' ? 'Haz click en cada colonia bacteriana para navegar las 7 estaciones' : 'Click on each bacterial colony to browse the 7 stations'}
+				</p>
+			</div>
+
+			<!-- Columna Derecha: Panel de Diapositiva Activa -->
+			<div class="bd-terminal-slide-col">
+				<div class="bd-slide-container" id="terminal-slide-container">
+
+					<!-- Slide 1: Misión -->
+					<div class="bd-terminal-slide bd-terminal-slide--active" data-slide="1">
+						<div class="bd-slide-chip bd-slide-chip--cyan">
+							<span class="material-icons" style="font-size:14px;">flag</span>
+							ESTACIÓN 01 • CFP BIO-SENSOR
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.mision.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							Democratizar la biología sintética en la escuela peruana conectando la ciencia de vanguardia con desafíos territoriales auténticos.
+						</p>
+
+						<div class="bd-slide-bento-mini">
+							<div class="bd-mini-box">
+								<span class="material-icons bd-mini-icon" style="color:#38bdf8;">school</span>
+								<strong>Competencia 22 CNEB</strong>
+								<p class="bd-caption">Diseña y construye soluciones tecnológicas para resolver problemas de su entorno escolar y comunal.</p>
+							</div>
+							<div class="bd-mini-box">
+								<span class="material-icons bd-mini-icon" style="color:var(--bd-primary);">public</span>
+								<strong>Descentralización Regional</strong>
+								<p class="bd-caption">Participación activa de escolares de Lima y de todas las regiones del país modelando bioinnovaciones locales.</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Slide 2: Sprint 48h & Mentores -->
+					<div class="bd-terminal-slide" data-slide="2" hidden>
+						<div class="bd-slide-chip bd-slide-chip--lime">
+							<span class="material-icons" style="font-size:14px;">timer</span>
+							ESTACIÓN 02 • YFP SPRINT DYNAMICS
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.sprint.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							48 horas ininterrumpidas de bioingeniería computacional in silico con acompañamiento científico de tutores sanmarquinos.
+						</p>
+
+						<div class="bd-slide-mentors-grid">
+							<div class="bd-mini-card">
+								<span class="material-icons" style="color:var(--bd-secondary);">record_voice_over</span>
+								<strong>1ra Hora del Kick-off</strong>
+								<p class="bd-caption">Presentación formal de tu mentor/a en tu sala Zoom asignada.</p>
+							</div>
+							<div class="bd-mini-card">
+								<span class="material-icons" style="color:#5865f2;">chat</span>
+								<strong>Canal Discord #consultas-mentoria</strong>
+								<p class="bd-caption">Enlace directo con tutores y solicitud de asistencia inmediata.</p>
+							</div>
+							<div class="bd-mini-card">
+								<span class="material-icons" style="color:var(--bd-tertiary);">wb_sunny</span>
+								<strong>Turno Mañana (Sáb & Dom)</strong>
+								<p class="bd-caption">10:00 A.M. – 12:00 m. con tutores de guardia activa.</p>
+							</div>
+							<div class="bd-mini-card">
+								<span class="material-icons" style="color:var(--bd-primary);">wb_twilight</span>
+								<strong>Turno Tarde (Sáb & Dom)</strong>
+								<p class="bd-caption">2:00 P.M. – 5:00 P.M. para revisión de plásmidos y pitch.</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Slide 3: Kit de Entregables -->
+					<div class="bd-terminal-slide" data-slide="3" hidden>
+						<div class="bd-slide-chip bd-slide-chip--purple">
+							<span class="material-icons" style="font-size:14px;">inventory_2</span>
+							ESTACIÓN 03 • MCHERRY DELIVERABLES
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.kit.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							Entrega límite: <strong>Domingo 11 de Octubre a las 11:59 p.m.</strong> Vía formulario oficial del Hackathon.
+						</p>
+
+						<div class="bd-deliverables-trio">
+							<div class="bd-deliv-box">
+								<span class="bd-deliv-num">01</span>
+								<strong>Ficha 1 Informe (.docx / PDF)</strong>
+								<p class="bd-caption">Descarga la plantilla Word oficial y completa los 7 componentes estructurados.</p>
+							</div>
+							<div class="bd-deliv-box">
+								<span class="bd-deliv-num">02</span>
+								<strong>Enlace Benchling</strong>
+								<p class="bd-caption">Plásmido con las 4 biopartes anotadas y ensayo de traducción verificado.</p>
+							</div>
+							<div class="bd-deliv-box">
+								<span class="bd-deliv-num">03</span>
+								<strong>Pitch Deck & Video 3 min</strong>
+								<p class="bd-caption">Diapositivas (8-10 láminas) + video dinámico de exposición de 3 minutos.</p>
+							</div>
+						</div>
+
+						<div class="bd-slide-docs-row">
+							<a href={DOC_FICHA1_WORD} download="Biodesign_ficha_informe.docx" class="bd-btn-primary bd-slide-doc-link" style="box-shadow: 0 0 15px rgba(121,248,208,0.3);">
+								<span class="material-icons">download</span> Plantilla Ficha 1 (.docx)
+							</a>
+							<a href={DOC_BASES} target="_blank" rel="noopener noreferrer" class="bd-btn-ghost bd-slide-doc-link">
+								<span class="material-icons">gavel</span> Bases (PDF)
+							</a>
+							<a href={DOC_FICHAS} target="_blank" rel="noopener noreferrer" class="bd-btn-ghost bd-slide-doc-link">
+								<span class="material-icons">menu_book</span> Fichas (PDF)
+							</a>
+							<a href={DOC_HANDBOOK} target="_blank" rel="noopener noreferrer" class="bd-btn-ghost bd-slide-doc-link">
+								<span class="material-icons">auto_stories</span> Handbook (PDF)
+							</a>
+						</div>
+					</div>
+
+					<!-- Slide 4: Rúbrica Oficial -->
+					<div class="bd-terminal-slide" data-slide="4" hidden>
+						<div class="bd-slide-chip bd-slide-chip--amber">
+							<span class="material-icons" style="font-size:14px;">fact_check</span>
+							ESTACIÓN 04 • AMBER RUBRIC ENGINE
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.rubrica.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							Criterios estandarizados de evaluación in silico con reglas de desempate transparentes.
+						</p>
+
+						<div class="bd-slide-rubric-table">
+							<div class="bd-rubric-row">
+								<span class="bd-rubric-code">C1 (20%)</span>
+								<span class="bd-rubric-desc">Comprensión del problema local y justificación biológica del chasis BSL-1.</span>
+							</div>
+							<div class="bd-rubric-row">
+								<span class="bd-rubric-code">C2 (20%)</span>
+								<span class="bd-rubric-desc">Diseño del circuito genético con anotación estandarizada SBOL.</span>
+							</div>
+							<div class="bd-rubric-row bd-rubric-row--desempate">
+								<span class="bd-rubric-code">C3 (25%)</span>
+								<span class="bd-rubric-desc"><strong>Coherencia biológica y viabilidad teórica</strong> — <em>1er Criterio de Desempate</em>.</span>
+							</div>
+							<div class="bd-rubric-row">
+								<span class="bd-rubric-code">C4 (15%)</span>
+								<span class="bd-rubric-desc">Impacto social proyectado, pertinencia territorial y consideraciones éticas.</span>
+							</div>
+							<div class="bd-rubric-row bd-rubric-row--desempate">
+								<span class="bd-rubric-code">C5 (20%)</span>
+								<span class="bd-rubric-desc"><strong>Pitch Deck, video 3 min y comunicación científica</strong> — <em>3er Criterio de Desempate</em>.</span>
+							</div>
+						</div>
+					</div>
+
+					<!-- Slide 5: Pitch, Gran Final & Premios (NUEVA ESTACIÓN 5) -->
+					<div class="bd-terminal-slide" data-slide="5" hidden>
+						<div class="bd-slide-chip bd-slide-chip--pink">
+							<span class="material-icons" style="font-size:14px;">military_tech</span>
+							ESTACIÓN 05 • MPINK FINALE & AWARDS
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.pitch.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							{t('biodesign.hackathon.pitch.desc')}
+						</p>
+
+						<div class="bd-slide-pitch-grid">
+							<div class="bd-mini-box bd-mini-box--accent">
+								<span class="material-icons bd-mini-icon" style="color:#f43f5e;">stars</span>
+								<strong>Top 15 Clasificados</strong>
+								<p class="bd-caption">Selección rigurosa de los 15 mejores proyectos para la defensa presencial.</p>
+							</div>
+							<div class="bd-mini-box bd-mini-box--warn">
+								<span class="material-icons bd-mini-icon" style="color:#f59e0b;">escalator_warning</span>
+								<strong>Asistencia con Tutor o Familiar</strong>
+								<p class="bd-caption">Viernes 30 de Octubre (2 a 5 p.m.) en UNMSM. Los menores de edad deben asistir acompañados obligatoriamente.</p>
+							</div>
+						</div>
+
+						<div class="bd-slide-awards-pills" style="margin-top:1.25rem;">
+							<div class="bd-award-pill-item">
+								<span class="material-icons" style="color:#fbbf24;">emoji_events</span>
+								<span>Top 3 Mejores Proyectos</span>
+							</div>
+							<div class="bd-award-pill-item">
+								<span class="material-icons" style="color:var(--bd-primary);">military_tech</span>
+								<span>Ganadores por Área (Agua, Salud, Agro)</span>
+							</div>
+							<div class="bd-award-pill-item">
+								<span class="material-icons" style="color:var(--bd-secondary);">auto_awesome</span>
+								<span>Menciones Especiales Sorpresa</span>
+							</div>
+						</div>
+
+						<div class="bd-slide-alert-box" style="margin-top:1rem; border-color:rgba(244,63,94,0.3); background:rgba(244,63,94,0.06);">
+							<span class="material-icons" style="color:#f43f5e;">redeem</span>
+							<p class="bd-caption" style="margin:0; color:var(--bd-text-primary);">
+								{t('biodesign.hackathon.pitch.awards_kit')}
+							</p>
+						</div>
+					</div>
+
+					<!-- Slide 6: Ética & IA -->
+					<div class="bd-terminal-slide" data-slide="6" hidden>
+						<div class="bd-slide-chip bd-slide-chip--red">
+							<span class="material-icons" style="font-size:14px;">psychology</span>
+							ESTACIÓN 06 • RFP ETHICS & BEST PRACTICES
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.practices.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							Rigor científico, integridad académica y tecnología como aliada del pensamiento crítico escolar.
+						</p>
+
+						<div class="bd-ethics-grid">
+							<div class="bd-ethics-card">
+								<span class="material-icons" style="color:var(--bd-tertiary);">smart_toy</span>
+								<strong>Uso Ético de la Inteligencia Artificial</strong>
+								<p class="bd-caption">La IA asiste, no reemplaza la investigación. Referenciar prompts y corroborar fuentes primarias para evitar alucinaciones.</p>
+							</div>
+							<div class="bd-ethics-card">
+								<span class="material-icons" style="color:var(--bd-primary);">terminal</span>
+								<strong>Disciplina en Benchling</strong>
+								<p class="bd-caption">Carpetas compartidas de equipo ordenadas, nomenclatura estandarizada y aplicación de los talleres del Bootcamp.</p>
+							</div>
+							<div class="bd-ethics-card">
+								<span class="material-icons" style="color:var(--bd-secondary);">auto_stories</span>
+								<strong>Acceso Libre a Grabaciones</strong>
+								<p class="bd-caption">Los participantes pueden revisar libremente las 5 sesiones grabadas del Bootcamp y materiales compartidos.</p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Slide 7: SBOL & Coherencia Biológica -->
+					<div class="bd-terminal-slide" data-slide="7" hidden>
+						<div class="bd-slide-chip bd-slide-chip--green">
+							<span class="material-icons" style="font-size:14px;">schema</span>
+							ESTACIÓN 07 • GFP FLUOR-CONSTRUCT
+						</div>
+						<h2 class="bd-headline-md bd-slide-title">
+							{t('biodesign.hackathon.sbol.title')}
+						</h2>
+						<p class="bd-body-md bd-slide-lead">
+							Estandarización biológica rigurosa: el lenguaje SBOL traduce código genético en módulos biológicos predecibles.
+						</p>
+
+						<div class="bd-slide-sbol-showcase">
+							<div class="bd-sbol-part-pill bd-sbol-part--promoter">
+								<code>↱</code> <strong>Promotor</strong>: Switch ON/OFF
+							</div>
+							<div class="bd-sbol-part-pill bd-sbol-part--rbs">
+								<code>◒</code> <strong>RBS</strong>: Acelerador Ribosomal
+							</div>
+							<div class="bd-sbol-part-pill bd-sbol-part--cds">
+								<code>➡</code> <strong>CDS (Gen)</strong>: Receta de la Proteína
+							</div>
+							<div class="bd-sbol-part-pill bd-sbol-part--terminator">
+								<code>⊣</code> <strong>Terminador</strong>: Freno Transcripcional
+							</div>
+						</div>
+
+						<div class="bd-slide-alert-box">
+							<span class="material-icons" style="color:var(--bd-tertiary);">verified</span>
+							<div>
+								<strong>Ensayo de Traducción de la CDS verificado en Benchling</strong>
+								<p class="bd-caption">Comprobar la secuencia aminoacídica (Met a Stop). <em>Nota escolar: Se obvia el análisis de desfase de marco de lectura (frame shift).</em></p>
+							</div>
+						</div>
+					</div>
+
+					<!-- Slide Final: Inducción Total & Felicitación -->
+					<div class="bd-terminal-slide bd-terminal-slide--finish" id="slide-finish" hidden>
+						<div class="bd-finish-glow-wrap" aria-hidden="true">
+							<div class="bd-finish-pulse-ring"></div>
+						</div>
+						<div class="bd-finish-content">
+							<span class="bd-chip bd-chip-lime" style="font-size:0.75rem; margin-bottom:0.75rem;">
+								<span class="material-icons" style="font-size:14px;">celebration</span>
+								INDUCCIÓN PLASMÍDICA COMPLETADA (100% • 7 ESTACIONES)
+							</span>
+							<h2 class="bd-headline-lg bd-gradient-text" style="margin:0 0 0.75rem;">
+								{t('biodesign.hackathon.modal.congrats_title')}
+							</h2>
+							<p class="bd-body-md" style="max-width:620px; margin:0 auto 1.5rem; color:var(--bd-text-primary);">
+								{t('biodesign.hackathon.modal.congrats_desc')}
+							</p>
+
+							<div class="bd-finish-actions">
+								<a href={DOC_FICHA1_WORD} download="Biodesign_ficha_informe.docx" class="bd-btn-primary bd-finish-btn">
+									<span class="material-icons">download</span>
+									{lang === 'es' ? 'Descargar Plantilla Ficha 1 (.docx)' : 'Download Sheet 1 Template (.docx)'}
+								</a>
+								<button type="button" class="bd-btn-secondary bd-finish-btn" id="btn-finish-exit">
+									<span class="material-icons">rocket_launch</span>
+									{lang === 'es' ? '¡Volver al Portal y Empezar!' : 'Back to Portal & Start!'}
+								</button>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Barra Inferior: Gel de Electroforesis UV & Controles (7 Bandas) -->
+		<footer class="bd-terminal-footer">
+			<div class="bd-gel-electrophoresis">
+				<div class="bd-gel-ladder-tag">UV DNA GEL:</div>
+				<div class="bd-gel-tray">
+					<div class="bd-gel-band bd-gel-band--1 bd-gel-band--lit" title="Banda 100 bp (01: Misión)"><span>100 bp</span></div>
+					<div class="bd-gel-band bd-gel-band--2" title="Banda 250 bp (02: Sprint)"><span>250 bp</span></div>
+					<div class="bd-gel-band bd-gel-band--3" title="Banda 500 bp (03: Entregables)"><span>500 bp</span></div>
+					<div class="bd-gel-band bd-gel-band--4" title="Banda 750 bp (04: Rúbrica)"><span>750 bp</span></div>
+					<div class="bd-gel-band bd-gel-band--5" title="Banda 1000 bp (05: Pitch & Premios)"><span>1 kb</span></div>
+					<div class="bd-gel-band bd-gel-band--6" title="Banda 1200 bp (06: Ética & IA)"><span>1.2 kb</span></div>
+					<div class="bd-gel-band bd-gel-band--7" title="Banda 1500 bp (07: SBOL)"><span>1.5 kb</span></div>
+				</div>
+			</div>
+
+			<div class="bd-terminal-nav-controls">
+				<button type="button" class="bd-btn-ghost bd-term-nav-btn" id="btn-term-prev" disabled>
+					<span class="material-icons">arrow_back</span>
+					{t('biodesign.hackathon.modal.prev')}
+				</button>
+
+				<div class="bd-term-step-dots" id="term-step-dots">
+					<span class="bd-step-dot bd-step-dot--active" data-dot="1"></span>
+					<span class="bd-step-dot" data-dot="2"></span>
+					<span class="bd-step-dot" data-dot="3"></span>
+					<span class="bd-step-dot" data-dot="4"></span>
+					<span class="bd-step-dot" data-dot="5"></span>
+					<span class="bd-step-dot" data-dot="6"></span>
+					<span class="bd-step-dot" data-dot="7"></span>
+				</div>
+
+				<button type="button" class="bd-btn-primary bd-term-nav-btn" id="btn-term-next">
+					<span id="txt-term-next">{t('biodesign.hackathon.modal.next')}</span>
+					<span class="material-icons">arrow_forward</span>
+				</button>
+			</div>
+		</footer>
+	</div>
+</div>
+
+<script>
+	// ── Lógica Interactiva del Portal del Hackathon y Bio-Terminal ──
+	function initHackathonPortal() {
+		// 1. Acordeones Desplegables Cósmicos
+		const accordions = document.querySelectorAll<HTMLElement>('.bd-hack-accordion');
+		const btnExpandAll = document.getElementById('btn-accordion-expand-all');
+		const btnCollapseAll = document.getElementById('btn-accordion-collapse-all');
+
+		accordions.forEach((acc) => {
+			const trigger = acc.querySelector<HTMLButtonElement>('.bd-accordion-trigger');
+			if (trigger) {
+				trigger.addEventListener('click', () => {
+					const isOpen = acc.classList.contains('is-open');
+					if (isOpen) {
+						acc.classList.remove('is-open');
+						trigger.setAttribute('aria-expanded', 'false');
+					} else {
+						acc.classList.add('is-open');
+						trigger.setAttribute('aria-expanded', 'true');
+					}
+				});
+			}
+		});
+
+		if (btnExpandAll) {
+			btnExpandAll.addEventListener('click', () => {
+				accordions.forEach((acc) => {
+					acc.classList.add('is-open');
+					const trigger = acc.querySelector<HTMLButtonElement>('.bd-accordion-trigger');
+					if (trigger) trigger.setAttribute('aria-expanded', 'true');
+				});
+			});
+		}
+
+		if (btnCollapseAll) {
+			btnCollapseAll.addEventListener('click', () => {
+				accordions.forEach((acc) => {
+					acc.classList.remove('is-open');
+					const trigger = acc.querySelector<HTMLButtonElement>('.bd-accordion-trigger');
+					if (trigger) trigger.setAttribute('aria-expanded', 'false');
+				});
+			});
+		}
+
+		// 2. Visor de Plantilla de Ficha Resumen
+		const btnOpenTemplate = document.getElementById('btn-open-template-modal');
+		const modalTemplate = document.getElementById('modal-template-sheet');
+		const btnCloseTemplate = document.getElementById('btn-close-template-modal');
+		const btnCopyTemplate = document.getElementById('btn-copy-template-text');
+		const txtCopyTemplate = document.getElementById('txt-copy-template');
+		const templateContentEl = document.getElementById('template-text-content');
+
+		function openTemplateModal() {
+			if (modalTemplate) {
+				modalTemplate.hidden = false;
+				document.body.style.overflow = 'hidden';
+			}
+		}
+
+		function closeTemplateModal() {
+			if (modalTemplate) {
+				modalTemplate.hidden = true;
+				const modalTerminal = document.getElementById('modal-bio-terminal');
+				if (!modalTerminal || modalTerminal.hidden) {
+					document.body.style.overflow = '';
+				}
+			}
+		}
+
+		if (btnOpenTemplate) btnOpenTemplate.addEventListener('click', openTemplateModal);
+		if (btnCloseTemplate) btnCloseTemplate.addEventListener('click', closeTemplateModal);
+
+		if (btnCopyTemplate && templateContentEl) {
+			btnCopyTemplate.addEventListener('click', async () => {
+				const text = templateContentEl.innerText;
+				try {
+					await navigator.clipboard.writeText(text);
+					if (txtCopyTemplate) {
+						const original = txtCopyTemplate.innerText;
+						txtCopyTemplate.innerText = '¡Copiado con éxito!';
+						btnCopyTemplate.classList.add('bd-btn--copied');
+						setTimeout(() => {
+							txtCopyTemplate.innerText = original;
+							btnCopyTemplate.classList.remove('bd-btn--copied');
+						}, 2500);
+					}
+				} catch {
+					// Fallback
+				}
+			});
+		}
+
+		// 3. Simulador de Ensayo de Traducción en la Tarjeta SBOL
+		const btnToggleAssay = document.getElementById('btn-toggle-translation-assay');
+		const proteinRow = document.getElementById('assay-protein-row');
+		const txtAssayBtn = document.getElementById('txt-assay-btn');
+		let assayRunning = false;
+
+		if (btnToggleAssay && proteinRow) {
+			btnToggleAssay.addEventListener('click', () => {
+				assayRunning = !assayRunning;
+				if (assayRunning) {
+					proteinRow.classList.add('bd-assay-active');
+					if (txtAssayBtn) txtAssayBtn.innerText = 'Traducción Verificada ✓';
+					playSynthTone(587.33, 'sine', 0.15); // D5
+				} else {
+					proteinRow.classList.remove('bd-assay-active');
+					if (txtAssayBtn) txtAssayBtn.innerText = 'Simular en Benchling';
+				}
+			});
+		}
+
+		// 4. Sintetizador de Audio Web Audio API (Bio-Synth)
+		let audioContext: AudioContext | null = null;
+		let audioEnabled = true;
+
+		function getAudioContext() {
+			if (!audioContext) {
+				const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+				if (AudioCtx) {
+					audioContext = new AudioCtx();
+				}
+			}
+			if (audioContext && audioContext.state === 'suspended') {
+				audioContext.resume();
+			}
+			return audioContext;
+		}
+
+		function playSynthTone(freq: number, type: OscillatorType = 'sine', duration = 0.12) {
+			if (!audioEnabled) return;
+			try {
+				const ctx = getAudioContext();
+				if (!ctx) return;
+				const osc = ctx.createOscillator();
+				const gain = ctx.createGain();
+				osc.type = type;
+				osc.frequency.setValueAtTime(freq, ctx.currentTime);
+				gain.gain.setValueAtTime(0.06, ctx.currentTime);
+				gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+				osc.connect(gain);
+				gain.connect(ctx.destination);
+				osc.start();
+				osc.stop(ctx.currentTime + duration);
+			} catch {
+				// Silently fail if audio not supported
+			}
+		}
+
+		function playFanfare() {
+			if (!audioEnabled) return;
+			const notes = [440, 554.37, 659.25, 739.99, 880]; // A4, C#5, E5, F#5, A5
+			notes.forEach((freq, idx) => {
+				setTimeout(() => {
+					playSynthTone(freq, 'triangle', 0.25);
+				}, idx * 100);
+			});
+		}
+
+		const btnAudioToggle = document.getElementById('btn-terminal-audio');
+		const iconAudio = document.getElementById('icon-terminal-audio');
+		if (btnAudioToggle && iconAudio) {
+			btnAudioToggle.addEventListener('click', () => {
+				audioEnabled = !audioEnabled;
+				if (audioEnabled) {
+					iconAudio.innerText = 'volume_up';
+					btnAudioToggle.classList.remove('bd-audio-muted');
+					playSynthTone(659.25, 'sine', 0.1);
+				} else {
+					iconAudio.innerText = 'volume_off';
+					btnAudioToggle.classList.add('bd-audio-muted');
+				}
+			});
+		}
+
+		// 5. Bio-Terminal Fluorescente (7 Estaciones)
+		const btnOpenTerminal = document.getElementById('btn-open-bio-terminal');
+		const modalTerminal = document.getElementById('modal-bio-terminal');
+		const btnCloseTerminal = document.getElementById('btn-close-bio-terminal');
+		const btnFullscreen = document.getElementById('btn-terminal-fullscreen');
+		const iconFullscreen = document.getElementById('icon-terminal-fullscreen');
+
+		const btnPrev = document.getElementById('btn-term-prev') as HTMLButtonElement | null;
+		const btnNext = document.getElementById('btn-term-next') as HTMLButtonElement | null;
+		const txtNext = document.getElementById('txt-term-next');
+		const stepBadge = document.getElementById('terminal-step-badge');
+
+		const colonies = document.querySelectorAll<HTMLButtonElement>('.bd-colony');
+		const slides = document.querySelectorAll<HTMLElement>('.bd-terminal-slide');
+		const gelBands = document.querySelectorAll<HTMLElement>('.bd-gel-band');
+		const stepDots = document.querySelectorAll<HTMLElement>('.bd-step-dot');
+		const slideFinish = document.getElementById('slide-finish');
+
+		const TOTAL_STATIONS = 7;
+		let currentStation = 1;
+		const visitedStations = new Set<number>([1]);
+
+		const stationFrequencies: Record<number, number> = {
+			1: 440,    // A4 (Misión)
+			2: 493.88, // B4 (Sprint)
+			3: 554.37, // C#5 (Entregables)
+			4: 587.33, // D5 (Rúbrica)
+			5: 659.25, // E5 (Pitch & Premios)
+			6: 739.99, // F#5 (Ética & IA)
+			7: 880,    // A5 (SBOL)
+		};
+
+		function setStation(stationNum: number) {
+			if (stationNum < 1) stationNum = 1;
+			if (stationNum > TOTAL_STATIONS + 1) stationNum = TOTAL_STATIONS + 1;
+
+			currentStation = stationNum;
+
+			// Si estamos en la pantalla final de celebración
+			if (currentStation === TOTAL_STATIONS + 1) {
+				showFinishScreen();
+				return;
+			}
+
+			visitedStations.add(currentStation);
+
+			// Actualizar Badge
+			if (stepBadge) {
+				stepBadge.innerText = `ESTACIÓN ${currentStation} DE ${TOTAL_STATIONS}`;
+			}
+
+			// Actualizar Colonias
+			colonies.forEach((colony) => {
+				const id = Number(colony.dataset.station);
+				colony.classList.remove('bd-colony--active');
+				if (id === currentStation) {
+					colony.classList.add('bd-colony--active');
+				}
+				if (visitedStations.has(id)) {
+					colony.classList.add('bd-colony--visited');
+				}
+			});
+
+			// Actualizar Slides
+			slides.forEach((slide) => {
+				const id = Number(slide.dataset.slide);
+				if (id === currentStation) {
+					slide.hidden = false;
+					slide.classList.add('bd-terminal-slide--active');
+				} else {
+					slide.hidden = true;
+					slide.classList.remove('bd-terminal-slide--active');
+				}
+			});
+			if (slideFinish) slideFinish.hidden = true;
+
+			// Actualizar Bandas de Gel de Electroforesis
+			gelBands.forEach((band, idx) => {
+				const bandStation = idx + 1;
+				if (bandStation <= currentStation) {
+					band.classList.add('bd-gel-band--lit');
+				} else {
+					band.classList.remove('bd-gel-band--lit');
+				}
+			});
+
+			// Actualizar Dots
+			stepDots.forEach((dot, idx) => {
+				const dotStation = idx + 1;
+				dot.classList.remove('bd-step-dot--active');
+				if (dotStation === currentStation) {
+					dot.classList.add('bd-step-dot--active');
+				}
+				if (visitedStations.has(dotStation)) {
+					dot.classList.add('bd-step-dot--visited');
+				}
+			});
+
+			// Actualizar Botones de Navegación
+			if (btnPrev) {
+				btnPrev.disabled = currentStation === 1;
+			}
+			if (txtNext) {
+				if (currentStation === TOTAL_STATIONS) {
+					txtNext.innerText = '¡Completar Inducción! 🚀';
+				} else {
+					txtNext.innerText = 'Siguiente (→)';
+				}
+			}
+
+			// Sonido Bio-Synth de la estación
+			if (stationFrequencies[currentStation]) {
+				playSynthTone(stationFrequencies[currentStation], 'sine', 0.12);
+			}
+		}
+
+		function showFinishScreen() {
+			if (stepBadge) {
+				stepBadge.innerText = 'INDUCCIÓN TOTAL • ÉXITO';
+			}
+
+			// Ocultar slides normales y mostrar final
+			slides.forEach(slide => slide.hidden = true);
+			if (slideFinish) slideFinish.hidden = false;
+
+			// Iluminar todas las 7 colonias al unísono
+			colonies.forEach(colony => {
+				colony.classList.add('bd-colony--active');
+				colony.classList.add('bd-colony--visited');
+			});
+
+			// Iluminar todas las bandas de gel
+			gelBands.forEach(band => band.classList.add('bd-gel-band--lit'));
+
+			if (btnPrev) btnPrev.disabled = false;
+			if (txtNext) txtNext.innerText = '¡Sprint Listo!';
+
+			// Fanfarria sonora triunfal
+			playFanfare();
+		}
+
+		colonies.forEach(colony => {
+			colony.addEventListener('click', () => {
+				const target = Number(colony.dataset.station);
+				if (target) setStation(target);
+			});
+		});
+
+		if (btnPrev) {
+			btnPrev.addEventListener('click', () => {
+				if (currentStation > 1) {
+					setStation(currentStation - 1);
+				}
+			});
+		}
+
+		if (btnNext) {
+			btnNext.addEventListener('click', () => {
+				setStation(currentStation + 1);
+			});
+		}
+
+		const btnFinishExit = document.getElementById('btn-finish-exit');
+		if (btnFinishExit) {
+			btnFinishExit.addEventListener('click', () => {
+				closeTerminalModal();
+			});
+		}
+
+		function openTerminalModal() {
+			if (modalTerminal) {
+				modalTerminal.hidden = false;
+				document.body.style.overflow = 'hidden';
+				setStation(1);
+			}
+		}
+
+		function closeTerminalModal() {
+			if (modalTerminal) {
+				modalTerminal.hidden = true;
+				document.body.style.overflow = '';
+				if (document.fullscreenElement) {
+					document.exitFullscreen().catch(() => {});
+				}
+			}
+		}
+
+		if (btnOpenTerminal) btnOpenTerminal.addEventListener('click', openTerminalModal);
+		if (btnCloseTerminal) btnCloseTerminal.addEventListener('click', closeTerminalModal);
+
+		if (btnFullscreen && modalTerminal) {
+			btnFullscreen.addEventListener('click', async () => {
+				try {
+					if (!document.fullscreenElement) {
+						await modalTerminal.requestFullscreen();
+						if (iconFullscreen) iconFullscreen.innerText = 'fullscreen_exit';
+					} else {
+						await document.exitFullscreen();
+						if (iconFullscreen) iconFullscreen.innerText = 'fullscreen';
+					}
+				} catch {
+					// Fallback
+				}
+			});
+		}
+
+		document.addEventListener('fullscreenchange', () => {
+			if (!document.fullscreenElement && iconFullscreen) {
+				iconFullscreen.innerText = 'fullscreen';
+			}
+		});
+
+		// Cerrar al hacer clic en el backdrop
+		if (modalTemplate) {
+			modalTemplate.addEventListener('click', (e) => {
+				if (e.target === modalTemplate) closeTemplateModal();
+			});
+		}
+		if (modalTerminal) {
+			modalTerminal.addEventListener('click', (e) => {
+				if (e.target === modalTerminal) closeTerminalModal();
+			});
+		}
+
+		// Atajos de Teclado
+		window.addEventListener('keydown', (e) => {
+			if (modalTerminal && !modalTerminal.hidden) {
+				if (e.key === 'Escape') {
+					closeTerminalModal();
+				} else if (e.key === 'ArrowRight' || e.key === ' ') {
+					e.preventDefault();
+					setStation(currentStation + 1);
+				} else if (e.key === 'ArrowLeft') {
+					e.preventDefault();
+					if (currentStation > 1) {
+						setStation(currentStation - 1);
+					}
+				} else if (e.key === 'f' || e.key === 'F') {
+					if (btnFullscreen) btnFullscreen.click();
+				}
+			} else if (modalTemplate && !modalTemplate.hidden) {
+				if (e.key === 'Escape') {
+					closeTemplateModal();
+				}
+			}
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initHackathonPortal);
+	} else {
+		initHackathonPortal();
+	}
+	document.addEventListener('astro:page-load', initHackathonPortal);
+</script>
+
+<style>
+	/* ── VARIABLES LOCALES Y CONFIGURACIÓN CÓSMICA ── */
+	.bd-hackathon-section {
+		position: relative;
+		padding: 5rem 1.5rem;
+		max-width: 1240px;
+		margin: 0 auto;
+	}
+
+	/* ── BANNER HERO LANZADOR ── */
+	.bd-terminal-launcher-card {
+		position: relative;
+		margin: 2.5rem 0 2rem;
+		padding: 2rem 2.5rem;
+		border-radius: 24px;
+		background: linear-gradient(135deg, rgba(121, 248, 208, 0.08) 0%, rgba(187, 243, 95, 0.05) 50%, rgba(200, 191, 255, 0.08) 100%);
+		border: 1px solid rgba(121, 248, 208, 0.28);
+		box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 0 30px rgba(121, 248, 208, 0.15);
+		overflow: hidden;
+	}
+
+	.bd-launcher-glow {
+		position: absolute;
+		top: -50%;
+		right: -10%;
+		width: 380px;
+		height: 380px;
+		background: radial-gradient(circle, rgba(121, 248, 208, 0.2) 0%, transparent 70%);
+		filter: blur(40px);
+		pointer-events: none;
+	}
+
+	.bd-launcher-content {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-launcher-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.35rem 0.85rem;
+		border-radius: 9999px;
+		background: rgba(187, 243, 95, 0.12);
+		border: 1px solid rgba(187, 243, 95, 0.35);
+		color: var(--bd-tertiary);
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+	}
+
+	.bd-colony-dot--live {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--bd-tertiary);
+		box-shadow: 0 0 8px var(--bd-tertiary);
+		animation: live-pulse 1.6s infinite ease-in-out;
+	}
+
+	@keyframes live-pulse {
+		0%, 100% { transform: scale(1); opacity: 1; }
+		50% { transform: scale(1.4); opacity: 0.6; }
+	}
+
+	.bd-launcher-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0.95rem 1.75rem;
+		font-size: 1.05rem;
+		border-radius: 14px;
+		box-shadow: 0 0 25px rgba(121, 248, 208, 0.35);
+		transition: all 0.25s ease;
+	}
+
+	.bd-launcher-btn:hover {
+		transform: translateY(-2px) scale(1.02);
+		box-shadow: 0 0 35px rgba(121, 248, 208, 0.55);
+	}
+
+	.bd-btn-shortcut {
+		padding: 0.2rem 0.5rem;
+		border-radius: 6px;
+		background: rgba(0, 0, 0, 0.25);
+		font-size: 0.7rem;
+		font-family: var(--bd-font-mono, monospace);
+		opacity: 0.85;
+	}
+
+	/* ── BARRA DE CONTROLES DE ACORDEONES ── */
+	.bd-accordion-top-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 1.25rem;
+		padding: 0 0.5rem;
+		flex-wrap: wrap;
+		gap: 1rem;
+	}
+
+	.bd-accordion-meta {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--bd-text-primary);
+		font-size: 0.9rem;
+		font-weight: 600;
+	}
+
+	.bd-accordion-actions {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.bd-accordion-ctrl-btn {
+		font-size: 0.8rem;
+		padding: 0.35rem 0.75rem;
+		border-radius: 8px;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-accordion-ctrl-btn:hover {
+		color: var(--bd-primary);
+		border-color: rgba(121, 248, 208, 0.3);
+	}
+
+	/* ── LISTA DE ACORDEONES CÓSMICOS (CARDS DESPLEGABLES) ── */
+	.bd-hack-accordion-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.bd-hack-accordion {
+		border-radius: 18px;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		overflow: hidden;
+		transition: border-color 0.25s ease, box-shadow 0.25s ease;
+	}
+
+	.bd-hack-accordion:hover {
+		border-color: rgba(121, 248, 208, 0.25);
+	}
+
+	.bd-hack-accordion.is-open {
+		border-color: rgba(121, 248, 208, 0.4);
+		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+	}
+
+	.bd-accordion-trigger {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.25rem 1.75rem;
+		background: transparent;
+		border: none;
+		color: inherit;
+		cursor: pointer;
+		text-align: left;
+		transition: background 0.2s ease;
+	}
+
+	.bd-accordion-trigger:hover {
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.bd-acc-header-left {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		flex: 1;
+	}
+
+	.bd-acc-num {
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 1.15rem;
+		font-weight: 800;
+		color: var(--bd-secondary);
+		opacity: 0.6;
+		width: 24px;
+	}
+
+	.bd-acc-icon-wrap {
+		width: 44px;
+		height: 44px;
+		border-radius: 12px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.bd-acc-icon-wrap--teal {
+		background: rgba(121, 248, 208, 0.12);
+		color: var(--bd-primary);
+		border: 1px solid rgba(121, 248, 208, 0.25);
+	}
+
+	.bd-acc-icon-wrap--lime {
+		background: rgba(187, 243, 95, 0.12);
+		color: var(--bd-tertiary);
+		border: 1px solid rgba(187, 243, 95, 0.25);
+	}
+
+	.bd-acc-icon-wrap--purple {
+		background: rgba(200, 191, 255, 0.12);
+		color: var(--bd-secondary);
+		border: 1px solid rgba(200, 191, 255, 0.25);
+	}
+
+	.bd-acc-icon-wrap--amber {
+		background: rgba(251, 191, 36, 0.12);
+		color: #fbbf24;
+		border: 1px solid rgba(251, 191, 36, 0.25);
+	}
+
+	.bd-acc-icon-wrap--pink {
+		background: rgba(244, 63, 94, 0.12);
+		color: #f43f5e;
+		border: 1px solid rgba(244, 63, 94, 0.25);
+	}
+
+	.bd-acc-icon-wrap--coral {
+		background: rgba(255, 107, 139, 0.12);
+		color: #ff6b8b;
+		border: 1px solid rgba(255, 107, 139, 0.25);
+	}
+
+	.bd-acc-icon-wrap--emerald {
+		background: rgba(16, 185, 129, 0.12);
+		color: #10b981;
+		border: 1px solid rgba(16, 185, 129, 0.25);
+	}
+
+	.bd-acc-titles {
+		flex: 1;
+	}
+
+	.bd-acc-badge-row {
+		margin-bottom: 0.2rem;
+	}
+
+	.bd-acc-title {
+		margin: 0;
+		color: var(--bd-text-primary);
+		font-size: 1.15rem;
+	}
+
+	.bd-acc-summary {
+		margin: 0.2rem 0 0;
+		color: var(--bd-on-surface-variant);
+		font-size: 0.8rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 600px;
+	}
+
+	.bd-acc-chevron {
+		color: var(--bd-on-surface-variant);
+		font-size: 26px;
+		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
+	}
+
+	.is-open .bd-acc-chevron {
+		transform: rotate(180deg);
+		color: var(--bd-primary);
+	}
+
+	/* Contenido colapsable animado con grid */
+	.bd-accordion-content {
+		display: grid;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		border-top: 1px solid transparent;
+	}
+
+	.is-open .bd-accordion-content {
+		grid-template-rows: 1fr;
+		border-top-color: rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-accordion-inner {
+		overflow: hidden;
+		padding: 1.75rem 2rem 2rem;
+	}
+
+	/* ── ESTILOS ESPECÍFICOS DE LOS MÓDULOS ── */
+	.bd-cneb-callout {
+		padding: 1.25rem;
+		border-radius: 14px;
+		background: rgba(121, 248, 208, 0.05);
+		border-left: 4px solid var(--bd-primary);
+	}
+
+	.bd-cneb-badge {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		color: var(--bd-primary);
+		font-size: 0.85rem;
+		margin-bottom: 0.4rem;
+	}
+
+	.bd-hack-feature-item {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+	}
+
+	.bd-sprint-time-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.45rem 0.85rem;
+		border-radius: 8px;
+		background: rgba(187, 243, 95, 0.1);
+		border: 1px solid rgba(187, 243, 95, 0.25);
+		color: var(--bd-text-primary);
+		font-size: 0.85rem;
+		font-weight: 600;
+		margin-bottom: 1.25rem;
+	}
+
+	.bd-mentor-rules-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.bd-mentor-rule-item {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+	}
+
+	.bd-rule-icon {
+		font-size: 20px;
+		margin-top: 2px;
+	}
+
+	.bd-shifts-box {
+		padding: 1rem 1.25rem;
+		border-radius: 12px;
+		background: rgba(0, 0, 0, 0.25);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-shifts-title {
+		font-size: 0.85rem;
+		color: var(--bd-text-primary);
+		display: block;
+		margin-bottom: 0.65rem;
+	}
+
+	.bd-shift-pills {
+		display: flex;
+		gap: 0.65rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-shift-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.35rem 0.75rem;
+		border-radius: 6px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		font-size: 0.8rem;
+		color: var(--bd-text-primary);
+	}
+
+	/* Hero Card para Descarga de la Ficha 1 en Word */
+	.bd-doc-download-hero {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.25rem 1.5rem;
+		border-radius: 16px;
+		background: linear-gradient(135deg, rgba(121, 248, 208, 0.1) 0%, rgba(187, 243, 95, 0.08) 100%);
+		border: 1px solid rgba(121, 248, 208, 0.35);
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-doc-hero-info {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex: 1;
+	}
+
+	.bd-doc-hero-icon {
+		font-size: 2.25rem;
+		color: var(--bd-primary);
+		flex-shrink: 0;
+	}
+
+	.bd-btn-word-download {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.75rem 1.35rem;
+		font-size: 0.9rem;
+		border-radius: 10px;
+		box-shadow: 0 0 20px rgba(121, 248, 208, 0.3);
+	}
+
+	.bd-deadline-notice {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.4rem 0.85rem;
+		border-radius: 6px;
+		background: rgba(239, 68, 68, 0.12);
+		border: 1px solid rgba(239, 68, 68, 0.3);
+		color: #fca5a5;
+		font-size: 0.85rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.bd-kit-grid {
+		display: grid;
+		grid-template-columns: 1.2fr 0.8fr;
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 800px) {
+		.bd-kit-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-kit-item {
+		padding: 1.15rem;
+		border-radius: 14px;
+		background: rgba(0, 0, 0, 0.25);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+	.bd-kit-item-head {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.bd-kit-icon {
+		color: var(--bd-primary);
+		font-size: 22px;
+	}
+
+	.bd-kit-name {
+		color: var(--bd-text-primary);
+		font-size: 0.95rem;
+	}
+
+	.bd-kit-check-list {
+		list-style: none;
+		padding: 0;
+		margin: 0.75rem 0 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	.bd-kit-check-list li {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.8rem;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-kit-check-list .material-icons {
+		font-size: 14px;
+		color: var(--bd-primary);
+		flex-shrink: 0;
+	}
+
+	.bd-kit-downloads-section {
+		padding-top: 1.25rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		margin-top: 1.5rem;
+	}
+
+	.bd-download-buttons-row {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-dl-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 0.85rem;
+		padding: 0.65rem 1.15rem;
+		border-radius: 10px;
+	}
+
+	.bd-dl-btn--lime {
+		box-shadow: 0 0 15px rgba(187, 243, 95, 0.25);
+	}
+
+	/* ── RÚBRICA BARS ── */
+	.bd-rubric-bars {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	.bd-rubric-bar-item {
+		padding: 0.4rem 0;
+	}
+
+	.bd-bar-labels {
+		display: flex;
+		justify-content: space-between;
+		font-size: 0.8rem;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.35rem;
+	}
+
+	.bd-bar-track {
+		height: 6px;
+		background: rgba(255, 255, 255, 0.08);
+		border-radius: 999px;
+		overflow: hidden;
+	}
+
+	.bd-bar-fill {
+		height: 100%;
+		border-radius: 999px;
+	}
+
+	.bd-rubric-bar-item--highlight .bd-bar-labels span {
+		color: var(--bd-tertiary);
+		font-weight: 600;
+	}
+
+	/* ── MÓDULO PITCH & PREMIOS ── */
+	.bd-pitch-details-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 768px) {
+		.bd-pitch-details-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-pitch-card {
+		padding: 1.25rem;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-pitch-card--alert {
+		background: rgba(245, 158, 11, 0.08);
+		border-color: rgba(245, 158, 11, 0.3);
+	}
+
+	.bd-pitch-card-head {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-bottom: 0.5rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-awards-box {
+		padding: 1.25rem;
+		border-radius: 14px;
+		background: rgba(0, 0, 0, 0.3);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-awards-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+		margin-bottom: 1rem;
+	}
+
+	.bd-award-item {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.85rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-awards-kit-pill {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		padding: 0.85rem 1rem;
+		border-radius: 10px;
+		background: rgba(187, 243, 95, 0.08);
+		border: 1px solid rgba(187, 243, 95, 0.25);
+	}
+
+	/* ── MÓDULO ÉTICA & IA ── */
+	.bd-practices-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.bd-practice-item {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+	}
+
+	.bd-practice-icon {
+		font-size: 22px;
+		margin-top: 2px;
+	}
+
+	/* ── MÓDULO SBOL ── */
+	.bd-sbol-circuit-wrap {
+		background: rgba(0, 0, 0, 0.35);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 16px;
+		padding: 1.5rem 1rem;
+		margin-bottom: 1.5rem;
+		overflow-x: auto;
+	}
+
+	.bd-sbol-circuit {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.75rem;
+		min-width: 520px;
+	}
+
+	.bd-sbol-part {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 0.85rem 1.15rem;
+		border-radius: 12px;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+		cursor: help;
+		transition: all 0.2s ease;
+	}
+
+	.bd-sbol-part:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+	}
+
+	.bd-sbol-part--promoter {
+		background: rgba(56, 189, 248, 0.12);
+		border-color: rgba(56, 189, 248, 0.4);
+		color: #38bdf8;
+	}
+
+	.bd-sbol-part--rbs {
+		background: rgba(251, 191, 36, 0.12);
+		border-color: rgba(251, 191, 36, 0.4);
+		color: #fbbf24;
+	}
+
+	.bd-sbol-part--cds {
+		background: rgba(121, 248, 208, 0.12);
+		border-color: rgba(121, 248, 208, 0.4);
+		color: var(--bd-primary);
+	}
+
+	.bd-sbol-part--terminator {
+		background: rgba(239, 68, 68, 0.12);
+		border-color: rgba(239, 68, 68, 0.4);
+		color: #ef4444;
+	}
+
+	.bd-sbol-symbol {
+		font-size: 1.5rem;
+		font-weight: 700;
+		line-height: 1;
+	}
+
+	.bd-sbol-name {
+		font-size: 0.85rem;
+		font-weight: 700;
+		margin-top: 0.25rem;
+	}
+
+	.bd-sbol-role {
+		font-size: 0.7rem;
+		opacity: 0.8;
+	}
+
+	.bd-sbol-connector {
+		height: 3px;
+		width: 24px;
+		background: rgba(255, 255, 255, 0.25);
+		position: relative;
+	}
+
+	.bd-translation-assay-box {
+		padding: 1.25rem;
+		border-radius: 14px;
+		background: rgba(0, 0, 0, 0.25);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-translation-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 0.5rem;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.bd-translation-title {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-assay-btn {
+		font-size: 0.8rem;
+		padding: 0.35rem 0.75rem;
+		border: 1px solid rgba(121, 248, 208, 0.3);
+		color: var(--bd-primary);
+	}
+
+	.bd-assay-seq-stream {
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.8rem;
+		margin: 0.75rem 0;
+	}
+
+	.bd-seq-row {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.3rem 0;
+	}
+
+	.bd-seq-tag {
+		color: var(--bd-on-surface-variant);
+		width: 60px;
+		flex-shrink: 0;
+	}
+
+	.bd-aa-chain {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.15rem;
+		color: var(--bd-text-primary);
+		transition: color 0.3s ease;
+	}
+
+	.bd-assay-active .bd-aa-chain {
+		color: var(--bd-tertiary);
+		text-shadow: 0 0 10px rgba(187, 243, 95, 0.6);
+	}
+
+	.bd-aa {
+		padding: 0.1rem 0.3rem;
+		border-radius: 4px;
+		background: rgba(255, 255, 255, 0.06);
+	}
+
+	.bd-aa--met {
+		background: rgba(121, 248, 208, 0.2);
+		color: var(--bd-primary);
+		font-weight: 700;
+	}
+
+	.bd-aa--stop {
+		background: rgba(239, 68, 68, 0.2);
+		color: #ef4444;
+		font-weight: 700;
+	}
+
+	.bd-frame-note-box {
+		margin-top: 0.85rem;
+		padding: 0.85rem 1rem;
+		border-radius: 10px;
+		background: rgba(187, 243, 95, 0.06);
+		border-left: 3px solid var(--bd-tertiary);
+	}
+
+	/* ── MODALES GLOBALES Y LOCALES ── */
+	.bd-modal-overlay {
+		position: fixed !important;
+		inset: 0 !important;
+		width: 100vw !important;
+		height: 100vh !important;
+		background: rgba(0, 0, 0, 0.8) !important;
+		backdrop-filter: blur(12px) !important;
+		-webkit-backdrop-filter: blur(12px) !important;
+		z-index: 99999 !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		padding: 1.5rem !important;
+		opacity: 1 !important;
+		transition: opacity 0.25s ease !important;
+	}
+
+	.bd-modal-overlay[hidden] {
+		display: none !important;
+		opacity: 0 !important;
+		pointer-events: none !important;
+	}
+
+	.bd-modal {
+		background: #161426 !important;
+		border-radius: 1.5rem !important;
+		border: 1px solid rgba(121, 248, 208, 0.3) !important;
+		max-width: 780px !important;
+		width: 100% !important;
+		max-height: 90vh !important;
+		overflow-y: auto !important;
+		box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(121, 248, 208, 0.15) !important;
+		display: flex !important;
+		flex-direction: column !important;
+		animation: modal-pop 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+	}
+
+	@keyframes modal-pop {
+		from { transform: scale(0.92); opacity: 0; }
+		to { transform: scale(1); opacity: 1; }
+	}
+
+	.bd-modal-header {
+		display: flex !important;
+		align-items: flex-start !important;
+		gap: 1rem !important;
+		padding: 1.5rem 1.75rem 1.25rem !important;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+		position: relative !important;
+	}
+
+	.bd-modal-icon {
+		font-size: 2rem !important;
+		flex-shrink: 0 !important;
+	}
+
+	.bd-modal-close {
+		margin-left: auto !important;
+		background: rgba(255, 255, 255, 0.06) !important;
+		border: 1px solid rgba(255, 255, 255, 0.12) !important;
+		color: var(--bd-text-primary) !important;
+		width: 36px !important;
+		height: 36px !important;
+		border-radius: 50% !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		cursor: pointer !important;
+		transition: all 0.2s ease !important;
+	}
+
+	.bd-modal-close:hover {
+		background: rgba(239, 68, 68, 0.2) !important;
+		border-color: rgba(239, 68, 68, 0.4) !important;
+		color: #ef4444 !important;
+	}
+
+	.bd-modal-body {
+		padding: 1.5rem 1.75rem !important;
+		overflow-y: auto !important;
+		flex: 1 !important;
+	}
+
+	.bd-modal-footer {
+		padding: 1.25rem 1.75rem !important;
+		border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+		display: flex !important;
+		gap: 0.75rem !important;
+		align-items: center !important;
+	}
+
+	.bd-template-modal {
+		max-width: 820px !important;
+		width: 95% !important;
+	}
+
+	.bd-template-code-box {
+		max-height: 400px;
+		overflow-y: auto;
+		background: rgba(0, 0, 0, 0.45);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 12px;
+		padding: 1.25rem;
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.8rem;
+		line-height: 1.5;
+		color: #e2e8f0;
+	}
+
+	/* ── MODAL 2: BIO-TERMINAL FLUORESCENTE (PANTALLA COMPLETA) ── */
+	.bd-terminal-overlay {
+		padding: 0 !important;
+		background: rgba(7, 6, 15, 0.98) !important;
+		backdrop-filter: blur(25px) !important;
+		-webkit-backdrop-filter: blur(25px) !important;
+	}
+
+	.bd-terminal-window {
+		--bd-text-primary: #f8fafc;
+		--bd-on-surface: #f1f5f9;
+		--bd-on-surface-variant: #94a3b8;
+		color: #f8fafc;
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		background: radial-gradient(circle at 30% 20%, rgba(121, 248, 208, 0.05) 0%, rgba(11, 10, 20, 0.98) 70%);
+		overflow: hidden;
+	}
+
+	.bd-terminal-window strong,
+	.bd-terminal-window h2,
+	.bd-terminal-window h3,
+	.bd-terminal-window h4 {
+		color: #f8fafc !important;
+	}
+
+	.bd-terminal-window p {
+		color: #cbd5e1;
+	}
+
+	.bd-terminal-window .bd-caption {
+		color: #94a3b8 !important;
+	}
+
+	.bd-terminal-window .bd-body-md {
+		color: #cbd5e1 !important;
+	}
+
+	.bd-terminal-window .bd-slide-lead {
+		color: #cbd5e1 !important;
+	}
+
+	.bd-terminal-bar {
+		height: 56px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+		background: rgba(19, 17, 32, 0.85);
+		backdrop-filter: blur(10px);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 1.5rem;
+		flex-shrink: 0;
+	}
+
+	.bd-terminal-bar-left {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.bd-terminal-status-dot {
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		background: var(--bd-primary);
+		box-shadow: 0 0 10px var(--bd-primary);
+		animation: live-pulse 1.8s infinite ease-in-out;
+	}
+
+	.bd-terminal-sys-tag {
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.8rem;
+		color: var(--bd-text-primary);
+		font-weight: 700;
+		letter-spacing: 0.05em;
+	}
+
+	.bd-terminal-station-badge {
+		padding: 0.2rem 0.65rem;
+		border-radius: 6px;
+		background: rgba(187, 243, 95, 0.15);
+		border: 1px solid rgba(187, 243, 95, 0.35);
+		color: var(--bd-tertiary);
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.75rem;
+		font-weight: 700;
+	}
+
+	.bd-terminal-bar-right {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.bd-terminal-icon-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.4rem 0.65rem;
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		color: var(--bd-text-primary);
+		cursor: pointer;
+		font-size: 0.8rem;
+		transition: all 0.2s ease;
+	}
+
+	.bd-terminal-icon-btn:hover {
+		background: rgba(255, 255, 255, 0.12);
+		border-color: rgba(121, 248, 208, 0.4);
+	}
+
+	.bd-terminal-body {
+		flex: 1;
+		display: grid;
+		grid-template-columns: 440px 1fr;
+		overflow: hidden;
+	}
+
+	@media (max-width: 990px) {
+		.bd-terminal-body {
+			grid-template-columns: 1fr;
+			overflow-y: auto;
+		}
+	}
+
+	/* Columna de la Placa Petri */
+	.bd-petri-col {
+		border-right: 1px solid rgba(255, 255, 255, 0.08);
+		background: rgba(0, 0, 0, 0.2);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 2rem;
+		position: relative;
+	}
+
+	.bd-petri-dish {
+		width: 320px;
+		height: 320px;
+		position: relative;
+		border-radius: 50%;
+		background: rgba(121, 248, 208, 0.03);
+		border: 2px solid rgba(121, 248, 208, 0.25);
+		box-shadow: 0 0 50px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(121, 248, 208, 0.08);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bd-petri-rim {
+		position: absolute;
+		inset: -8px;
+		border-radius: 50%;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		pointer-events: none;
+	}
+
+	.bd-petri-agar {
+		width: 90%;
+		height: 90%;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(19, 17, 32, 0.8) 0%, rgba(9, 8, 16, 0.95) 100%);
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bd-petri-grid {
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+		background-size: 20px 20px;
+		opacity: 0.3;
+		pointer-events: none;
+	}
+
+	/* Colonias Bacterianas en Placa (7 Posiciones Geométricas Equidistantes) */
+	.bd-colony {
+		position: absolute;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		background: rgba(15, 23, 42, 0.92);
+		border: 2px solid rgba(255, 255, 255, 0.2);
+		cursor: pointer;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		z-index: 5;
+		padding: 0;
+	}
+
+	.bd-colony-pulse {
+		position: absolute;
+		inset: -6px;
+		border-radius: 50%;
+		border: 2px solid currentColor;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.bd-colony--active .bd-colony-pulse {
+		animation: colony-pulse 1.8s infinite ease-out;
+		opacity: 0.8;
+	}
+
+	.bd-colony-core {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		line-height: 1;
+	}
+
+	.bd-colony-id {
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.75rem;
+		font-weight: 700;
+	}
+
+	.bd-colony-fluor {
+		font-size: 0.52rem;
+		font-weight: 800;
+		opacity: 0.85;
+	}
+
+	.bd-colony-label {
+		position: absolute;
+		bottom: -20px;
+		font-size: 0.65rem;
+		font-weight: 600;
+		white-space: nowrap;
+		color: var(--bd-on-surface-variant);
+		pointer-events: none;
+	}
+
+	/* Posiciones 7-puntos en circunferencia (Radio ~95px, Centro 144, 144 en agar 288px) */
+	/* 1. Misión (Top-Center) */
+	.bd-colony--7-1 {
+		top: 15px;
+		left: 118px;
+		color: #38bdf8;
+		border-color: rgba(56, 189, 248, 0.5);
+	}
+	/* 2. Sprint (Top-Right) */
+	.bd-colony--7-2 {
+		top: 50px;
+		right: 30px;
+		color: #bbf35f;
+		border-color: rgba(187, 243, 95, 0.5);
+	}
+	/* 3. Entregables (Right-Bottom) */
+	.bd-colony--7-3 {
+		bottom: 80px;
+		right: 15px;
+		color: #c8bfff;
+		border-color: rgba(200, 191, 255, 0.5);
+	}
+	/* 4. Rúbrica (Bottom-Right) */
+	.bd-colony--7-4 {
+		bottom: 15px;
+		right: 70px;
+		color: #fbbf24;
+		border-color: rgba(251, 191, 36, 0.5);
+	}
+	/* 5. Pitch & Premios (Bottom-Left) */
+	.bd-colony--7-5 {
+		bottom: 15px;
+		left: 70px;
+		color: #f43f5e;
+		border-color: rgba(244, 63, 94, 0.5);
+	}
+	/* 6. Ética & IA (Left-Bottom) */
+	.bd-colony--7-6 {
+		bottom: 80px;
+		left: 15px;
+		color: #ff6b8b;
+		border-color: rgba(255, 107, 139, 0.5);
+	}
+	/* 7. SBOL (Top-Left) */
+	.bd-colony--7-7 {
+		top: 50px;
+		left: 30px;
+		color: #79f8d0;
+		border-color: rgba(121, 248, 208, 0.5);
+	}
+
+	.bd-colony:hover {
+		transform: scale(1.15);
+		box-shadow: 0 0 25px currentColor;
+	}
+
+	.bd-colony--active {
+		transform: scale(1.24);
+		box-shadow: 0 0 30px currentColor;
+		border-color: #ffffff;
+		z-index: 10;
+	}
+
+	.bd-colony--visited .bd-colony-label {
+		color: var(--bd-text-primary);
+	}
+
+	.bd-petri-hint {
+		margin-top: 1.5rem;
+		font-size: 0.75rem;
+		color: var(--bd-on-surface-variant);
+		text-align: center;
+	}
+
+	/* Columna de la Diapositiva */
+	.bd-terminal-slide-col {
+		padding: 3rem 4rem;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	@media (max-width: 990px) {
+		.bd-terminal-slide-col {
+			padding: 2rem;
+		}
+	}
+
+	.bd-slide-container {
+		max-width: 820px;
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	.bd-terminal-slide {
+		animation: slide-in 0.35s ease forwards;
+	}
+
+	@keyframes slide-in {
+		from { opacity: 0; transform: translateY(12px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+
+	.bd-slide-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.35rem 0.85rem;
+		border-radius: 9999px;
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.05em;
+		margin-bottom: 1rem;
+	}
+
+	.bd-slide-chip--cyan {
+		background: rgba(56, 189, 248, 0.15);
+		border: 1px solid rgba(56, 189, 248, 0.4);
+		color: #38bdf8;
+	}
+
+	.bd-slide-chip--green {
+		background: rgba(121, 248, 208, 0.15);
+		border: 1px solid rgba(121, 248, 208, 0.4);
+		color: var(--bd-primary);
+	}
+
+	.bd-slide-chip--lime {
+		background: rgba(187, 243, 95, 0.15);
+		border: 1px solid rgba(187, 243, 95, 0.4);
+		color: var(--bd-tertiary);
+	}
+
+	.bd-slide-chip--purple {
+		background: rgba(200, 191, 255, 0.15);
+		border: 1px solid rgba(200, 191, 255, 0.4);
+		color: var(--bd-secondary);
+	}
+
+	.bd-slide-chip--amber {
+		background: rgba(251, 191, 36, 0.15);
+		border: 1px solid rgba(251, 191, 36, 0.4);
+		color: #fbbf24;
+	}
+
+	.bd-slide-chip--pink {
+		background: rgba(244, 63, 94, 0.15);
+		border: 1px solid rgba(244, 63, 94, 0.4);
+		color: #f43f5e;
+	}
+
+	.bd-slide-chip--red {
+		background: rgba(255, 107, 139, 0.15);
+		border: 1px solid rgba(255, 107, 139, 0.4);
+		color: #ff6b8b;
+	}
+
+	.bd-slide-title {
+		margin: 0 0 1rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-slide-lead {
+		color: var(--bd-on-surface-variant);
+		margin-bottom: 2rem;
+		line-height: 1.6;
+	}
+
+	.bd-slide-bento-mini {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.25rem;
+	}
+
+	@media (max-width: 650px) {
+		.bd-slide-bento-mini {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-mini-box {
+		padding: 1.25rem;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-mini-box--accent {
+		border-color: rgba(244, 63, 94, 0.3);
+		background: rgba(244, 63, 94, 0.05);
+	}
+
+	.bd-mini-box--warn {
+		border-color: rgba(245, 158, 11, 0.3);
+		background: rgba(245, 158, 11, 0.05);
+	}
+
+	.bd-mini-icon {
+		font-size: 24px;
+		margin-bottom: 0.5rem;
+		display: block;
+	}
+
+	.bd-slide-sbol-showcase {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.85rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.bd-sbol-part-pill {
+		padding: 0.85rem 1rem;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		font-size: 0.85rem;
+	}
+
+	.bd-sbol-part-pill code {
+		font-size: 1.25rem;
+		font-weight: 700;
+	}
+
+	.bd-slide-alert-box {
+		display: flex;
+		gap: 0.85rem;
+		padding: 1.15rem;
+		border-radius: 12px;
+		background: rgba(187, 243, 95, 0.08);
+		border: 1px solid rgba(187, 243, 95, 0.25);
+		color: var(--bd-text-primary);
+	}
+
+	.bd-slide-mentors-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	@media (max-width: 650px) {
+		.bd-slide-mentors-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-mini-card {
+		padding: 1rem;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-deliverables-trio {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	@media (max-width: 700px) {
+		.bd-deliverables-trio {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-deliv-box {
+		padding: 1.25rem;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		position: relative;
+	}
+
+	.bd-deliv-num {
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 1.5rem;
+		font-weight: 800;
+		color: var(--bd-secondary);
+		display: block;
+		margin-bottom: 0.35rem;
+		opacity: 0.8;
+	}
+
+	.bd-slide-docs-row {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-slide-doc-link {
+		font-size: 0.8rem;
+		padding: 0.5rem 0.85rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.bd-slide-rubric-table {
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+	}
+
+	.bd-rubric-row {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 0.75rem 1rem;
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+	.bd-rubric-row--desempate {
+		background: rgba(187, 243, 95, 0.06);
+		border-color: rgba(187, 243, 95, 0.3);
+	}
+
+	.bd-rubric-code {
+		font-family: var(--bd-font-mono, monospace);
+		font-weight: 700;
+		color: var(--bd-tertiary);
+		min-width: 80px;
+	}
+
+	.bd-rubric-desc {
+		font-size: 0.85rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-slide-pitch-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	@media (max-width: 650px) {
+		.bd-slide-pitch-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.bd-slide-awards-pills {
+		display: flex;
+		gap: 0.65rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-award-pill-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.4rem 0.8rem;
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		font-size: 0.8rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-ethics-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	.bd-ethics-card {
+		padding: 1rem 1.25rem;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-terminal-slide--finish {
+		text-align: center;
+		padding: 2rem 0;
+	}
+
+	.bd-finish-actions {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-finish-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.85rem 1.5rem;
+		font-size: 0.95rem;
+	}
+
+	/* Barra inferior: Gel de electroforesis y controles */
+	.bd-terminal-footer {
+		height: 72px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		background: rgba(19, 17, 32, 0.95);
+		backdrop-filter: blur(10px);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0 2rem;
+		flex-shrink: 0;
+		gap: 1.5rem;
+	}
+
+	@media (max-width: 800px) {
+		.bd-terminal-footer {
+			flex-direction: column;
+			height: auto;
+			padding: 1rem;
+			gap: 0.75rem;
+		}
+	}
+
+	.bd-gel-electrophoresis {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		flex: 1;
+		max-width: 520px;
+	}
+
+	.bd-gel-ladder-tag {
+		font-family: var(--bd-font-mono, monospace);
+		font-size: 0.7rem;
+		color: var(--bd-on-surface-variant);
+		white-space: nowrap;
+	}
+
+	.bd-gel-tray {
+		flex: 1;
+		height: 24px;
+		background: rgba(0, 0, 0, 0.5);
+		border: 1px solid rgba(56, 189, 248, 0.3);
+		border-radius: 6px;
+		display: flex;
+		align-items: center;
+		justify-content: space-around;
+		padding: 0 0.5rem;
+		position: relative;
+		box-shadow: inset 0 0 10px rgba(56, 189, 248, 0.15);
+	}
+
+	.bd-gel-band {
+		width: 12px;
+		height: 4px;
+		background: rgba(255, 255, 255, 0.15);
+		border-radius: 2px;
+		position: relative;
+		transition: all 0.3s ease;
+	}
+
+	.bd-gel-band span {
+		display: none;
+	}
+
+	.bd-gel-band--lit {
+		height: 8px;
+		background: #79f8d0;
+		box-shadow: 0 0 12px #79f8d0, 0 0 4px #ffffff;
+	}
+
+	.bd-terminal-nav-controls {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+	}
+
+	.bd-term-nav-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-size: 0.85rem;
+		padding: 0.6rem 1.15rem;
+	}
+
+	.bd-term-step-dots {
+		display: flex;
+		gap: 0.4rem;
+	}
+
+	.bd-step-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.2);
+		transition: all 0.25s ease;
+	}
+
+	.bd-step-dot--visited {
+		background: rgba(121, 248, 208, 0.5);
+	}
+
+	.bd-step-dot--active {
+		width: 22px;
+		border-radius: 999px;
+		background: var(--bd-primary);
+		box-shadow: 0 0 10px var(--bd-primary);
+	}
+</style>
