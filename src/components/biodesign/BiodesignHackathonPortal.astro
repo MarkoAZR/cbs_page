@@ -83,8 +83,8 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 	<div class="bd-hack-accordion-list bd-reveal" id="hackathon-accordion-list">
 
 		<!-- MÓDULO 1: Misión del Evento & CNEB -->
-		<article class="bd-hack-accordion bd-glass is-open" data-module="1">
-			<button type="button" class="bd-accordion-trigger" aria-expanded="true" aria-controls="mod-content-1" id="mod-trigger-1">
+		<article class="bd-hack-accordion bd-glass" data-module="1">
+			<button type="button" class="bd-accordion-trigger" aria-expanded="false" aria-controls="mod-content-1" id="mod-trigger-1">
 				<div class="bd-acc-header-left">
 					<span class="bd-acc-num">01</span>
 					<div class="bd-acc-icon-wrap bd-acc-icon-wrap--teal">
@@ -379,6 +379,12 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 							<div class="bd-bar-track"><div class="bd-bar-fill" style="width:20%; background:var(--bd-secondary);"></div></div>
 						</div>
 					</div>
+
+					<a href="#rubrica" class="bd-rubric-detail-link" id="link-portal-rubrica-detalle">
+						<span class="material-icons" style="font-size:16px;">table_view</span>
+						{lang === 'es' ? 'Ver rúbrica detallada por niveles de logro' : 'View detailed rubric by achievement level'}
+						<span class="material-icons" style="font-size:16px;">arrow_downward</span>
+					</a>
 				</div>
 			</div>
 		</article>
@@ -396,7 +402,7 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 							<span class="bd-chip bd-chip-lime">{t('biodesign.hackathon.pitch.badge')}</span>
 						</div>
 						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.pitch.title')}</h3>
-						<p class="bd-caption bd-acc-summary">Top 15 Clasificados • Viernes 30 Oct en UNMSM (Acompañados de tutor) • Diplomas, Medallas & Premios Sorpresa</p>
+						<p class="bd-caption bd-acc-summary">{lang === 'es' ? 'Top 10 Clasificados (hasta 25 Oct) • Pitch en vivo 4 + 3 min • Viernes 30 Oct en UNMSM • Diplomas, Medallas & Premios Sorpresa' : 'Top 10 Qualifiers (by Oct 25) • Live pitch 4 + 3 min • Friday Oct 30 at UNMSM • Diplomas, Medals & Surprise Prizes'}</p>
 					</div>
 				</div>
 				<div class="bd-acc-header-right">
@@ -410,7 +416,7 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 					</p>
 
 					<div class="bd-pitch-details-grid">
-						<!-- Clasificados Top 15 -->
+						<!-- Clasificados Top 10 -->
 						<div class="bd-pitch-card">
 							<div class="bd-pitch-card-head">
 								<span class="material-icons" style="color:var(--bd-tertiary);">stars</span>
@@ -984,8 +990,8 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 						<div class="bd-slide-pitch-grid">
 							<div class="bd-mini-box bd-mini-box--accent">
 								<span class="material-icons bd-mini-icon" style="color:#f43f5e;">stars</span>
-								<strong>Top 15 Clasificados</strong>
-								<p class="bd-caption">Selección rigurosa de los 15 mejores proyectos para la defensa presencial.</p>
+								<strong>{lang === 'es' ? 'Top 10 Clasificados' : 'Top 10 Qualifiers'}</strong>
+								<p class="bd-caption">{lang === 'es' ? 'Los 10 mejores de 17 proyectos defienden en vivo: 1 representante, 4 min de pitch + 3 min de preguntas.' : 'The best 10 of 17 projects defend live: 1 representative, 4-min pitch + 3-min Q&A.'}</p>
 							</div>
 							<div class="bd-mini-box bd-mini-box--warn">
 								<span class="material-icons bd-mini-icon" style="color:#f59e0b;">escalator_warning</span>
@@ -1595,20 +1601,20 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 	/* ── VARIABLES LOCALES Y CONFIGURACIÓN CÓSMICA ── */
 	.bd-hackathon-section {
 		position: relative;
-		padding: 5rem 1.5rem;
+		padding: 3.5rem 1.5rem;
 		max-width: 1240px;
 		margin: 0 auto;
 	}
 
-	/* ── BANNER HERO LANZADOR ── */
+	/* ── BANNER HERO LANZADOR (COMPACTO Y MEMORIA) ── */
 	.bd-terminal-launcher-card {
 		position: relative;
-		margin: 2.5rem 0 2rem;
-		padding: 2rem 2.5rem;
-		border-radius: 24px;
+		margin: 1.75rem 0 1.25rem;
+		padding: 1.35rem 1.75rem;
+		border-radius: 18px;
 		background: linear-gradient(135deg, rgba(121, 248, 208, 0.08) 0%, rgba(187, 243, 95, 0.05) 50%, rgba(200, 191, 255, 0.08) 100%);
 		border: 1px solid rgba(121, 248, 208, 0.28);
-		box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 0 30px rgba(121, 248, 208, 0.15);
+		box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3), 0 0 25px rgba(121, 248, 208, 0.12);
 		overflow: hidden;
 	}
 
@@ -1616,8 +1622,8 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		position: absolute;
 		top: -50%;
 		right: -10%;
-		width: 380px;
-		height: 380px;
+		width: 320px;
+		height: 320px;
 		background: radial-gradient(circle, rgba(121, 248, 208, 0.2) 0%, transparent 70%);
 		filter: blur(40px);
 		pointer-events: none;
@@ -1629,28 +1635,28 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 2rem;
+		gap: 1.5rem;
 		flex-wrap: wrap;
 	}
 
 	.bd-launcher-chip {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.5rem;
-		padding: 0.35rem 0.85rem;
+		gap: 0.45rem;
+		padding: 0.25rem 0.75rem;
 		border-radius: 9999px;
 		background: rgba(187, 243, 95, 0.12);
 		border: 1px solid rgba(187, 243, 95, 0.35);
 		color: var(--bd-tertiary);
 		font-family: var(--bd-font-mono, monospace);
-		font-size: 0.75rem;
+		font-size: 0.72rem;
 		font-weight: 700;
 		letter-spacing: 0.05em;
 	}
 
 	.bd-colony-dot--live {
-		width: 8px;
-		height: 8px;
+		width: 7px;
+		height: 7px;
 		border-radius: 50%;
 		background: var(--bd-tertiary);
 		box-shadow: 0 0 8px var(--bd-tertiary);
@@ -1665,24 +1671,24 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 	.bd-launcher-btn {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.65rem;
-		padding: 0.95rem 1.75rem;
-		font-size: 1.05rem;
-		border-radius: 14px;
-		box-shadow: 0 0 25px rgba(121, 248, 208, 0.35);
+		gap: 0.55rem;
+		padding: 0.75rem 1.45rem;
+		font-size: 0.95rem;
+		border-radius: 12px;
+		box-shadow: 0 0 20px rgba(121, 248, 208, 0.3);
 		transition: all 0.25s ease;
 	}
 
 	.bd-launcher-btn:hover {
 		transform: translateY(-2px) scale(1.02);
-		box-shadow: 0 0 35px rgba(121, 248, 208, 0.55);
+		box-shadow: 0 0 30px rgba(121, 248, 208, 0.5);
 	}
 
 	.bd-btn-shortcut {
-		padding: 0.2rem 0.5rem;
+		padding: 0.15rem 0.45rem;
 		border-radius: 6px;
 		background: rgba(0, 0, 0, 0.25);
-		font-size: 0.7rem;
+		font-size: 0.68rem;
 		font-family: var(--bd-font-mono, monospace);
 		opacity: 0.85;
 	}
@@ -1692,18 +1698,18 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 1.25rem;
-		padding: 0 0.5rem;
+		margin-bottom: 0.85rem;
+		padding: 0 0.35rem;
 		flex-wrap: wrap;
-		gap: 1rem;
+		gap: 0.75rem;
 	}
 
 	.bd-accordion-meta {
 		display: flex;
 		align-items: center;
-		gap: 0.5rem;
+		gap: 0.45rem;
 		color: var(--bd-text-primary);
-		font-size: 0.9rem;
+		font-size: 0.85rem;
 		font-weight: 600;
 	}
 
@@ -1713,15 +1719,22 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 	}
 
 	.bd-accordion-ctrl-btn {
-		font-size: 0.8rem;
-		padding: 0.35rem 0.75rem;
+		font-size: 0.78rem;
+		padding: 0.35rem 0.8rem;
 		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.04);
 		border: 1px solid rgba(255, 255, 255, 0.1);
 		color: var(--bd-on-surface-variant);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
 	}
 
 	.bd-accordion-ctrl-btn:hover {
 		color: var(--bd-primary);
+		background: rgba(121, 248, 208, 0.08);
 		border-color: rgba(121, 248, 208, 0.3);
 	}
 
@@ -1729,24 +1742,26 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 	.bd-hack-accordion-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1rem;
+		gap: 0.65rem;
 	}
 
 	.bd-hack-accordion {
-		border-radius: 18px;
+		border-radius: 14px;
 		background: rgba(255, 255, 255, 0.03);
 		border: 1px solid rgba(255, 255, 255, 0.08);
 		overflow: hidden;
-		transition: border-color 0.25s ease, box-shadow 0.25s ease;
+		transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 	}
 
 	.bd-hack-accordion:hover {
 		border-color: rgba(121, 248, 208, 0.25);
+		background: rgba(255, 255, 255, 0.04);
 	}
 
 	.bd-hack-accordion.is-open {
 		border-color: rgba(121, 248, 208, 0.4);
 		box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+		background: rgba(255, 255, 255, 0.035);
 	}
 
 	.bd-accordion-trigger {
@@ -1754,7 +1769,7 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		padding: 1.25rem 1.75rem;
+		padding: 0.85rem 1.25rem;
 		background: transparent;
 		border: none;
 		color: inherit;
@@ -1770,27 +1785,33 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 	.bd-acc-header-left {
 		display: flex;
 		align-items: center;
-		gap: 1.25rem;
+		gap: 0.85rem;
 		flex: 1;
+		min-width: 0;
 	}
 
 	.bd-acc-num {
 		font-family: var(--bd-font-mono, monospace);
-		font-size: 1.15rem;
+		font-size: 0.95rem;
 		font-weight: 800;
 		color: var(--bd-secondary);
-		opacity: 0.6;
-		width: 24px;
+		opacity: 0.65;
+		width: 20px;
+		flex-shrink: 0;
 	}
 
 	.bd-acc-icon-wrap {
-		width: 44px;
-		height: 44px;
-		border-radius: 12px;
+		width: 36px;
+		height: 36px;
+		border-radius: 10px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		flex-shrink: 0;
+	}
+
+	.bd-acc-icon-wrap span.material-icons {
+		font-size: 19px;
 	}
 
 	.bd-acc-icon-wrap--teal {
@@ -1837,31 +1858,49 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 
 	.bd-acc-titles {
 		flex: 1;
+		min-width: 0;
 	}
 
 	.bd-acc-badge-row {
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.15rem;
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	.bd-acc-badge-row .bd-chip {
+		font-size: 0.65rem;
+		padding: 0.1rem 0.5rem;
 	}
 
 	.bd-acc-title {
 		margin: 0;
 		color: var(--bd-text-primary);
-		font-size: 1.15rem;
+		font-size: 1.02rem;
+		line-height: 1.25;
 	}
 
 	.bd-acc-summary {
-		margin: 0.2rem 0 0;
+		margin: 0.15rem 0 0;
 		color: var(--bd-on-surface-variant);
-		font-size: 0.8rem;
+		font-size: 0.78rem;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		max-width: 600px;
+		opacity: 0.85;
+	}
+
+	.bd-acc-header-right {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		margin-left: 0.5rem;
 	}
 
 	.bd-acc-chevron {
 		color: var(--bd-on-surface-variant);
-		font-size: 26px;
+		font-size: 22px;
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s ease;
 	}
 
@@ -1870,22 +1909,31 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		color: var(--bd-primary);
 	}
 
-	/* Contenido colapsable animado con grid */
+	/* Contenido colapsable animado con grid (Cierre hermético y fluido) */
 	.bd-accordion-content {
 		display: grid;
 		grid-template-rows: 0fr;
-		transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease, border-color 0.25s ease;
 		border-top: 1px solid transparent;
+		overflow: hidden;
+		visibility: hidden;
 	}
 
 	.is-open .bd-accordion-content {
 		grid-template-rows: 1fr;
 		border-top-color: rgba(255, 255, 255, 0.08);
+		visibility: visible;
 	}
 
 	.bd-accordion-inner {
+		min-height: 0;
 		overflow: hidden;
-		padding: 1.75rem 2rem 2rem;
+		padding: 0 1.25rem;
+		transition: padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.is-open .bd-accordion-inner {
+		padding: 1.25rem 1.35rem 1.5rem;
 	}
 
 	/* ── ESTILOS ESPECÍFICOS DE LOS MÓDULOS ── */
