@@ -1,0 +1,532 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+
+type TrackId = 'track1' | 'track2' | 'track3';
+
+interface Finalist {
+	code: string;
+	project: string;
+	team?: string;
+	track: TrackId;
+}
+
+// ── Top 10 oficial (orden correlativo por N° de equipo, NO por mérito) ──
+const finalists: Finalist[] = [
+	{ code: 'EQ-01', project: 'RecySense-Pb', team: 'SynCell', track: 'track1' },
+	{ code: 'EQ-05', project: 'simBIOsis', track: 'track1' },
+	{ code: 'EQ-07', project: 'AVOSYNC', team: 'BioLoopers', track: 'track3' },
+	{ code: 'EQ-08', project: 'FreshCoat', team: 'ShineCoat', track: 'track3' },
+	{ code: 'EQ-09', project: 'BioSynTech', team: 'BioSINTEC', track: 'track1' },
+	{ code: 'EQ-11', project: 'Misión NAH7: Ciencia para un Mar Azul', team: 'HELZIES', track: 'track1' },
+	{ code: 'EQ-24', project: 'Innova Vita', track: 'track2' },
+	{ code: 'EQ-25', project: 'PETMHET', track: 'track1' },
+	{ code: 'EQ-27', project: 'Arsecoli', track: 'track2' },
+	{ code: 'EQ-28', project: 'GLUCOFLUX', track: 'track2' },
+];
+
+const trackMeta: Record<TrackId, { num: number; icon: string; rgb: string; color: string; chip: string }> = {
+	track1: { num: 1, icon: 'water_drop', rgb: 'var(--bd-primary-rgb)', color: 'var(--bd-primary)', chip: 'bd-chip-teal' },
+	track2: { num: 2, icon: 'health_and_safety', rgb: 'var(--bd-secondary-rgb)', color: 'var(--bd-secondary)', chip: 'bd-chip-purple' },
+	track3: { num: 3, icon: 'compost', rgb: 'var(--bd-tertiary-rgb)', color: 'var(--bd-tertiary)', chip: 'bd-chip-lime' },
+};
+
+const trackIds: TrackId[] = ['track1', 'track2', 'track3'];
+const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).length;
+---
+
+<!-- ═══════════════════════════════════════════
+     SECCIÓN: EQUIPOS CLASIFICADOS — TOP 10 GRAN FINAL
+     ═══════════════════════════════════════════ -->
+<section class="bd-section bd-finalists-section" id="clasificados" aria-labelledby="finalists-title">
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">emoji_events</span>
+			{t('biodesign.finalists.badge')}
+		</span>
+		<h2 class="bd-headline-lg" id="finalists-title">
+			{t('biodesign.finalists.title')} <span class="bd-gradient-text">{t('biodesign.finalists.title_highlight')}</span>
+		</h2>
+		<p class="bd-body-md" style="max-width:760px; margin:0 auto;">
+			{t('biodesign.finalists.subtitle')}
+		</p>
+	</div>
+
+	<!-- Aclaración fundamental: orden correlativo, no de mérito -->
+	<div class="bd-fin-disclaimer bd-glass bd-reveal" role="note">
+		<span class="material-icons bd-fin-disclaimer-icon" aria-hidden="true">push_pin</span>
+		<div>
+			<strong class="bd-fin-disclaimer-title">{t('biodesign.finalists.disclaimer.title')}</strong>
+			<p class="bd-fin-disclaimer-text">{t('biodesign.finalists.disclaimer.text')}</p>
+		</div>
+	</div>
+
+	<!-- Filtros por Track -->
+	<div class="bd-fin-filters bd-reveal" role="toolbar" aria-label={t('biodesign.finalists.filter.label')}>
+		<button type="button" class="bd-fin-filter is-active" data-fin-filter="all" id="fin-filter-all" aria-pressed="true">
+			<span class="material-icons" aria-hidden="true">apps</span>
+			{t('biodesign.finalists.filter.all')}
+			<span class="bd-fin-filter-count">{finalists.length}</span>
+		</button>
+		{trackIds.map((id) => (
+			<button
+				type="button"
+				class="bd-fin-filter"
+				data-fin-filter={id}
+				id={`fin-filter-${id}`}
+				aria-pressed="false"
+				style={`--fin-rgb: ${trackMeta[id].rgb}; --fin-color: ${trackMeta[id].color};`}
+			>
+				<span class="material-icons" aria-hidden="true">{trackMeta[id].icon}</span>
+				<span class="bd-fin-filter-label">
+					Track {trackMeta[id].num}: {t(`biodesign.tracks.${id}.title`)}
+				</span>
+				<span class="bd-fin-filter-count">{countByTrack(id)}</span>
+			</button>
+		))}
+	</div>
+
+	<!-- Grid de Clasificados -->
+	<ol class="bd-fin-grid bd-reveal" id="finalists-grid">
+		{finalists.map((f) => {
+			const meta = trackMeta[f.track];
+			return (
+				<li
+					class="bd-fin-card bd-glass"
+					data-track={f.track}
+					id={`finalist-${f.code.toLowerCase()}`}
+					style={`--fin-rgb: ${meta.rgb}; --fin-color: ${meta.color};`}
+				>
+					<div class="bd-fin-card-glow" aria-hidden="true"></div>
+					<div class="bd-fin-card-top">
+						<span class="bd-fin-code">{f.code}</span>
+						<span class="bd-fin-qualified">
+							<span class="material-icons" aria-hidden="true">verified</span>
+							{t('biodesign.finalists.card.qualified')}
+						</span>
+					</div>
+					<h3 class="bd-fin-project">{f.project}</h3>
+					<p class="bd-fin-team">
+						{f.team ? (
+							<>
+								<span class="material-icons" aria-hidden="true">groups</span>
+								{t('biodesign.finalists.card.team')}: <strong>{f.team}</strong>
+							</>
+						) : (
+							<>
+								<span class="material-icons" aria-hidden="true">science</span>
+								{t('biodesign.finalists.card.delegation')}
+							</>
+						)}
+					</p>
+					<div class="bd-fin-card-footer">
+						<span class={`bd-chip ${meta.chip} bd-fin-track-chip`}>
+							<span class="material-icons" style="font-size:13px;" aria-hidden="true">{meta.icon}</span>
+							Track {meta.num}: {t(`biodesign.tracks.${f.track}.title`)}
+						</span>
+					</div>
+				</li>
+			);
+		})}
+	</ol>
+
+	<!-- CTA hacia próximos pasos -->
+	<div class="bd-fin-next bd-reveal">
+		<p class="bd-body-sm bd-fin-next-text">
+			<span class="material-icons" aria-hidden="true">celebration</span>
+			{t('biodesign.finalists.next.text')}
+		</p>
+		<a href="#que-sigue" class="bd-btn-secondary bd-fin-next-btn" id="btn-finalists-next-steps">
+			<span class="material-icons" style="font-size:1.1rem;">arrow_downward</span>
+			{t('biodesign.finalists.next.cta')}
+		</a>
+	</div>
+</section>
+
+<script>
+	function initFinalistsFilter() {
+		const section = document.getElementById('clasificados');
+		if (!section) return;
+		const buttons = section.querySelectorAll<HTMLButtonElement>('[data-fin-filter]');
+		const cards = section.querySelectorAll<HTMLElement>('.bd-fin-card');
+
+		buttons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const filter = btn.dataset.finFilter;
+				buttons.forEach((b) => {
+					const active = b === btn;
+					b.classList.toggle('is-active', active);
+					b.setAttribute('aria-pressed', String(active));
+				});
+				cards.forEach((card) => {
+					const show = filter === 'all' || card.dataset.track === filter;
+					card.classList.toggle('is-hidden', !show);
+				});
+			});
+		});
+	}
+	document.addEventListener('astro:page-load', initFinalistsFilter);
+</script>
+
+<style>
+	.bd-finalists-section {
+		position: relative;
+	}
+
+	/* ── Disclaimer ─────────────────────────────── */
+	.bd-fin-disclaimer {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+		max-width: 900px;
+		margin: 0 auto 2rem;
+		padding: 1.1rem 1.4rem;
+		border-radius: 18px;
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.35);
+		background: linear-gradient(135deg, rgba(var(--bd-tertiary-rgb), 0.08), rgba(var(--bd-secondary-rgb), 0.06));
+	}
+	.bd-fin-disclaimer-icon {
+		color: var(--bd-tertiary);
+		font-size: 1.4rem;
+		flex-shrink: 0;
+		margin-top: 2px;
+	}
+	.bd-fin-disclaimer-title {
+		display: block;
+		font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+		color: var(--bd-text-primary);
+		font-size: 0.95rem;
+		margin-bottom: 0.25rem;
+	}
+	.bd-fin-disclaimer-text {
+		margin: 0;
+		font-size: 0.88rem;
+		line-height: 1.55;
+		color: var(--bd-on-surface-variant);
+	}
+
+	/* ── Filtros ─────────────────────────────────── */
+	.bd-fin-filters {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.6rem;
+		margin-bottom: 2rem;
+	}
+	.bd-fin-filter {
+		--fin-rgb: var(--bd-primary-rgb);
+		--fin-color: var(--bd-primary);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		padding: 0.55rem 0.95rem;
+		border-radius: 999px;
+		border: 1px solid var(--bd-outline-variant);
+		background: var(--bd-glass-fill);
+		color: var(--bd-on-surface);
+		font: inherit;
+		font-size: 0.82rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	.bd-fin-filter .material-icons {
+		font-size: 1rem;
+		color: var(--fin-color);
+	}
+	.bd-fin-filter:hover {
+		border-color: rgba(var(--fin-rgb), 0.6);
+		transform: translateY(-1px);
+	}
+	.bd-fin-filter.is-active {
+		border-color: var(--fin-color);
+		background: rgba(var(--fin-rgb), 0.14);
+		box-shadow: 0 0 18px rgba(var(--fin-rgb), 0.25);
+		color: var(--bd-text-primary);
+	}
+	.bd-fin-filter:focus-visible {
+		outline: 2px solid var(--fin-color);
+		outline-offset: 2px;
+	}
+	.bd-fin-filter-count {
+		min-width: 1.4rem;
+		padding: 0.05rem 0.4rem;
+		border-radius: 999px;
+		background: rgba(var(--fin-rgb), 0.2);
+		color: var(--fin-color);
+		font-size: 0.72rem;
+		text-align: center;
+	}
+
+	/* ── Grid ───────────────────────────────────── */
+	.bd-fin-grid {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: 1.25rem;
+	}
+	.bd-fin-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding: 1.4rem;
+		border-radius: 20px;
+		border: 1px solid rgba(var(--fin-rgb), 0.25);
+		overflow: hidden;
+		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s, box-shadow 0.35s, opacity 0.3s;
+	}
+	.bd-fin-card::before {
+		content: '';
+		position: absolute;
+		inset: 0 0 auto 0;
+		height: 3px;
+		background: linear-gradient(90deg, transparent, var(--fin-color), transparent);
+		opacity: 0.8;
+	}
+	.bd-fin-card:hover {
+		transform: translateY(-4px);
+		border-color: rgba(var(--fin-rgb), 0.6);
+		box-shadow: 0 12px 32px -12px rgba(var(--fin-rgb), 0.45);
+	}
+	.bd-fin-card.is-hidden {
+		display: none;
+	}
+	.bd-fin-card-glow {
+		position: absolute;
+		top: -60px;
+		right: -60px;
+		width: 160px;
+		height: 160px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(var(--fin-rgb), 0.22), transparent 70%);
+		pointer-events: none;
+	}
+	.bd-fin-card-top {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 0.5rem;
+		position: relative;
+	}
+	.bd-fin-code {
+		font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		padding: 0.25rem 0.6rem;
+		border-radius: 8px;
+		color: var(--fin-color);
+		background: rgba(var(--fin-rgb), 0.12);
+		border: 1px solid rgba(var(--fin-rgb), 0.35);
+		text-shadow: 0 0 10px rgba(var(--fin-rgb), 0.35);
+	}
+	.bd-fin-qualified {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.25rem;
+		font-size: 0.68rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--bd-on-surface-variant);
+	}
+	.bd-fin-qualified .material-icons {
+		font-size: 0.95rem;
+		color: var(--bd-tertiary);
+	}
+	.bd-fin-project {
+		position: relative;
+		margin: 0.25rem 0 0;
+		font-family: var(--font-heading, 'Space Grotesk', sans-serif);
+		font-size: 1.25rem;
+		line-height: 1.25;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		overflow-wrap: anywhere;
+	}
+	.bd-fin-team {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin: 0;
+		font-size: 0.85rem;
+		color: var(--bd-on-surface-variant);
+	}
+	.bd-fin-team .material-icons {
+		font-size: 1rem;
+		color: var(--fin-color);
+	}
+	.bd-fin-team strong {
+		color: var(--bd-on-surface);
+	}
+	.bd-fin-card-footer {
+		margin-top: auto;
+		padding-top: 0.5rem;
+	}
+	.bd-fin-track-chip {
+		font-size: 0.68rem;
+		white-space: normal;
+		line-height: 1.3;
+	}
+
+	/* ── CTA siguiente paso ─────────────────────── */
+	.bd-fin-next {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+		margin-top: 2.25rem;
+		text-align: center;
+	}
+	.bd-fin-next-text {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		margin: 0;
+		color: var(--bd-on-surface-variant);
+	}
+	.bd-fin-next-text .material-icons {
+		color: var(--bd-tertiary);
+		font-size: 1.1rem;
+	}
+	.bd-fin-next-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
+	@media (max-width: 640px) {
+		.bd-fin-disclaimer {
+			padding: 0.85rem 1rem;
+			gap: 0.75rem;
+			border-radius: 14px;
+			margin-bottom: 1.25rem;
+		}
+		.bd-fin-disclaimer-icon {
+			font-size: 1.25rem;
+			margin-top: 1px;
+		}
+		.bd-fin-disclaimer-title {
+			font-size: 0.88rem;
+		}
+		.bd-fin-disclaimer-text {
+			font-size: 0.82rem;
+			line-height: 1.45;
+		}
+		.bd-fin-filters {
+			flex-wrap: nowrap;
+			justify-content: flex-start;
+			overflow-x: auto;
+			padding-bottom: 0.6rem;
+			margin-left: -0.5rem;
+			margin-right: -0.5rem;
+			padding-left: 0.5rem;
+			padding-right: 0.5rem;
+			margin-bottom: 1.25rem;
+			scrollbar-width: none;
+			-webkit-overflow-scrolling: touch;
+		}
+		.bd-fin-filters::-webkit-scrollbar {
+			display: none;
+		}
+		.bd-fin-filter {
+			flex-shrink: 0;
+			min-height: 42px;
+			padding: 0.45rem 0.85rem;
+			font-size: 0.78rem;
+		}
+		.bd-fin-grid {
+			grid-template-columns: 1fr;
+			gap: 0.85rem;
+		}
+		.bd-fin-card {
+			padding: 1.15rem 1rem;
+			border-radius: 16px;
+			gap: 0.65rem;
+		}
+		.bd-fin-project {
+			font-size: 1.1rem;
+			line-height: 1.3;
+		}
+		.bd-fin-team {
+			font-size: 0.8rem;
+		}
+		.bd-fin-next {
+			flex-direction: column;
+			gap: 0.75rem;
+			margin-top: 1.75rem;
+		}
+		.bd-fin-next-text {
+			font-size: 0.82rem;
+			justify-content: center;
+		}
+		.bd-fin-next-btn {
+			width: 100%;
+			justify-content: center;
+			box-sizing: border-box;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.bd-fin-card,
+		.bd-fin-filter {
+			transition: none;
+		}
+		.bd-fin-card:hover,
+		.bd-fin-filter:hover {
+			transform: none;
+		}
+	}
+
+	/* ── Light Mode Optimizations (UX Review) ──── */
+	:root:not(.dark) .bd-fin-disclaimer {
+		background: linear-gradient(135deg, rgba(254, 240, 138, 0.45), rgba(243, 240, 255, 0.75)) !important;
+		border-color: rgba(202, 138, 4, 0.45) !important;
+		box-shadow: 0 4px 20px rgba(202, 138, 4, 0.08) !important;
+	}
+	:root:not(.dark) .bd-fin-disclaimer-icon {
+		color: #b45309 !important;
+	}
+	:root:not(.dark) .bd-fin-disclaimer-title {
+		color: #78350f !important;
+	}
+	:root:not(.dark) .bd-fin-disclaimer-text {
+		color: #1e293b !important;
+	}
+	:root:not(.dark) .bd-fin-card {
+		background: #ffffff !important;
+		border-color: rgba(var(--fin-rgb), 0.35) !important;
+		box-shadow: 0 4px 22px rgba(15, 23, 42, 0.06) !important;
+	}
+	:root:not(.dark) .bd-fin-card:hover {
+		box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12), 0 0 16px rgba(var(--fin-rgb), 0.18) !important;
+	}
+	:root:not(.dark) .bd-fin-project {
+		color: #0f172a !important;
+	}
+	:root:not(.dark) .bd-fin-filter {
+		background: #ffffff !important;
+		border-color: #cbd5e1 !important;
+		color: #334155 !important;
+	}
+	:root:not(.dark) .bd-fin-filter:hover {
+		background: #f8fafc !important;
+		border-color: var(--fin-color) !important;
+	}
+	:root:not(.dark) .bd-fin-filter.is-active {
+		background: rgba(var(--fin-rgb), 0.14) !important;
+		border-color: var(--fin-color) !important;
+		color: #0f172a !important;
+	}
+</style>

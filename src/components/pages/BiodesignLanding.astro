@@ -2,6 +2,7 @@
 import { useTranslations } from '../../i18n/utils';
 import type { Lang } from '../../i18n/ui';
 import BiodesignHackathonPortal from '../biodesign/BiodesignHackathonPortal.astro';
+import BiodesignFinalists from '../biodesign/BiodesignFinalists.astro';
 // import BiodesignMemories from '../biodesign/BiodesignMemories.astro';
 
 interface Props {
@@ -275,11 +276,11 @@ const alliedOrgs = [
 			<div class="bd-hero-actions">
 				<div class="bd-hero-cta-buttons">
 					<a
-						href="#que-sigue"
+						href="#clasificados"
 						class="bd-btn-primary bd-hero-btn bd-hero-btn--teal"
-						id="btn-hero-que-sigue"
+						id="btn-hero-clasificados"
 					>
-						<span class="material-icons" style="font-size:1.1rem;">schedule_send</span>
+						<span class="material-icons" style="font-size:1.1rem;">emoji_events</span>
 						{t('biodesign.hero.cta.primary')}
 					</a>
 					<a
@@ -297,13 +298,13 @@ const alliedOrgs = [
 						{t('biodesign.hero.status.sprint')}
 					</span>
 					<span class="bd-hero-sep" aria-hidden="true">•</span>
-					<span class="bd-hero-status-pill bd-hero-status-pill--active">
-						<span class="bd-step-pulse-dot"></span>
+					<span class="bd-hero-status-pill bd-hero-status-pill--done">
+						<span class="material-icons" style="font-size:14px; color: #10b981;">task_alt</span>
 						{t('biodesign.hero.status.eval')}
 					</span>
 					<span class="bd-hero-sep" aria-hidden="true">•</span>
-					<span class="bd-hero-status-pill bd-hero-status-pill--final">
-						<span class="material-icons" style="font-size:14px; color: var(--bd-secondary);">military_tech</span>
+					<span class="bd-hero-status-pill bd-hero-status-pill--active">
+						<span class="bd-step-pulse-dot"></span>
 						{t('biodesign.hero.status.final')}
 					</span>
 				</div>
@@ -415,6 +416,11 @@ const alliedOrgs = [
 </div>
 
 <!-- ═══════════════════════════════════════════
+     SECCIÓN: TOP 10 CLASIFICADOS A LA GRAN FINAL
+     ═══════════════════════════════════════════ -->
+<BiodesignFinalists lang={lang} />
+
+<!-- ═══════════════════════════════════════════
      SECCIÓN: ¿QUÉ SIGUE AHORA? (EVALUACIÓN Y RESULTADOS)
      ═══════════════════════════════════════════ -->
 <section class="bd-section bd-whatsnext-section" id="que-sigue">
@@ -483,14 +489,14 @@ const alliedOrgs = [
 			</div>
 		</div>
 
-		<!-- Paso 2: Calificación y publicación del Top 10 (En curso) -->
-		<div class="bd-glass bd-step-card bd-step-card--purple bd-step-card--active">
+		<!-- Paso 2: Calificación y publicación del Top 10 (Completado) -->
+		<div class="bd-glass bd-step-card bd-step-card--purple bd-step-card--done">
 			<div class="bd-step-card-glow" aria-hidden="true"></div>
 			<div class="bd-step-header">
 				<div class="bd-step-badge-wrap">
 					<span class="bd-step-num">02</span>
-					<span class="bd-step-status bd-step-status--active">
-						<span class="bd-step-pulse-dot"></span>
+					<span class="bd-step-status bd-step-status--done">
+						<span class="material-icons" style="font-size:12px;">check</span>
 						{t('biodesign.whatsnext.step2.status')}
 					</span>
 				</div>
@@ -503,10 +509,10 @@ const alliedOrgs = [
 				<p class="bd-body-sm bd-step-desc">{t('biodesign.whatsnext.step2.desc')}</p>
 			</div>
 			<div class="bd-step-footer">
-				<span class="bd-chip bd-chip-purple" style="font-size:0.7rem;">
+				<a href="#clasificados" class="bd-chip bd-chip-purple" style="font-size:0.7rem; text-decoration:none;" id="link-step2-clasificados">
 					<span class="material-icons" style="font-size:13px;">stars</span>
 					{t('biodesign.whatsnext.step2.meta')}
-				</span>
+				</a>
 			</div>
 		</div>
 
@@ -538,7 +544,7 @@ const alliedOrgs = [
 						<span><strong>{t('biodesign.whatsnext.step3.item2')}</strong></span>
 					</li>
 					<li>
-						<span class="material-icons">location_on</span>
+						<span class="material-icons">mail</span>
 						<span>{t('biodesign.whatsnext.step3.item3')}</span>
 					</li>
 				</ul>
@@ -569,6 +575,24 @@ const alliedOrgs = [
 			<div class="bd-step-body">
 				<h3 class="bd-headline-sm bd-step-title">{t('biodesign.whatsnext.step4.title')}</h3>
 				<p class="bd-body-sm bd-step-desc">{t('biodesign.whatsnext.step4.desc')}</p>
+				<ul class="bd-step-pitch-features">
+					<li>
+						<span class="material-icons">door_front</span>
+						<span><strong>{t('biodesign.whatsnext.step4.item1')}</strong></span>
+					</li>
+					<li>
+						<span class="material-icons">group</span>
+						<span>{t('biodesign.whatsnext.step4.item2')}</span>
+					</li>
+					<li>
+						<span class="material-icons">directions_car</span>
+						<span>{t('biodesign.whatsnext.step4.item3')}</span>
+					</li>
+					<li>
+						<span class="material-icons">videocam</span>
+						<span>{t('biodesign.whatsnext.step4.item4')}</span>
+					</li>
+				</ul>
 			</div>
 			<div class="bd-step-footer">
 				<span class="bd-chip bd-chip-lime" style="font-size:0.7rem;">
@@ -2207,6 +2231,24 @@ const alliedOrgs = [
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 0.5rem;
+		}
+
+		/* Hero Notice Banner on mobile */
+		.bd-hero-notice-banner {
+			padding: 0.85rem 1rem;
+			gap: 0.75rem;
+			margin-bottom: 1.5rem;
+			border-radius: 0.9rem;
+		}
+
+		.bd-hero-notice-icon {
+			font-size: 1.35rem;
+			margin-top: 0.15rem;
+		}
+
+		.bd-hero-notice-text {
+			font-size: 0.82rem;
+			line-height: 1.45;
 		}
 
 		.bd-school-pill-btn {
