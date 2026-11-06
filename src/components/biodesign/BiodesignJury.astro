@@ -1,0 +1,442 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const isEs = lang === 'es';
+
+// ── A. Jurado Calificador de la Gran Final Presencial (Único jurado a mostrar) ──
+const finalJury = [
+	{
+		name: 'Dr. Daniel Guerra Giráldez',
+		role: isEs
+			? 'Investigador y Docente Principal'
+			: 'Principal Investigator & Full Professor',
+		org: 'Universidad Peruana Cayetano Heredia (UPCH)',
+		badge: isEs ? 'Jurado Principal' : 'Lead Judge',
+		icon: 'biotech',
+		accent: 'var(--bd-primary)',
+		rgb: 'var(--bd-primary-rgb)',
+	},
+	{
+		name: 'Mario Taira Custodio',
+		role: isEs
+			? 'CEO y Cofundador'
+			: 'CEO & Co-Founder',
+		org: 'CEM Capacita (Centro de Especialización Multidisciplinario)',
+		badge: isEs ? 'Jurado & Aliado Estratégico' : 'Judge & Strategic Partner',
+		icon: 'workspace_premium',
+		accent: 'var(--bd-tertiary)',
+		rgb: 'var(--bd-tertiary-rgb)',
+	},
+	{
+		name: 'Marko A. Zapata Roca',
+		role: isEs
+			? 'Presidente de la Comisión Organizadora BioDesign y Director'
+			: 'President of the BioDesign Organizing Committee & Director',
+		org: 'Comunidad de Biología Sintética de la UNMSM (CBS-UNMSM)',
+		badge: isEs ? 'Jurado & Dirección Científica' : 'Judge & Scientific Direction',
+		avatar: `${base}/team/Marko_zapata.jpg`,
+		icon: 'science',
+		accent: 'var(--bd-secondary)',
+		rgb: 'var(--bd-secondary-rgb)',
+	},
+];
+
+// ── B. Mesa de Honor (Ceremonia de Clausura y Premiación) ──────
+const honorTable = [
+	{
+		name: 'Dra. Martha Valdivia',
+		role: isEs
+			? 'Autoridad académica representante de la Facultad de Ciencias Biológicas (FCB - UNMSM)'
+			: 'Academic Authority representing the Faculty of Biological Sciences (FCB - UNMSM)',
+		icon: 'account_balance',
+	},
+	{
+		name: 'Dr. Daniel Guerra Giráldez',
+		role: isEs
+			? 'Jurado Principal (Universidad Peruana Cayetano Heredia — UPCH)'
+			: 'Lead Judge (Universidad Peruana Cayetano Heredia — UPCH)',
+		icon: 'school',
+	},
+	{
+		name: 'Mario Taira Custodio',
+		role: isEs
+			? 'Jurado y Aliado Estratégico (CEM Capacita)'
+			: 'Judge & Strategic Partner (CEM Capacita)',
+		icon: 'verified',
+	},
+];
+
+// ── C. Equipo de Mentores Científicos (Bloque General) ─────────
+const mentors = [
+	{ name: 'Rodrigo Puertas', org: 'CBS-UNMSM', avatar: `${base}/team/Rodrigo_Puertas.png` },
+	{ name: 'Victoria Santos', org: 'BioDesign Mentor' },
+	{ name: 'Victoria Vargas', org: 'ASM UTEC' },
+	{ name: 'Sneyder Boada', org: 'CBS-UNMSM', avatar: `${base}/team/sneyder_boada.jpeg` },
+	{ name: 'Jorja Lavado', org: 'CBS-UNMSM', avatar: `${base}/team/Jorja_lavado.png` },
+	{ name: 'Nicole Vargas', org: 'BioDesign Mentor' },
+	{ name: 'Valerie Santillana', org: 'BioDesign Mentor' },
+	{ name: 'Ariadna Maldonado', org: 'BioDesign Mentor' },
+	{ name: 'Marko Zapata', org: 'CBS-UNMSM', avatar: `${base}/team/Marko_zapata.jpg` },
+];
+---
+
+<section class="bd-section bd-jury-section" id="jurado" aria-labelledby="jury-title">
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-purple" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">gavel</span>
+			{t('biodesign.jury.badge')}
+		</span>
+		<h2 class="bd-headline-lg" id="jury-title">
+			{t('biodesign.jury.title')} <span class="bd-gradient-text">{t('biodesign.jury.title_highlight')}</span>
+		</h2>
+		<p class="bd-body-md" style="max-width:740px; margin:0 auto;">
+			{t('biodesign.jury.subtitle')}
+		</p>
+	</div>
+
+	<!-- 1. Jurado Calificador de la Gran Final Presencial -->
+	<div class="bd-jury-grid bd-reveal">
+		{finalJury.map((j) => (
+			<article class="bd-glass bd-jury-card" style={`--jury-accent: ${j.accent}; --jury-rgb: ${j.rgb};`}>
+				<div class="bd-jury-card-top">
+					{j.avatar ? (
+						<img src={j.avatar} alt={j.name} class="bd-jury-avatar" width="56" height="56" loading="lazy" />
+					) : (
+						<div class="bd-jury-icon-avatar">
+							<span class="material-icons" aria-hidden="true">{j.icon}</span>
+						</div>
+					)}
+					<span class="bd-jury-badge">{j.badge}</span>
+				</div>
+				<h3 class="bd-jury-name">{j.name}</h3>
+				<p class="bd-jury-role">{j.role}</p>
+				<p class="bd-jury-org">
+					<span class="material-icons" aria-hidden="true">domain</span>
+					{j.org}
+				</p>
+			</article>
+		))}
+	</div>
+
+	<!-- 2. Mesa de Honor (Ceremonia de Clausura en UNMSM) -->
+	<div class="bd-glass bd-honor-table-box bd-reveal">
+		<div class="bd-honor-table-head">
+			<span class="bd-chip bd-chip-lime" style="font-size:0.68rem;">
+				<span class="material-icons" style="font-size:13px;">account_balance</span>
+				{t('biodesign.jury.honortable.badge')}
+			</span>
+			<h3 class="bd-headline-md" style="margin:0.35rem 0 0;">
+				{t('biodesign.jury.honortable.title')}
+			</h3>
+		</div>
+
+		<div class="bd-honor-table-list">
+			{honorTable.map((h) => (
+				<div class="bd-honor-member">
+					<div class="bd-honor-member-icon">
+						<span class="material-icons" aria-hidden="true">{h.icon}</span>
+					</div>
+					<div>
+						<strong class="bd-honor-member-name">{h.name}</strong>
+						<p class="bd-honor-member-role">{h.role}</p>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<!-- 3. Bloque General: Equipo de Mentores Científicos -->
+	<div class="bd-glass bd-mentors-box bd-reveal">
+		<div class="bd-mentors-head">
+			<div>
+				<span class="bd-chip bd-chip-teal" style="font-size:0.68rem;">
+					<span class="material-icons" style="font-size:13px;">diversity_3</span>
+					{t('biodesign.jury.mentors.badge')}
+				</span>
+				<h3 class="bd-headline-md" style="margin:0.35rem 0 0.2rem;">
+					{t('biodesign.jury.mentors.title')}
+				</h3>
+				<p class="bd-caption" style="color:var(--bd-on-surface-variant); margin:0;">
+					{t('biodesign.jury.mentors.subtitle')}
+				</p>
+			</div>
+		</div>
+
+		<div class="bd-mentors-chips">
+			{mentors.map((m) => (
+				<div class="bd-mentor-chip">
+					{m.avatar ? (
+						<img src={m.avatar} alt={m.name} class="bd-mentor-chip-img" width="32" height="32" loading="lazy" />
+					) : (
+						<div class="bd-mentor-chip-initials">
+							{m.name.split(' ').map((n) => n[0]).join('').slice(0, 2)}
+						</div>
+					)}
+					<div class="bd-mentor-chip-info">
+						<strong>{m.name}</strong>
+						<span>{m.org}</span>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.bd-jury-section {
+		position: relative;
+	}
+
+	.bd-jury-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+		margin-top: 2.25rem;
+	}
+
+	.bd-jury-card {
+		--jury-accent: var(--bd-primary);
+		--jury-rgb: var(--bd-primary-rgb);
+		padding: 1.5rem;
+		border-radius: 1.25rem;
+		border: 1px solid rgba(var(--jury-rgb), 0.32);
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+
+	.bd-jury-card-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		margin-bottom: 0.35rem;
+	}
+
+	.bd-jury-avatar {
+		width: 54px;
+		height: 54px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid var(--jury-accent);
+	}
+
+	.bd-jury-icon-avatar {
+		width: 54px;
+		height: 54px;
+		border-radius: 50%;
+		background: rgba(var(--jury-rgb), 0.14);
+		border: 1.5px solid rgba(var(--jury-rgb), 0.4);
+		color: var(--jury-accent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bd-jury-icon-avatar .material-icons {
+		font-size: 1.5rem;
+	}
+
+	.bd-jury-badge {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.7rem;
+		font-weight: 700;
+		padding: 0.2rem 0.65rem;
+		border-radius: 999px;
+		background: rgba(var(--jury-rgb), 0.14);
+		border: 1px solid rgba(var(--jury-rgb), 0.32);
+		color: var(--jury-accent);
+	}
+
+	.bd-jury-name {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.15rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		margin: 0;
+	}
+
+	.bd-jury-role {
+		font-size: 0.84rem;
+		color: var(--bd-on-surface);
+		margin: 0;
+		line-height: 1.4;
+	}
+
+	.bd-jury-org {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.35rem;
+		font-size: 0.78rem;
+		color: var(--bd-on-surface-variant);
+		margin: auto 0 0;
+		padding-top: 0.55rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.07);
+	}
+
+	.bd-jury-org .material-icons {
+		font-size: 0.95rem;
+		color: var(--jury-accent);
+		margin-top: 1px;
+	}
+
+	/* ── Mesa de Honor ── */
+	.bd-honor-table-box {
+		margin-top: 1.25rem;
+		padding: 1.4rem 1.5rem;
+		border-radius: 1.25rem;
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.3);
+	}
+
+	.bd-honor-table-head {
+		margin-bottom: 1rem;
+	}
+
+	.bd-honor-table-list {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	.bd-honor-member {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.65rem;
+		padding: 0.85rem;
+		border-radius: 0.9rem;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bd-honor-member-icon {
+		width: 2.1rem;
+		height: 2.1rem;
+		border-radius: 0.55rem;
+		background: rgba(var(--bd-tertiary-rgb), 0.12);
+		color: var(--bd-tertiary);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.bd-honor-member-icon .material-icons {
+		font-size: 1.1rem;
+	}
+
+	.bd-honor-member-name {
+		display: block;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.92rem;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.15rem;
+	}
+
+	.bd-honor-member-role {
+		margin: 0;
+		font-size: 0.76rem;
+		line-height: 1.4;
+		color: var(--bd-on-surface-variant);
+	}
+
+	/* ── Equipo de Mentores ── */
+	.bd-mentors-box {
+		margin-top: 1.25rem;
+		padding: 1.4rem 1.5rem;
+		border-radius: 1.25rem;
+	}
+
+	.bd-mentors-head {
+		margin-bottom: 1rem;
+	}
+
+	.bd-mentors-chips {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 0.75rem;
+	}
+
+	.bd-mentor-chip {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		padding: 0.55rem 0.75rem;
+		border-radius: 0.85rem;
+		background: rgba(var(--bd-primary-rgb), 0.06);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.22);
+	}
+
+	.bd-mentor-chip-img {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 1.5px solid var(--bd-primary);
+		flex-shrink: 0;
+	}
+
+	.bd-mentor-chip-initials {
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background: rgba(var(--bd-primary-rgb), 0.18);
+		color: var(--bd-primary);
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.78rem;
+		font-weight: 800;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+	}
+
+	.bd-mentor-chip-info {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+	}
+
+	.bd-mentor-chip-info strong {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.82rem;
+		color: var(--bd-text-primary);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.bd-mentor-chip-info span {
+		font-size: 0.7rem;
+		color: var(--bd-on-surface-variant);
+	}
+
+	:root:not(.dark) .bd-honor-member {
+		background: #f8fafc;
+		border-color: #e2e8f0;
+	}
+
+	@media (max-width: 960px) {
+		.bd-jury-grid,
+		.bd-honor-table-list {
+			grid-template-columns: 1fr;
+		}
+		.bd-mentors-chips {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 540px) {
+		.bd-mentors-chips {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+

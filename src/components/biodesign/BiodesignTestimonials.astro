@@ -1,0 +1,91 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+export interface TestimonialItem {
+	quote: string;
+	author: string;
+	role: string;
+	schoolOrOrg: string;
+	region?: string;
+}
+
+interface Props {
+	lang?: Lang;
+	items?: TestimonialItem[];
+}
+
+const { lang = 'es', items = [] } = Astro.props;
+const t = useTranslations(lang);
+---
+
+{items.length > 0 && (
+	<section class="bd-section bd-testimonials-section" id="testimonios" aria-labelledby="testimonials-title">
+		<div class="bd-section-header bd-reveal" style="text-align:center;">
+			<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
+				<span class="material-icons" style="font-size:14px;">format_quote</span>
+				{t('biodesign.testimonials.badge')}
+			</span>
+			<h2 class="bd-headline-lg" id="testimonials-title">
+				{t('biodesign.testimonials.title')} <span class="bd-gradient-text">{t('biodesign.testimonials.title_highlight')}</span>
+			</h2>
+			<p class="bd-body-md" style="max-width:680px; margin:0 auto;">
+				{t('biodesign.testimonials.subtitle')}
+			</p>
+		</div>
+
+		<div class="bd-testimonials-grid bd-reveal">
+			{items.map((item) => (
+				<blockquote class="bd-glass bd-testimonial-card">
+					<span class="material-icons bd-testimonial-quote-icon" aria-hidden="true">format_quote</span>
+					<p class="bd-testimonial-text">“{item.quote}”</p>
+					<footer class="bd-testimonial-footer">
+						<strong>{item.author}</strong>
+						<span>{item.role} · {item.schoolOrOrg}{item.region ? ` (${item.region})` : ''}</span>
+					</footer>
+				</blockquote>
+			))}
+		</div>
+	</section>
+)}
+
+<style>
+	.bd-testimonials-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 1.25rem;
+		margin-top: 2rem;
+	}
+	.bd-testimonial-card {
+		margin: 0;
+		padding: 1.4rem;
+		border-radius: 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+	.bd-testimonial-quote-icon {
+		color: var(--bd-primary);
+		font-size: 1.6rem;
+	}
+	.bd-testimonial-text {
+		margin: 0;
+		font-size: 0.9rem;
+		line-height: 1.55;
+		color: var(--bd-on-surface);
+		flex: 1;
+	}
+	.bd-testimonial-footer {
+		display: flex;
+		flex-direction: column;
+		padding-top: 0.65rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		font-size: 0.78rem;
+		color: var(--bd-on-surface-variant);
+	}
+	.bd-testimonial-footer strong {
+		color: var(--bd-text-primary);
+		font-family: 'Space Grotesk', sans-serif;
+	}
+</style>
+

@@ -1,0 +1,1711 @@
+---
+import { useTranslations } from "../../i18n/utils";
+import type { Lang } from "../../i18n/ui";
+import peruRawSvg from "../../assets/biodesign/peru.svg?raw";
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = "es" } = Astro.props;
+const t = useTranslations(lang);
+const isEs = lang === "es";
+
+// ── KPIs de Impacto Oficiales Auditados (Secuencia: Regiones → Inscritos → Equipos → Participantes → Proyectos → Finalistas) ──
+const funnelMetrics = [
+	{
+		value: "9",
+		label: t("biodesign.impact.funnel.m6.label"),
+		sub: t("biodesign.impact.funnel.m6.sub"),
+		icon: "public",
+		color: "purple",
+		rgb: "var(--bd-secondary-rgb)",
+		accent: "var(--bd-secondary)",
+	},
+	{
+		value: "+150",
+		label: t("biodesign.impact.funnel.m1.label"),
+		sub: t("biodesign.impact.funnel.m1.sub"),
+		icon: "groups",
+		color: "teal",
+		rgb: "var(--bd-primary-rgb)",
+		accent: "var(--bd-primary)",
+	},
+	{
+		value: "27",
+		label: t("biodesign.impact.funnel.m2.label"),
+		sub: t("biodesign.impact.funnel.m2.sub"),
+		icon: "hub",
+		color: "lime",
+		rgb: "var(--bd-tertiary-rgb)",
+		accent: "var(--bd-tertiary)",
+	},
+	{
+		value: "65",
+		label: t("biodesign.impact.funnel.m3.label"),
+		sub: t("biodesign.impact.funnel.m3.sub"),
+		icon: "school",
+		color: "purple",
+		rgb: "var(--bd-secondary-rgb)",
+		accent: "var(--bd-secondary)",
+	},
+	{
+		value: "17",
+		label: t("biodesign.impact.funnel.m4.label"),
+		sub: t("biodesign.impact.funnel.m4.sub"),
+		icon: "biotech",
+		color: "teal",
+		rgb: "var(--bd-primary-rgb)",
+		accent: "var(--bd-primary)",
+	},
+	{
+		value: "10",
+		label: t("biodesign.impact.funnel.m5.label"),
+		sub: t("biodesign.impact.funnel.m5.sub"),
+		icon: "emoji_events",
+		color: "lime",
+		rgb: "var(--bd-tertiary-rgb)",
+		accent: "var(--bd-tertiary)",
+	},
+];
+
+// ── Distribución por Ejes Temáticos (27 equipos) ───────────────
+const trackStats = [
+	{
+		id: "track1",
+		num: "01",
+		title: t("biodesign.tracks.track1.title"),
+		teams: 12,
+		pct: 44.4,
+		icon: "water_drop",
+		color: "var(--bd-primary)",
+		rgb: "var(--bd-primary-rgb)",
+		chipClass: "bd-chip-teal",
+	},
+	{
+		id: "track2",
+		num: "02",
+		title: t("biodesign.tracks.track2.title"),
+		teams: 10,
+		pct: 37.0,
+		icon: "health_and_safety",
+		color: "var(--bd-secondary)",
+		rgb: "var(--bd-secondary-rgb)",
+		chipClass: "bd-chip-purple",
+	},
+	{
+		id: "track3",
+		num: "03",
+		title: t("biodesign.tracks.track3.title"),
+		teams: 5,
+		pct: 18.5,
+		icon: "compost",
+		color: "var(--bd-tertiary)",
+		rgb: "var(--bd-tertiary-rgb)",
+		chipClass: "bd-chip-lime",
+	},
+];
+
+// ── 9 Regiones del Perú sobre el Mapa Departamental Oficial (viewBox 543x792) ──
+interface RegionNode {
+	id: string;
+	name: string;
+	svgIds: string[];
+	cx: number;
+	cy: number;
+	lx: number;
+	ly: number;
+	anchor: "start" | "end";
+	arc?: string;
+	schools: string;
+	zone: string;
+	highlight?: boolean;
+}
+
+const regions: RegionNode[] = [
+	{
+		id: "piura",
+		name: "Piura",
+		svgIds: ["PE-PIU"],
+		cx: 43,
+		cy: 217,
+		lx: 8,
+		ly: 210,
+		anchor: "end",
+		arc: "M 43,217 Q 95,375 196,504",
+		zone: isEs
+			? "Costa Norte (Piura, Sullana & Talara)"
+			: "Northern Coast (Piura, Sullana & Talara)",
+		schools: "I.E. Almirante Miguel Grau, I.E. Santa Teresita (Sullana)",
+	},
+	{
+		id: "lalibertad",
+		name: "La Libertad",
+		svgIds: ["PE-LAL"],
+		cx: 129,
+		cy: 335,
+		lx: 78,
+		ly: 342,
+		anchor: "end",
+		arc: "M 129,335 Q 145,425 196,504",
+		zone: isEs ? "Costa Norte (Chepén)" : "Northern Coast (Chepén)",
+		schools: "I.E. 80382 Carlos Gutiérrez Noriega",
+	},
+	{
+		id: "ancash",
+		name: "Áncash",
+		svgIds: ["PE-ANC"],
+		cx: 159,
+		cy: 399,
+		lx: 112,
+		ly: 406,
+		anchor: "end",
+		arc: "M 159,399 Q 168,455 196,504",
+		zone: isEs ? "Sierra Norte (Huaraz)" : "Northern Highlands (Huaraz)",
+		schools: "COAR Áncash",
+	},
+	{
+		id: "lima",
+		name: "Lima y Callao",
+		svgIds: ["PE-LIM", "PE-LMA", "PE-CAL"],
+		cx: 196,
+		cy: 504,
+		lx: 144,
+		ly: 509,
+		anchor: "end",
+		zone: isEs
+			? "Lima Metropolitana, Callao y Huarochirí"
+			: "Metropolitan Lima, Callao & Huarochirí",
+		schools:
+			"COAR Lima Metropolitana, Colegio Claretiano, I.E. Alfonso Ugarte, Colegio María Auxiliadora, Trilce Santa Beatriz, I.E. Micaela Bastidas, Saco Oliveros, I.E. 7035 Leoncio Prado, entre otros",
+		highlight: true,
+	},
+	{
+		id: "junin",
+		name: "Junín",
+		svgIds: ["PE-JUN"],
+		cx: 277,
+		cy: 490,
+		lx: 325,
+		ly: 486,
+		anchor: "start",
+		arc: "M 277,490 Q 238,488 196,504",
+		zone: isEs
+			? "Sierra Central (Huancayo)"
+			: "Central Highlands (Huancayo)",
+		schools: "I.E. Politécnico Regional del Centro",
+	},
+	{
+		id: "huancavelica",
+		name: "Huancavelica",
+		svgIds: ["PE-HUV"],
+		cx: 271,
+		cy: 554,
+		lx: 212,
+		ly: 572,
+		anchor: "end",
+		arc: "M 271,554 Q 230,538 196,504",
+		zone: isEs ? "Sierra Sur-Central" : "South-Central Highlands",
+		schools: "I.E. Nuestra Señora de Lourdes",
+	},
+	{
+		id: "ayacucho",
+		name: "Ayacucho",
+		svgIds: ["PE-AYA"],
+		cx: 310,
+		cy: 601,
+		lx: 356,
+		ly: 626,
+		anchor: "start",
+		arc: "M 310,601 Q 246,565 196,504",
+		zone: isEs ? "Sierra Sur (Huamanga)" : "Southern Highlands (Huamanga)",
+		schools: isEs
+			? "Delegaciones escolares de Huamanga"
+			: "Huamanga School Delegations",
+	},
+	{
+		id: "cusco",
+		name: "Cusco",
+		svgIds: ["PE-CUS"],
+		cx: 393,
+		cy: 563,
+		lx: 438,
+		ly: 558,
+		anchor: "start",
+		arc: "M 393,563 Q 295,515 196,504",
+		zone: isEs ? "Sur Andino (Cusco)" : "Andean South (Cusco)",
+		schools:
+			"COAR Cusco, I.E. Daniel Estrada Pérez, I.E. Santa María de los Andes, I.E. 51014 Romeritos, Colegio Didascalio Nuestra Señora del Rosario",
+	},
+	{
+		id: "tacna",
+		name: "Tacna",
+		svgIds: ["PE-TAC"],
+		cx: 475,
+		cy: 760,
+		lx: 430,
+		ly: 774,
+		anchor: "end",
+		arc: "M 475,760 Q 305,675 196,504",
+		zone: isEs ? "Frontera Sur (Tacna)" : "Southern Border (Tacna)",
+		schools:
+			"COAR Tacna, I.E. San José de Nazaret, I.E. Corazón de María, I.E. Jorge Basadre Grohman, I.E. Santísima Niña María",
+		highlight: true,
+	},
+];
+
+// Mapa inverso de código ISO (PE-XXX) → RegionNode
+const svgIdToRegion = new Map<string, RegionNode>();
+for (const r of regions) {
+	for (const code of r.svgIds) {
+		svgIdToRegion.set(code, r);
+	}
+}
+
+interface DeptPath {
+	svgId: string;
+	title: string;
+	d: string;
+	region?: RegionNode;
+	isLake: boolean;
+}
+
+const deptPaths: DeptPath[] = [
+	...peruRawSvg.matchAll(/<path\s+id="([^"]+)"\s+title="([^"]+)"\s+d="([^"]+)"/g),
+].map((m) => ({
+	svgId: m[1],
+	title: m[2],
+	d: m[3],
+	region: svgIdToRegion.get(m[1]),
+	isLake: m[1] === "PE-LKT",
+}));
+
+// ── Gira Escolar Previa (Sensibilización en Lima) ──────────────
+const visitedSchools = [
+	{
+		name: "I.E. 7035 Leoncio Prado",
+		location: "San Juan de Miraflores, Lima",
+		icon: "biotech",
+	},
+	{ name: "I.E. 1263 Puruchuco", location: "Ate,Lima", icon: "science" },
+	{
+		name: "I.E. 1264 Juan Andres Vivanco",
+		location: "Ate, Lima",
+		icon: "school",
+	},
+	{
+		name: "Colegios Pamer - Sede San Martin",
+		location: "San Martin, Lima",
+		icon: "school",
+	},
+];
+---
+
+<!-- Ancla de compatibilidad para enlaces heredados (#que-sigue) -->
+<div id="que-sigue" style="position:relative; top:-80px;" aria-hidden="true">
+</div>
+
+<section
+	class="bd-section bd-impact-section"
+	id="impacto"
+	aria-labelledby="impact-title"
+>
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">insights</span>
+			{t("biodesign.impact.badge")}
+		</span>
+		<h2 class="bd-headline-lg" id="impact-title">
+			{t("biodesign.impact.title")}
+			<span class="bd-gradient-text"
+				>{t("biodesign.impact.title_highlight")}</span
+			>
+		</h2>
+		<p class="bd-body-md" style="max-width:760px; margin:0 auto;">
+			{t("biodesign.impact.subtitle")}
+		</p>
+	</div>
+
+	<!-- 1. Grilla de 6 KPIs Auditados (Funnel Nacional) -->
+	<div class="bd-impact-kpi-grid bd-reveal">
+		{
+			funnelMetrics.map((m) => (
+				<article
+					class="bd-glass bd-impact-kpi-card"
+					style={`--kpi-rgb: ${m.rgb}; --kpi-accent: ${m.accent};`}
+				>
+					<div class="bd-impact-kpi-glow" aria-hidden="true" />
+					<div class="bd-impact-kpi-top">
+						<div class="bd-impact-kpi-icon">
+							<span class="material-icons" aria-hidden="true">
+								{m.icon}
+							</span>
+						</div>
+						<span class="bd-impact-kpi-val">{m.value}</span>
+					</div>
+					<h3 class="bd-impact-kpi-label">{m.label}</h3>
+					<p class="bd-impact-kpi-sub">{m.sub}</p>
+				</article>
+			))
+		}
+	</div>
+
+	<!-- 2. Bento 2 Columnas: Distribución por Tracks + Mapa SVG de 9 Regiones -->
+	<div class="bd-impact-bento bd-reveal">
+		<!-- Columna Izquierda: Distribución por Ejes Temáticos + Retención Formativa -->
+		<div class="bd-impact-col-left">
+			<div class="bd-glass bd-tracks-dist-card">
+				<div class="bd-card-head">
+					<div>
+						<span
+							class="bd-chip bd-chip-lime"
+							style="font-size:0.68rem;"
+						>
+							<span class="material-icons" style="font-size:12px;"
+								>pie_chart</span
+							>
+							{t("biodesign.impact.tracks.badge")}
+						</span>
+						<h3
+							class="bd-headline-md"
+							style="margin:0.45rem 0 0.25rem;"
+						>
+							{t("biodesign.impact.tracks.title")}
+						</h3>
+					</div>
+					<span class="bd-tracks-total-pill"
+						>27 {isEs ? "equipos" : "teams"}</span
+					>
+				</div>
+				<p
+					class="bd-caption"
+					style="color:var(--bd-on-surface-variant); margin:0 0 1.15rem;"
+				>
+					{t("biodesign.impact.tracks.desc")}
+				</p>
+
+				<!-- Barra Apilada Multicolor -->
+				<div
+					class="bd-stacked-bar"
+					role="img"
+					aria-label={t("biodesign.impact.tracks.title")}
+				>
+					{
+						trackStats.map((tr) => (
+							<div
+								class="bd-stacked-segment"
+								style={`width: ${tr.pct}%; background: ${tr.color};`}
+								title={`Track ${tr.num}: ${tr.title} (${tr.teams} - ${tr.pct}%)`}
+							/>
+						))
+					}
+				</div>
+
+				<!-- Lista de los 3 Tracks con barras y conteos -->
+				<div class="bd-track-stat-list">
+					{
+						trackStats.map((tr) => (
+							<div
+								class="bd-track-stat-row"
+								style={`--tr-rgb: ${tr.rgb}; --tr-color: ${tr.color};`}
+							>
+								<div class="bd-track-stat-left">
+									<span
+										class="material-icons bd-track-stat-icon"
+										aria-hidden="true"
+									>
+										{tr.icon}
+									</span>
+									<div>
+										<div class="bd-track-stat-name">
+											<span class="bd-track-stat-num">
+												T{tr.num}
+											</span>
+											<strong>{tr.title}</strong>
+										</div>
+									</div>
+								</div>
+								<div class="bd-track-stat-right">
+									<span class="bd-track-stat-count">
+										{tr.teams} {isEs ? "equipos" : "teams"}
+									</span>
+									<span class="bd-track-stat-pct">
+										{tr.pct}%
+									</span>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
+			<!-- Tarjeta de Retención Formativa + Gira Escolar -->
+			<div class="bd-glass bd-retention-card">
+				<div class="bd-retention-top">
+					<span
+						class="bd-chip bd-chip-purple"
+						style="font-size:0.68rem;"
+					>
+						<span class="material-icons" style="font-size:12px;"
+							>verified</span
+						>
+						{t("biodesign.impact.bootcamp.badge")}
+					</span>
+					<h3 class="bd-headline-md" style="margin:0.4rem 0 0.5rem;">
+						{t("biodesign.impact.bootcamp.title")}
+					</h3>
+				</div>
+				<div class="bd-retention-pills">
+					<div class="bd-ret-pill">
+						<strong>29</strong>
+						<span>{t("biodesign.impact.bootcamp.p1")}</span>
+					</div>
+					<div class="bd-ret-pill">
+						<strong>10</strong>
+						<span>{t("biodesign.impact.bootcamp.p2")}</span>
+					</div>
+					<div class="bd-ret-pill">
+						<strong>+28</strong>
+						<span>{t("biodesign.impact.bootcamp.p3")}</span>
+					</div>
+				</div>
+
+				<div class="bd-tour-strip">
+					<div class="bd-tour-strip-head">
+						<span
+							class="material-icons"
+							style="font-size:16px; color:var(--bd-tertiary);"
+							>explore</span
+						>
+						<strong>{t("biodesign.impact.tour.title")}:</strong>
+						<span>{t("biodesign.impact.tour.subtitle")}</span>
+					</div>
+					<div class="bd-tour-schools-row">
+						{
+							visitedSchools.map((s) => (
+								<span class="bd-tour-school-chip">
+									<span
+										class="material-icons"
+										style="font-size:13px;"
+									>
+										{s.icon}
+									</span>
+									{s.name}
+								</span>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Columna Derecha: Mapa SVG Interactivo del Perú (9 Regiones) -->
+		<div class="bd-glass bd-peru-map-card">
+			<div class="bd-map-card-header">
+				<div class="bd-map-header-top">
+					<div>
+						<span
+							class="bd-chip bd-chip-teal"
+							style="font-size:0.68rem;"
+						>
+							<span class="material-icons" style="font-size:12px;"
+								>place</span
+							>
+							{t("biodesign.impact.map.badge")}
+						</span>
+						<h3
+							class="bd-headline-md"
+							style="margin:0.4rem 0 0.2rem;"
+						>
+							{t("biodesign.impact.map.title")}
+						</h3>
+						<p
+							class="bd-caption"
+							style="color:var(--bd-on-surface-variant); margin:0;"
+						>
+							{t("biodesign.impact.map.subtitle")}
+						</p>
+					</div>
+					<div class="bd-map-telemetry-pills">
+						<span class="bd-map-tele-pill">
+							<span class="material-icons" style="font-size:13px;"
+								>hub</span
+							>
+							{isEs ? "9 Departamentos" : "9 Departments"}
+						</span>
+						<span class="bd-map-tele-pill bd-map-tele-pill--lime">
+							<span class="material-icons" style="font-size:13px;"
+								>workspace_premium</span
+							>
+							{isEs ? "Red COAR Activa" : "COAR Network"}
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="bd-map-layout">
+				<!-- Lienzo SVG del Mapa Departamental Oficial del Perú (MapSVG) -->
+				<div class="bd-svg-map-wrap">
+					<div class="bd-map-hud-top" aria-hidden="true">
+						<span class="bd-map-hud-tag">PERÚ • RED BIODESIGN</span>
+						<span class="bd-map-hud-coords"
+							>00°–18°S / 81°–68°W</span
+						>
+					</div>
+					<svg
+						viewBox="-55 -18 650 830"
+						class="bd-peru-svg"
+						role="img"
+						aria-label={t("biodesign.impact.map.title")}
+					>
+						<defs>
+							<radialGradient
+								id="bdNodeGlow"
+								cx="50%"
+								cy="50%"
+								r="50%"
+							>
+								<stop
+									offset="0%"
+									stop-color="#79f8d0"
+									stop-opacity="0.9"></stop>
+								<stop
+									offset="60%"
+									stop-color="#79f8d0"
+									stop-opacity="0.25"></stop>
+								<stop
+									offset="100%"
+									stop-color="#79f8d0"
+									stop-opacity="0"></stop>
+							</radialGradient>
+							<radialGradient
+								id="bdHubGlow"
+								cx="50%"
+								cy="50%"
+								r="50%"
+							>
+								<stop
+									offset="0%"
+									stop-color="#bbf35f"
+									stop-opacity="0.95"></stop>
+								<stop
+									offset="55%"
+									stop-color="#79f8d0"
+									stop-opacity="0.35"></stop>
+								<stop
+									offset="100%"
+									stop-color="#79f8d0"
+									stop-opacity="0"></stop>
+							</radialGradient>
+							<linearGradient
+								id="bdDeptActiveFill"
+								x1="0%"
+								y1="0%"
+								x2="100%"
+								y2="100%"
+							>
+								<stop
+									offset="0%"
+									stop-color="rgba(121, 248, 208, 0.42)"
+								></stop>
+								<stop
+									offset="100%"
+									stop-color="rgba(16, 185, 129, 0.28)"
+								></stop>
+							</linearGradient>
+							<linearGradient
+								id="bdDeptHighlightFill"
+								x1="0%"
+								y1="0%"
+								x2="100%"
+								y2="100%"
+							>
+								<stop
+									offset="0%"
+									stop-color="rgba(187, 243, 95, 0.55)"
+								></stop>
+								<stop
+									offset="100%"
+									stop-color="rgba(121, 248, 208, 0.38)"
+								></stop>
+							</linearGradient>
+							<linearGradient
+								id="bdDeptSelectedFill"
+								x1="0%"
+								y1="0%"
+								x2="100%"
+								y2="100%"
+							>
+								<stop
+									offset="0%"
+									stop-color="rgba(121, 248, 208, 0.78)"
+								></stop>
+								<stop
+									offset="100%"
+									stop-color="rgba(187, 243, 95, 0.62)"
+								></stop>
+							</linearGradient>
+						</defs>
+
+						<!-- Retícula cartográfica de fondo -->
+						<g
+							class="bd-map-grid-lines"
+							stroke="currentColor"
+							stroke-opacity="0.05"
+							stroke-width="1.2"
+						>
+							<line x1="-45" y1="140" x2="585" y2="140"></line>
+							<line x1="-45" y1="300" x2="585" y2="300"></line>
+							<line x1="-45" y1="460" x2="585" y2="460"></line>
+							<line x1="-45" y1="620" x2="585" y2="620"></line>
+							<line x1="110" y1="-10" x2="110" y2="800"></line>
+							<line x1="270" y1="-10" x2="270" y2="800"></line>
+							<line x1="430" y1="-10" x2="430" y2="800"></line>
+						</g>
+
+						<!-- Capa 1: Departamentos no participantes y Lago Titicaca (Contexto territorial completo) -->
+						<g class="bd-map-depts-base">
+							{
+								deptPaths
+									.filter((dp) => !dp.region)
+									.map((dp) => (
+										<path
+											id={dp.svgId}
+											d={dp.d}
+											class={
+												dp.isLake
+													? "bd-dept-path bd-dept-lake"
+													: "bd-dept-path bd-dept-inactive"
+											}
+										>
+											<title>{dp.title}</title>
+										</path>
+									))
+							}
+						</g>
+
+						<!-- Capa 2: Los 9 Departamentos / Regiones Participantes Pintados (Choropleth Interactivo) -->
+						<g class="bd-map-depts-active">
+							{
+								deptPaths
+									.filter((dp) => dp.region)
+									.map((dp) => {
+										const r = dp.region!;
+										return (
+											<path
+												id={dp.svgId}
+												d={dp.d}
+												data-region-path={r.id}
+												class={`bd-dept-path bd-dept-participating ${r.id === "lima" ? "is-active" : ""} ${r.highlight ? "is-highlight" : ""}`}
+											>
+												<title>{`${r.name}: ${r.schools}`}</title>
+											</path>
+										);
+									})
+							}
+						</g>
+
+						<!-- Capa 3: Arcos curvos de conexión bio-red hacia Lima (Sede Gran Final) -->
+						<g class="bd-map-links" fill="none">
+							{
+								regions
+									.filter((r) => r.arc)
+									.map((r) => (
+										<path
+											d={r.arc}
+											class="bd-map-arc"
+											data-region-arc={r.id}
+											stroke="rgba(121, 248, 208, 0.38)"
+											stroke-width="2"
+											stroke-dasharray="5 5"
+										/>
+									))
+							}
+						</g>
+
+						<!-- Capa 4: Centroides y Etiquetas de las 9 Regiones Participantes -->
+						{
+							regions.map((r) => {
+								const lineEndX =
+									r.anchor === "start" ? r.lx - 6 : r.lx + 6;
+								const lineEndY = r.ly - 5;
+								return (
+									<g
+										class={`bd-map-node ${r.id === "lima" ? "is-active" : ""} ${r.highlight ? "is-highlight" : ""}`}
+										data-region-node={r.id}
+										tabindex="0"
+										role="button"
+										aria-label={`${r.name}: ${r.schools}`}
+									>
+										<circle
+											cx={r.cx}
+											cy={r.cy}
+											r={r.highlight ? 26 : 19}
+											fill={
+												r.highlight
+													? "url(#bdHubGlow)"
+													: "url(#bdNodeGlow)"
+											}
+											class="bd-node-halo"
+										/>
+										{r.highlight && (
+											<circle
+												cx={r.cx}
+												cy={r.cy}
+												r="15"
+												fill="none"
+												stroke="rgba(187, 243, 95, 0.65)"
+												stroke-width="1.5"
+												stroke-dasharray="3 3"
+												class="bd-node-ring"
+											/>
+										)}
+										<line
+											x1={r.cx}
+											y1={r.cy}
+											x2={lineEndX}
+											y2={lineEndY}
+											stroke="rgba(121, 248, 208, 0.55)"
+											stroke-width="1.5"
+											class="bd-node-leader"
+										/>
+										<circle
+											cx={r.cx}
+											cy={r.cy}
+											r={r.highlight ? 8.5 : 6.5}
+											class="bd-node-dot"
+										/>
+										<text
+											x={r.lx}
+											y={r.ly}
+											text-anchor={r.anchor}
+											class="bd-node-label"
+										>
+											{r.name}
+										</text>
+									</g>
+								);
+							})
+						}
+					</svg>
+					<div class="bd-map-hud-bottom" aria-hidden="true">
+						<span class="bd-map-legend-item">
+							<span class="bd-legend-dot bd-legend-dot--hub"
+							></span>
+							{
+								isEs
+									? "Sede Final (Lima) & Delegación Destacada (Tacna) • Mapa: MapSVG"
+									: "Final Venue (Lima) & Featured Delegation (Tacna) • Map: MapSVG"
+							}
+						</span>
+					</div>
+				</div>
+
+				<!-- Lista Interactiva de las 9 Regiones + Panel de Detalle -->
+				<div class="bd-regions-panel">
+					<div
+						class="bd-region-detail-box"
+						id="bd-region-detail-box"
+						aria-live="polite"
+					>
+						<div class="bd-region-detail-top">
+							<span
+								class="material-icons"
+								style="color:var(--bd-primary); font-size:1.15rem;"
+								>location_on</span
+							>
+							<strong id="bd-region-detail-name"
+								>Lima y Callao</strong
+							>
+							<span
+								class="bd-region-detail-zone"
+								id="bd-region-detail-zone"
+							>
+								{regions[3].zone}
+							</span>
+						</div>
+						<p
+							class="bd-caption"
+							id="bd-region-detail-schools"
+							style="margin:0.4rem 0 0; color:var(--bd-on-surface-variant); line-height:1.45;"
+						>
+							{regions[3].schools}
+						</p>
+					</div>
+
+					<div class="bd-region-chips-head">
+						<span
+							class="bd-caption"
+							style="font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--bd-on-surface-variant);"
+						>
+							{t("biodesign.impact.map.regions_list")}
+						</span>
+						<span
+							class="bd-caption"
+							style="color:var(--bd-primary); font-size:0.72rem;"
+						>
+							{
+								isEs
+									? "Clic para explorar colegios"
+									: "Click to inspect schools"
+							}
+						</span>
+					</div>
+
+					<div
+						class="bd-region-chips-grid"
+						role="list"
+						aria-label={t("biodesign.impact.map.regions_list")}
+					>
+						{
+							regions.map((r) => (
+								<button
+									type="button"
+									class={`bd-region-chip ${r.id === "lima" ? "is-active" : ""}`}
+									data-region-btn={r.id}
+									data-name={r.name}
+									data-zone={r.zone}
+									data-schools={r.schools}
+								>
+									<span class="bd-region-chip-dot" />
+									<span>{r.name}</span>
+								</button>
+							))
+						}
+					</div>
+
+					<div class="bd-coar-badge-box">
+						<span
+							class="material-icons"
+							style="color:var(--bd-tertiary); font-size:1.15rem; flex-shrink:0;"
+							>workspace_premium</span
+						>
+						<p
+							class="bd-caption"
+							style="margin:0; line-height:1.45;"
+						>
+							{t("biodesign.impact.map.coar_note")}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	function initBiodesignImpactMap() {
+		const section = document.getElementById("impacto");
+		if (!section) return;
+
+		const nodes =
+			section.querySelectorAll<SVGGElement>("[data-region-node]");
+		const deptPaths =
+			section.querySelectorAll<SVGPathElement>("[data-region-path]");
+		const arcs =
+			section.querySelectorAll<SVGPathElement>("[data-region-arc]");
+		const chips =
+			section.querySelectorAll<HTMLButtonElement>("[data-region-btn]");
+		const nameEl = document.getElementById("bd-region-detail-name");
+		const zoneEl = document.getElementById("bd-region-detail-zone");
+		const schoolsEl = document.getElementById("bd-region-detail-schools");
+
+		function selectRegion(regionId: string) {
+			const chip = section?.querySelector<HTMLButtonElement>(
+				`[data-region-btn="${regionId}"]`,
+			);
+			if (!chip) return;
+
+			nodes.forEach((n) =>
+				n.classList.toggle(
+					"is-active",
+					n.dataset.regionNode === regionId,
+				),
+			);
+			deptPaths.forEach((p) =>
+				p.classList.toggle(
+					"is-active",
+					p.dataset.regionPath === regionId,
+				),
+			);
+			arcs.forEach((a) =>
+				a.classList.toggle(
+					"is-active",
+					a.dataset.regionArc === regionId,
+				),
+			);
+			chips.forEach((c) =>
+				c.classList.toggle(
+					"is-active",
+					c.dataset.regionBtn === regionId,
+				),
+			);
+
+			if (nameEl) nameEl.textContent = chip.dataset.name || "";
+			if (zoneEl) zoneEl.textContent = chip.dataset.zone || "";
+			if (schoolsEl) schoolsEl.textContent = chip.dataset.schools || "";
+		}
+
+		chips.forEach((chip) => {
+			chip.addEventListener("click", () => {
+				if (chip.dataset.regionBtn)
+					selectRegion(chip.dataset.regionBtn);
+			});
+		});
+
+		deptPaths.forEach((p) => {
+			p.addEventListener("click", () => {
+				if (p.dataset.regionPath) selectRegion(p.dataset.regionPath);
+			});
+		});
+
+		nodes.forEach((node) => {
+			node.addEventListener("click", () => {
+				if (node.dataset.regionNode)
+					selectRegion(node.dataset.regionNode);
+			});
+			node.addEventListener("keydown", (e) => {
+				if (
+					(e.key === "Enter" || e.key === " ") &&
+					node.dataset.regionNode
+				) {
+					e.preventDefault();
+					selectRegion(node.dataset.regionNode);
+				}
+			});
+		});
+	}
+
+	initBiodesignImpactMap();
+	document.addEventListener("astro:page-load", initBiodesignImpactMap);
+</script>
+
+<style>
+	.bd-impact-section {
+		position: relative;
+	}
+
+	/* ── Grilla 6 KPIs ── */
+	.bd-impact-kpi-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 1rem;
+		margin-top: 2.25rem;
+	}
+
+	.bd-impact-kpi-card {
+		--kpi-rgb: var(--bd-primary-rgb);
+		--kpi-accent: var(--bd-primary);
+		position: relative;
+		padding: 1.25rem 1.1rem;
+		border-radius: 1.15rem;
+		border: 1px solid rgba(var(--kpi-rgb), 0.28);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		gap: 0.45rem;
+	}
+
+	.bd-impact-kpi-glow {
+		position: absolute;
+		top: -40px;
+		right: -40px;
+		width: 110px;
+		height: 110px;
+		border-radius: 50%;
+		background: radial-gradient(
+			circle,
+			rgba(var(--kpi-rgb), 0.2),
+			transparent 70%
+		);
+		pointer-events: none;
+	}
+
+	.bd-impact-kpi-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+
+	.bd-impact-kpi-icon {
+		width: 2.1rem;
+		height: 2.1rem;
+		border-radius: 0.6rem;
+		background: rgba(var(--kpi-rgb), 0.12);
+		border: 1px solid rgba(var(--kpi-rgb), 0.3);
+		color: var(--kpi-accent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.bd-impact-kpi-icon .material-icons {
+		font-size: 1.15rem;
+	}
+
+	.bd-impact-kpi-val {
+		font-family: "Space Grotesk", sans-serif;
+		font-size: clamp(1.65rem, 2.4vw, 2.15rem);
+		font-weight: 800;
+		line-height: 1;
+		color: var(--kpi-accent);
+	}
+
+	.bd-impact-kpi-label {
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 0.88rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		margin: 0.15rem 0 0;
+		line-height: 1.25;
+	}
+
+	.bd-impact-kpi-sub {
+		font-size: 0.74rem;
+		line-height: 1.4;
+		color: var(--bd-on-surface-variant);
+		margin: 0;
+	}
+
+	/* ── Bento 2 Columnas ── */
+	.bd-impact-bento {
+		display: grid;
+		grid-template-columns: 0.95fr 1.2fr;
+		gap: 1.25rem;
+		margin-top: 1.25rem;
+		align-items: stretch;
+	}
+
+	.bd-impact-col-left {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+
+	.bd-tracks-dist-card,
+	.bd-retention-card,
+	.bd-peru-map-card {
+		padding: 1.5rem;
+		border-radius: 1.25rem;
+	}
+
+	.bd-card-head {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.75rem;
+	}
+
+	.bd-tracks-total-pill {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.75rem;
+		font-weight: 700;
+		padding: 0.25rem 0.65rem;
+		border-radius: 999px;
+		background: rgba(var(--bd-primary-rgb), 0.12);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.3);
+		color: var(--bd-primary);
+		white-space: nowrap;
+	}
+
+	.bd-stacked-bar {
+		height: 12px;
+		width: 100%;
+		border-radius: 999px;
+		overflow: hidden;
+		display: flex;
+		gap: 3px;
+		background: rgba(255, 255, 255, 0.05);
+		padding: 2px;
+		margin-bottom: 1.15rem;
+	}
+
+	.bd-stacked-segment {
+		height: 100%;
+		border-radius: 999px;
+		transition: width 0.6s ease;
+	}
+
+	.bd-track-stat-list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.65rem;
+	}
+
+	.bd-track-stat-row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 0.65rem 0.85rem;
+		border-radius: 0.85rem;
+		background: rgba(var(--tr-rgb), 0.07);
+		border: 1px solid rgba(var(--tr-rgb), 0.22);
+	}
+
+	.bd-track-stat-left {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		min-width: 0;
+	}
+
+	.bd-track-stat-icon {
+		color: var(--tr-color);
+		font-size: 1.2rem;
+		flex-shrink: 0;
+	}
+
+	.bd-track-stat-name {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		font-size: 0.84rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-track-stat-num {
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.7rem;
+		font-weight: 700;
+		color: var(--tr-color);
+		padding: 0.1rem 0.4rem;
+		border-radius: 5px;
+		background: rgba(var(--tr-rgb), 0.14);
+	}
+
+	.bd-track-stat-right {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		flex-shrink: 0;
+	}
+
+	.bd-track-stat-count {
+		font-size: 0.78rem;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-track-stat-pct {
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 0.85rem;
+		font-weight: 700;
+		color: var(--tr-color);
+		min-width: 3rem;
+		text-align: right;
+	}
+
+	/* ── Retención & Gira Escolar ── */
+	.bd-retention-pills {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.65rem;
+		margin-bottom: 1rem;
+	}
+
+	.bd-ret-pill {
+		padding: 0.7rem 0.75rem;
+		border-radius: 0.85rem;
+		background: rgba(var(--bd-secondary-rgb), 0.08);
+		border: 1px solid rgba(var(--bd-secondary-rgb), 0.22);
+		display: flex;
+		flex-direction: column;
+		gap: 0.15rem;
+	}
+
+	.bd-ret-pill strong {
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 1.3rem;
+		color: var(--bd-secondary);
+		line-height: 1.1;
+	}
+
+	.bd-ret-pill span {
+		font-size: 0.72rem;
+		color: var(--bd-on-surface-variant);
+		line-height: 1.3;
+	}
+
+	.bd-tour-strip {
+		padding: 0.85rem;
+		border-radius: 0.85rem;
+		background: rgba(var(--bd-tertiary-rgb), 0.06);
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.22);
+	}
+
+	.bd-tour-strip-head {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+		font-size: 0.78rem;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.55rem;
+	}
+
+	.bd-tour-strip-head span:last-child {
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-tour-schools-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.bd-tour-school-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.25rem 0.6rem;
+		border-radius: 999px;
+		font-size: 0.72rem;
+		font-weight: 600;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: var(--bd-text-primary);
+	}
+
+	.bd-tour-school-chip .material-icons {
+		color: var(--bd-tertiary);
+	}
+
+	/* ── Mapa SVG del Perú (Espacio Optimizado y Diseño Cartográfico) ── */
+	.bd-peru-map-card {
+		display: flex;
+		flex-direction: column;
+		gap: 1.1rem;
+	}
+
+	.bd-map-header-top {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-map-telemetry-pills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+
+	.bd-map-tele-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.3rem 0.65rem;
+		border-radius: 999px;
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 0.72rem;
+		font-weight: 700;
+		background: rgba(var(--bd-primary-rgb), 0.1);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.28);
+		color: var(--bd-primary);
+		white-space: nowrap;
+	}
+
+	.bd-map-tele-pill--lime {
+		background: rgba(var(--bd-tertiary-rgb), 0.1);
+		border-color: rgba(var(--bd-tertiary-rgb), 0.28);
+		color: var(--bd-tertiary);
+	}
+
+	.bd-map-layout {
+		flex: 1;
+		display: grid;
+		grid-template-columns: minmax(255px, 0.96fr) 1.08fr;
+		gap: 1.25rem;
+		align-items: stretch;
+	}
+
+	.bd-svg-map-wrap {
+		position: relative;
+		background: radial-gradient(
+			circle at 45% 55%,
+			rgba(121, 248, 208, 0.09),
+			rgba(6, 10, 22, 0.45) 75%
+		);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.24);
+		border-radius: 1.1rem;
+		padding: 2.1rem 0.65rem 1.9rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		min-height: 360px;
+		overflow: hidden;
+	}
+
+	.bd-map-hud-top,
+	.bd-map-hud-bottom {
+		position: absolute;
+		left: 0.75rem;
+		right: 0.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-family: "JetBrains Mono", monospace;
+		font-size: 0.63rem;
+		letter-spacing: 0.04em;
+		color: var(--bd-on-surface-variant);
+		opacity: 0.8;
+		pointer-events: none;
+	}
+
+	.bd-map-hud-top {
+		top: 0.6rem;
+	}
+
+	.bd-map-hud-bottom {
+		bottom: 0.55rem;
+		justify-content: center;
+	}
+
+	.bd-map-hud-tag {
+		color: var(--bd-primary);
+		font-weight: 700;
+	}
+
+	.bd-map-legend-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 0.66rem;
+	}
+
+	.bd-legend-dot {
+		width: 7px;
+		height: 7px;
+		border-radius: 50%;
+		background: var(--bd-primary);
+	}
+
+	.bd-legend-dot--hub {
+		background: var(--bd-tertiary);
+		box-shadow: 0 0 8px rgba(187, 243, 95, 0.8);
+	}
+
+	.bd-peru-svg {
+		width: 100%;
+		max-width: 300px;
+		height: auto;
+		overflow: visible;
+		filter: drop-shadow(0 8px 22px rgba(0, 0, 0, 0.35));
+	}
+
+	/* ── Trazos Departamentales (Choropleth MapSVG) ── */
+	.bd-dept-path {
+		stroke-linejoin: round;
+		stroke-linecap: round;
+		transition:
+			fill 0.25s ease,
+			stroke 0.25s ease,
+			stroke-width 0.25s ease,
+			filter 0.25s ease;
+	}
+
+	.bd-dept-inactive {
+		fill: rgba(148, 163, 184, 0.08);
+		stroke: rgba(121, 248, 208, 0.22);
+		stroke-width: 1.1;
+	}
+
+	.bd-dept-lake {
+		fill: rgba(56, 189, 248, 0.22);
+		stroke: rgba(56, 189, 248, 0.45);
+		stroke-width: 1;
+	}
+
+	.bd-dept-participating {
+		fill: url(#bdDeptActiveFill);
+		stroke: rgba(121, 248, 208, 0.78);
+		stroke-width: 1.65;
+		cursor: pointer;
+	}
+
+	.bd-dept-participating.is-highlight {
+		fill: url(#bdDeptHighlightFill);
+		stroke: rgba(187, 243, 95, 0.9);
+		stroke-width: 1.85;
+	}
+
+	.bd-dept-participating:hover,
+	.bd-dept-participating.is-active {
+		fill: url(#bdDeptSelectedFill);
+		stroke: #ffffff;
+		stroke-width: 2.3;
+		filter: drop-shadow(0 0 10px rgba(121, 248, 208, 0.45));
+	}
+
+	.bd-map-arc {
+		pointer-events: none;
+		transition:
+			stroke 0.25s ease,
+			stroke-width 0.25s ease,
+			opacity 0.25s ease;
+	}
+
+	.bd-map-arc.is-active {
+		stroke: var(--bd-tertiary);
+		stroke-width: 3;
+		stroke-dasharray: none;
+	}
+
+	.bd-map-node {
+		cursor: pointer;
+	}
+
+	.bd-node-halo {
+		opacity: 0.45;
+		pointer-events: none;
+		transition: opacity 0.25s ease;
+	}
+
+	.bd-node-leader {
+		opacity: 0.65;
+		pointer-events: none;
+		transition:
+			opacity 0.2s ease,
+			stroke 0.2s ease;
+	}
+
+	.bd-node-dot {
+		fill: var(--bd-primary);
+		stroke: #0e0c1b;
+		stroke-width: 2.2;
+		transition:
+			transform 0.25s ease,
+			fill 0.25s ease;
+	}
+
+	.bd-map-node.is-highlight .bd-node-dot {
+		fill: var(--bd-tertiary);
+	}
+
+	.bd-map-node.is-active .bd-node-dot,
+	.bd-map-node:hover .bd-node-dot {
+		fill: #ffffff;
+		stroke: var(--bd-primary);
+		stroke-width: 3.4;
+	}
+
+	.bd-map-node.is-active .bd-node-halo,
+	.bd-map-node:hover .bd-node-halo {
+		opacity: 1;
+	}
+
+	.bd-map-node.is-active .bd-node-leader,
+	.bd-map-node:hover .bd-node-leader {
+		opacity: 1;
+		stroke: #ffffff;
+	}
+
+	.bd-node-label {
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 18px;
+		font-weight: 700;
+		fill: var(--bd-on-surface-variant);
+		paint-order: stroke;
+		stroke: rgba(10, 12, 24, 0.92);
+		stroke-width: 5.5px;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+		pointer-events: none;
+		transition: fill 0.2s ease;
+	}
+
+	.bd-map-node.is-active .bd-node-label,
+	.bd-map-node:hover .bd-node-label {
+		fill: #ffffff;
+	}
+
+	.bd-regions-panel {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 0.85rem;
+	}
+
+	.bd-region-detail-box {
+		padding: 0.95rem 1.05rem;
+		border-radius: 0.95rem;
+		background: rgba(var(--bd-primary-rgb), 0.08);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.3);
+		min-height: 92px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.bd-region-detail-top {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+		font-size: 0.95rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-region-detail-zone {
+		font-size: 0.7rem;
+		padding: 0.12rem 0.55rem;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.08);
+		color: var(--bd-primary);
+		margin-left: auto;
+	}
+
+	.bd-region-chips-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		margin-bottom: -0.3rem;
+	}
+
+	.bd-region-chips-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 0.5rem;
+	}
+
+	.bd-region-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.52rem 0.65rem;
+		border-radius: 0.65rem;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		color: var(--bd-on-surface-variant);
+		font-family: "Space Grotesk", sans-serif;
+		font-size: 0.76rem;
+		font-weight: 600;
+		cursor: pointer;
+		text-align: left;
+		transition: all 0.2s ease;
+	}
+
+	.bd-region-chip:hover {
+		border-color: rgba(var(--bd-primary-rgb), 0.45);
+		color: var(--bd-text-primary);
+	}
+
+	.bd-region-chip.is-active {
+		background: rgba(var(--bd-primary-rgb), 0.15);
+		border-color: var(--bd-primary);
+		color: var(--bd-text-primary);
+		box-shadow: 0 0 12px rgba(var(--bd-primary-rgb), 0.2);
+	}
+
+	.bd-region-chip-dot {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--bd-primary);
+		flex-shrink: 0;
+	}
+
+	.bd-coar-badge-box {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.55rem;
+		padding: 0.8rem 0.95rem;
+		border-radius: 0.85rem;
+		background: rgba(var(--bd-tertiary-rgb), 0.07);
+		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.22);
+		color: var(--bd-on-surface-variant);
+	}
+
+	/* ── Light Mode ── */
+	:root:not(.dark) .bd-svg-map-wrap {
+		background: radial-gradient(
+			circle at 45% 55%,
+			rgba(5, 150, 105, 0.08),
+			#f1f5f9 75%
+		);
+		border-color: rgba(5, 150, 105, 0.25);
+	}
+	:root:not(.dark) .bd-dept-inactive {
+		fill: rgba(15, 23, 42, 0.045);
+		stroke: rgba(15, 23, 42, 0.16);
+	}
+	:root:not(.dark) .bd-dept-lake {
+		fill: rgba(2, 132, 199, 0.16);
+		stroke: rgba(2, 132, 199, 0.35);
+	}
+	:root:not(.dark) .bd-dept-active {
+		fill: rgba(5, 150, 105, 0.22);
+		stroke: rgba(5, 150, 105, 0.65);
+	}
+	:root:not(.dark) .bd-dept-active.is-active,
+	:root:not(.dark) .bd-dept-active:hover {
+		fill: rgba(5, 150, 105, 0.42);
+		stroke: #047857;
+	}
+	:root:not(.dark) .bd-node-label {
+		fill: #1e293b;
+		stroke: rgba(255, 255, 255, 0.92);
+	}
+	:root:not(.dark) .bd-map-node.is-active .bd-node-label,
+	:root:not(.dark) .bd-map-node:hover .bd-node-label {
+		fill: #047857;
+	}
+	:root:not(.dark) .bd-region-chip {
+		background: #f8fafc;
+		border-color: #cbd5e1;
+		color: #334155;
+	}
+	:root:not(.dark) .bd-region-chip.is-active {
+		background: rgba(5, 150, 105, 0.12);
+		border-color: #059669;
+		color: #0f172a;
+	}
+	:root:not(.dark) .bd-tour-school-chip {
+		background: #ffffff;
+		border-color: #cbd5e1;
+		color: #0f172a;
+	}
+
+	/* ── Responsive ── */
+	@media (max-width: 1150px) {
+		.bd-impact-kpi-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		.bd-impact-bento {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.bd-impact-kpi-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 0.75rem;
+		}
+		.bd-impact-kpi-card {
+			padding: 0.95rem;
+		}
+		.bd-map-layout {
+			grid-template-columns: 1fr;
+		}
+		.bd-svg-map-wrap {
+			min-height: 320px;
+		}
+		.bd-peru-svg {
+			max-width: 280px;
+		}
+		.bd-region-chips-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.bd-retention-pills {
+			grid-template-columns: 1fr;
+		}
+		.bd-region-detail-zone {
+			margin-left: 0;
+		}
+	}
+</style>

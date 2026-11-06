@@ -8,28 +8,220 @@ interface Props {
 
 const { lang = 'es' } = Astro.props;
 const t = useTranslations(lang);
+const isEs = lang === 'es';
 
 type TrackId = 'track1' | 'track2' | 'track3';
 
-interface Finalist {
+interface FinalistProject {
+	rank: number;
 	code: string;
+	team: string;
 	project: string;
-	team?: string;
+	score: string;
+	breakdown?: string;
+	tiebreaker?: string;
 	track: TrackId;
+	school: string;
+	region: string;
+	chassisShort: string;
+	chassisFull: string;
+	summary: string;
+	members: string;
+	advisor?: string;
 }
 
-// ── Top 10 oficial (orden correlativo por N° de equipo, NO por mérito) ──
-const finalists: Finalist[] = [
-	{ code: 'EQ-01', project: 'RecySense-Pb', team: 'SynCell', track: 'track1' },
-	{ code: 'EQ-05', project: 'simBIOsis', track: 'track1' },
-	{ code: 'EQ-07', project: 'AVOSYNC', team: 'BioLoopers', track: 'track3' },
-	{ code: 'EQ-08', project: 'FreshCoat', team: 'ShineCoat', track: 'track3' },
-	{ code: 'EQ-09', project: 'BioSynTech', team: 'BioSINTEC', track: 'track1' },
-	{ code: 'EQ-11', project: 'Misión NAH7: Ciencia para un Mar Azul', team: 'HELZIES', track: 'track1' },
-	{ code: 'EQ-24', project: 'Innova Vita', track: 'track2' },
-	{ code: 'EQ-25', project: 'PETMHET', track: 'track1' },
-	{ code: 'EQ-27', project: 'Arsecoli', track: 'track2' },
-	{ code: 'EQ-28', project: 'GLUCOFLUX', track: 'track2' },
+// ── Ranking Final Oficial del Top 10 (§5 de la especificación) ──
+const finalists: FinalistProject[] = [
+	{
+		rank: 1,
+		code: 'EQ-09',
+		team: 'BioSynTech',
+		project: 'PET2PHA',
+		score: '93.33 pts',
+		breakdown: 'E1: 75.33 / E2: 18.00',
+		track: 'track1',
+		school: 'Colegio Claretiano de Lima',
+		region: 'Lima',
+		chassisShort: 'P. putida KT2440',
+		chassisFull: isEs
+			? 'Pseudomonas putida KT2440/JM37 | Enzimas Fast-PETasa y MHETasa'
+			: 'Pseudomonas putida KT2440/JM37 | Fast-PETase & MHETase enzymes',
+		summary: isEs
+			? 'Sistema modular de bio-upcycling que despolimeriza residuos plásticos PET mediante las enzimas Fast-PETasa y MHETasa para biotransformar sus monómeros en bioplástico biodegradable mcl-PHA.'
+			: 'Modular bio-upcycling system that depolymerizes PET plastic waste via Fast-PETase and MHETase enzymes to biotransform its monomers into biodegradable mcl-PHA bioplastic.',
+		members: 'Mateo S. (Líder), Juliette A., Sebastián O.',
+		advisor: 'Prof. Jean Ausubel Tovar Contreras',
+	},
+	{
+		rank: 2,
+		code: 'EQ-08',
+		team: 'ShineCoat',
+		project: 'FreshCoat',
+		score: '90.83 pts',
+		breakdown: 'E1: 75.50 / E2: 15.33',
+		track: 'track3',
+		school: 'Colegio Mayor Secundario Presidente del Perú - COAR Lima Metropolitana',
+		region: 'Lima',
+		chassisShort: 'B. subtilis WB800N',
+		chassisFull: isEs
+			? 'Bacillus subtilis WB800N | Quitinasa + cromoproteína azul amilCP + bioadhesión TasA'
+			: 'Bacillus subtilis WB800N | Chitinase + amilCP blue chromoprotein + TasA bioadhesion',
+		summary: isEs
+			? 'Recubrimiento bioactivo inteligente con tres módulos integrados (secreción de quitinasa antifúngica, diagnóstico visual con cromoproteína amilCP y bioadhesión con TasA) para evitar el deterioro de frutas frescas en hogares sin refrigeración.'
+			: 'Smart bioactive coating with three integrated modules (antifungal chitinase secretion, visual indicator via amilCP chromoprotein, and TasA bioadhesion) to prevent fresh fruit spoilage in unrefrigerated households.',
+		members: 'Romina U. (Líder), Keyla C., Mayra G., Genessis R.',
+		advisor: 'Ing. Adrián Pedro Mayta Mantari',
+	},
+	{
+		rank: 3,
+		code: 'EQ-01',
+		team: 'SynCell',
+		project: 'RecySense-Pb Regional',
+		score: '82.50 pts',
+		breakdown: 'E1: 69.17 / E2: 13.33',
+		track: 'track1',
+		school: 'I.E. N.° 1071 Alfonso Ugarte (Lima) / I.E. N.° 50025 Daniel Estrada Pérez (Cusco)',
+		region: 'Lima / Cusco',
+		chassisShort: 'E. coli DH5α',
+		chassisFull: isEs
+			? 'Escherichia coli DH5α | Regulador transcripcional PbrR + proteína reportera roja dTomato'
+			: 'Escherichia coli DH5α | PbrR transcriptional regulator + dTomato red reporter protein',
+		summary: isEs
+			? 'Biosensor bacteriano conceptual basado en el regulador PbrR y la proteína reportera dTomato para el monitoreo preliminar de contaminación por plomo en aguas del río Ragra (Pasco).'
+			: 'Conceptual bacterial biosensor based on the PbrR regulator and dTomato reporter protein for preliminary monitoring of lead contamination in the Ragra River (Pasco).',
+		members: 'Theo D. (Líder), Manuel G., Angelo C., Marcos G.',
+		advisor: 'Daniel Elías García Blas',
+	},
+	{
+		rank: 4,
+		code: 'EQ-07',
+		team: 'BioLoopers',
+		project: 'AVOSYNC',
+		score: '73.33 pts',
+		tiebreaker: isEs ? 'Desempate C3' : 'C3 Tiebreaker',
+		track: 'track3',
+		school: 'COAR Tacna / I.E. San José de Nazaret',
+		region: 'Tacna',
+		chassisShort: 'Synechocystis PCC 6803',
+		chassisFull: isEs
+			? 'Cianobacteria Synechocystis PCC 6803 | Circuito represor en cascada TetR/lacZ sensible a etileno'
+			: 'Cyanobacterium Synechocystis PCC 6803 | Ethylene-sensitive TetR/lacZ cascade repressor circuit',
+		summary: isEs
+			? 'Etiqueta inteligente colorimétrica y compostable que detecta la hormona etileno mediante un circuito represor TetR/lacZ, permitiendo monitorear sin magulladuras la maduración de la palta Hass en Ayacucho y Tacna.'
+			: 'Compostable colorimetric smart label that detects ethylene hormone through a TetR/lacZ repressor circuit, enabling bruise-free ripening monitoring of Hass avocados in Ayacucho and Tacna.',
+		members: 'Max H. (Líder), Angélica A., Dhayron Q., Faviana A., María B.',
+		advisor: 'Blga. Diana Galeska Farfán Pajuelo',
+	},
+	{
+		rank: 5,
+		code: 'EQ-24',
+		team: 'Innova Vita',
+		project: 'AIRROTS',
+		score: '73.33 pts',
+		track: 'track2',
+		school: 'Delegación Multirregional (I.E.P. Miravalles, I.E. 7234 Las Palmeras, I.E.P. Colegio Latino e I.E. Santa María de los Andes)',
+		region: 'Lima / Cusco',
+		chassisShort: 'Cell-Free (E. coli K-12)',
+		chassisFull: isEs
+			? 'Sistema libre de células (Cell-Free) derivado de E. coli K-12 | Promotor inducible pOxyR + reportero lacZ'
+			: 'Cell-free system derived from E. coli K-12 | Inducible pOxyR promoter + lacZ reporter',
+		summary: isEs
+			? 'Biosensor portátil cell-free en tiras de papel que detecta estrés oxidativo (especies reactivas de oxígeno) en muestras de aliento de pobladores y brigadistas expuestos a incendios forestales en Cusco.'
+			: 'Portable paper-strip cell-free biosensor that detects oxidative stress (reactive oxygen species) in breath samples from residents and firefighters exposed to wildfires in Cusco.',
+		members: 'Celin R. (Líder), Camila T., Paola C., Camila C.',
+	},
+	{
+		rank: 6,
+		code: 'EQ-28',
+		team: 'GLUCOFLUX',
+		project: 'GLUCOFLUX',
+		score: '72.93 pts',
+		track: 'track2',
+		school: 'Delegación Multirregional (COAR Lima Metropolitana, I.E. Instituto Sevilla, IHS Barranco y COAR Cusco)',
+		region: 'Lima / Cusco',
+		chassisShort: 'Cell-Free (E. coli NM303)',
+		chassisFull: isEs
+			? 'Sistema Cell-Free (E. coli NM303) | Proteína mutante GBP-L255C marcada con acrilodano'
+			: 'Cell-Free system (E. coli NM303) | Acrylodan-labeled GBP-L255C mutant protein',
+		summary: isEs
+			? 'Biosensor fluorescente portátil cell-free en cartucho con estabilización térmica a 37 °C para el tamizaje preliminar no invasivo de glucosa en orina en comunidades altoandinas como La Rinconada (Puno, >5100 m s. n. m.).'
+			: 'Portable cartridge cell-free fluorescent biosensor thermally stabilized at 37 °C for non-invasive preliminary urine glucose screening in high-Andean communities such as La Rinconada (Puno, >5,100 m a.s.l.).',
+		members: 'Marinia Y. (Líder), Dafne R., Gia P., Anabel C.',
+	},
+	{
+		rank: 7,
+		code: 'EQ-05',
+		team: 'simBIOsis',
+		project: 'Eco-Fung',
+		score: '71.19 pts',
+		track: 'track1',
+		school: 'Colegio María Auxiliadora',
+		region: 'Lima',
+		chassisShort: 'B. subtilis WB800N',
+		chassisFull: isEs
+			? 'Bacillus subtilis WB800N en biorreactor cerrado | Péptido antifúngico vegetal EAFP2'
+			: 'Bacillus subtilis WB800N in closed bioreactor | EAFP2 plant antifungal peptide',
+		summary: isEs
+			? 'Biofungicida ecológico libre de células vivas basado en el péptido EAFP2 secretado y purificado en biorreactor para controlar el tizón tardío de la papa en los Andes sin dejar residuos tóxicos.'
+			: 'Cell-free eco-biofungicide based on the EAFP2 peptide secreted and purified in a closed bioreactor to control potato late blight in the Andes without leaving toxic residues.',
+		members: 'Luciana A. (Líder), Camila S., Luciana U.',
+		advisor: 'María Paola Carrasco Velásquez',
+	},
+	{
+		rank: 8,
+		code: 'EQ-25',
+		team: 'Equipo 25',
+		project: 'PETMHET',
+		score: '68.83 pts',
+		track: 'track1',
+		school: 'Colegio Trilce Santa Beatriz / Salaverry',
+		region: 'Lima',
+		chassisShort: 'E. coli BL21(DE3)',
+		chassisFull: isEs
+			? 'Escherichia coli BL21(DE3) encapsulada en alginato y nanocelulosa | Display de superficie Lpp-OmpA (PETasa/MHETasa) + reportero eforRed'
+			: 'Escherichia coli BL21(DE3) encapsulated in alginate & nanocellulose | Lpp-OmpA surface display (PETase/MHETase) + eforRed reporter',
+		summary: isEs
+			? 'Sistema de biorremediación marina en perlas de alginato que despliega enzimas degradadoras de microplásticos en la bahía del Callao, incorporando un módulo biosensor rojo (eforRed) que alerta el desgaste celular para el recambio seguro del cartucho.'
+			: 'Alginate-bead marine bioremediation system displaying microplastic-degrading enzymes in Callao Bay, featuring a red biosensor module (eforRed) that signals cellular fatigue for safe cartridge replacement.',
+		members: 'Hirka N. (Líder), Sebastian A.',
+	},
+	{
+		rank: 9,
+		code: 'EQ-27',
+		team: 'Arsecoli',
+		project: 'Biosensor Cell-Free para Neurocisticercosis',
+		score: '63.80 pts',
+		track: 'track2',
+		school: 'Delegación Multirregional (I.E.P. San Carlos, Colegio Trilce Santa Beatriz - Salaverry e I.E. Almirante Miguel Grau)',
+		region: 'Lima / Piura',
+		chassisShort: 'Cell-Free (E. coli K-12)',
+		chassisFull: isEs
+			? 'Sistema Cell-Free liofilizado en papel (E. coli K-12) | Reconocimiento de antígeno HP10 (Taenia solium) + lacZ'
+			: 'Freeze-dried paper Cell-Free system (E. coli K-12) | HP10 antigen recognition (Taenia solium) + lacZ',
+		summary: isEs
+			? 'Dispositivo diagnóstico acelular en papel que se activa ante el antígeno HP10 en muestras de orina, cambiando de amarillo a violeta en menos de 45 minutos para el triaje temprano de neurocisticercosis en postas rurales de La Unión (Piura).'
+			: 'Paper-based cell-free diagnostic device activated by the HP10 antigen in urine samples, shifting from yellow to violet in under 45 minutes for early neurocysticercosis triage in rural health posts of La Unión (Piura).',
+		members: 'Ximena V. (Líder), Luana R., Maira P., Fernando M.',
+	},
+	{
+		rank: 10,
+		code: 'EQ-11',
+		team: 'HELZIES',
+		project: 'Misión NAH7: Ciencia para un Mar Azul',
+		score: '63.08 pts',
+		track: 'track1',
+		school: 'Colegio Mayor Secundario Presidente del Perú - COAR Lima Metropolitana',
+		region: 'Lima',
+		chassisShort: 'P. putida G7',
+		chassisFull: isEs
+			? 'Pseudomonas putida G7 | Ruta catabólica del plásmido NAH7 en biorreactor cerrado'
+			: 'Pseudomonas putida G7 | NAH7 plasmid catabolic pathway in closed bioreactor',
+		summary: isEs
+			? 'Diseño computacional de una unidad transcripcional basada en la ruta del plásmido NAH7 para degradar naftaleno en aguas recolectadas tras derrames de petróleo en las costas de Lobitos (Talara, Piura).'
+			: 'Computational design of a transcriptional unit based on the NAH7 plasmid pathway to degrade naphthalene in water collected after oil spills along the Lobitos coast (Talara, Piura).',
+		members: 'Yonne R. (Líder), Alessandra A., Valeria A.',
+		advisor: 'Prof. Irina Mabell Porras Mija',
+	},
 ];
 
 const trackMeta: Record<TrackId, { num: number; icon: string; rgb: string; color: string; chip: string }> = {
@@ -42,13 +234,13 @@ const trackIds: TrackId[] = ['track1', 'track2', 'track3'];
 const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).length;
 ---
 
-<!-- ═══════════════════════════════════════════
-     SECCIÓN: EQUIPOS CLASIFICADOS — TOP 10 GRAN FINAL
-     ═══════════════════════════════════════════ -->
-<section class="bd-section bd-finalists-section" id="clasificados" aria-labelledby="finalists-title">
+<!-- Ancla de compatibilidad para enlaces heredados (#clasificados) -->
+<div id="clasificados" style="position:relative; top:-80px;" aria-hidden="true"></div>
+
+<section class="bd-section bd-finalists-section" id="proyectos" aria-labelledby="finalists-title">
 	<div class="bd-section-header bd-reveal" style="text-align:center;">
-		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
-			<span class="material-icons" style="font-size:14px;">emoji_events</span>
+		<span class="bd-chip bd-chip-teal" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">biotech</span>
 			{t('biodesign.finalists.badge')}
 		</span>
 		<h2 class="bd-headline-lg" id="finalists-title">
@@ -57,15 +249,6 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		<p class="bd-body-md" style="max-width:760px; margin:0 auto;">
 			{t('biodesign.finalists.subtitle')}
 		</p>
-	</div>
-
-	<!-- Aclaración fundamental: orden correlativo, no de mérito -->
-	<div class="bd-fin-disclaimer bd-glass bd-reveal" role="note">
-		<span class="material-icons bd-fin-disclaimer-icon" aria-hidden="true">push_pin</span>
-		<div>
-			<strong class="bd-fin-disclaimer-title">{t('biodesign.finalists.disclaimer.title')}</strong>
-			<p class="bd-fin-disclaimer-text">{t('biodesign.finalists.disclaimer.text')}</p>
-		</div>
 	</div>
 
 	<!-- Filtros por Track -->
@@ -93,67 +276,140 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		))}
 	</div>
 
-	<!-- Grid de Clasificados -->
+	<!-- Grid del Ranking Oficial Top 10 -->
 	<ol class="bd-fin-grid bd-reveal" id="finalists-grid">
 		{finalists.map((f) => {
 			const meta = trackMeta[f.track];
+			const trackTitle = `Track ${meta.num}: ${t(`biodesign.tracks.${f.track}.title`)}`;
 			return (
 				<li
-					class="bd-fin-card bd-glass"
+					class={`bd-fin-card bd-glass ${f.rank <= 3 ? `bd-fin-card--top${f.rank}` : ''}`}
 					data-track={f.track}
 					id={`finalist-${f.code.toLowerCase()}`}
 					style={`--fin-rgb: ${meta.rgb}; --fin-color: ${meta.color};`}
 				>
 					<div class="bd-fin-card-glow" aria-hidden="true"></div>
 					<div class="bd-fin-card-top">
-						<span class="bd-fin-code">{f.code}</span>
-						<span class="bd-fin-qualified">
-							<span class="material-icons" aria-hidden="true">verified</span>
-							{t('biodesign.finalists.card.qualified')}
+						<div class="bd-fin-rank-wrap">
+							<span class="bd-fin-rank">#{f.rank}</span>
+							<span class="bd-fin-code">{f.code}</span>
+						</div>
+						<span class="bd-fin-score">{f.score}</span>
+					</div>
+
+					<h3 class="bd-fin-project">{f.project}</h3>
+
+					<p class="bd-fin-team">
+						<span class="material-icons" aria-hidden="true">groups</span>
+						<span><strong>{f.team}</strong> · {f.school} ({f.region})</span>
+					</p>
+
+					<div class="bd-fin-pills-row">
+						<span class={`bd-chip ${meta.chip} bd-fin-track-chip`}>
+							<span class="material-icons" style="font-size:12px;" aria-hidden="true">{meta.icon}</span>
+							{trackTitle}
+						</span>
+						<span class="bd-fin-chassis-pill" title={f.chassisFull}>
+							<span class="material-icons" style="font-size:12px;" aria-hidden="true">science</span>
+							<em>{f.chassisShort}</em>
 						</span>
 					</div>
-					<h3 class="bd-fin-project">{f.project}</h3>
-					<p class="bd-fin-team">
-						{f.team ? (
-							<>
-								<span class="material-icons" aria-hidden="true">groups</span>
-								{t('biodesign.finalists.card.team')}: <strong>{f.team}</strong>
-							</>
-						) : (
-							<>
-								<span class="material-icons" aria-hidden="true">science</span>
-								{t('biodesign.finalists.card.delegation')}
-							</>
-						)}
-					</p>
+
 					<div class="bd-fin-card-footer">
-						<span class={`bd-chip ${meta.chip} bd-fin-track-chip`}>
-							<span class="material-icons" style="font-size:13px;" aria-hidden="true">{meta.icon}</span>
-							Track {meta.num}: {t(`biodesign.tracks.${f.track}.title`)}
-						</span>
+						<button
+							type="button"
+							class="bd-fin-sheet-btn"
+							data-project-trigger={f.code}
+							data-rank={`#${f.rank}`}
+							data-code={f.code}
+							data-team={f.team}
+							data-project={f.project}
+							data-score={f.score}
+							data-breakdown={f.breakdown || ''}
+							data-tiebreaker={f.tiebreaker || ''}
+							data-track={trackTitle}
+							data-school={`${f.school} (${f.region})`}
+							data-chassis={f.chassisFull}
+							data-summary={f.summary}
+							data-members={f.members}
+							data-advisor={f.advisor || ''}
+						>
+							<span>{t('biodesign.finalists.view_sheet')}</span>
+							<span class="material-icons" style="font-size:15px;" aria-hidden="true">arrow_forward</span>
+						</button>
 					</div>
 				</li>
 			);
 		})}
 	</ol>
-
-	<!-- CTA hacia próximos pasos -->
-	<div class="bd-fin-next bd-reveal">
-		<p class="bd-body-sm bd-fin-next-text">
-			<span class="material-icons" aria-hidden="true">celebration</span>
-			{t('biodesign.finalists.next.text')}
-		</p>
-		<a href="#que-sigue" class="bd-btn-secondary bd-fin-next-btn" id="btn-finalists-next-steps">
-			<span class="material-icons" style="font-size:1.1rem;">arrow_downward</span>
-			{t('biodesign.finalists.next.cta')}
-		</a>
-	</div>
 </section>
 
+<!-- ═══════════════════════════════════════════
+     MODAL NATIVO <dialog>: FICHA TÉCNICA EJECUTIVA
+     ═══════════════════════════════════════════ -->
+<dialog class="bd-project-dialog" id="bd-project-sheet-dialog" aria-labelledby="bd-dialog-proj-title">
+	<div class="bd-dialog-inner">
+		<div class="bd-dialog-header">
+			<div class="bd-dialog-badges">
+				<span class="bd-dialog-rank" id="bd-dialog-rank">#1</span>
+				<span class="bd-dialog-code" id="bd-dialog-code">EQ-09</span>
+				<span class="bd-dialog-score" id="bd-dialog-score">93.33 pts</span>
+				<span class="bd-dialog-breakdown" id="bd-dialog-breakdown" hidden></span>
+			</div>
+			<button type="button" class="bd-dialog-close" id="bd-dialog-close-btn" aria-label={t('biodesign.tracks.modal.close')}>
+				<span class="material-icons">close</span>
+			</button>
+		</div>
+
+		<div class="bd-dialog-body">
+			<span class="bd-dialog-track" id="bd-dialog-track">Track 1</span>
+			<h3 class="bd-headline-md bd-dialog-title" id="bd-dialog-proj-title">PET2PHA</h3>
+			<p class="bd-dialog-team-line">
+				<strong id="bd-dialog-team">BioSynTech</strong> · <span id="bd-dialog-school">Colegio Claretiano</span>
+			</p>
+
+			<div class="bd-dialog-box">
+				<div class="bd-dialog-box-label">
+					<span class="material-icons" style="font-size:15px; color:var(--bd-primary);">biotech</span>
+					<span>{t('biodesign.finalists.sheet.chassis')}</span>
+				</div>
+				<p class="bd-dialog-box-val" id="bd-dialog-chassis"></p>
+			</div>
+
+			<div class="bd-dialog-box">
+				<div class="bd-dialog-box-label">
+					<span class="material-icons" style="font-size:15px; color:var(--bd-tertiary);">description</span>
+					<span>{t('biodesign.finalists.sheet.summary')}</span>
+				</div>
+				<p class="bd-dialog-box-val" id="bd-dialog-summary"></p>
+			</div>
+
+			<div class="bd-dialog-meta-grid">
+				<div class="bd-dialog-meta-item">
+					<span class="bd-dialog-meta-lbl">{t('biodesign.finalists.sheet.members')}</span>
+					<p class="bd-dialog-meta-txt" id="bd-dialog-members"></p>
+				</div>
+				<div class="bd-dialog-meta-item" id="bd-dialog-advisor-wrap">
+					<span class="bd-dialog-meta-lbl">{t('biodesign.finalists.sheet.advisor')}</span>
+					<p class="bd-dialog-meta-txt" id="bd-dialog-advisor"></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="bd-dialog-footer">
+			<button type="button" class="bd-btn-secondary bd-dialog-footer-close" id="bd-dialog-footer-close">
+				{t('biodesign.tracks.modal.close')}
+			</button>
+		</div>
+	</div>
+</dialog>
+
 <script>
-	function initFinalistsFilter() {
-		const section = document.getElementById('clasificados');
+	function initFinalistsPortfolio() {
+		const section = document.getElementById('proyectos');
 		if (!section) return;
+
+		// 1. Filtro por Track
 		const buttons = section.querySelectorAll<HTMLButtonElement>('[data-fin-filter]');
 		const cards = section.querySelectorAll<HTMLElement>('.bd-fin-card');
 
@@ -171,45 +427,91 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 				});
 			});
 		});
+
+		// 2. Modal nativo <dialog> de Ficha Técnica
+		const dialog = document.getElementById('bd-project-sheet-dialog') as HTMLDialogElement | null;
+		if (!dialog) return;
+
+		const rankEl = document.getElementById('bd-dialog-rank');
+		const codeEl = document.getElementById('bd-dialog-code');
+		const scoreEl = document.getElementById('bd-dialog-score');
+		const breakdownEl = document.getElementById('bd-dialog-breakdown');
+		const trackEl = document.getElementById('bd-dialog-track');
+		const titleEl = document.getElementById('bd-dialog-proj-title');
+		const teamEl = document.getElementById('bd-dialog-team');
+		const schoolEl = document.getElementById('bd-dialog-school');
+		const chassisEl = document.getElementById('bd-dialog-chassis');
+		const summaryEl = document.getElementById('bd-dialog-summary');
+		const membersEl = document.getElementById('bd-dialog-members');
+		const advisorWrap = document.getElementById('bd-dialog-advisor-wrap');
+		const advisorEl = document.getElementById('bd-dialog-advisor');
+
+		let lastTrigger: HTMLElement | null = null;
+
+		function openProjectDialog(btn: HTMLButtonElement) {
+			if (!dialog) return;
+			lastTrigger = btn;
+
+			if (rankEl) rankEl.textContent = btn.dataset.rank || '';
+			if (codeEl) codeEl.textContent = btn.dataset.code || '';
+			if (scoreEl) scoreEl.textContent = btn.dataset.score || '';
+
+			const extra = btn.dataset.breakdown || btn.dataset.tiebreaker || '';
+			if (breakdownEl) {
+				breakdownEl.textContent = extra;
+				breakdownEl.hidden = !extra;
+			}
+
+			if (trackEl) trackEl.textContent = btn.dataset.track || '';
+			if (titleEl) titleEl.textContent = btn.dataset.project || '';
+			if (teamEl) teamEl.textContent = btn.dataset.team || '';
+			if (schoolEl) schoolEl.textContent = btn.dataset.school || '';
+			if (chassisEl) chassisEl.textContent = btn.dataset.chassis || '';
+			if (summaryEl) summaryEl.textContent = btn.dataset.summary || '';
+			if (membersEl) membersEl.textContent = btn.dataset.members || '';
+
+			const advisor = btn.dataset.advisor || '';
+			if (advisorWrap && advisorEl) {
+				advisorEl.textContent = advisor;
+				advisorWrap.hidden = !advisor;
+			}
+
+			if (typeof dialog.showModal === 'function') {
+				dialog.showModal();
+			} else {
+				dialog.setAttribute('open', '');
+			}
+		}
+
+		function closeProjectDialog() {
+			if (!dialog) return;
+			if (typeof dialog.close === 'function') {
+				dialog.close();
+			} else {
+				dialog.removeAttribute('open');
+			}
+			if (lastTrigger) lastTrigger.focus();
+		}
+
+		section.querySelectorAll<HTMLButtonElement>('[data-project-trigger]').forEach((btn) => {
+			btn.addEventListener('click', () => openProjectDialog(btn));
+		});
+
+		document.getElementById('bd-dialog-close-btn')?.addEventListener('click', closeProjectDialog);
+		document.getElementById('bd-dialog-footer-close')?.addEventListener('click', closeProjectDialog);
+
+		dialog.addEventListener('click', (e) => {
+			if (e.target === dialog) closeProjectDialog();
+		});
 	}
-	document.addEventListener('astro:page-load', initFinalistsFilter);
+
+	initFinalistsPortfolio();
+	document.addEventListener('astro:page-load', initFinalistsPortfolio);
 </script>
 
 <style>
 	.bd-finalists-section {
 		position: relative;
-	}
-
-	/* ── Disclaimer ─────────────────────────────── */
-	.bd-fin-disclaimer {
-		display: flex;
-		gap: 1rem;
-		align-items: flex-start;
-		max-width: 900px;
-		margin: 0 auto 2rem;
-		padding: 1.1rem 1.4rem;
-		border-radius: 18px;
-		border: 1px solid rgba(var(--bd-tertiary-rgb), 0.35);
-		background: linear-gradient(135deg, rgba(var(--bd-tertiary-rgb), 0.08), rgba(var(--bd-secondary-rgb), 0.06));
-	}
-	.bd-fin-disclaimer-icon {
-		color: var(--bd-tertiary);
-		font-size: 1.4rem;
-		flex-shrink: 0;
-		margin-top: 2px;
-	}
-	.bd-fin-disclaimer-title {
-		display: block;
-		font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-		color: var(--bd-text-primary);
-		font-size: 0.95rem;
-		margin-bottom: 0.25rem;
-	}
-	.bd-fin-disclaimer-text {
-		margin: 0;
-		font-size: 0.88rem;
-		line-height: 1.55;
-		color: var(--bd-on-surface-variant);
 	}
 
 	/* ── Filtros ─────────────────────────────────── */
@@ -218,7 +520,7 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		flex-wrap: wrap;
 		justify-content: center;
 		gap: 0.6rem;
-		margin-bottom: 2rem;
+		margin: 2rem 0;
 	}
 	.bd-fin-filter {
 		--fin-rgb: var(--bd-primary-rgb);
@@ -235,7 +537,7 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		font-size: 0.82rem;
 		font-weight: 600;
 		cursor: pointer;
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: all 0.25s ease;
 	}
 	.bd-fin-filter .material-icons {
 		font-size: 1rem;
@@ -250,10 +552,6 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		background: rgba(var(--fin-rgb), 0.14);
 		box-shadow: 0 0 18px rgba(var(--fin-rgb), 0.25);
 		color: var(--bd-text-primary);
-	}
-	.bd-fin-filter:focus-visible {
-		outline: 2px solid var(--fin-color);
-		outline-offset: 2px;
 	}
 	.bd-fin-filter-count {
 		min-width: 1.4rem;
@@ -271,19 +569,19 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		padding: 0;
 		margin: 0;
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-		gap: 1.25rem;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1.15rem;
 	}
 	.bd-fin-card {
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
-		padding: 1.4rem;
+		gap: 0.65rem;
+		padding: 1.35rem;
 		border-radius: 20px;
-		border: 1px solid rgba(var(--fin-rgb), 0.25);
+		border: 1px solid rgba(var(--fin-rgb), 0.28);
 		overflow: hidden;
-		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s, box-shadow 0.35s, opacity 0.3s;
+		transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 	}
 	.bd-fin-card::before {
 		content: '';
@@ -291,12 +589,12 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		inset: 0 0 auto 0;
 		height: 3px;
 		background: linear-gradient(90deg, transparent, var(--fin-color), transparent);
-		opacity: 0.8;
+		opacity: 0.85;
 	}
 	.bd-fin-card:hover {
 		transform: translateY(-4px);
-		border-color: rgba(var(--fin-rgb), 0.6);
-		box-shadow: 0 12px 32px -12px rgba(var(--fin-rgb), 0.45);
+		border-color: rgba(var(--fin-rgb), 0.65);
+		box-shadow: 0 12px 32px -12px rgba(var(--fin-rgb), 0.4);
 	}
 	.bd-fin-card.is-hidden {
 		display: none;
@@ -305,10 +603,10 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		position: absolute;
 		top: -60px;
 		right: -60px;
-		width: 160px;
-		height: 160px;
+		width: 150px;
+		height: 150px;
 		border-radius: 50%;
-		background: radial-gradient(circle, rgba(var(--fin-rgb), 0.22), transparent 70%);
+		background: radial-gradient(circle, rgba(var(--fin-rgb), 0.2), transparent 70%);
 		pointer-events: none;
 	}
 	.bd-fin-card-top {
@@ -316,217 +614,311 @@ const countByTrack = (id: TrackId) => finalists.filter((f) => f.track === id).le
 		justify-content: space-between;
 		align-items: center;
 		gap: 0.5rem;
-		position: relative;
 	}
-	.bd-fin-code {
-		font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-		font-size: 0.8rem;
-		font-weight: 700;
-		letter-spacing: 0.06em;
-		padding: 0.25rem 0.6rem;
-		border-radius: 8px;
-		color: var(--fin-color);
-		background: rgba(var(--fin-rgb), 0.12);
-		border: 1px solid rgba(var(--fin-rgb), 0.35);
-		text-shadow: 0 0 10px rgba(var(--fin-rgb), 0.35);
-	}
-	.bd-fin-qualified {
+	.bd-fin-rank-wrap {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.25rem;
-		font-size: 0.68rem;
+		gap: 0.4rem;
+	}
+	.bd-fin-rank {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.9rem;
+		font-weight: 800;
+		padding: 0.2rem 0.55rem;
+		border-radius: 8px;
+		background: rgba(var(--fin-rgb), 0.18);
+		color: var(--fin-color);
+	}
+	.bd-fin-card--top1 .bd-fin-rank {
+		background: rgba(251, 191, 36, 0.22);
+		color: #fbbf24;
+	}
+	.bd-fin-code {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.76rem;
 		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
 		color: var(--bd-on-surface-variant);
 	}
-	.bd-fin-qualified .material-icons {
-		font-size: 0.95rem;
-		color: var(--bd-tertiary);
+	.bd-fin-score {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.78rem;
+		font-weight: 700;
+		padding: 0.2rem 0.55rem;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: var(--bd-text-primary);
 	}
 	.bd-fin-project {
-		position: relative;
-		margin: 0.25rem 0 0;
-		font-family: var(--font-heading, 'Space Grotesk', sans-serif);
-		font-size: 1.25rem;
+		margin: 0.15rem 0 0;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.15rem;
 		line-height: 1.25;
 		font-weight: 700;
 		color: var(--bd-text-primary);
-		overflow-wrap: anywhere;
 	}
 	.bd-fin-team {
 		display: flex;
-		align-items: center;
+		align-items: flex-start;
 		gap: 0.35rem;
 		margin: 0;
-		font-size: 0.85rem;
+		font-size: 0.8rem;
+		line-height: 1.4;
 		color: var(--bd-on-surface-variant);
 	}
 	.bd-fin-team .material-icons {
 		font-size: 1rem;
 		color: var(--fin-color);
+		margin-top: 1px;
+		flex-shrink: 0;
 	}
 	.bd-fin-team strong {
 		color: var(--bd-on-surface);
 	}
-	.bd-fin-card-footer {
-		margin-top: auto;
-		padding-top: 0.5rem;
-	}
-	.bd-fin-track-chip {
-		font-size: 0.68rem;
-		white-space: normal;
-		line-height: 1.3;
-	}
-
-	/* ── CTA siguiente paso ─────────────────────── */
-	.bd-fin-next {
+	.bd-fin-pills-row {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
-		margin-top: 2.25rem;
-		text-align: center;
+		gap: 0.4rem;
+		margin-top: 0.15rem;
 	}
-	.bd-fin-next-text {
+	.bd-fin-track-chip {
+		font-size: 0.66rem;
+		padding: 0.2rem 0.6rem;
+	}
+	.bd-fin-chassis-pill {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.4rem;
-		margin: 0;
+		gap: 0.25rem;
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		font-size: 0.68rem;
+		background: rgba(255, 255, 255, 0.05);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		color: var(--bd-on-surface);
+	}
+	.bd-fin-card-footer {
+		margin-top: auto;
+		padding-top: 0.55rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.07);
+	}
+	.bd-fin-sheet-btn {
+		width: 100%;
+		display: inline-flex;
+		align-items: center;
+		justify-content: space-between;
+		background: none;
+		border: none;
+		padding: 0.25rem 0;
+		color: var(--fin-color);
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.82rem;
+		font-weight: 700;
+		cursor: pointer;
+		transition: transform 0.2s ease;
+	}
+	.bd-fin-sheet-btn:hover {
+		transform: translateX(3px);
+	}
+
+	/* ── Native <dialog> Ficha Técnica ──────────── */
+	.bd-project-dialog {
+		max-width: 600px;
+		width: calc(100% - 2rem);
+		margin: auto;
+		padding: 0;
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.4);
+		border-radius: 1.35rem;
+		background: var(--bd-surface-container-high, #221f33);
+		color: var(--bd-on-surface);
+		box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65);
+	}
+	.bd-project-dialog::backdrop {
+		background: rgba(8, 7, 16, 0.76);
+		backdrop-filter: blur(8px);
+		-webkit-backdrop-filter: blur(8px);
+	}
+	.bd-dialog-inner {
+		display: flex;
+		flex-direction: column;
+		max-height: 88dvh;
+	}
+	.bd-dialog-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		padding: 1.25rem 1.5rem 1rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+	.bd-dialog-badges {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+	.bd-dialog-rank {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.9rem;
+		font-weight: 800;
+		padding: 0.2rem 0.6rem;
+		border-radius: 8px;
+		background: rgba(var(--bd-tertiary-rgb), 0.18);
+		color: var(--bd-tertiary);
+	}
+	.bd-dialog-code,
+	.bd-dialog-score {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.78rem;
+		font-weight: 700;
+		padding: 0.2rem 0.55rem;
+		border-radius: 6px;
+		background: rgba(var(--bd-primary-rgb), 0.14);
+		color: var(--bd-primary);
+	}
+	.bd-dialog-breakdown {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.72rem;
 		color: var(--bd-on-surface-variant);
 	}
-	.bd-fin-next-text .material-icons {
-		color: var(--bd-tertiary);
-		font-size: 1.1rem;
+	.bd-dialog-close {
+		background: rgba(255, 255, 255, 0.06);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 0.5rem;
+		color: var(--bd-on-surface-variant);
+		cursor: pointer;
+		padding: 0.35rem;
+		display: flex;
+		align-items: center;
 	}
-	.bd-fin-next-btn {
-		display: inline-flex;
+	.bd-dialog-close:hover {
+		color: var(--bd-text-primary);
+		border-color: var(--bd-primary);
+	}
+	.bd-dialog-body {
+		padding: 1.25rem 1.5rem;
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 0.95rem;
+	}
+	.bd-dialog-track {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.74rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--bd-primary);
+	}
+	.bd-dialog-title {
+		margin: -0.45rem 0 0;
+		color: var(--bd-text-primary);
+	}
+	.bd-dialog-team-line {
+		margin: -0.45rem 0 0;
+		font-size: 0.88rem;
+		color: var(--bd-on-surface-variant);
+	}
+	.bd-dialog-box {
+		padding: 0.9rem 1rem;
+		border-radius: 0.9rem;
+		background: rgba(255, 255, 255, 0.04);
+		border: 1px solid rgba(255, 255, 255, 0.09);
+	}
+	.bd-dialog-box-label {
+		display: flex;
 		align-items: center;
 		gap: 0.4rem;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.74rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--bd-text-primary);
+		margin-bottom: 0.35rem;
+	}
+	.bd-dialog-box-val {
+		margin: 0;
+		font-size: 0.88rem;
+		line-height: 1.55;
+		color: var(--bd-on-surface);
+	}
+	.bd-dialog-meta-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.75rem;
+	}
+	.bd-dialog-meta-item {
+		padding: 0.75rem 0.9rem;
+		border-radius: 0.8rem;
+		background: rgba(var(--bd-secondary-rgb), 0.07);
+		border: 1px solid rgba(var(--bd-secondary-rgb), 0.2);
+	}
+	.bd-dialog-meta-lbl {
+		display: block;
+		font-size: 0.7rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: var(--bd-secondary);
+		margin-bottom: 0.25rem;
+	}
+	.bd-dialog-meta-txt {
+		margin: 0;
+		font-size: 0.82rem;
+		color: var(--bd-text-primary);
+		line-height: 1.4;
+	}
+	.bd-dialog-footer {
+		padding: 0.95rem 1.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		display: flex;
+		justify-content: flex-end;
+	}
+	.bd-dialog-footer-close {
+		padding: 0.55rem 1.35rem !important;
+		font-size: 0.82rem !important;
+	}
+
+	/* ── Light Mode ── */
+	:root:not(.dark) .bd-fin-card {
+		background: #ffffff !important;
+		border-color: rgba(var(--fin-rgb), 0.35) !important;
+	}
+	:root:not(.dark) .bd-fin-score,
+	:root:not(.dark) .bd-fin-chassis-pill {
+		background: #f1f5f9;
+		border-color: #cbd5e1;
+		color: #0f172a;
+	}
+	:root:not(.dark) .bd-project-dialog {
+		background: #ffffff;
+		color: #0f172a;
+		border-color: rgba(5, 150, 105, 0.35);
+	}
+	:root:not(.dark) .bd-dialog-box {
+		background: #f8fafc;
+		border-color: #e2e8f0;
 	}
 
 	@media (max-width: 640px) {
-		.bd-fin-disclaimer {
-			padding: 0.85rem 1rem;
-			gap: 0.75rem;
-			border-radius: 14px;
-			margin-bottom: 1.25rem;
-		}
-		.bd-fin-disclaimer-icon {
-			font-size: 1.25rem;
-			margin-top: 1px;
-		}
-		.bd-fin-disclaimer-title {
-			font-size: 0.88rem;
-		}
-		.bd-fin-disclaimer-text {
-			font-size: 0.82rem;
-			line-height: 1.45;
-		}
 		.bd-fin-filters {
 			flex-wrap: nowrap;
 			justify-content: flex-start;
 			overflow-x: auto;
-			padding-bottom: 0.6rem;
-			margin-left: -0.5rem;
-			margin-right: -0.5rem;
-			padding-left: 0.5rem;
-			padding-right: 0.5rem;
-			margin-bottom: 1.25rem;
+			padding-bottom: 0.5rem;
 			scrollbar-width: none;
-			-webkit-overflow-scrolling: touch;
 		}
 		.bd-fin-filters::-webkit-scrollbar {
 			display: none;
 		}
 		.bd-fin-filter {
 			flex-shrink: 0;
-			min-height: 42px;
-			padding: 0.45rem 0.85rem;
-			font-size: 0.78rem;
 		}
 		.bd-fin-grid {
 			grid-template-columns: 1fr;
-			gap: 0.85rem;
 		}
-		.bd-fin-card {
-			padding: 1.15rem 1rem;
-			border-radius: 16px;
-			gap: 0.65rem;
+		.bd-dialog-meta-grid {
+			grid-template-columns: 1fr;
 		}
-		.bd-fin-project {
-			font-size: 1.1rem;
-			line-height: 1.3;
-		}
-		.bd-fin-team {
-			font-size: 0.8rem;
-		}
-		.bd-fin-next {
-			flex-direction: column;
-			gap: 0.75rem;
-			margin-top: 1.75rem;
-		}
-		.bd-fin-next-text {
-			font-size: 0.82rem;
-			justify-content: center;
-		}
-		.bd-fin-next-btn {
-			width: 100%;
-			justify-content: center;
-			box-sizing: border-box;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.bd-fin-card,
-		.bd-fin-filter {
-			transition: none;
-		}
-		.bd-fin-card:hover,
-		.bd-fin-filter:hover {
-			transform: none;
-		}
-	}
-
-	/* ── Light Mode Optimizations (UX Review) ──── */
-	:root:not(.dark) .bd-fin-disclaimer {
-		background: linear-gradient(135deg, rgba(254, 240, 138, 0.45), rgba(243, 240, 255, 0.75)) !important;
-		border-color: rgba(202, 138, 4, 0.45) !important;
-		box-shadow: 0 4px 20px rgba(202, 138, 4, 0.08) !important;
-	}
-	:root:not(.dark) .bd-fin-disclaimer-icon {
-		color: #b45309 !important;
-	}
-	:root:not(.dark) .bd-fin-disclaimer-title {
-		color: #78350f !important;
-	}
-	:root:not(.dark) .bd-fin-disclaimer-text {
-		color: #1e293b !important;
-	}
-	:root:not(.dark) .bd-fin-card {
-		background: #ffffff !important;
-		border-color: rgba(var(--fin-rgb), 0.35) !important;
-		box-shadow: 0 4px 22px rgba(15, 23, 42, 0.06) !important;
-	}
-	:root:not(.dark) .bd-fin-card:hover {
-		box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12), 0 0 16px rgba(var(--fin-rgb), 0.18) !important;
-	}
-	:root:not(.dark) .bd-fin-project {
-		color: #0f172a !important;
-	}
-	:root:not(.dark) .bd-fin-filter {
-		background: #ffffff !important;
-		border-color: #cbd5e1 !important;
-		color: #334155 !important;
-	}
-	:root:not(.dark) .bd-fin-filter:hover {
-		background: #f8fafc !important;
-		border-color: var(--fin-color) !important;
-	}
-	:root:not(.dark) .bd-fin-filter.is-active {
-		background: rgba(var(--fin-rgb), 0.14) !important;
-		border-color: var(--fin-color) !important;
-		color: #0f172a !important;
 	}
 </style>

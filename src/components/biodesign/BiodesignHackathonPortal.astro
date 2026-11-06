@@ -42,7 +42,7 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 			<div class="bd-launcher-info">
 				<div class="bd-launcher-chip">
 					<span class="bd-colony-dot bd-colony-dot--live"></span>
-					<span>{lang === 'es' ? 'MODO PRESENTACIÓN KICK-OFF • 7 ESTACIONES VIVAS' : 'KICK-OFF PRESENTATION MODE • 7 LIVE STATIONS'}</span>
+					<span>{lang === 'es' ? 'SIMULADOR EDUCATIVO • 7 ESTACIONES INTERACTIVAS' : 'EDUCATIONAL SIMULATOR • 7 INTERACTIVE STATIONS'}</span>
 				</div>
 				<h3 class="bd-headline-md" style="margin:0.5rem 0 0.35rem; color:var(--bd-text-primary);">
 					{t('biodesign.hackathon.launch_portal')}
@@ -61,26 +61,73 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 		</div>
 	</div>
 
-	<!-- Barra de Controles de los Acordeones Desplegables -->
-	<div class="bd-accordion-top-bar bd-reveal">
-		<div class="bd-accordion-meta">
-			<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">dashboard_customize</span>
-			<span class="bd-accordion-count">{lang === 'es' ? '7 Módulos de Información Oficial' : '7 Official Information Modules'}</span>
+	<!-- Barra Compacta de Recursos Pedagógicos Abiertos (1 sola fila) -->
+	<div class="bd-open-resources-bar bd-glass bd-reveal">
+		<div class="bd-open-resources-label">
+			<span class="material-icons" style="font-size:18px; color:var(--bd-tertiary);">folder_open</span>
+			<div>
+				<strong>{t('biodesign.hackathon.open_resources.title')}</strong>
+				<span class="bd-caption">{t('biodesign.hackathon.open_resources.subtitle')}</span>
+			</div>
 		</div>
-		<div class="bd-accordion-actions">
-			<button type="button" class="bd-btn-ghost bd-accordion-ctrl-btn" id="btn-accordion-expand-all">
-				<span class="material-icons" style="font-size:15px;">unfold_more</span>
-				{t('biodesign.hackathon.accordion.expand_all')}
-			</button>
-			<button type="button" class="bd-btn-ghost bd-accordion-ctrl-btn" id="btn-accordion-collapse-all">
-				<span class="material-icons" style="font-size:15px;">unfold_less</span>
-				{t('biodesign.hackathon.accordion.collapse_all')}
+		<div class="bd-open-resources-actions">
+			<a href={DOC_BASES} target="_blank" rel="noopener noreferrer" class="bd-btn-secondary bd-open-res-btn">
+				<span class="material-icons">gavel</span>
+				{t('biodesign.hackathon.kit.btn_bases')}
+			</a>
+			<a href={DOC_FICHAS} target="_blank" rel="noopener noreferrer" class="bd-btn-secondary bd-open-res-btn">
+				<span class="material-icons">menu_book</span>
+				{t('biodesign.hackathon.kit.btn_fichas')}
+			</a>
+			<a href={DOC_HANDBOOK} target="_blank" rel="noopener noreferrer" class="bd-btn-secondary bd-open-res-btn">
+				<span class="material-icons">auto_stories</span>
+				{t('biodesign.hackathon.kit.btn_handbook')}
+			</a>
+			<a href={DOC_FICHA1_WORD} download="Biodesign_ficha_informe.docx" class="bd-btn-secondary bd-open-res-btn">
+				<span class="material-icons">download</span>
+				{t('biodesign.hackathon.kit.btn_ficha1_word')}
+			</a>
+			<button type="button" class="bd-btn-ghost bd-open-res-btn bd-open-res-btn--accent" id="btn-open-template-modal-top">
+				<span class="material-icons">content_paste</span>
+				{t('biodesign.hackathon.kit.btn_template')}
 			</button>
 		</div>
 	</div>
 
-	<!-- Lista de Módulos Desplegables Cósmicos (7 Módulos Ordenados) -->
-	<div class="bd-hack-accordion-list bd-reveal" id="hackathon-accordion-list">
+	<!-- Contenedor Colapsable de los 7 Módulos Metodológicos del Sprint -->
+	<details class="bd-portal-archive-details bd-reveal">
+		<summary class="bd-portal-archive-summary bd-glass">
+			<div class="bd-portal-archive-sum-left">
+				<span class="material-icons" style="font-size:18px; color:var(--bd-primary);">dashboard_customize</span>
+				<span>{t('biodesign.hackathon.archive.summary')}</span>
+			</div>
+			<div class="bd-portal-archive-sum-right">
+				<span class="bd-chip bd-chip-teal">{lang === 'es' ? '7 Módulos Documentados' : '7 Documented Modules'}</span>
+				<span class="material-icons bd-portal-archive-chevron">expand_more</span>
+			</div>
+		</summary>
+
+		<div class="bd-portal-archive-body">
+			<!-- Barra de Controles de los Acordeones Desplegables -->
+			<div class="bd-accordion-top-bar">
+				<div class="bd-accordion-meta">
+					<span class="material-icons" style="font-size:16px; color:var(--bd-primary);">library_books</span>
+					<span class="bd-accordion-count">{lang === 'es' ? '7 Módulos Metodológicos de BioDesign 2026' : '7 Methodological Modules of BioDesign 2026'}</span>
+				</div>
+				<div class="bd-accordion-actions">
+					<button type="button" class="bd-btn-ghost bd-accordion-ctrl-btn" id="btn-accordion-expand-all">
+						<span class="material-icons" style="font-size:15px;">unfold_more</span>
+						{t('biodesign.hackathon.accordion.expand_all')}
+					</button>
+					<button type="button" class="bd-btn-ghost bd-accordion-ctrl-btn" id="btn-accordion-collapse-all">
+						<span class="material-icons" style="font-size:15px;">unfold_less</span>
+						{t('biodesign.hackathon.accordion.collapse_all')}
+					</button>
+				</div>
+			</div>
+
+			<!-- Lista de Módulos Desplegables Cósmicos (7 Módulos Ordenados) -->
+			<div class="bd-hack-accordion-list" id="hackathon-accordion-list">
 
 		<!-- MÓDULO 1: Misión del Evento & CNEB -->
 		<article class="bd-hack-accordion bd-glass" data-module="1">
@@ -402,7 +449,7 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 							<span class="bd-chip bd-chip-lime">{t('biodesign.hackathon.pitch.badge')}</span>
 						</div>
 						<h3 class="bd-headline-sm bd-acc-title">{t('biodesign.hackathon.pitch.title')}</h3>
-						<p class="bd-caption bd-acc-summary">{lang === 'es' ? 'Top 10 Clasificados (hasta 25 Oct) • Pitch en vivo 4 + 3 min • Viernes 30 Oct en UNMSM • Diplomas, Medallas & Premios Sorpresa' : 'Top 10 Qualifiers (by Oct 25) • Live pitch 4 + 3 min • Friday Oct 30 at UNMSM • Diplomas, Medals & Surprise Prizes'}</p>
+						<p class="bd-caption bd-acc-summary">{lang === 'es' ? 'Top 10 Finalistas • Pitch en vivo 4 + 3 min • 30 Oct en UNMSM • Diplomas, Medallas & Premios' : 'Top 10 Finalists • Live pitch 4 + 3 min • Oct 30 at UNMSM • Diplomas, Medals & Prizes'}</p>
 					</div>
 				</div>
 				<div class="bd-acc-header-right">
@@ -626,7 +673,9 @@ const DOC_FICHA1_WORD = `${base}/Biodesign/docs/Biodesign_ficha_informe.docx`;
 			</div>
 		</article>
 
-	</div>
+			</div>
+		</div>
+	</details>
 </section>
 
 <!-- ═══════════════════════════════════════════
@@ -990,13 +1039,13 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 						<div class="bd-slide-pitch-grid">
 							<div class="bd-mini-box bd-mini-box--accent">
 								<span class="material-icons bd-mini-icon" style="color:#f43f5e;">stars</span>
-								<strong>{lang === 'es' ? 'Top 10 Clasificados' : 'Top 10 Qualifiers'}</strong>
-								<p class="bd-caption">{lang === 'es' ? 'Los 10 mejores de 17 proyectos defienden en vivo: 1 representante, 4 min de pitch + 3 min de preguntas.' : 'The best 10 of 17 projects defend live: 1 representative, 4-min pitch + 3-min Q&A.'}</p>
+								<strong>{lang === 'es' ? 'Top 10 Finalistas' : 'Top 10 Finalists'}</strong>
+								<p class="bd-caption">{lang === 'es' ? 'Los 10 mejores de 17 proyectos defendieron en vivo: 1 representante, 4 min de pitch + 3 min de preguntas.' : 'The best 10 of 17 projects defended live: 1 representative, 4-min pitch + 3-min Q&A.'}</p>
 							</div>
 							<div class="bd-mini-box bd-mini-box--warn">
 								<span class="material-icons bd-mini-icon" style="color:#f59e0b;">escalator_warning</span>
-								<strong>Asistencia con Tutor o Familiar</strong>
-								<p class="bd-caption">Viernes 30 de Octubre (2 a 5 p.m.) en UNMSM. Los menores de edad deben asistir acompañados obligatoriamente.</p>
+								<strong>{lang === 'es' ? 'Ceremonia en UNMSM' : 'Ceremony at UNMSM'}</strong>
+								<p class="bd-caption">{lang === 'es' ? 'Celebrada el viernes 30 de Octubre (2 a 5 p.m.) en el Auditorio Rosa Alarco Larrabure de la UNMSM con tutores y familiares.' : 'Held on Friday, October 30 (2 to 5 p.m.) at UNMSM Rosa Alarco Larrabure Auditorium with advisors and families.'}</p>
 							</div>
 						</div>
 
@@ -1212,6 +1261,7 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 
 		// 2. Visor de Plantilla de Ficha Resumen
 		const btnOpenTemplate = document.getElementById('btn-open-template-modal');
+		const btnOpenTemplateTop = document.getElementById('btn-open-template-modal-top');
 		const modalTemplate = document.getElementById('modal-template-sheet');
 		const btnCloseTemplate = document.getElementById('btn-close-template-modal');
 		const btnCopyTemplate = document.getElementById('btn-copy-template-text');
@@ -1236,6 +1286,7 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		}
 
 		if (btnOpenTemplate) btnOpenTemplate.addEventListener('click', openTemplateModal);
+		if (btnOpenTemplateTop) btnOpenTemplateTop.addEventListener('click', openTemplateModal);
 		if (btnCloseTemplate) btnCloseTemplate.addEventListener('click', closeTemplateModal);
 
 		if (btnCopyTemplate && templateContentEl) {
@@ -3301,5 +3352,112 @@ TUTOR / MENTOR ASIGNADO: [Nombre del tutor/mentor]
 		border-radius: 999px;
 		background: var(--bd-primary);
 		box-shadow: 0 0 10px var(--bd-primary);
+	}
+
+	/* ── Barra Compacta de Recursos Pedagógicos Abiertos ── */
+	.bd-open-resources-bar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.25rem;
+		padding: 1rem 1.4rem;
+		border-radius: 16px;
+		margin-top: 1.25rem;
+		flex-wrap: wrap;
+		border: 1px solid rgba(203, 255, 86, 0.22);
+		background: linear-gradient(135deg, rgba(203, 255, 86, 0.05), rgba(32, 29, 45, 0.72));
+	}
+
+	.bd-open-resources-label {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+	}
+
+	.bd-open-resources-label strong {
+		display: block;
+		font-size: 0.9rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-open-resources-label .bd-caption {
+		color: var(--bd-on-surface-variant);
+		display: block;
+		margin-top: 0.1rem;
+	}
+
+	.bd-open-resources-actions {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-open-res-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.48rem 0.9rem;
+		font-size: 0.78rem;
+		border-radius: 999px;
+		text-decoration: none;
+		white-space: nowrap;
+	}
+
+	.bd-open-res-btn .material-icons {
+		font-size: 15px;
+	}
+
+	.bd-open-res-btn--accent {
+		border-color: rgba(121, 248, 208, 0.3);
+		color: var(--bd-primary);
+	}
+
+	/* ── Contenedor Colapsable de los 7 Módulos Metodológicos ── */
+	.bd-portal-archive-details {
+		margin-top: 1.25rem;
+	}
+
+	.bd-portal-archive-summary {
+		list-style: none;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.95rem 1.35rem;
+		border-radius: 14px;
+		font-weight: 700;
+		font-size: 0.9rem;
+		color: var(--bd-text-primary);
+		transition: border-color 0.2s ease, background 0.2s ease;
+	}
+
+	.bd-portal-archive-summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.bd-portal-archive-summary:hover {
+		border-color: rgba(121, 248, 208, 0.35);
+	}
+
+	.bd-portal-archive-sum-left,
+	.bd-portal-archive-sum-right {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+	}
+
+	.bd-portal-archive-chevron {
+		transition: transform 0.25s ease;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-portal-archive-details[open] .bd-portal-archive-chevron {
+		transform: rotate(180deg);
+	}
+
+	.bd-portal-archive-body {
+		margin-top: 1rem;
 	}
 </style>

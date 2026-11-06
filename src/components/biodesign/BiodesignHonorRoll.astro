@@ -1,0 +1,921 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+	lang?: Lang;
+}
+
+const { lang = 'es' } = Astro.props;
+const t = useTranslations(lang);
+const isEs = lang === 'es';
+
+// ── Tab 1: Podio Nacional (Top 3 Absoluto) ─────────────────────
+const podium = [
+	{
+		rank: 1,
+		medal: '🥇',
+		placeLabel: isEs ? '1.° Puesto Nacional' : '1st Place National',
+		code: 'EQ-09',
+		team: 'BioSynTech',
+		project: 'PET2PHA',
+		score: '93.33',
+		breakdown: 'E1: 75.33 / E2: 18.00',
+		school: 'Colegio Claretiano',
+		region: 'Lima',
+		track: isEs ? 'Track 1: Impacto Ambiental' : 'Track 1: Environmental Impact',
+		chassis: 'Pseudomonas putida KT2440/JM37',
+		tierClass: 'bd-podium-card--gold',
+		accent: '#fbbf24',
+		rgb: '251, 191, 36',
+	},
+	{
+		rank: 2,
+		medal: '🥈',
+		placeLabel: isEs ? '2.° Puesto Nacional' : '2nd Place National',
+		code: 'EQ-08',
+		team: 'ShineCoat',
+		project: 'FreshCoat',
+		score: '90.83',
+		breakdown: 'E1: 75.50 / E2: 15.33',
+		school: 'COAR Lima Metropolitana',
+		region: 'Lima',
+		track: isEs ? 'Track 3: Biomateriales y Biomanufactura' : 'Track 3: Biomaterials & Biomanufacturing',
+		chassis: 'Bacillus subtilis WB800N',
+		tierClass: 'bd-podium-card--silver',
+		accent: '#e2e8f0',
+		rgb: '226, 232, 240',
+	},
+	{
+		rank: 3,
+		medal: '🥉',
+		placeLabel: isEs ? '3.° Puesto Nacional' : '3rd Place National',
+		code: 'EQ-01',
+		team: 'SynCell',
+		project: 'RecySense-Pb Regional',
+		score: '82.50',
+		breakdown: 'E1: 69.17 / E2: 13.33',
+		school: 'I.E. Alfonso Ugarte / I.E. Daniel Estrada Pérez',
+		region: 'Lima / Cusco',
+		track: isEs ? 'Track 1: Impacto Ambiental' : 'Track 1: Environmental Impact',
+		chassis: 'Escherichia coli DH5α',
+		tierClass: 'bd-podium-card--bronze',
+		accent: '#f59e0b',
+		rgb: '245, 158, 11',
+	},
+];
+
+// ── Tab 2: Ganadores por Eje Temático (Track Winners) ──────────
+const trackWinners = [
+	{
+		trackNum: 'Track 01',
+		category: isEs ? 'Mejor Proyecto en Impacto Ambiental' : 'Best Environmental Impact Project',
+		code: 'EQ-09',
+		team: 'BioSynTech',
+		project: 'PET2PHA',
+		score: '93.33 pts',
+		school: 'Colegio Claretiano (Lima)',
+		icon: 'water_drop',
+		color: 'var(--bd-primary)',
+		rgb: 'var(--bd-primary-rgb)',
+	},
+	{
+		trackNum: 'Track 02',
+		category: isEs ? 'Mejor Proyecto en Salud Pública y Diagnóstico' : 'Best Public Health & Diagnostics Project',
+		code: 'EQ-24',
+		team: 'Innova Vita',
+		project: 'AIRROTS',
+		score: '73.33 pts',
+		school: isEs
+			? 'Delegación Multirregional (I.E.P. Miravalles, I.E. 7234 Las Palmeras, I.E.P. Colegio Latino e I.E. Santa María de los Andes)'
+			: 'Multiregional Delegation (Lima & Cusco)',
+		icon: 'health_and_safety',
+		color: 'var(--bd-secondary)',
+		rgb: 'var(--bd-secondary-rgb)',
+	},
+	{
+		trackNum: 'Track 03',
+		category: isEs ? 'Mejor Proyecto en Biomateriales y Biomanufactura' : 'Best Biomaterials & Biomanufacturing Project',
+		code: 'EQ-08',
+		team: 'ShineCoat',
+		project: 'FreshCoat',
+		score: '90.83 pts',
+		school: 'COAR Lima Metropolitana (Lima)',
+		icon: 'compost',
+		color: 'var(--bd-tertiary)',
+		rgb: 'var(--bd-tertiary-rgb)',
+	},
+];
+
+// ── Tab 2B: Premios Especiales del Comité Organizador (§5 source of truth) ──
+const specialAwards = [
+	{
+		badge: isEs ? 'PREMIO AL ESFUERZO Y DEDICACIÓN (DESCENTRALIZACIÓN)' : 'REGIONAL EFFORT & DEDICATION AWARD',
+		icon: 'flight_takeoff',
+		title: 'EQ-07 BioLoopers — AVOSYNC',
+		school: 'COAR Tacna / I.E. San José de Nazaret (Tacna)',
+		desc: isEs
+			? 'Reconocimiento especial a la delegación que representó a la región Tacna en la Gran Final presencial defendiendo su etiqueta inteligente colorimétrica para monitoreo de palta Hass.'
+			: 'Special recognition to the delegation representing Tacna at the in-person Grand Final defending their colorimetric smart label for Hass avocado monitoring.',
+		members: 'Max H., Angélica A., Dhayron Q., Faviana A., María B.',
+		advisor: isEs ? 'Tutora: Blga. Diana Galeska Farfán Pajuelo' : 'Advisor: Blga. Diana Galeska Farfán Pajuelo',
+		color: 'var(--bd-tertiary)',
+		rgb: 'var(--bd-tertiary-rgb)',
+	},
+	{
+		badge: isEs ? 'PREMIO A LA RESILIENCIA CIENTÍFICA' : 'SCIENTIFIC RESILIENCE AWARD',
+		icon: 'science',
+		title: 'EQ-25 PETMHET & EQ-12 Synnova (Proyecto Hélix)',
+		school: 'Colegio Trilce Santa Beatriz / Salaverry (Lima) · I.E. Micaela Bastidas (Lima)',
+		desc: isEs
+			? 'Reconocidos por culminar y presentar sus desarrollos computacionales en Benchling superando dificultades técnicas durante el cierre del sprint de 48 horas.'
+			: 'Recognized for completing and submitting their computational constructs in Benchling overcoming technical hurdles during the 48-hour sprint closing.',
+		members: 'EQ-25: Hirka N., Sebastian A. · EQ-12: Saori L., Rubi C., Tayra Q.',
+		advisor: isEs ? 'Tutora (EQ-12): María Elena Fernández Soto' : 'Advisor (EQ-12): María Elena Fernández Soto',
+		color: 'var(--bd-primary)',
+		rgb: 'var(--bd-primary-rgb)',
+	},
+];
+
+// ── Tab 3: Excelencia Académica en Bootcamp (Quizizz — Nombres Abreviados) ──
+const quizizzWinners = [
+	{
+		session: isEs ? 'Sesión 1' : 'Session 1',
+		topic: isEs ? 'Introducción a la Biología Sintética y Chasis' : 'Intro to Synthetic Biology & Chassis',
+		student: 'Alessandra A.',
+		school: 'COAR Lima Metropolitana',
+		code: 'EQ-11',
+	},
+	{
+		session: isEs ? 'Sesión 2' : 'Session 2',
+		topic: isEs ? 'Unidades Transcripcionales y Simbología SBOL' : 'Transcriptional Units & SBOL Standard',
+		student: 'Luciana U.',
+		school: 'Colegio María Auxiliadora',
+		code: 'EQ-05',
+	},
+	{
+		session: isEs ? 'Sesión 3' : 'Session 3',
+		topic: isEs ? 'Modelamiento en Benchling y Casetes de Expresión' : 'Benchling Modeling & Expression Cassettes',
+		student: 'Sebastián O.',
+		school: 'Colegio Claretiano de Lima',
+		code: 'EQ-09',
+	},
+	{
+		session: isEs ? 'Sesión 4' : 'Session 4',
+		topic: isEs ? 'Circuitos Genéticos Lógicos, Inductores y Represores' : 'Genetic Logic Circuits, Inducers & Repressors',
+		student: 'Mateo S.',
+		school: 'Colegio Claretiano de Lima',
+		code: 'EQ-09',
+	},
+	{
+		session: isEs ? 'Sesión 5 (Empate 100%)' : 'Session 5 (100% Tie)',
+		topic: isEs ? 'Integración de Proyectos y Bioseguridad' : 'Project Integration & Biosafety',
+		student: 'Britany P. (Academia Aula 20 · EQ-23) & Hirka N. (Colegio Trilce Santa Beatriz · EQ-25)',
+		school: isEs ? 'Empate técnico con 100% de aciertos' : 'Technical tie with 100% accuracy',
+		code: 'EQ-23 / EQ-25',
+		isTie: true,
+	},
+];
+---
+
+<section class="bd-section bd-honor-section" id="ganadores" aria-labelledby="honor-title">
+	<div class="bd-section-header bd-reveal" style="text-align:center;">
+		<span class="bd-chip bd-chip-lime" style="margin-bottom:1rem;">
+			<span class="material-icons" style="font-size:14px;">emoji_events</span>
+			{t('biodesign.honor.badge')}
+		</span>
+		<h2 class="bd-headline-lg" id="honor-title">
+			{t('biodesign.honor.title')} <span class="bd-gradient-text">{t('biodesign.honor.title_highlight')}</span>
+		</h2>
+		<p class="bd-body-md" style="max-width:740px; margin:0 auto;">
+			{t('biodesign.honor.subtitle')}
+		</p>
+	</div>
+
+	<!-- Controles de Pestañas (Tabbed Interface) -->
+	<div class="bd-honor-tabs-wrap bd-reveal">
+		<div class="bd-honor-tablist" role="tablist" aria-label={t('biodesign.honor.tabs.aria')}>
+			<button
+				type="button"
+				role="tab"
+				id="honor-tab-podium"
+				aria-selected="true"
+				aria-controls="honor-panel-podium"
+				tabindex="0"
+				class="bd-honor-tab is-active"
+				data-honor-tab="podium"
+			>
+				<span class="material-icons" aria-hidden="true">Workspace_premium</span>
+				<span>{t('biodesign.honor.tabs.podium')}</span>
+				<span class="bd-tab-badge">Top 3</span>
+			</button>
+
+			<button
+				type="button"
+				role="tab"
+				id="honor-tab-tracks"
+				aria-selected="false"
+				aria-controls="honor-panel-tracks"
+				tabindex="-1"
+				class="bd-honor-tab"
+				data-honor-tab="tracks"
+			>
+				<span class="material-icons" aria-hidden="true">military_tech</span>
+				<span>{t('biodesign.honor.tabs.tracks')}</span>
+				<span class="bd-tab-badge">5</span>
+			</button>
+
+			<button
+				type="button"
+				role="tab"
+				id="honor-tab-quizizz"
+				aria-selected="false"
+				aria-controls="honor-panel-quizizz"
+				tabindex="-1"
+				class="bd-honor-tab"
+				data-honor-tab="quizizz"
+			>
+				<span class="material-icons" aria-hidden="true">psychology</span>
+				<span>{t('biodesign.honor.tabs.quizizz')}</span>
+				<span class="bd-tab-badge">5</span>
+			</button>
+		</div>
+
+		<!-- PANEL 1: PODIO NACIONAL -->
+		<div
+			id="honor-panel-podium"
+			role="tabpanel"
+			aria-labelledby="honor-tab-podium"
+			class="bd-honor-panel"
+			data-honor-panel="podium"
+		>
+			<div class="bd-podium-grid">
+				{podium.map((p) => (
+					<article
+						class={`bd-glass bd-podium-card ${p.tierClass}`}
+						style={`--pod-accent: ${p.accent}; --pod-rgb: ${p.rgb};`}
+					>
+						<div class="bd-podium-glow" aria-hidden="true"></div>
+						<div class="bd-podium-top">
+							<span class="bd-podium-place">
+								<span class="bd-podium-medal" aria-hidden="true">{p.medal}</span>
+								{p.placeLabel}
+							</span>
+							<span class="bd-podium-code">{p.code}</span>
+						</div>
+
+						<div class="bd-podium-main">
+							<h3 class="bd-podium-project">{p.project}</h3>
+							<p class="bd-podium-team">
+								<span class="material-icons" aria-hidden="true">groups</span>
+								{isEs ? 'Equipo' : 'Team'} <strong>{p.team}</strong>
+							</p>
+							<p class="bd-podium-school">
+								<span class="material-icons" aria-hidden="true">school</span>
+								{p.school} · <span>{p.region}</span>
+							</p>
+						</div>
+
+						<div class="bd-podium-score-box">
+							<div>
+								<span class="bd-podium-score-lbl">{t('biodesign.honor.score_label')}</span>
+								<span class="bd-podium-score-breakdown">{p.breakdown}</span>
+							</div>
+							<div class="bd-podium-score-val">
+								{p.score} <small>pts</small>
+							</div>
+						</div>
+
+						<div class="bd-podium-footer">
+							<span class="bd-podium-track-pill">{p.track}</span>
+							<button
+								type="button"
+								class="bd-podium-detail-btn"
+								data-open-project={p.code}
+							>
+								{t('biodesign.finalists.view_sheet')} →
+							</button>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+
+		<!-- PANEL 2: MEJORES POR TRACK & MENCIONES ESPECIALES -->
+		<div
+			id="honor-panel-tracks"
+			role="tabpanel"
+			aria-labelledby="honor-tab-tracks"
+			class="bd-honor-panel"
+			data-honor-panel="tracks"
+			hidden
+		>
+			<div class="bd-track-winners-grid">
+				{trackWinners.map((tw) => (
+					<article class="bd-glass bd-tw-card" style={`--tw-color: ${tw.color}; --tw-rgb: ${tw.rgb};`}>
+						<div class="bd-tw-head">
+							<span class="material-icons bd-tw-icon" aria-hidden="true">{tw.icon}</span>
+							<span class="bd-tw-track">{tw.trackNum}</span>
+							<span class="bd-tw-score">{tw.score}</span>
+						</div>
+						<p class="bd-tw-category">{tw.category}</p>
+						<h3 class="bd-tw-project">
+							<span class="bd-tw-code">{tw.code}</span> {tw.team} — <em>{tw.project}</em>
+						</h3>
+						<p class="bd-tw-school">{tw.school}</p>
+					</article>
+				))}
+			</div>
+
+			<div class="bd-special-awards-grid">
+				{specialAwards.map((sa) => (
+					<article class="bd-glass bd-special-card" style={`--sa-color: ${sa.color}; --sa-rgb: ${sa.rgb};`}>
+						<div class="bd-special-top">
+							<span class="material-icons bd-special-icon" aria-hidden="true">{sa.icon}</span>
+							<span class="bd-special-badge">{sa.badge}</span>
+						</div>
+						<h3 class="bd-special-title">{sa.title}</h3>
+						<p class="bd-special-school">{sa.school}</p>
+						<p class="bd-special-desc">{sa.desc}</p>
+						<div class="bd-special-meta">
+							<span><strong>{isEs ? 'Integrantes:' : 'Members:'}</strong> {sa.members}</span>
+							{sa.advisor && <span> · {sa.advisor}</span>}
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+
+		<!-- PANEL 3: EXCELENCIA ACADÉMICA EN EL BOOTCAMP (QUIZIZZ) -->
+		<div
+			id="honor-panel-quizizz"
+			role="tabpanel"
+			aria-labelledby="honor-tab-quizizz"
+			class="bd-honor-panel"
+			data-honor-panel="quizizz"
+			hidden
+		>
+			<div class="bd-quizizz-intro">
+				<span class="material-icons" style="color:var(--bd-primary);">emoji_objects</span>
+				<p class="bd-body-sm" style="margin:0;">
+					{t('biodesign.honor.quizizz.desc')}
+				</p>
+			</div>
+
+			<div class="bd-quizizz-grid">
+				{quizizzWinners.map((q) => (
+					<article class={`bd-glass bd-quizizz-card ${q.isTie ? 'bd-quizizz-card--tie' : ''}`}>
+						<div class="bd-quizizz-top">
+							<span class="bd-chip bd-chip-teal" style="font-size:0.68rem;">{q.session}</span>
+							<span class="bd-quizizz-code">{q.code}</span>
+						</div>
+						<h3 class="bd-quizizz-student">
+							<span class="material-icons" aria-hidden="true">stars</span>
+							{q.student}
+						</h3>
+						<p class="bd-quizizz-school">{q.school}</p>
+						<p class="bd-quizizz-topic">
+							<strong>{isEs ? 'Mérito:' : 'Merit:'}</strong> 1.° {isEs ? 'puesto en' : 'place in'} {q.topic}
+						</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	function initHonorRollTabs() {
+		const section = document.getElementById('ganadores');
+		if (!section) return;
+
+		const tabs = Array.from(section.querySelectorAll<HTMLButtonElement>('[data-honor-tab]'));
+		const panels = Array.from(section.querySelectorAll<HTMLElement>('[data-honor-panel]'));
+
+		function activateTab(targetTab: HTMLButtonElement, focusTab = false) {
+			const targetKey = targetTab.dataset.honorTab;
+			tabs.forEach((tab) => {
+				const active = tab === targetTab;
+				tab.classList.toggle('is-active', active);
+				tab.setAttribute('aria-selected', String(active));
+				tab.tabIndex = active ? 0 : -1;
+			});
+			panels.forEach((panel) => {
+				panel.hidden = panel.dataset.honorPanel !== targetKey;
+			});
+			if (focusTab) targetTab.focus();
+		}
+
+		tabs.forEach((tab, idx) => {
+			tab.addEventListener('click', () => activateTab(tab));
+			tab.addEventListener('keydown', (e) => {
+				if (e.key === 'ArrowRight') {
+					e.preventDefault();
+					activateTab(tabs[(idx + 1) % tabs.length], true);
+				} else if (e.key === 'ArrowLeft') {
+					e.preventDefault();
+					activateTab(tabs[(idx - 1 + tabs.length) % tabs.length], true);
+				}
+			});
+		});
+
+		// Botones "Ver ficha técnica" desde el podio
+		section.querySelectorAll<HTMLButtonElement>('[data-open-project]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const code = btn.dataset.openProject;
+				if (!code) return;
+				const trigger = document.querySelector<HTMLButtonElement>(`[data-project-trigger="${code}"]`);
+				if (trigger) {
+					trigger.click();
+				} else {
+					const projSection = document.getElementById('proyectos');
+					projSection?.scrollIntoView({ behavior: 'smooth' });
+				}
+			});
+		});
+	}
+
+	initHonorRollTabs();
+	document.addEventListener('astro:page-load', initHonorRollTabs);
+</script>
+
+<style>
+	.bd-honor-section {
+		position: relative;
+	}
+
+	.bd-honor-tabs-wrap {
+		margin-top: 2rem;
+	}
+
+	.bd-honor-tablist {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 0.65rem;
+		margin-bottom: 1.75rem;
+	}
+
+	.bd-honor-tab {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.65rem 1.2rem;
+		border-radius: 999px;
+		background: var(--bd-glass-fill);
+		border: 1px solid var(--bd-outline-variant);
+		color: var(--bd-on-surface-variant);
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.86rem;
+		font-weight: 700;
+		cursor: pointer;
+		transition: all 0.25s ease;
+	}
+
+	.bd-honor-tab .material-icons {
+		font-size: 1.1rem;
+		color: var(--bd-primary);
+	}
+
+	.bd-honor-tab:hover {
+		border-color: rgba(var(--bd-primary-rgb), 0.5);
+		color: var(--bd-text-primary);
+	}
+
+	.bd-honor-tab.is-active {
+		background: rgba(var(--bd-primary-rgb), 0.14);
+		border-color: var(--bd-primary);
+		color: var(--bd-text-primary);
+		box-shadow: 0 0 20px rgba(var(--bd-primary-rgb), 0.22);
+	}
+
+	.bd-tab-badge {
+		font-size: 0.7rem;
+		padding: 0.1rem 0.45rem;
+		border-radius: 999px;
+		background: rgba(var(--bd-primary-rgb), 0.18);
+		color: var(--bd-primary);
+	}
+
+	/* ── Podio Grid ── */
+	.bd-podium-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+		align-items: stretch;
+	}
+
+	.bd-podium-card {
+		--pod-accent: #fbbf24;
+		--pod-rgb: 251, 191, 36;
+		position: relative;
+		padding: 1.5rem;
+		border-radius: 1.35rem;
+		border: 1.5px solid rgba(var(--pod-rgb), 0.4);
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		overflow: hidden;
+	}
+
+	.bd-podium-card--gold {
+		background: linear-gradient(160deg, rgba(251, 191, 36, 0.12) 0%, var(--bd-glass-fill) 55%);
+		box-shadow: 0 12px 38px -12px rgba(251, 191, 36, 0.35);
+	}
+
+	.bd-podium-glow {
+		position: absolute;
+		top: -60px;
+		right: -60px;
+		width: 170px;
+		height: 170px;
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(var(--pod-rgb), 0.25), transparent 70%);
+		pointer-events: none;
+	}
+
+	.bd-podium-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+	}
+
+	.bd-podium-place {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--pod-accent);
+	}
+
+	.bd-podium-medal {
+		font-size: 1.35rem;
+	}
+
+	.bd-podium-code {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.76rem;
+		font-weight: 700;
+		padding: 0.2rem 0.55rem;
+		border-radius: 6px;
+		background: rgba(var(--pod-rgb), 0.15);
+		border: 1px solid rgba(var(--pod-rgb), 0.4);
+		color: var(--pod-accent);
+	}
+
+	.bd-podium-project {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.4rem;
+		font-weight: 800;
+		color: var(--bd-text-primary);
+		margin: 0 0 0.35rem;
+	}
+
+	.bd-podium-team,
+	.bd-podium-school {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-size: 0.83rem;
+		color: var(--bd-on-surface-variant);
+		margin: 0.2rem 0 0;
+	}
+
+	.bd-podium-team .material-icons,
+	.bd-podium-school .material-icons {
+		font-size: 1rem;
+		color: var(--pod-accent);
+	}
+
+	.bd-podium-score-box {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 0.75rem 0.95rem;
+		border-radius: 0.9rem;
+		background: rgba(0, 0, 0, 0.22);
+		border: 1px solid rgba(var(--pod-rgb), 0.28);
+		margin-top: auto;
+	}
+
+	.bd-podium-score-lbl {
+		display: block;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-podium-score-breakdown {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.74rem;
+		color: var(--bd-text-primary);
+	}
+
+	.bd-podium-score-val {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.55rem;
+		font-weight: 800;
+		color: var(--pod-accent);
+	}
+
+	.bd-podium-score-val small {
+		font-size: 0.75rem;
+		font-weight: 600;
+	}
+
+	.bd-podium-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+
+	.bd-podium-track-pill {
+		font-size: 0.72rem;
+		color: var(--bd-on-surface-variant);
+	}
+
+	.bd-podium-detail-btn {
+		background: none;
+		border: none;
+		color: var(--bd-primary);
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.8rem;
+		font-weight: 700;
+		cursor: pointer;
+		padding: 0.2rem 0;
+	}
+
+	.bd-podium-detail-btn:hover {
+		text-decoration: underline;
+	}
+
+	/* ── Panel 2: Track Winners & Special Awards ── */
+	.bd-track-winners-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		margin-bottom: 1.15rem;
+	}
+
+	.bd-tw-card {
+		padding: 1.2rem;
+		border-radius: 1.1rem;
+		border: 1px solid rgba(var(--tw-rgb), 0.32);
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+	}
+
+	.bd-tw-head {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+	}
+
+	.bd-tw-icon {
+		color: var(--tw-color);
+		font-size: 1.25rem;
+	}
+
+	.bd-tw-track {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--tw-color);
+		text-transform: uppercase;
+	}
+
+	.bd-tw-score {
+		margin-left: auto;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.75rem;
+		font-weight: 700;
+		color: var(--bd-text-primary);
+		padding: 0.15rem 0.5rem;
+		border-radius: 6px;
+		background: rgba(var(--tw-rgb), 0.14);
+	}
+
+	.bd-tw-category {
+		font-size: 0.74rem;
+		color: var(--bd-on-surface-variant);
+		margin: 0.15rem 0 0;
+	}
+
+	.bd-tw-project {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.05rem;
+		color: var(--bd-text-primary);
+		margin: 0.15rem 0;
+	}
+
+	.bd-tw-code {
+		color: var(--tw-color);
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.85rem;
+	}
+
+	.bd-tw-school {
+		font-size: 0.78rem;
+		color: var(--bd-on-surface-variant);
+		margin: 0;
+	}
+
+	.bd-special-awards-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.bd-special-card {
+		padding: 1.25rem 1.35rem;
+		border-radius: 1.15rem;
+		border: 1px solid rgba(var(--sa-rgb), 0.32);
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+
+	.bd-special-top {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+	}
+
+	.bd-special-icon {
+		color: var(--sa-color);
+		font-size: 1.2rem;
+	}
+
+	.bd-special-badge {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 0.7rem;
+		font-weight: 800;
+		letter-spacing: 0.05em;
+		color: var(--sa-color);
+	}
+
+	.bd-special-title {
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1.1rem;
+		color: var(--bd-text-primary);
+		margin: 0.15rem 0 0;
+	}
+
+	.bd-special-school {
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--bd-on-surface);
+		margin: 0;
+	}
+
+	.bd-special-desc {
+		font-size: 0.82rem;
+		line-height: 1.45;
+		color: var(--bd-on-surface-variant);
+		margin: 0.15rem 0;
+	}
+
+	.bd-special-meta {
+		font-size: 0.76rem;
+		color: var(--bd-on-surface-variant);
+		padding-top: 0.45rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	/* ── Panel 3: Quizizz ── */
+	.bd-quizizz-intro {
+		display: flex;
+		align-items: center;
+		gap: 0.65rem;
+		padding: 0.85rem 1.15rem;
+		border-radius: 0.9rem;
+		background: rgba(var(--bd-primary-rgb), 0.08);
+		border: 1px solid rgba(var(--bd-primary-rgb), 0.25);
+		margin-bottom: 1rem;
+	}
+
+	.bd-quizizz-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.9rem;
+	}
+
+	.bd-quizizz-card {
+		padding: 1.1rem 1.25rem;
+		border-radius: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+	}
+
+	.bd-quizizz-card--tie {
+		grid-column: span 2;
+		border-color: rgba(var(--bd-tertiary-rgb), 0.38);
+	}
+
+	.bd-quizizz-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.bd-quizizz-code {
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.74rem;
+		font-weight: 700;
+		color: var(--bd-tertiary);
+	}
+
+	.bd-quizizz-student {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		font-family: 'Space Grotesk', sans-serif;
+		font-size: 1rem;
+		color: var(--bd-text-primary);
+		margin: 0.2rem 0 0;
+	}
+
+	.bd-quizizz-student .material-icons {
+		font-size: 1.05rem;
+		color: #fbbf24;
+	}
+
+	.bd-quizizz-school {
+		font-size: 0.78rem;
+		color: var(--bd-on-surface);
+		margin: 0;
+	}
+
+	.bd-quizizz-topic {
+		font-size: 0.78rem;
+		color: var(--bd-on-surface-variant);
+		margin: 0.15rem 0 0;
+	}
+
+	/* ── Light Mode ── */
+	:root:not(.dark) .bd-podium-score-box {
+		background: #f8fafc;
+	}
+	:root:not(.dark) .bd-podium-card--silver {
+		--pod-accent: #475569;
+		--pod-rgb: 71, 85, 105;
+	}
+	:root:not(.dark) .bd-podium-card--gold {
+		--pod-accent: #b45309;
+		--pod-rgb: 180, 83, 9;
+	}
+
+	/* ── Responsive (CSS Scroll Snap en móvil para el Podio) ── */
+	@media (max-width: 960px) {
+		.bd-podium-grid,
+		.bd-track-winners-grid,
+		.bd-special-awards-grid {
+			grid-template-columns: 1fr;
+		}
+		.bd-quizizz-grid {
+			grid-template-columns: 1fr;
+		}
+		.bd-quizizz-card--tie {
+			grid-column: span 1;
+		}
+	}
+
+	@media (max-width: 680px) {
+		.bd-honor-tablist {
+			justify-content: flex-start;
+			flex-wrap: nowrap;
+			overflow-x: auto;
+			padding-bottom: 0.4rem;
+			scrollbar-width: none;
+		}
+		.bd-honor-tablist::-webkit-scrollbar {
+			display: none;
+		}
+		.bd-honor-tab {
+			flex-shrink: 0;
+			padding: 0.55rem 0.95rem;
+			font-size: 0.8rem;
+		}
+		.bd-podium-grid {
+			display: flex;
+			overflow-x: auto;
+			scroll-snap-type: x mandatory;
+			gap: 0.85rem;
+			padding-bottom: 0.5rem;
+			-webkit-overflow-scrolling: touch;
+		}
+		.bd-podium-card {
+			flex: 0 0 88%;
+			scroll-snap-align: center;
+		}
+	}
+</style>
+

@@ -16,14 +16,12 @@ const t = useTranslations(lang);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const navLinks = [
-	{ label: t('biodesign.nav.clasificados'), href: '#clasificados' },
-	{ label: t('biodesign.nav.que_sigue'), href: '#que-sigue' },
-	{ label: t('biodesign.nav.hackathon'), href: '#hackathon' },
-	{ label: t('biodesign.nav.tracks'), href: '#tracks' },
-	{ label: t('biodesign.nav.fases'), href: '#fases' },
-	{ label: t('biodesign.nav.rubrica'), href: '#rubrica' },
-	// { label: t('biodesign.nav.memorias'), href: '#memorias' }, // Oculto temporalmente hasta la siguiente sesión
-	{ label: t('biodesign.nav.aliados'), href: '#aliados' },
+	{ label: t('biodesign.nav.impacto'), href: '#impacto' },
+	{ label: t('biodesign.nav.ganadores'), href: '#ganadores' },
+	{ label: t('biodesign.nav.proyectos'), href: '#proyectos' },
+	{ label: t('biodesign.nav.jurado'), href: '#jurado' },
+	{ label: t('biodesign.nav.programa'), href: '#programa' },
+	{ label: t('biodesign.nav.patrocina'), href: '#financiamiento' },
 ];
 ---
 
@@ -42,14 +40,14 @@ const navLinks = [
 					</a>
 				</div>
 
-				<nav class="bd-navbar-nav">
+				<nav class="bd-navbar-nav" aria-label="Secciones de Memorias BioDesign">
 					{navLinks.map(link => (
 						<a href={link.href} class="bd-navbar-link">{link.label}</a>
 					))}
 				</nav>
 
 				<div class="bd-navbar-right">
-					<a href="#clasificados" class="bd-btn-primary bd-navbar-cta">
+					<a href="#ganadores" class="bd-btn-primary bd-navbar-cta">
 						{t('biodesign.nav.cta')}
 					</a>
 					<div class="bd-theme-wrap">
@@ -62,6 +60,10 @@ const navLinks = [
 						<LanguageSwitcher lang={lang} />
 					</div>
 				</div>
+			</div>
+			<!-- Barra de Progreso de Lectura (Mobile & Desktop) -->
+			<div class="bd-scroll-progress-track" aria-hidden="true">
+				<div class="bd-scroll-progress-bar" id="bd-scroll-progress"></div>
 			</div>
 		</header>
 
@@ -585,11 +587,27 @@ const navLinks = [
 			font-size: 0.62rem;
 		}
 	}
+
+	/* ── Scroll Progress Bar ── */
+	.bd-scroll-progress-track {
+		width: 100%;
+		height: 2px;
+		background: transparent;
+		overflow: hidden;
+	}
+
+	.bd-scroll-progress-bar {
+		height: 100%;
+		width: 0%;
+		background: linear-gradient(90deg, var(--bd-primary, #79f8d0), var(--bd-tertiary, #cbff56));
+		transition: width 0.1s linear;
+	}
 </style>
 
 <script>
 	function initBdNavbar() {
 		const header = document.getElementById('bd-main-header');
+		const progressBar = document.getElementById('bd-scroll-progress');
 		if (!header) return;
 
 		const handleScroll = () => {
@@ -597,6 +615,11 @@ const navLinks = [
 				header.classList.add('scrolled');
 			} else {
 				header.classList.remove('scrolled');
+			}
+			if (progressBar) {
+				const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+				const pct = docHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100)) : 0;
+				progressBar.style.width = `${pct}%`;
 			}
 		};
 
